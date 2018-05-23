@@ -47,7 +47,7 @@ const Header = ({
 						</IconButton>
 
 						<Typography variant="title" color="inherit" className={classes.flex} noWrap>
-							Mini variant drawer
+							LOGO
 						</Typography>
 
 						<div>

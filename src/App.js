@@ -5,24 +5,15 @@ import SideBar from './components/sideBar/sideBar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './components/Header/headerCss';
-import { Hola1, Hola2, Hola3, Hola4 } from './components/hola';
+// import { Hola1, Dashboard, Presale, BoxOffice } from './components/hola';
+import Main from './components/Main/main';
 
 const App = ({ classes }) => (
 	<div className={classes.root}>
 		<Header />
 		<SideBar />
-		<main className={classes.content}>
-			<div className={classes.toolbar} />
-			<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
-			<Switch>
-				<Route exact path='/' component={Hola1}/>
-				<Route path='/hola2' component={Hola2}/>
-				<Route path='/hola3' component={Hola3}/>
-				<Route path='/hola4' component={Hola4}/>
-			</Switch>
-
-		</main>
-	</div>
+		<Main _class={classes}/>
+		</div>
 );
 
 /*const user = gql`
