@@ -28,6 +28,7 @@ const SideBar = ({openSideBar, closeDrawer, classes, theme}) => {
 	            open={openSideBar}
 	        >
 	            <div className={classes.toolbar}>
+
                     <IconButton onClick={closeDrawer}>
                         {classes.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>

@@ -1,17 +1,33 @@
-import React from 'react' 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Block from '@material-ui/icons/Block';
-import Edit from '@material-ui/icons/Edit';
-import Cancel from '@material-ui/icons/Cancel';
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { 
+	editUserType,
+	blockUserType,
+	deleteUserType 
+} from '../../actions/userType/actionsCreators'; 
+import {
+	Paper,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	IconButton
+} from '@material-ui/core';
+
+import{
+	Block,
+	Edit,
+	Cancel
+} from '@material-ui/icons';
 
 
-const UserType = ( ) => (
-
+const UserType = ({
+	editUserType,
+	blockUserType,
+	deleteUserType 
+	}) => (
 <div>
 	<h3>
 	Tipo de Usuario
@@ -22,17 +38,40 @@ const UserType = ( ) => (
 	<Paper >
       <Table >
         <TableHead>
-          <TableRow>
+          <TableRow >
             <TableCell>Nombre</TableCell>
-            <TableCell>Opciones</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            
+            <TableCell> Opciones</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-	      <TableRow>
-            <TableCell> Nombre</TableCell>
+	   	  <TableRow>
+       	    <TableCell>Nombre</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
             <TableCell>
-            	<Edit/> <Cancel/> <Block/>	
+            <IconButton
+            	onClick={editUserType}
+            	>
+            	<Edit/> 
+            </IconButton>
+            <IconButton
+            	onClick={deleteUserType}
+            	>
+            	<Cancel/> 
+            </IconButton>
+            <IconButton
+            	onClick={blockUserType}
+            	>
+            	<Block/>	
+            </IconButton>
             </TableCell>
           </TableRow>
         </TableBody>
@@ -42,4 +81,18 @@ const UserType = ( ) => (
 
 );
 
-export default UserType;
+
+
+const mapStateToProps = state => ({
+//estados mapeables
+});
+
+const mapDispatchToProps = dispatch => ({
+	editUserType: () => dispatch(editUserType()),
+	blockUserType: () => dispatch(blockUserType()),
+	deleteUserType: () => dispatch(deleteUserType())
+});
+
+export default compose(
+	connect(mapStateToProps, mapDispatchToProps)
+)(UserType);

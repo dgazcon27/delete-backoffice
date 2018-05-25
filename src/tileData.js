@@ -12,7 +12,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/Report';
 
-
 export const mailFolderListItems = (
 	<div>
 			<Link to='/'>

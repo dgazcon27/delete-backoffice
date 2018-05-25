@@ -23,7 +23,7 @@ const openProfile = (event) => ({
 	type: OPEN_PROFILE,
 	payload: {
 		description: OPEN_PROFILE,
-		event: event.currentTarget
+		event: event.currentTarget,
 	}
 })
 

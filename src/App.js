@@ -12,8 +12,10 @@ const App = ({ classes }) => (
 	<div className={classes.root}>
 		<Header />
 		<SideBar />
-		<Main _class={classes}/>
-		</div>
+		<Main 
+		_class={classes}
+		/>
+	</div>
 );
 
 /*const user = gql`

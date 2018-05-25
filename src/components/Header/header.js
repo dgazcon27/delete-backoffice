@@ -7,8 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from './headerCss';
-import { openDrawer, openProfile, closeProfile } from '../../actions/Header/actionsCreators';
-
+import { 
+	openDrawer, 
+	openProfile, 
+	closeProfile 
+} from '../../actions/Header/actionsCreators';
 import {
 	AppBar,
 	Toolbar,
@@ -18,7 +21,6 @@ import {
 	Menu
 } from '@material-ui/core'
 
-
 const Header = ({
 	openSideBar,
 	openMenuProfile,
@@ -27,7 +29,6 @@ const Header = ({
 	closeProfile,
 	classes,
 	theme
-
 	}) => {
 
 	return(
