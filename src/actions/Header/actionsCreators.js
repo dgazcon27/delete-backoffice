@@ -1,43 +1,36 @@
 import {
-	OPEN_DRAWER,
-	CLOSE_DRAWER,
+	OPEN_SIDEBAR,
+	CLOSE_SIDEBAR,
 	OPEN_PROFILE,
-	CLOSE_PROFILE
+	CLOSE_PROFILE,
 } from './actionsTypes';
 
-const openDrawer = () => ({
-	type: OPEN_DRAWER,
+export const openSideBar = () => ({
+	type: OPEN_SIDEBAR,
 	payload: {
-		description: OPEN_DRAWER
-	}
+		description: OPEN_SIDEBAR,
+	},
 });
 
-const closeDrawer = () => ({
-	type: CLOSE_DRAWER,
+export const closeSideBar = () => ({
+	type: CLOSE_SIDEBAR,
 	payload: {
-		description: CLOSE_DRAWER
-	}
+		description: CLOSE_SIDEBAR,
+	},
 });
 
-const openProfile = (event) => ({
+export const openProfile = event => ({
 	type: OPEN_PROFILE,
 	payload: {
 		description: OPEN_PROFILE,
-		event: event.currentTarget
-	}
-})
+		event: event.currentTarget,
+	},
+});
 
-const closeProfile = () => ({
+export const closeProfile = () => ({
 	type: CLOSE_PROFILE,
 	payload: {
-		description: CLOSE_PROFILE
-	}
-})
+		description: CLOSE_PROFILE,
+	},
+});
 
-
-export {
-	openDrawer,
-	closeDrawer,
-	openProfile,
-	closeProfile
-};

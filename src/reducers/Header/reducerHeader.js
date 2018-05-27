@@ -1,41 +1,41 @@
 import {
-	OPEN_DRAWER,
-	CLOSE_DRAWER,
+	OPEN_SIDEBAR,
+	CLOSE_SIDEBAR,
 	OPEN_PROFILE,
-	CLOSE_PROFILE
+	CLOSE_PROFILE,
 } from '../../actions/Header/actionsTypes';
 
 
 const stateInitial = {
-	openSideBar: false,
-	openMenuProfile: null
-}
+	openDrawer: false,
+	openMenuProfile: null,
+};
 
 const ReducerHeader = (state = stateInitial, action = {}) => {
-	switch(action.type) {
-		case OPEN_DRAWER:
-			return  ({
+	switch (action.type) {
+		case OPEN_SIDEBAR:
+			return ({
 				...state,
-				openSideBar: true
-			})
-		case CLOSE_DRAWER:
-			return  ({
+				openDrawer: true,
+			});
+		case CLOSE_SIDEBAR:
+			return ({
 				...state,
-				openSideBar: false
-			})
+				openDrawer: false,
+			});
 		case OPEN_PROFILE:
 			return ({
 				...state,
-				openMenuProfile: action.payload.event
-			})
+				openMenuProfile: action.payload.event,
+			});
 		case CLOSE_PROFILE:
 			return ({
 				...state,
-				openMenuProfile: null
-			})
+				openMenuProfile: null,
+			});
 		default:
 			return state;
 	}
-}
+};
 
 export default ReducerHeader;
