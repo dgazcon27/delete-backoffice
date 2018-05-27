@@ -17,27 +17,24 @@ import {
 	IconButton,
 } from '@material-ui/core';
 
-const SideBar = ({ openDrawer, closeSideBar, classes }) => (
+const SideBar = ({ openDrawer, actionCloseSideBar, classes }) => (
 	<div>
-		<Drawer variant="permanent" classes={{
-			paper: classNames(classes.drawerPaper, !openDrawer && classes.drawerPaperClose),
-		}}
-		open={openDrawer} >
+		<Drawer variant='permanent' classes={{ paper: classNames(classes.drawerPaper, !openDrawer && classes.drawerPaperClose) }} open={openDrawer} >
 			<div className={classes.toolbar}>
-			<IconButton onClick={closeSideBar}>
-			{classes.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-				</ IconButton>
+				<IconButton onClick={actionCloseSideBar}>
+					{classes.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+				</IconButton>
 			</div>
 			<Divider />
 			<List>{ Items }</List>
 		</Drawer>
 	</div>
-
 );
 
 SideBar.propTypes = {
 	classes: PropTypes.object.isRequired,
-	theme: PropTypes.object.isRequired,
+	openDrawer: PropTypes.bool.isRequired,
+	actionCloseSideBar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -45,7 +42,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	closeSideBar: () => dispatch(closeSideBar()),
+	actionCloseSideBar: () => dispatch(closeSideBar()),
 });
 
 export default compose(

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Hola1, Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
@@ -15,5 +16,9 @@ const Main = props => (
 		</Switch>
 	</main>
 );
+
+Main.propTypes = {
+	props: PropTypes.object.isRequired,
+};
 
 export default Main;

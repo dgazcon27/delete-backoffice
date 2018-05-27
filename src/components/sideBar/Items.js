@@ -18,48 +18,48 @@ import {
 
 const Items = (
 	<div>
-		<Link to='/'>
+		<Link to='/' href='/'>
 			<ListItem button>
 				<ListItemIcon>
 					<InboxIcon />
 				</ListItemIcon>
-				<ListItemText primary="Inbox" />
+				<ListItemText primary='Inbox' />
 			</ListItem>
 		</Link>
 
-		<Link to='/dashboard'>
+		<Link to='/dashboard' href='/dashboard'>
 			<ListItem button>
 				<ListItemIcon>
 					<StarIcon />
 				</ListItemIcon>
-				<ListItemText primary="Dashboard" />
+				<ListItemText primary='Dashboard' />
 			</ListItem>
 		</Link>
 
-		<Link to='/pre-sale'>
+		<Link to='/pre-sale' href='/pre-sale'>
 			<ListItem button>
 				<ListItemIcon>
 					<SendIcon />
 				</ListItemIcon>
-				<ListItemText primary="Pre-Venta" />
+				<ListItemText primary='Pre-Venta' />
 			</ListItem>
 		</Link>
 
-		<Link to='/box-office'>
+		<Link to='/box-office' href='/box-office'>
 			<ListItem button>
 				<ListItemIcon>
 					<DraftsIcon />
 				</ListItemIcon>
-				<ListItemText primary="BoxOffice" />
+				<ListItemText primary='BoxOffice' />
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type'>
+		<Link to='/user-type' href='/user-type'>
 			<ListItem button>
 				<ListItemIcon>
 					<DraftsIcon />
 				</ListItemIcon>
-				<ListItemText primary="UserType" />
+				<ListItemText primary='UserType' />
 			</ListItem>
 		</Link>
 		<Divider />
@@ -68,21 +68,21 @@ const Items = (
 			<ListItemIcon>
 				<MailIcon />
 			</ListItemIcon>
-			<ListItemText primary="All mail" />
+			<ListItemText primary='All mail' />
 		</ListItem>
 
 		<ListItem button>
 			<ListItemIcon>
-			<DeleteIcon />
-				</ListItemIcon>
-			<ListItemText primary="Trash" />
+				<DeleteIcon />
+			</ListItemIcon>
+			<ListItemText primary='Trash' />
 		</ListItem>
 
 		<ListItem button>
 			<ListItemIcon>
 				<ReportIcon />
 			</ListItemIcon>
-			<ListItemText primary="Spam" />
+			<ListItemText primary='Spam' />
 		</ListItem>
 	</div>
 );

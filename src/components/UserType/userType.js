@@ -34,7 +34,7 @@ const UserType = () => (
 					<TableRow>
 						<TableCell> Nombre</TableCell>
 						<TableCell>
-							<Edit/> <Cancel/> <Block/>
+							<Edit /> <Cancel /> <Block />
 						</TableCell>
 					</TableRow>
 				</TableBody>
