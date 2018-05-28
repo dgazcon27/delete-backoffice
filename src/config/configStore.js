@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 
-//import { applyMiddleware } from 'redux';
+// import { applyMiddleware } from 'redux';
 import ApolloClient from 'apollo-boost';
 
 export const client = new ApolloClient({
@@ -9,9 +9,9 @@ export const client = new ApolloClient({
 
 export const getMiddleware = () => {
 	/* middleware ha usarse si se esta en produccion ò Desarrollo */
-	/*if (false) {
+	/* if (false) {
 		return applyMiddleware(promiseMiddleware, localStorageMiddleware);
 	}
 
-	return applyMiddleware(promiseMiddleware, localStorageMiddleware, createLogger());*/
-}
+	return applyMiddleware(promiseMiddleware, localStorageMiddleware, createLogger()); */
+};

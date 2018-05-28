@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Hola1 = () => (
-	<h1> Hola Mundo 1 </h1>
+	<h1>Hola Mundo 1</h1>
 );
 
 const Dashboard = () => (
@@ -9,11 +9,11 @@ const Dashboard = () => (
 );
 
 const Presale = () => (
-	<h1> Pre-venta </h1>
+	<h1>Pre-venta</h1>
 );
 
 const BoxOffice = () => (
-	<h1> Taquilla </h1>
+	<h1>Taquilla</h1>
 );
 
 

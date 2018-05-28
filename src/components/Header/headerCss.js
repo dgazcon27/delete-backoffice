@@ -64,8 +64,8 @@ const styles = theme => ({
 		padding: theme.spacing.unit * 3,
 	},
 	flex: {
-    	flex: 1,
-  	},
+		flex: 1,
+	},
 });
 
 export default styles;
