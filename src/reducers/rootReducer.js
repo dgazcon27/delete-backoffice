@@ -7,7 +7,7 @@ import visibilityFilter from './reducer_N'; */
 
 const rootReducer = combineReducers({
   ReducerHeader,
-  ReducerUserType
+  ReducerUserType,
 });
 
 export default rootReducer;

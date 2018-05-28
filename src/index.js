@@ -1,12 +1,10 @@
-// eslint-disable-next-line
-
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { client  } from './config/config';
+import { client } from './config/configStore';
 import { BrowserRouter as Router } from 'react-router-dom';
 import rootReducer from './reducers/rootReducer';
 import App from './App';
@@ -24,5 +22,5 @@ render(
 			</Router>
 		</ApolloProvider>
 	</Provider>,
-	document.getElementById('root')
+	document.getElementById('root'),
 );

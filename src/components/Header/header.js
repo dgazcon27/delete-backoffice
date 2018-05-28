@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -10,7 +10,8 @@ import styles from './headerCss';
 import { 
 	openDrawer, 
 	openProfile, 
-	closeProfile 
+	closeProfile,
+	openSideBar, 
 } from '../../actions/Header/actionsCreators';
 import {
 	AppBar,
@@ -18,89 +19,65 @@ import {
 	Typography,
 	IconButton,
 	MenuItem,
-	Menu
-} from '@material-ui/core'
+	Menu,
+} from '@material-ui/core';
 
 const Header = ({
-	openSideBar,
 	openMenuProfile,
 	openDrawer,
-	openProfile,
-	closeProfile,
 	classes,
-	theme
-	}) => {
+	actionOpenProfile,
+	actionOpenSideBar,
+	actionCloseProfile,
 
-	return(
-		<div>
-			<AppBar
-				position="absolute"
-				className={classNames(classes.appBar, openSideBar && classes.appBarShift)}
-				>
-					<Toolbar disableGutters={!openSideBar}>
-						<IconButton
-							color="inherit"
-							aria-label="open drawer"
-							onClick={openDrawer}
-							className={classNames(classes.menuButton, openSideBar && classes.hide)}
-							>
-							<MenuIcon />
-						</IconButton>
+}) => (
+	<div>
+		<AppBar	position='absolute'	className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>
+			<Toolbar disableGutters={!openDrawer}>
+				<IconButton	color='inherit'	aria-label='open drawer' onClick={actionOpenSideBar} className={classNames(classes.menuButton, openDrawer && classes.hide)}>
+					<MenuIcon />
+				</IconButton>
 
-						<Typography variant="title" color="inherit" className={classes.flex} noWrap>
-							LOGO
-						</Typography>
+				<Typography variant='title' color='inherit' className={classes.flex} noWrap>
+					Logo
+				</Typography>
 
-						<div>
-							<IconButton
-								aria-owns={ Boolean(openMenuProfile) ? 'menu-appbar' : null }
-								onClick={ openProfile }
-								color="inherit"
-							>
-								<AccountCircle />
-							</IconButton>
-							<Menu
-								id="menu-appbar"
-								anchorEl={openMenuProfile}
-								anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-								}}
-								transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-								}}
-								open={Boolean(openMenuProfile)}
-								onClose={closeProfile}
-							>
-								<MenuItem onClick={closeProfile}>Profile</MenuItem>
-								<MenuItem onClick={closeProfile}>Logout</MenuItem>
-							</Menu>
-						</div>
-					</Toolbar>
-			</AppBar>
-		</div>
-	);
-}
+				<div>
+					<IconButton	aria-owns={openMenuProfile ? 'menu-appbar' : null} onClick={actionOpenProfile} color='inherit'>
+						<AccountCircle />
+					</IconButton>
+					<Menu id='menu-appbar' anchorEl={openMenuProfile} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top',	horizontal: 'right' }}	open={openMenuProfile}	onClose={actionCloseProfile}>
+						<MenuItem onClick={closeProfile}>Profile</MenuItem>
+						<MenuItem onClick={closeProfile}>Logout</MenuItem>
+					</Menu>
+				</div>
+			</Toolbar>
+		</AppBar>
+	</div>
+);
 
 
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
-	theme: PropTypes.object.isRequired,
+	actionOpenSideBar: PropTypes.func.isRequired,
+	openMenuProfile: PropTypes.element.isRequired,
+	openDrawer: PropTypes.bool.isRequired,
+	actionOpenProfile: PropTypes.func.isRequired,
+	actionCloseProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-	openSideBar: state.ReducerHeader.openSideBar,
-	openMenuProfile: state.ReducerHeader.openMenuProfile
+	openDrawer: state.ReducerHeader.openDrawer,
+	openMenuProfile: state.ReducerHeader.openMenuProfile,
 });
 
 const mapDispatchToProps = dispatch => ({
-	openDrawer: () => dispatch(openDrawer()),
-	openProfile: (event) => dispatch(openProfile(event)),
-	closeProfile: () => dispatch(closeProfile())
+	actionOpenSideBar: () => dispatch(openSideBar()),
+	actionOpenProfile: event => dispatch(openProfile(event)),
+	actionCloseProfile: () => dispatch(closeProfile()),
 });
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
-	connect(mapStateToProps, mapDispatchToProps)
+	connect(mapStateToProps, mapDispatchToProps),
 )(Header);

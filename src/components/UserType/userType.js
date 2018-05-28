@@ -1,86 +1,86 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { 
-	editUserType,
-	blockUserType,
-	deleteUserType 
-} from '../../actions/userType/actionsCreators'; 
+import PropTypes from 'prop-types';
+import Block from '@material-ui/icons/Block';
+import Edit from '@material-ui/icons/Edit';
+import Cancel from '@material-ui/icons/Cancel';
+
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import {
-	Paper,
+		actionEditUserType, 
+		actionBlockUserType, 
+		actionDeleteUserType,
+	}from '../../actions/userType/actionsCreators';
+
+import {
+	IconButton,
 	Table,
 	TableBody,
 	TableCell,
 	TableHead,
 	TableRow,
-	IconButton
+	Paper,
 } from '@material-ui/core';
 
-import{
-	Block,
-	Edit,
-	Cancel
-} from '@material-ui/icons';
 
-
+// const UserType = ({ data: { loading, user } }) => (
+			// {!loading &&
+					// {user.name}
 const UserType = ({
-	editUserType,
-	blockUserType,
-	deleteUserType 
-	}) => (
-<div>
-	<h3>
-	Tipo de Usuario
-	</h3>
-	<h5>
-	Agregar Nuevo 
-	</h5>
-	<Paper >
-      <Table >
-        <TableHead>
-          <TableRow >
-            <TableCell>Nombre</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            
-            <TableCell> Opciones</TableCell>
-          </TableRow>
-        </TableHead>
+	actionEditUserType,
+	actionBlockUserType,
+	actionDeleteUserType,
+}) => (
+	<div>
+			{
+				<div>
+				<h3>
+					Tipo de Usuario graphql
+				</h3>
+				<h5>
+					Agregar Nuevo
+				</h5>
 
-        <TableBody>
-	   	  <TableRow>
-       	    <TableCell>Nombre</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell>
-            <IconButton
-            	onClick={editUserType}
-            	>
-            	<Edit/> 
-            </IconButton>
-            <IconButton
-            	onClick={deleteUserType}
-            	>
-            	<Cancel/> 
-            </IconButton>
-            <IconButton
-            	onClick={blockUserType}
-            	>
-            	<Block/>	
-            </IconButton>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </Paper>
-</div>
+				<Paper >
+					<Table >
+						<TableHead>
+							<TableRow>
+								<TableCell>Nombre</TableCell>
+								<TableCell>Opciones</TableCell>
+							</TableRow>
+						</TableHead>
 
+						<TableBody>
+							<TableRow>
+								<TableCell>Nombre</TableCell>
+								<TableCell>
+									<IconButton
+									onClick={actionEditUserType}
+										>	
+										<Edit/>
+									</IconButton>
+									<IconButton
+									onClick={actionDeleteUserType}
+									>	
+										<Cancel/>	
+									</IconButton>
+									<IconButton
+									onClick={actionBlockUserType}	
+									>		
+										<Block/>
+									</IconButton>									
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</Paper>
+			</div>
+		}
+	</div>
 );
-
 
 
 const mapStateToProps = state => ({
@@ -88,11 +88,28 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	editUserType: () => dispatch(editUserType()),
-	blockUserType: () => dispatch(blockUserType()),
-	deleteUserType: () => dispatch(deleteUserType())
+	actionEditUserType: () => dispatch(actionEditUserType()),
+	actionBlockUserType: () => dispatch(actionBlockUserType()),
+	actionDeleteUserType: () => dispatch(actionDeleteUserType())
 });
 
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps)
 )(UserType);
+
+
+// UserType.protype = {
+// 	data: PropTypes.object.isRequired,
+// };
+
+// const user = gql`
+// 	query {
+// 		user(id: 1) {
+// 			name
+// 			birthDate
+// 			dni
+// 			email
+// 		}
+// 	}
+// `;
+// export default graphql(user)(UserType);
