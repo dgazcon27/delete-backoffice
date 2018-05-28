@@ -23,7 +23,7 @@ const UserType = ({ data: { loading, user } }) => (
 		{!loading &&
 			<div>
 				<h3>
-					Tipo de Usuario
+					Tipo de Usuario graphql
 					{user.name}
 				</h3>
 
