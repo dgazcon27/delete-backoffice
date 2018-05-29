@@ -9,15 +9,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import styles from './headerCss';
 
 
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-
 import { 
-	openDrawer, 
 	openProfile, 
 	closeProfile,
 	openSideBar, 
 } from '../../actions/Header/actionsCreators';
+
 import {
 	AppBar,
 	Toolbar,
@@ -52,8 +49,8 @@ const Header = ({
 						<AccountCircle />
 					</IconButton>
 					<Menu id='menu-appbar' anchorEl={openMenuProfile} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top',	horizontal: 'right' }}	open={Boolean(openMenuProfile)}	onClose={actionCloseProfile}>
-						<MenuItem onClick={closeProfile}>Profile</MenuItem>
-						<MenuItem onClick={closeProfile}>Logout</MenuItem>
+						<MenuItem onClick={actionCloseProfile}>Profile</MenuItem>
+						<MenuItem onClick={actionCloseProfile}>Logout</MenuItem>
 					</Menu>
 				</div>
 			</Toolbar>

@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Cancel from '@material-ui/icons/Cancel';
-import { graphql, Query } from 'react-apollo';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import {
