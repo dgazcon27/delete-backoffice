@@ -6,6 +6,8 @@ import Delete from '@material-ui/icons/Delete';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import GET_ROLES from  '../../queries/userType';
+
 import {
 	actionEditUserType, 
 	actionBlockUserType, 
@@ -22,13 +24,6 @@ import {
 	Paper,
 } from '@material-ui/core';
 
-const GET_ROLES = gql`
- 	query { 
- 			roles {
-    		name
-  		}
- 	}
-`;
 
 const UserType = ({ 
 	actionEditUserType,
@@ -52,7 +47,6 @@ const UserType = ({
 					</div>	
 				)
 			}
-			console.log(data);
 			return(
 
 				<div>
