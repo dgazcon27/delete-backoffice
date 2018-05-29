@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
-import Cancel from '@material-ui/icons/Cancel';
+import Delete from '@material-ui/icons/Delete';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -22,14 +22,11 @@ import {
 	Paper,
 } from '@material-ui/core';
 
-const GET_USER = gql`
- 	query {
- 		user(id: 1) {
-			name
-			birthDate
- 			dni
- 			email
- 		}
+const GET_ROLES = gql`
+ 	query { 
+ 			roles {
+    		name
+  		}
  	}
 `;
 
@@ -38,7 +35,7 @@ const UserType = ({
 	actionBlockUserType,
 	actionDeleteUserType,
 }) => (
-	<Query query={GET_USER}>
+	<Query query={GET_ROLES}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -55,19 +52,19 @@ const UserType = ({
 					</div>	
 				)
 			}
-
+			console.log(data);
 			return(
+
 				<div>
 					<div>
 						<h3>
 							Tipo de Usuario graphql
-							<p>{data.user.name}</p>
 						</h3>
 						<h5>
 							Agregar Nuevo
 						</h5>
 
-						<Paper >
+						<Paper>
 							<Table >
 								<TableHead>
 									<TableRow>
@@ -77,29 +74,35 @@ const UserType = ({
 								</TableHead>
 
 								<TableBody>
-									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell>
-											<IconButton
-											onClick={actionEditUserType}
+								{
+									data.roles.map((rol, index) => 	
+										<TableRow key={index} >
+											<TableCell >{rol.name}</TableCell>
+											<TableCell>
+												<IconButton
+												onClick={actionEditUserType}
+													>	
+													<Edit/>
+												</IconButton>
+												<IconButton
+												onClick={actionDeleteUserType}
 												>	
-												<Edit/>
-											</IconButton>
-											<IconButton
-											onClick={actionDeleteUserType}
-											>	
-												<Cancel/>	
-											</IconButton>
-											<IconButton
-											onClick={actionBlockUserType}	
-											>		
-												<Block/>
-											</IconButton>									
-										</TableCell>
-									</TableRow>
+													<Delete/>	
+												</IconButton>
+												<IconButton
+												onClick={actionBlockUserType}	
+												>		
+													<Block/>
+												</IconButton>									
+											</TableCell>
+										</TableRow>
+									)
+								}
 								</TableBody>
 							</Table>
 						</Paper>
+
+
 					</div>		
 				</div>			
 			);
