@@ -48,10 +48,10 @@ const Header = ({
 				</Typography>
 
 				<div>
-					<IconButton	aria-owns={openMenuProfile ? 'menu-appbar' : null} onClick={actionOpenProfile} color='inherit'>
+					<IconButton	aria-owns={Boolean(openMenuProfile) ? 'menu-appbar' : null} onClick={actionOpenProfile} color='inherit'>
 						<AccountCircle />
 					</IconButton>
-					<Menu id='menu-appbar' anchorEl={openMenuProfile} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top',	horizontal: 'right' }}	open={openMenuProfile}	onClose={actionCloseProfile}>
+					<Menu id='menu-appbar' anchorEl={openMenuProfile} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top',	horizontal: 'right' }}	open={Boolean(openMenuProfile)}	onClose={actionCloseProfile}>
 						<MenuItem onClick={closeProfile}>Profile</MenuItem>
 						<MenuItem onClick={closeProfile}>Logout</MenuItem>
 					</Menu>
@@ -65,7 +65,7 @@ const Header = ({
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
 	actionOpenSideBar: PropTypes.func.isRequired,
-	openMenuProfile: PropTypes.element,
+	openMenuProfile: PropTypes.object,
 	openDrawer: PropTypes.bool.isRequired,
 	actionOpenProfile: PropTypes.func.isRequired,
 	actionCloseProfile: PropTypes.func.isRequired,
