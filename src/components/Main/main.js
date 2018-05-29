@@ -18,7 +18,7 @@ const Main = props => (
 );
 
 Main.propTypes = {
-	props: PropTypes.object.isRequired,
+	props: PropTypes.object,
 };
 
 export default Main;

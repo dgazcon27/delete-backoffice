@@ -56,7 +56,7 @@ const Header = ({
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
 	actionOpenSideBar: PropTypes.func.isRequired,
-	openMenuProfile: PropTypes.element.isRequired,
+	openMenuProfile: PropTypes.element,
 	openDrawer: PropTypes.bool.isRequired,
 	actionOpenProfile: PropTypes.func.isRequired,
 	actionCloseProfile: PropTypes.func.isRequired,

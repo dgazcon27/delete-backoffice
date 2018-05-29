@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Hola1 = () => (
-	<h1>Hola Mundo 1</h1>
+	<form>
+		Email <input type='email' />
+		Password <input type='password' />
+		<button onSubmit={}> Enviar </button>	 
+	</form>
 );
 
 const Dashboard = () => (

@@ -12,6 +12,7 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     	"jsx-quotes": ["error", "prefer-single"],
     	"react/forbid-prop-types": [{ "forbid": ["array", "object"], "checkContextTypes": false, "checkChildContextTypes": false }],
-        "jsx-a11y/href-no-hash": "off"
+        "jsx-a11y/href-no-hash": "off",
+        "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
     }
 }
