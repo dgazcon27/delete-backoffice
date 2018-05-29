@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Cancel from '@material-ui/icons/Cancel';
-import { graphql } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import {
-		actionEditUserType, 
-		actionBlockUserType, 
-		actionDeleteUserType,
-	}from '../../actions/userType/actionsCreators';
+	actionEditUserType, 
+	actionBlockUserType, 
+	actionDeleteUserType,
+} from '../../actions/userType/actionsCreators';
 
 import {
 	IconButton,
@@ -24,62 +24,89 @@ import {
 	Paper,
 } from '@material-ui/core';
 
+const GET_USER = gql`
+ 	query {
+ 		user(id: 1) {
+			name
+			birthDate
+ 			dni
+ 			email
+ 		}
+ 	}
+`;
 
-
-// const UserType = ({ data: { loading, user } }) => (
-			// {!loading &&
-					// {user.name}
-const UserType = ({
+const UserType = ({ 
 	actionEditUserType,
 	actionBlockUserType,
 	actionDeleteUserType,
 }) => (
-	<div>
-			{
+	<Query query={GET_USER}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<div>
+						<h1>Loading ...</h1>
+					</div>
+				)
+			}
+
+			if (error) {
+				return (
+					<div>
+						Error :( 
+					</div>	
+				)
+			}
+
+			return(
 				<div>
-				<h3>
-					Tipo de Usuario graphql
-				</h3>
-				<h5>
-					Agregar Nuevo
-				</h5>
+					<div>
+						<h3>
+							Tipo de Usuario graphql
+							<p>{data.user.name}</p>
+						</h3>
+						<h5>
+							Agregar Nuevo
+						</h5>
 
-				<Paper >
-					<Table >
-						<TableHead>
-							<TableRow>
-								<TableCell>Nombre</TableCell>
-								<TableCell>Opciones</TableCell>
-							</TableRow>
-						</TableHead>
+						<Paper >
+							<Table >
+								<TableHead>
+									<TableRow>
+										<TableCell>Nombre</TableCell>
+										<TableCell>Opciones</TableCell>
+									</TableRow>
+								</TableHead>
 
-						<TableBody>
-							<TableRow>
-								<TableCell>Nombre</TableCell>
-								<TableCell>
-									<IconButton
-									onClick={actionEditUserType}
-										>	
-										<Edit/>
-									</IconButton>
-									<IconButton
-									onClick={actionDeleteUserType}
-									>	
-										<Cancel/>	
-									</IconButton>
-									<IconButton
-									onClick={actionBlockUserType}	
-									>		
-										<Block/>
-									</IconButton>									
-								</TableCell>
-							</TableRow>
-						</TableBody>
-					</Table>
-				</Paper>
-			</div>
-		}
-	</div>
+								<TableBody>
+									<TableRow>
+										<TableCell>Nombre</TableCell>
+										<TableCell>
+											<IconButton
+											onClick={actionEditUserType}
+												>	
+												<Edit/>
+											</IconButton>
+											<IconButton
+											onClick={actionDeleteUserType}
+											>	
+												<Cancel/>	
+											</IconButton>
+											<IconButton
+											onClick={actionBlockUserType}	
+											>		
+												<Block/>
+											</IconButton>									
+										</TableCell>
+									</TableRow>
+								</TableBody>
+							</Table>
+						</Paper>
+					</div>		
+				</div>			
+			);
+		}}
+	</Query>
 );
 
 
@@ -93,23 +120,4 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteUserType: () => dispatch(actionDeleteUserType())
 });
 
-export default compose(
-	connect(mapStateToProps, mapDispatchToProps)
-)(UserType);
-
-
-// UserType.protype = {
-// 	data: PropTypes.object.isRequired,
-// };
-
-// const user = gql`
-// 	query {
-// 		user(id: 1) {
-// 			name
-// 			birthDate
-// 			dni
-// 			email
-// 		}
-// 	}
-// `;
-// export default graphql(user)(UserType);
+export default connect(mapStateToProps, mapDispatchToProps)(UserType);

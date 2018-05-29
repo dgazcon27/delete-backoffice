@@ -7,6 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from './headerCss';
+
+
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import { 
 	openDrawer, 
 	openProfile, 
@@ -79,5 +84,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
-	connect(mapStateToProps, mapDispatchToProps),
+	connect(mapStateToProps, mapDispatchToProps)
 )(Header);
