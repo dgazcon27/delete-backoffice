@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Cancel from '@material-ui/icons/Cancel';
-
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -24,6 +23,7 @@ import {
 	TableRow,
 	Paper,
 } from '@material-ui/core';
+
 
 
 // const UserType = ({ data: { loading, user } }) => (
@@ -84,7 +84,7 @@ const UserType = ({
 
 
 const mapStateToProps = state => ({
-//estados mapeables
+	
 });
 
 const mapDispatchToProps = dispatch => ({

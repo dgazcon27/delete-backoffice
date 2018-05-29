@@ -12,7 +12,7 @@ const App = ({ classes }) => (
 		<SideBar />
 
 		<Main 
-		_class={classes}
+		class={classes}
 		/>
 	</div>
 );
