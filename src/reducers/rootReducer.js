@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 import ReducerHeader  from './Header/reducerHeader';
 import ReducerUserType from './userType/reducerUserType';
-/* import todos from './reducer_1';
-import visibilityFilter from './reducer_2';
-import visibilityFilter from './reducer_N'; */
+import ReducerLogin from './Login/reducerLogin';
 
 const rootReducer = combineReducers({
-  ReducerHeader,
-  ReducerUserType,
+	ReducerHeader,
+	ReducerUserType,
+	ReducerLogin,
 });
 
 export default rootReducer;
