@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import Login from '../Login/login';
-import { Hola1, Dashboard, Presale, BoxOffice } from '../hola';
+import { Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
 
 const Main = props => (

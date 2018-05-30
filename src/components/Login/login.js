@@ -1,38 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-	login,
+import {	
 	logout,
+	setEmail,
+	setPassword,
+	requestLogin,
 } from '../../actions/Login/actionsCreators';
 
-const handleSubmit = (event) => {
-	event.preventDefault();
-	console.log(event.target);
-}
 
 const Login = ({
 	email,
 	password,
 	actionLogin,
 	actionLogout,
+	actionSetEmail,
+	actionSetPassword,
 
-}) => (
-	<form onSubmit={actionLogin}>
-		Email <input type='email' value={email} />
-		password <input type='password' value={password} />
-		<button type='submit'> Enviar </button>
-	</form>
+}) => (	
+	<div>
+		Email <input type='email' defaultValue={email} onChange={actionSetEmail} />
+		password <input type='password' defaultValue={password}  onChange={actionSetPassword} />
+		<button type='submit' onClick={() => actionLogin()}> Enviar </button>
+	</div>
+
 );
 
 const mapStateToprops = state => ({
-	email: state.reducerLogin.email,
-	password: state.reducerLogin.password,
+	email: state.ReducerLogin.email,
+	password: state.ReducerLogin.password,
 });
 
-const mapDispatchToProps = dispatch => ({
-	actionLogin: () => dispatch(login()),
+const mapDispatchToProps = dispatch => ({	
+	actionLogin: () => requestLogin(dispatch),
 	actionLogout: () => dispatch(logout()),
+	actionSetEmail: (e) => dispatch(setEmail(e.target.value)),
+	actionSetPassword: (e) => dispatch(setPassword(e.target.value)),
 });
 
-export default Login;
+
+export default connect(mapStateToprops, mapDispatchToProps)(Login);

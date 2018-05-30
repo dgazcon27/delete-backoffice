@@ -1,15 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'redux-thunk';
 import { client } from './config/configStore';
 import { BrowserRouter as Router } from 'react-router-dom';
 import rootReducer from './reducers/rootReducer';
 import App from './App';
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 /* const enhancer = composeWithDevTools(getMiddleware());
 const store = createStore(rootReducer, enhancer); */

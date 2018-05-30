@@ -10,10 +10,7 @@ const App = ({ classes }) => (
 	<div className={classes.root}>
 		<Header />
 		<SideBar />
-
-		<Main 
-		class={classes}
-		/>
+		<Main class={classes} />
 	</div>
 );
 

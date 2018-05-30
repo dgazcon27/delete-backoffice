@@ -52,9 +52,8 @@ const UserType = ({
 					</div>	
 				)
 			}
-			console.log(data);
-			return(
 
+			return(
 				<div>
 					<div>
 						<h3>
@@ -101,8 +100,6 @@ const UserType = ({
 								</TableBody>
 							</Table>
 						</Paper>
-
-
 					</div>		
 				</div>			
 			);

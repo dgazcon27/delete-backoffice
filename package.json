@@ -9,6 +9,7 @@
     "classnames": "^2.2.5",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
+    "isomorphic-fetch": "^2.2.1",
     "material-ui": "^1.0.0-beta.47",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
@@ -19,7 +20,8 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
