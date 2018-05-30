@@ -45,6 +45,15 @@ const Items = (
 			</ListItem>
 		</Link>
 
+		<Link to='/users' href='/users'>
+			<ListItem button>
+				<ListItemIcon>
+					<SendIcon />
+				</ListItemIcon>
+				<ListItemText primary='users' />
+			</ListItem>
+		</Link>
+
 		<Link to='/box-office' href='/box-office'>
 			<ListItem button>
 				<ListItemIcon>

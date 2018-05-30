@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Query } from 'react-apollo';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-import { Query } from 'react-apollo';
 import TablePagination from '@material-ui/core/TablePagination';
 import gql from 'graphql-tag';
-import GET_ROLES from  '../../queries/userType';
+import GET_USERS from  '../../queries/users';
 import {
-	actionEditUserType, 
-	actionBlockUserType, 
-	actionDeleteUserType,
-} from '../../actions/userType/actionsCreators';
+	actionEditUser, 
+	actionBlockUser, 
+	actionDeleteUser,
+} from '../../actions/users/actionsCreators';
 
 import {
 	IconButton,
@@ -23,14 +23,13 @@ import {
 	Paper,
 } from '@material-ui/core';
 
-	{/*<TablePagination count={data.roles.length}/>*/}
 
-const UserType = ({ 
-	actionEditUserType,
-	actionBlockUserType,
-	actionDeleteUserType,
+const Users = ({ 
+	actionEditUser,
+	actionBlockUser,
+	actionDeleteUser,
 }) => (
-	<Query query={GET_ROLES}>
+	<Query query={GET_USERS}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -51,9 +50,6 @@ const UserType = ({
 
 				<div>
 					<div>
-						<h3>
-							Tipo de Usuario graphql
-						</h3>
 						<h5>
 							Agregar Nuevo
 						</h5>
@@ -70,22 +66,22 @@ const UserType = ({
 
 								<TableBody>
 								{
-									data.roles.map((rol, index) => 	
+									data.users.map((user, index) => 	
 										<TableRow key={index} >
-											<TableCell >{rol.name}</TableCell>
+											<TableCell >{user.name}</TableCell>
 											<TableCell>
 												<IconButton
-												onClick={actionEditUserType}
+												onClick={actionEditUser}
 													>	
 													<Edit/>
 												</IconButton>
 												<IconButton
-												onClick={actionDeleteUserType}
+												onClick={actionDeleteUser}
 												>	
 													<Delete/>	
 												</IconButton>
 												<IconButton
-												onClick={actionBlockUserType}	
+												onClick={actionBlockUser}	
 												>		
 													<Block/>
 												</IconButton>									
@@ -94,9 +90,11 @@ const UserType = ({
 									)
 								}
 								</TableBody>
-							
+								
 							</Table>
 						</Paper>
+
+
 					</div>		
 				</div>			
 			);
@@ -110,9 +108,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionEditUserType: () => dispatch(actionEditUserType()),
-	actionBlockUserType: () => dispatch(actionBlockUserType()),
-	actionDeleteUserType: () => dispatch(actionDeleteUserType())
+	actionEditUser: () => dispatch(actionEditUser()),
+	actionBlockUser: () => dispatch(actionBlockUser()),
+	actionDeleteUser: () => dispatch(actionDeleteUser())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserType);
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

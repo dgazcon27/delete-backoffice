@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../Login/login';
 import { Hola1, Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
+import Users from '../Users/users';
 
 const Main = props => (
 	<main className={props.class.content}>
@@ -14,6 +15,7 @@ const Main = props => (
 			<Route path='/pre-sale' component={Presale} />
 			<Route path='/box-office' component={BoxOffice} />
 			<Route path='/user-type' component={UserType} />
+			<Route path='/users' component={Users} />
 		</Switch>
 	</main>
 );
