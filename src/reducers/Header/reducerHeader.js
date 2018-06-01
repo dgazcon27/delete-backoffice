@@ -24,6 +24,7 @@ const ReducerHeader = (state = stateInitial, action = {}) => {
 				openDrawer: false,
 			});
 		case OPEN_PROFILE:
+		console.log(action);
 			return ({
 				...state,
 				openMenuProfile: action.payload.event,

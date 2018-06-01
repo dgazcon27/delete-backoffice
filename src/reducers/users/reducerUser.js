@@ -5,7 +5,6 @@ import {
 } from '../../actions/users/actionsTypes';
 
 const initialState = {
-	alfa : ''
 } 
 
 const ReducerUser = (state = initialState, action = {} ) => {

@@ -5,13 +5,17 @@ import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import { Query } from 'react-apollo';
 import TablePagination from '@material-ui/core/TablePagination';
+import Modal from '@material-ui/core/Modal';
 import gql from 'graphql-tag';
 import GET_ROLES from  '../../queries/userType';
 import {
 	actionEditUserType, 
 	actionBlockUserType, 
 	actionDeleteUserType,
+	actionOpenModal,
+	actionCloseModal,
 } from '../../actions/userType/actionsCreators';
+
 
 import {
 	IconButton,
@@ -23,12 +27,14 @@ import {
 	Paper,
 } from '@material-ui/core';
 
-	{/*<TablePagination count={data.roles.length}/>*/}
-
 const UserType = ({ 
+	openModal,
+	modalType, 
 	actionEditUserType,
 	actionBlockUserType,
 	actionDeleteUserType,
+	actionOpenModal,
+	actionCloseModal
 }) => (
 	<Query query={GET_ROLES}>
 		{({ loading, error, data }) => {
@@ -52,7 +58,7 @@ const UserType = ({
 				<div>
 					<div>
 						<h3>
-							Tipo de Usuario graphql
+							Roles
 						</h3>
 						<h5>
 							Agregar Nuevo
@@ -75,20 +81,20 @@ const UserType = ({
 											<TableCell >{rol.name}</TableCell>
 											<TableCell>
 												<IconButton
-												onClick={actionEditUserType}
-													>	
-													<Edit/>
-												</IconButton>
-												<IconButton
-												onClick={actionDeleteUserType}
+												onClick={()=>{actionOpenModal('edit')}}
 												>	
-													<Delete/>	
-												</IconButton>
+												<Edit/>
+													</IconButton>
 												<IconButton
-												onClick={actionBlockUserType}	
+												onClick={()=>{actionOpenModal('delete')}}
+												>	
+												<Delete/>	
+													</IconButton>
+												<IconButton
+												onClick={()=>{actionOpenModal('block')}}
 												>		
-													<Block/>
-												</IconButton>									
+												<Block/>
+													</IconButton>									
 											</TableCell>
 										</TableRow>
 									)
@@ -98,7 +104,46 @@ const UserType = ({
 							</Table>
 						</Paper>
 					</div>		
-				</div>			
+				
+					<Modal
+					open={openModal}
+					>	
+						{	
+							modalType === 'edit' ? 	<Paper>
+													<h1>
+														contenido edit modal	
+													</h1>
+													<button onClick={actionCloseModal}>
+														cerrar		
+													</button>		
+											  	</Paper> 
+										 	:
+							modalType === 'block'? 	
+											 	<Paper>
+													<h1>
+														contenido block modal	
+													</h1>
+													<button onClick={actionCloseModal}>
+														cerrar		
+													</button>		
+											  	</Paper>
+											:
+							modalType === 'delete'&&
+											 	<Paper>
+													<h1>
+														contenido delete modal	
+													</h1>
+													<button onClick={actionCloseModal}>
+														cerrar		
+													</button>		
+											  	</Paper>
+						}
+				
+					</Modal>
+
+	
+
+				</div>
 			);
 		}}
 	</Query>
@@ -106,10 +151,14 @@ const UserType = ({
 
 
 const mapStateToProps = state => ({
-	
+	openModal:state.ReducerUserType.openModal,	
+	modalType:state.ReducerUserType.modalType,	
+
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionOpenModal: modalType => dispatch(actionOpenModal(modalType)),
+	actionCloseModal:()=> dispatch(actionCloseModal()),
 	actionEditUserType: () => dispatch(actionEditUserType()),
 	actionBlockUserType: () => dispatch(actionBlockUserType()),
 	actionDeleteUserType: () => dispatch(actionDeleteUserType())
