@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 
 import {
-	LOGIN, 
+	LOGIN,
 	LOGOUT,
-	SET_EMAIL, 
+	SET_EMAIL,
 	SET_PASSWORD,
 } from './actionsTypes';
 
@@ -37,21 +37,20 @@ export const setPassword = (password) => ({
 	},
 });
 
-export const requestLogin = (dispatch) => {
-	fetch('http://localhost:8000/login', {  
+export const requestLogin = (email, password, dispatch) => {
+	fetch('http://localhost:8000/login', {
 		method: 'POST',
 		headers: {
-			'Accept': 'application/json',
 			'Content-Type': 'application/json',
-			'Access-Control-Allow-Origin': 'localhost:8000',
 		},
 		body: JSON.stringify({
-			email: 'ZIA9b5pK0E@gmail.com',
-			password: 'secret',
+			"email" : email,
+			"password" : password,
 		})
 	})
 	.then(response => {
 		console.log(response);
+		dispatch(login());
 	})
 	.catch(e => e);
-} 
+}
