@@ -1,5 +1,5 @@
 import {
-	LOGIN, 
+	LOGIN,
 	LOGOUT,
 	SET_EMAIL,
 	SET_PASSWORD,
@@ -16,22 +16,26 @@ const stateInitial = {
 const ReducerLogin = (state = stateInitial, action) => {
 	switch (action.type) {
 		case LOGIN:
-			console.log('LOGIN');
-		break;
+			return ({
+				...state,
+				token: action.payload.token,
+			});
 		case LOGOUT:
-			console.log('LOGOUT');
-		break;
+			return ({
+				...state,
+				token: action.payload.token,
+			});
 		case SET_EMAIL:
 			return ({
 				...state,
 				email: action.payload.email,
 			});
 		case SET_PASSWORD:
-			return({
+			return ({
 				...state,
 				password: action.payload.password,
 			});
-		default: 
+		default:
 			return state;
 	}
 };

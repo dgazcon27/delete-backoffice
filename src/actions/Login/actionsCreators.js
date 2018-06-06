@@ -7,17 +7,19 @@ import {
 	SET_PASSWORD,
 } from './actionsTypes';
 
-export const login = () => ({
+export const login = (token) => ({
 	type: LOGIN,
 	payload: {
 		description: LOGIN,
+		token,
 	},
 });
 
-export const logout = () => ({
+export const logout = (token) => ({
 	type: LOGOUT,
 	payload: {
 		description: LOGOUT,
+		token,
 	},
 });
 
@@ -37,8 +39,10 @@ export const setPassword = (password) => ({
 	},
 });
 
-export const requestLogin = (email, password, dispatch) => {
-	fetch('http://localhost:8000/login', {
+export const requestLogin = (email, password) => {
+
+	const query = 'http://localhost:8000/login';
+	const option = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -47,10 +51,15 @@ export const requestLogin = (email, password, dispatch) => {
 			"email" : email,
 			"password" : password,
 		})
-	})
-	.then(response => {
-		console.log(response);
-		dispatch(login());
-	})
-	.catch(e => e);
+	};
+
+	return dispatch => {
+		fetch(query, option)
+			.then( response => {
+				dispatch(login('CaRmEn'));
+				dispatch(logout(null));
+				console.log(response);
+			})
+
+	}
 }
