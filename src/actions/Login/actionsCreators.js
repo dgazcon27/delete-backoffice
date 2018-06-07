@@ -39,10 +39,9 @@ export const setPassword = (password) => ({
 	},
 });
 
-export const requestLogin = (email, password) => {
-
+export const requestLogin = (email, password, getTokenMutation) => {
 	const query = 'http://localhost:8000/login';
-	const option = {
+	const options = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -54,12 +53,25 @@ export const requestLogin = (email, password) => {
 	};
 
 	return dispatch => {
-		fetch(query, option)
-			.then( response => {
-				dispatch(login('CaRmEn'));
-				dispatch(logout(null));
-				console.log(response);
-			})
+		
+		/* example fetch(query, option)
+           .then( response => {
+                   dispatch(login('CaRmEn'));
+                   dispatch(logout(null));
+                   console.log(response);
+           }) */
 
+
+		fetch(query, options)
+			.then(async response => {
+				const result = await getTokenMutation({
+					variables: {
+						email,
+						password,
+					}
+				});
+				console.log(response);
+				console.log(result);
+			})
 	}
 }

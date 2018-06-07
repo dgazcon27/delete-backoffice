@@ -4,7 +4,6 @@ import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import GET_ROLES from  '../../queries/userType';
 
