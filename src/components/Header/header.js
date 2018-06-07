@@ -6,14 +6,6 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
-import styles from './headerCss';
-
-import {
-	openProfile,
-	closeProfile,
-	openSideBar,
-} from '../../actions/Header/actionsCreators';
-
 import {
 	AppBar,
 	Toolbar,
@@ -22,6 +14,16 @@ import {
 	MenuItem,
 	Menu,
 } from '@material-ui/core';
+
+
+import styles from './headerCss';
+
+import {
+	openProfile,
+	closeProfile,
+	openSideBar,
+} from '../../actions/Header/actionsCreators';
+
 
 const Header = ({
 	openMenuProfile,

@@ -5,7 +5,7 @@ import Login from '../Login/login';
 import { Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
 
-const Main = props => (
+const Main = ({ props }) => (
 	<main className={props.class.content}>
 		<div className={props.class.toolbar} />
 		<Switch>
@@ -19,7 +19,12 @@ const Main = props => (
 );
 
 Main.propTypes = {
-	props: PropTypes.object,
+	props: PropTypes.shape({
+		class: PropTypes.shape({
+			content: PropTypes.object,
+			toolbar: PropTypes.object,
+		}),
+	}),
 };
 
 export default Main;
