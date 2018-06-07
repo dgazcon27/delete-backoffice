@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import ReducerHeader  from './Header/reducerHeader';
+import ReducerHeader from './Header/reducerHeader';
 import ReducerUserType from './userType/reducerUserType';
 import ReducerLogin from './Login/reducerLogin';
 

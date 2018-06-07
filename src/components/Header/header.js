@@ -8,11 +8,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from './headerCss';
 
-
-import { 
-	openProfile, 
+import {
+	openProfile,
 	closeProfile,
-	openSideBar, 
+	openSideBar,
 } from '../../actions/Header/actionsCreators';
 
 import {
@@ -31,7 +30,6 @@ const Header = ({
 	actionOpenProfile,
 	actionOpenSideBar,
 	actionCloseProfile,
-
 }) => (
 	<div>
 		<AppBar	position='absolute'	className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>
@@ -81,5 +79,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
-	connect(mapStateToProps, mapDispatchToProps)
+	connect(mapStateToProps, mapDispatchToProps),
 )(Header);

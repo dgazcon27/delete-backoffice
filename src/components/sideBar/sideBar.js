@@ -6,16 +6,10 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { Drawer, List, Divider,	IconButton } from '@material-ui/core';
 import	styles from '../Header/headerCss';
 import Items from './Items';
 import { closeSideBar } from '../../actions/Header/actionsCreators';
-
-import {
-	Drawer,
-	List,
-	Divider,
-	IconButton,
-} from '@material-ui/core';
 
 const SideBar = ({ openDrawer, actionCloseSideBar, classes }) => (
 	<div>

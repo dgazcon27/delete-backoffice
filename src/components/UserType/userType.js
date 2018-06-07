@@ -1,15 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import { Query } from 'react-apollo';
-
-import GET_ROLES from  '../../queries/userType';
+import GET_ROLES from '../../queries/userType';
 
 import {
-	actionEditUserType, 
-	actionBlockUserType, 
+	actionEditUserType,
+	actionBlockUserType,
 	actionDeleteUserType,
 } from '../../actions/userType/actionsCreators';
 
@@ -23,8 +23,7 @@ import {
 	Paper,
 } from '@material-ui/core';
 
-
-const UserType = ({ 
+const UserType = ({
 	actionEditUserType,
 	actionBlockUserType,
 	actionDeleteUserType,
@@ -36,18 +35,16 @@ const UserType = ({
 					<div>
 						<h1>Loading ...</h1>
 					</div>
-				)
+				);
 			}
 
 			if (error) {
 				return (
-					<div>
-						Error :( 
-					</div>	
-				)
+					<div> Error :( </div>
+				);
 			}
 
-			return(
+			return (
 				<div>
 					<div>
 						<h3>
@@ -67,49 +64,44 @@ const UserType = ({
 								</TableHead>
 
 								<TableBody>
-								{
-									data.roles.map((rol, index) => 	
-										<TableRow key={index} >
-											<TableCell >{rol.name}</TableCell>
-											<TableCell>
-												<IconButton
-												onClick={actionEditUserType}
-													>	
-													<Edit/>
-												</IconButton>
-												<IconButton
-												onClick={actionDeleteUserType}
-												>	
-													<Delete/>	
-												</IconButton>
-												<IconButton
-												onClick={actionBlockUserType}	
-												>		
-													<Block/>
-												</IconButton>									
-											</TableCell>
-										</TableRow>
-									)
-								}
+									{
+										data.roles.map((rol) => (
+											<TableRow key={rol.id}>
+												<TableCell >{rol.name}</TableCell>
+												<TableCell>
+													<IconButton onClick={actionEditUserType}>
+														<Edit />
+													</IconButton>
+													<IconButton onClick={actionDeleteUserType}>
+														<Delete />
+													</IconButton>
+													<IconButton onClick={actionBlockUserType}>
+														<Block />
+													</IconButton>
+												</TableCell>
+											</TableRow>
+										))
+									}
 								</TableBody>
 							</Table>
 						</Paper>
-					</div>		
-				</div>			
+					</div>
+				</div>
 			);
 		}}
 	</Query>
 );
 
-
-const mapStateToProps = state => ({
-	
-});
+UserType.propTypes = {
+	actionEditUserType: PropTypes.func.required,
+	actionBlockUserType: PropTypes.func.required,
+	actionDeleteUserType: PropTypes.func.required,
+};
 
 const mapDispatchToProps = dispatch => ({
 	actionEditUserType: () => dispatch(actionEditUserType()),
 	actionBlockUserType: () => dispatch(actionBlockUserType()),
-	actionDeleteUserType: () => dispatch(actionDeleteUserType())
+	actionDeleteUserType: () => dispatch(actionDeleteUserType()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserType);
+export default connect(mapDispatchToProps)(UserType);

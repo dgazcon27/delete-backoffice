@@ -7,7 +7,7 @@ import {
 	SET_PASSWORD,
 } from './actionsTypes';
 
-export const login = (token) => ({
+export const login = token => ({
 	type: LOGIN,
 	payload: {
 		description: LOGIN,
@@ -15,7 +15,7 @@ export const login = (token) => ({
 	},
 });
 
-export const logout = (token) => ({
+export const logout = token => ({
 	type: LOGOUT,
 	payload: {
 		description: LOGOUT,
@@ -23,7 +23,7 @@ export const logout = (token) => ({
 	},
 });
 
-export const setEmail = (email) => ({
+export const setEmail = email => ({
 	type: SET_EMAIL,
 	payload: {
 		description: LOGOUT,
@@ -31,7 +31,7 @@ export const setEmail = (email) => ({
 	},
 });
 
-export const setPassword = (password) => ({
+export const setPassword = password => ({
 	type: SET_PASSWORD,
 	payload: {
 		description: LOGOUT,
@@ -47,31 +47,18 @@ export const requestLogin = (email, password, getTokenMutation) => {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			"email" : email,
-			"password" : password,
-		})
+			email,
+			password,
+		}),
 	};
 
-	return dispatch => {
-		
-		/* example fetch(query, option)
-           .then( response => {
-                   dispatch(login('CaRmEn'));
-                   dispatch(logout(null));
-                   console.log(response);
-           }) */
-
-
-		fetch(query, options)
-			.then(async response => {
-				const result = await getTokenMutation({
-					variables: {
-						email,
-						password,
-					}
-				});
-				console.log(response);
-				console.log(result);
-			})
-	}
-}
+	fetch(query, options)
+		.then(async () => {
+			await getTokenMutation({
+				variables: {
+					email,
+					password,
+				},
+			});
+		});
+};
