@@ -1,18 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import { Query } from 'react-apollo';
-import GET_ROLES from '../../queries/userType';
-
-import {
-	actionEditUserType,
-	actionBlockUserType,
-	actionDeleteUserType,
-} from '../../actions/userType/actionsCreators';
-
 import {
 	IconButton,
 	Table,
@@ -22,6 +14,14 @@ import {
 	TableRow,
 	Paper,
 } from '@material-ui/core';
+
+import GET_ROLES from '../../queries/userType';
+
+import {
+	editUserType,
+	blockUserType,
+	deleteUserType,
+} from '../../actions/userType/actionsCreators';
 
 const UserType = ({
 	actionEditUserType,
@@ -65,7 +65,7 @@ const UserType = ({
 
 								<TableBody>
 									{
-										data.roles.map((rol) => (
+										data.roles.map(rol => (
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell>
@@ -93,15 +93,15 @@ const UserType = ({
 );
 
 UserType.propTypes = {
-	actionEditUserType: PropTypes.func.required,
-	actionBlockUserType: PropTypes.func.required,
-	actionDeleteUserType: PropTypes.func.required,
+	actionEditUserType: PropTypes.func.isRequired,
+	actionBlockUserType: PropTypes.func.isRequired,
+	actionDeleteUserType: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-	actionEditUserType: () => dispatch(actionEditUserType()),
-	actionBlockUserType: () => dispatch(actionBlockUserType()),
-	actionDeleteUserType: () => dispatch(actionDeleteUserType()),
+	actionEditUserType: () => dispatch(editUserType()),
+	actionBlockUserType: () => dispatch(blockUserType()),
+	actionDeleteUserType: () => dispatch(deleteUserType()),
 });
 
-export default connect(mapDispatchToProps)(UserType);
+export default connect(null, mapDispatchToProps)(UserType);

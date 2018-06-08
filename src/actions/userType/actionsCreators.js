@@ -4,25 +4,25 @@ import {
 	DELETE_USER_TYPE,
 } from './actionsTypes';
 
-const actionEditUserType = () => ({
+const editUserType = () => ({
 	type: EDIT_USER_TYPE,
 	payload: {
 		description: EDIT_USER_TYPE,
 	},
 });
 
-const actionBlockUserType = () => ({
+const blockUserType = () => ({
 	type: BLOCK_USER_TYPE,
 	payload: {
 		description: BLOCK_USER_TYPE,
 	},
 });
 
-const actionDeleteUserType = () => ({
+const deleteUserType = () => ({
 	type: DELETE_USER_TYPE,
 	payload: {
 		description: DELETE_USER_TYPE,
 	},
 });
 
-export { actionEditUserType, actionBlockUserType, actionDeleteUserType };
+export { editUserType, blockUserType, deleteUserType };
