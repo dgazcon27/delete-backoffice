@@ -25,7 +25,6 @@ const Login = ({
 		password <input type='password' defaultValue={password} onChange={actionSetPassword} />
 		<button type='submit' onClick={() => actionLogin(email, password, getTokenMutation)}> Enviar </button>
 	</div>
-
 );
 
 const GET_TOKEN_LOGIN = gql`
@@ -51,8 +50,7 @@ const mapStateToprops = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionLogin:
-	(email, password, getTokenMutation) => dispatch(requestLogin(email, password, getTokenMutation)),
+	actionLogin:(email, password, getTokenMutation) => dispatch(requestLogin(email, password, getTokenMutation)),
 	actionSetEmail: e => dispatch(setEmail(e.target.value)),
 	actionSetPassword: e => dispatch(setPassword(e.target.value)),
 });

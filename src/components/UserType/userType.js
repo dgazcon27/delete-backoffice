@@ -83,13 +83,13 @@ const UserType = ({
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell>
-													<IconButton onClick={()=>{actionOpenModal('edit')}}>
+													<IconButton onClick={() => {actionOpenModal('edit')}}>
 														<Edit />
 													</IconButton>
-													<IconButton onClick={()=>{actionOpenModal('delete')}}>
+													<IconButton onClick={() => {actionOpenModal('delete')}}>
 														<Delete />
 													</IconButton>
-													<IconButton onClick={()=>{actionOpenModal('block')}}>
+													<IconButton onClick={() => {actionOpenModal('block')}}>
 														<Block />
 													</IconButton>
 												</TableCell>

@@ -52,13 +52,19 @@ export const requestLogin = (email, password, getTokenMutation) => {
 		}),
 	};
 
-	fetch(query, options)
-		.then(async () => {
-			await getTokenMutation({
-				variables: {
-					email,
-					password,
-				},
+
+	return (dispatch) => {
+		fetch(query, options)
+			.then(async () => {
+				await getTokenMutation({
+					variables: {
+						email,
+						password,
+					},
+				}); 
+				
+				dispatch(login());
 			});
-		});
+	}
+
 };
