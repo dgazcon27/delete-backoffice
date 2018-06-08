@@ -4,8 +4,8 @@ import { Query } from 'react-apollo';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-import TablePagination from '@material-ui/core/TablePagination';
-import gql from 'graphql-tag';
+// import TablePagination from '@material-ui/core/TablePagination';
+// import gql from 'graphql-tag';
 import GET_USERS from  '../../queries/users';
 import {
 	actionEditUser, 

@@ -17,32 +17,27 @@ const ReducerUserType = (state = initialState, action = {}) => {
 			return({
 				...state,
 				openModal: true,
-				alfa: 'EDIT_USER_TYPE',
 			});
 		case BLOCK_USER_TYPE:
 			return({
 				...state,
 				openModal: true,
-				alfa: 'BLOCK_USER_TYPE',
 			});		
 		case DELETE_USER_TYPE:
 			return({
 				...state,
 				openModal: true,
-				alfa: 'DELETE_USER_TYPE'
 			});
 		case OPEN_MODAL:
 			return({
 				...state,
 				modalType: action.payload.modalType,
 				openModal: true,
-				alfa: 'OPEN_MODAL'
 			});
 		case CLOSE_MODAL:
 			return({
 				...state,
 				openModal:false,
-				alfa : 'CLOSE_MODAL'
 			});	
 		default:
 			return state;

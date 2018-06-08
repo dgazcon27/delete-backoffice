@@ -1,4 +1,3 @@
-const drawerWidth = 241;
 
 const styles = theme => ({
 	

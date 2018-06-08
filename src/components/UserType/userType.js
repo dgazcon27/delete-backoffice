@@ -3,34 +3,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-
 import styles from './userTypeCss';
-
-import Block from '@material-ui/icons/Block';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
-
-import TablePagination from '@material-ui/core/TablePagination';
-import gql from 'graphql-tag';
-import GET_ROLES from  '../../queries/userType';
-
-import { Query,
-		 Mutation
-} from 'react-apollo';
-
-import {
-	editUserType, 
-	blockUserType, 
-	deleteUserType,
-	actionOpenModal,
-	actionCloseModal,
-} from '../../actions/userType/actionsCreators';
- 
+import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-import { Query } from 'react-apollo';
+import GET_ROLES from  '../../queries/userType';
 
 import {
 	IconButton,
@@ -43,8 +22,18 @@ import {
 	Modal,
 } from '@material-ui/core';
 
+import {
+	editUserType, 
+	blockUserType, 
+	deleteUserType,
+	actionOpenModal,
+	actionCloseModal,
+} from '../../actions/userType/actionsCreators';
 
 const UserType = ({
+	classes,
+	openModal,
+	modalType,
 	editUserType,
 	blockUserType,
 	deleteUserType,
