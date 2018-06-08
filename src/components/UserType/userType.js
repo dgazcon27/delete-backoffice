@@ -65,7 +65,7 @@ const UserType = ({
 
 								<TableBody>
 									{
-										data.roles.map((rol) => (
+										data.roles.map(rol => (
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell>
