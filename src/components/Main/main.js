@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import Login from '../Login/login';
 import { Dashboard, Presale, BoxOffice } from '../hola';

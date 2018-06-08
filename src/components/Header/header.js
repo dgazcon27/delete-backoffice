@@ -61,11 +61,15 @@ const Header = ({
 
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
-	actionOpenSideBar: PropTypes.func.isRequired,
 	openMenuProfile: PropTypes.object,
 	openDrawer: PropTypes.bool.isRequired,
+	actionOpenSideBar: PropTypes.func.isRequired,
 	actionOpenProfile: PropTypes.func.isRequired,
 	actionCloseProfile: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+	openMenuProfile: null,
 };
 
 const mapStateToProps = state => ({
