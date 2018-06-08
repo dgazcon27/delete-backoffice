@@ -6,32 +6,28 @@ import {
 	CLOSE_MODAL,
 } from './actionsTypes';
 
-export const actionEditUserType = () => (
-	
-	{
+const editUserType = () => ({
 	type: EDIT_USER_TYPE,
-	payload:{
-		description: EDIT_USER_TYPE 
-	} 
-
+	payload: {
+		description: EDIT_USER_TYPE,
+	},
 });
 
-export const actionBlockUserType = () => ({
+const blockUserType = () => ({
 	type: BLOCK_USER_TYPE,
-	payload:{
-		description: BLOCK_USER_TYPE 
-	} 
+	payload: {
+		description: BLOCK_USER_TYPE,
+	},
 });
 
-export const actionDeleteUserType = () => ({
+const deleteUserType = () => ({
 	type: DELETE_USER_TYPE,
-	payload:{
-		description: DELETE_USER_TYPE 
-	} 
+	payload: {
+		description: DELETE_USER_TYPE,
+	},
 });
 
-
-export const actionOpenModal = modalType => ({
+const actionOpenModal = modalType => ({
 	type: OPEN_MODAL,
 	payload: {
 		modalType:modalType,
@@ -39,10 +35,17 @@ export const actionOpenModal = modalType => ({
 	},
 });
 
-export const actionCloseModal = () => ({
+const actionCloseModal = () => ({
 	type: CLOSE_MODAL,
 	payload: {
 		description: actionCloseModal,
 	},
 });
 
+export { 
+	editUserType,
+	blockUserType,
+	deleteUserType,
+	actionOpenModal,
+	actionCloseModal,
+};

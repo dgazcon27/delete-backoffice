@@ -1,38 +1,63 @@
 import React from 'react';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 
 import {
-	login,
-	logout,
+	setEmail,
+	setPassword,
+	requestLogin,
 } from '../../actions/Login/actionsCreators';
 
-const handleSubmit = (event) => {
-	event.preventDefault();
-	console.log(event.target);
-}
 
 const Login = ({
 	email,
 	password,
 	actionLogin,
-	actionLogout,
+	actionSetEmail,
+	actionSetPassword,
+	getTokenMutation,
 
 }) => (
-	<form onSubmit={actionLogin}>
-		Email <input type='email' value={email} />
-		password <input type='password' value={password} />
-		<button type='submit'> Enviar </button>
-	</form>
+	<div>
+		Email <input type='email' defaultValue={email} onChange={actionSetEmail} />
+		password <input type='password' defaultValue={password} onChange={actionSetPassword} />
+		<button type='submit' onClick={() => actionLogin(email, password, getTokenMutation)}> Enviar </button>
+	</div>
+
 );
 
+const GET_TOKEN_LOGIN = gql`
+	mutation getTokenLoginMutation($email: String!, $password: String!) {
+		createToken(email: $email, password: $password) {
+			token
+		}
+	}
+`;
+
+Login.propTypes = {
+	email: PropTypes.string.isRequired,
+	password: PropTypes.string.isRequired,
+	actionLogin: PropTypes.func.isRequired,
+	actionSetEmail: PropTypes.func.isRequired,
+	actionSetPassword: PropTypes.func.isRequired,
+	getTokenMutation: PropTypes.func.isRequired,
+};
+
 const mapStateToprops = state => ({
-	email: state.reducerLogin.email,
-	password: state.reducerLogin.password,
+	email: state.ReducerLogin.email,
+	password: state.ReducerLogin.password,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionLogin: () => dispatch(login()),
-	actionLogout: () => dispatch(logout()),
+	actionLogin:
+	(email, password, getTokenMutation) => dispatch(requestLogin(email, password, getTokenMutation)),
+	actionSetEmail: e => dispatch(setEmail(e.target.value)),
+	actionSetPassword: e => dispatch(setPassword(e.target.value)),
 });
 
-export default Login;
+export default compose(
+	graphql(GET_TOKEN_LOGIN, { name: 'getTokenMutation' }),
+	connect(mapStateToprops, mapDispatchToProps),
+)(Login);

@@ -1,3 +1,5 @@
+/* eslint no-extra-boolean-cast: "off" */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -6,15 +8,6 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
-import styles from './headerCss';
-
-
-import { 
-	openProfile, 
-	closeProfile,
-	openSideBar, 
-} from '../../actions/Header/actionsCreators';
-
 import {
 	AppBar,
 	Toolbar,
@@ -24,6 +17,16 @@ import {
 	Menu,
 } from '@material-ui/core';
 
+
+import styles from './headerCss';
+
+import {
+	openProfile,
+	closeProfile,
+	openSideBar,
+} from '../../actions/Header/actionsCreators';
+
+
 const Header = ({
 	openMenuProfile,
 	openDrawer,
@@ -31,7 +34,6 @@ const Header = ({
 	actionOpenProfile,
 	actionOpenSideBar,
 	actionCloseProfile,
-
 }) => (
 	<div>
 		<AppBar	position='absolute'	className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>
@@ -61,11 +63,15 @@ const Header = ({
 
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
-	actionOpenSideBar: PropTypes.func.isRequired,
 	openMenuProfile: PropTypes.object,
 	openDrawer: PropTypes.bool.isRequired,
+	actionOpenSideBar: PropTypes.func.isRequired,
 	actionOpenProfile: PropTypes.func.isRequired,
 	actionCloseProfile: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+	openMenuProfile: null,
 };
 
 const mapStateToProps = state => ({
@@ -81,5 +87,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
-	connect(mapStateToProps, mapDispatchToProps)
+	connect(mapStateToProps, mapDispatchToProps),
 )(Header);
