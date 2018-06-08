@@ -1,3 +1,5 @@
+/* eslint no-extra-boolean-cast: "off" */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
