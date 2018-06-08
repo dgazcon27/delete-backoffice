@@ -37,9 +37,7 @@ const ReducerUserType = (state = initialState, action = {} ) => {
 					alfa:'DELETE_USER_TYPE'
 				})
 		case OPEN_MODAL:
-
-		console.log(action);
-			console.log('OPEN_MODAL');
+		console.log('OPEN_MODAL');
 			return({
 					...state,
 					modalType:action.payload.modalType,
@@ -54,7 +52,6 @@ const ReducerUserType = (state = initialState, action = {} ) => {
 					openModal:false,
 					alfa : 'CLOSE_MODAL'
 				})	
-
 		default:
 			return state;
 	}

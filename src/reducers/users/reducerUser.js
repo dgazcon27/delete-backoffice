@@ -15,7 +15,6 @@ const ReducerUser = (state = initialState, action = {} ) => {
 			return({
 					...state,
 					alfa : 'EDIT_USER'
-
 				})
 		case BLOCK_USER:
 			console.log('block');
