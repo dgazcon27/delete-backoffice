@@ -37,8 +37,8 @@ const GET_TOKEN_LOGIN = gql`
 `;
 
 Login.propTypes = {
-	email: PropTypes.object.isRequired,
-	password: PropTypes.func.isRequired,
+	email: PropTypes.string.isRequired,
+	password: PropTypes.string.isRequired,
 	actionLogin: PropTypes.func.isRequired,
 	actionSetEmail: PropTypes.func.isRequired,
 	actionSetPassword: PropTypes.func.isRequired,

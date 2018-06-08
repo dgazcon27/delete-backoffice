@@ -4,6 +4,7 @@ const GET_ROLES = gql`
  	query { 
  		roles {
     		name
+    		id
   		}
  	}
 `;
