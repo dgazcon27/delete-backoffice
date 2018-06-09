@@ -170,6 +170,10 @@ UserType.propTypes = {
 	actionCloseModal: PropTypes.func.isRequired,
 };
 
+UserType.defaultProps = {
+	modalType: '',
+};
+
 const mapStateToProps = state => ({
 	modalOpen: state.ReducerUserType.openModal,
 	modalType: state.ReducerUserType.modalType,
