@@ -26,7 +26,7 @@ export const logout = token => ({
 export const setEmail = email => ({
 	type: SET_EMAIL,
 	payload: {
-		description: SET_EMAIL,
+		description: LOGOUT,
 		email,
 	},
 });
@@ -34,12 +34,12 @@ export const setEmail = email => ({
 export const setPassword = password => ({
 	type: SET_PASSWORD,
 	payload: {
-		description: SET_PASSWORD,
+		description: LOGOUT,
 		password,
 	},
 });
 
-export const requestLogin = (email, password) => {
+export const requestLogin = (email, password, getTokenMutation) => {
 	const query = 'http://localhost:8000/login';
 	const options = {
 		method: 'POST',
@@ -52,15 +52,16 @@ export const requestLogin = (email, password) => {
 		}),
 	};
 
+
 	return (dispatch) => {
 		fetch(query, options)
 			.then(async () => {
-				/* await getTokenMutation({
+				await getTokenMutation({
 					variables: {
 						email,
 						password,
 					},
-				}); */
+				});
 				dispatch(login());
 			});
 	};
