@@ -61,10 +61,8 @@ export const requestLogin = (email, password, getTokenMutation) => {
 						email,
 						password,
 					},
-				}); 
-				
+				});
 				dispatch(login());
 			});
-	}
-
+	};
 };

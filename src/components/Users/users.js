@@ -1,18 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-// import TablePagination from '@material-ui/core/TablePagination';
-// import gql from 'graphql-tag';
-import GET_USERS from  '../../queries/users';
-import {
-	actionEditUser, 
-	actionBlockUser, 
-	actionDeleteUser,
-} from '../../actions/users/actionsCreators';
-
 import {
 	IconButton,
 	Table,
@@ -23,8 +15,15 @@ import {
 	Paper,
 } from '@material-ui/core';
 
+import GET_USERS from '../../queries/users';
 
-const Users = ({ 
+import {
+	editUser,
+	blockUser,
+	deleteUser,
+} from '../../actions/users/actionsCreators';
+
+const Users = ({
 	actionEditUser,
 	actionBlockUser,
 	actionDeleteUser,
@@ -36,18 +35,16 @@ const Users = ({
 					<div>
 						<h1>Loading ...</h1>
 					</div>
-				)
+				);
 			}
 
 			if (error) {
 				return (
-					<div>
-						Error :( 
-					</div>	
-				)
+					<div> Error :( </div>
+				);
 			}
-			return(
 
+			return (
 				<div>
 					<div>
 						<h5>
@@ -55,8 +52,7 @@ const Users = ({
 						</h5>
 
 						<Paper>
-							<Table >
-
+							<Table>
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
@@ -65,52 +61,46 @@ const Users = ({
 								</TableHead>
 
 								<TableBody>
-								{
-									data.users.map((user, index) => 	
-										<TableRow key={index} >
-											<TableCell >{user.name}</TableCell>
-											<TableCell>
-												<IconButton
-												onClick={actionEditUser}
-													>	
-													<Edit/>
-												</IconButton>
-												<IconButton
-												onClick={actionDeleteUser}
-												>	
-													<Delete/>	
-												</IconButton>
-												<IconButton
-												onClick={actionBlockUser}	
-												>		
-													<Block/>
-												</IconButton>									
-											</TableCell>
-										</TableRow>
-									)
-								}
+									{
+										data.users.map(user => (
+											<TableRow key={user.id}>
+												<TableCell >{user.name}</TableCell>
+												<TableCell>
+													<IconButton onClick={actionEditUser}>
+														<Edit />
+													</IconButton>
+
+													<IconButton onClick={actionDeleteUser}>
+														<Delete />
+													</IconButton>
+
+													<IconButton onClick={actionBlockUser}>
+														<Block />
+													</IconButton>
+												</TableCell>
+											</TableRow>
+										))
+									}
 								</TableBody>
-								
 							</Table>
 						</Paper>
-
-
-					</div>		
-				</div>			
+					</div>
+				</div>
 			);
 		}}
 	</Query>
 );
 
-
-const mapStateToProps = state => ({
-	
-});
+Users.propTypes = {
+	actionEditUser: PropTypes.func.isRequired,
+	actionBlockUser: PropTypes.func.isRequired,
+	actionDeleteUser: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = dispatch => ({
-	actionEditUser: () => dispatch(actionEditUser()),
-	actionBlockUser: () => dispatch(actionBlockUser()),
-	actionDeleteUser: () => dispatch(actionDeleteUser())
+	actionEditUser: () => dispatch(editUser()),
+	actionBlockUser: () => dispatch(blockUser()),
+	actionDeleteUser: () => dispatch(deleteUser()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(null, mapDispatchToProps)(Users);

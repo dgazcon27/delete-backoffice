@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import styles from './userTypeCss';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
-import GET_ROLES from  '../../queries/userType';
-
 import {
 	IconButton,
 	Table,
@@ -23,20 +20,20 @@ import {
 } from '@material-ui/core';
 
 import {
-	editUserType, 
-	blockUserType, 
-	deleteUserType,
-	actionOpenModal,
-	actionCloseModal,
-} from '../../actions/userType/actionsCreators';
-
-const UserType = ({
-	classes,
-	openModal,
-	modalType,
 	editUserType,
 	blockUserType,
 	deleteUserType,
+	openModal,
+	closeModal,
+} from '../../actions/userType/actionsCreators';
+
+import GET_ROLES from '../../queries/userType';
+import styles from './userTypeCss';
+
+const UserType = ({
+	classes,
+	modalOpen,
+	modalType,
 	actionOpenModal,
 	actionCloseModal,
 }) => (
@@ -49,7 +46,8 @@ const UserType = ({
 					</div>
 				);
 			}
-		if (error) {
+
+			if (error) {
 				return (
 					<div> Error :( </div>
 				);
@@ -83,13 +81,13 @@ const UserType = ({
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell>
-													<IconButton onClick={() => {actionOpenModal('edit')}}>
+													<IconButton onClick={() => { actionOpenModal('edit'); }}>
 														<Edit />
 													</IconButton>
-													<IconButton onClick={() => {actionOpenModal('delete')}}>
+													<IconButton onClick={() => { actionOpenModal('delete'); }}>
 														<Delete />
 													</IconButton>
-													<IconButton onClick={() => {actionOpenModal('block')}}>
+													<IconButton onClick={() => { actionOpenModal('block'); }}>
 														<Block />
 													</IconButton>
 												</TableCell>
@@ -99,63 +97,65 @@ const UserType = ({
 								</TableBody>
 							</Table>
 						</Paper>
-					</div>		
-		
-					<Modal open = {openModal} className={classNames(classes.modalOpenStyle)} hideBackdrop={true} disableAutoFocus={false}>	
-						<div>
-							{	
-								modalType === 'edit' ? 	
-									<Paper>
-										<h1>
-											contenido edit modal
-										</h1>
-										<button onClick={actionCloseModal}>
-											cerrar
-										</button>
-									</Paper>	:
+					</div>
 
-								modalType === 'block' ?
-									<Paper className={classNames(classes.paperOnModal)}>
-										<h6> Bloquear Rol </h6>
-										<p> 
-											¿Estas seguro que desea bloquear el rol "elemento"?
-										</p>
-										<span>
-											<a onClick={actionCloseModal} className={classNames(classes.a)}>
-												Si	
-											</a>
-											&nbsp;
-											&nbsp;
-											<a onClick={actionCloseModal} className={classNames(classes.a)}>
-												No
-											</a>
-										</span>
-									</Paper>	:
-								
-								modalType === 'delete' &&
-								 	<Paper className={classNames(classes.paperOnModal)}>
-								 		<h6>
-											Eliminar Rol
-										</h6>
-										
-										<p>
-											¿Estas seguro que desea bloquear este "Elemento" ?
-										</p>
-										<span>
-											<a onClick={actionCloseModal} className={classNames(classes.a)}>
-												Si	
-											</a>
-											&nbsp;
-											&nbsp;
-											<a onClick={actionCloseModal} className={classNames(classes.a)}>
-												No
-											</a>
-										</span>
-									</Paper>
+					<Modal
+						open={modalOpen}
+						className={classNames(classes.modalOpenStyle)}
+						hideBackdrop
+						disableAutoFocus={false}
+					>
+						<div>
+							{modalType === 'edit' &&
+								<Paper>
+									<h1>
+										contenido edit modal
+									</h1>
+									<button onClick={actionCloseModal}>
+										cerrar
+									</button>
+								</Paper>
+							}
+
+							{modalType === 'block' &&
+								<Paper className={classNames(classes.paperOnModal)}>
+									<h6> Bloquear Rol </h6>
+									<p>
+										`¿Estas seguro que desea bloquear el rol elemento?`
+									</p>
+									<span>
+										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
+											Si
+										</a>
+										&nbsp;
+										&nbsp;
+										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
+											No
+										</a>
+									</span>
+								</Paper>
+							}
+
+							{modalType === 'delete' &&
+								<Paper className={classNames(classes.paperOnModal)}>
+									<h6> Eliminar Rol </h6>
+									<p>
+										`¿Estas seguro que desea bloquear este Elemento?`
+									</p>
+									<span>
+										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
+											Si
+										</a>
+										&nbsp;
+										&nbsp;
+										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
+											No
+										</a>
+									</span>
+								</Paper>
 							}
 						</div>
 					</Modal>
-
 				</div>
 			);
 		}}
@@ -163,24 +163,24 @@ const UserType = ({
 );
 
 UserType.propTypes = {
-	actionOpenModal:  PropTypes.func.isRequired,
-	actionCloseModal:  PropTypes.func.isRequired,
-	actionEditUserType: PropTypes.func.isRequired,
-	actionBlockUserType: PropTypes.func.isRequired,
-	actionDeleteUserType: PropTypes.func.isRequired,
+	classes: PropTypes.object.isRequired,
+	modalOpen: PropTypes.bool.isRequired,
+	modalType: PropTypes.string,
+	actionOpenModal: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-	openModal:state.ReducerUserType.openModal,	
-	modalType:state.ReducerUserType.modalType,	
+	modalOpen: state.ReducerUserType.openModal,
+	modalType: state.ReducerUserType.modalType,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionOpenModal: modalType => dispatch(actionOpenModal(modalType)),
-	actionCloseModal:()=> dispatch(actionCloseModal()),
 	actionEditUserType: () => dispatch(editUserType()),
 	actionBlockUserType: () => dispatch(blockUserType()),
 	actionDeleteUserType: () => dispatch(deleteUserType()),
+	actionOpenModal: modalType => dispatch(openModal(modalType)),
+	actionCloseModal: () => dispatch(closeModal()),
 });
 
 export default compose(

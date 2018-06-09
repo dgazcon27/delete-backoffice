@@ -1,8 +1,8 @@
 import {
-	EDIT_USER_TYPE, 
-	BLOCK_USER_TYPE, 
+	EDIT_USER_TYPE,
+	BLOCK_USER_TYPE,
 	DELETE_USER_TYPE,
-	OPEN_MODAL, 
+	OPEN_MODAL,
 	CLOSE_MODAL,
 } from './actionsTypes';
 
@@ -27,25 +27,25 @@ const deleteUserType = () => ({
 	},
 });
 
-const actionOpenModal = modalType => ({
+const openModal = modalType => ({
 	type: OPEN_MODAL,
 	payload: {
-		modalType:modalType,
-		description: actionOpenModal,
+		description: OPEN_MODAL,
+		modalType,
 	},
 });
 
-const actionCloseModal = () => ({
+const closeModal = () => ({
 	type: CLOSE_MODAL,
 	payload: {
-		description: actionCloseModal,
+		description: CLOSE_MODAL,
 	},
 });
 
-export { 
+export {
 	editUserType,
 	blockUserType,
 	deleteUserType,
-	actionOpenModal,
-	actionCloseModal,
+	openModal,
+	closeModal,
 };

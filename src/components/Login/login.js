@@ -50,7 +50,8 @@ const mapStateToprops = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionLogin:(email, password, getTokenMutation) => dispatch(requestLogin(email, password, getTokenMutation)),
+	actionLogin:
+	(email, password, getTokenMutation) => dispatch(requestLogin(email, password, getTokenMutation)),
 	actionSetEmail: e => dispatch(setEmail(e.target.value)),
 	actionSetPassword: e => dispatch(setPassword(e.target.value)),
 });
