@@ -6,14 +6,14 @@ import {
 
 } from '../../actions/Login/actionsTypes';
 
-const stateInitial = {
+const initialState = {
 	auth: null,
 	token: null,
 	email: '',
 	password: '',
 };
 
-const ReducerLogin = (state = stateInitial, action) => {
+const ReducerLogin = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case LOGIN:
 			return ({
