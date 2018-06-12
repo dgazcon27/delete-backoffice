@@ -16,7 +16,6 @@ describe('Test Actions Creator Header', () => {
 			openDrawer: false,
 			openMenuProfile: null,
 		});
-
 		// Se despacha el accionCreator ha probar
 		store.dispatch(openSideBar());
 		const actions = store.getActions();
@@ -30,7 +29,7 @@ describe('Test Actions Creator Header', () => {
 
 	it('Close Side Bar', () => {
 		const store = mockStore({
-			openDrawer: true,
+			openDrawer: false,
 			openMenuProfile: null,
 		});
 
@@ -47,10 +46,9 @@ describe('Test Actions Creator Header', () => {
 
 	it('Open Profile', () => {
 		const store = mockStore({
-			openDrawer: true,
+			openDrawer: false,
 			openMenuProfile: null,
 		});
-
 		// se crea un evento
 		const event = document.createEvent('UIEvents');
 
@@ -67,10 +65,9 @@ describe('Test Actions Creator Header', () => {
 
 	it('Close Profile', () => {
 		const store = mockStore({
-			openDrawer: true,
+			openDrawer: false,
 			openMenuProfile: null,
 		});
-
 		// Se despacha el accionCreator ha probar
 		store.dispatch(closeProfile());
 		const actions = store.getActions();

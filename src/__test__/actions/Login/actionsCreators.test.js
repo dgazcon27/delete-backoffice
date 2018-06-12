@@ -20,7 +20,6 @@ describe('Test Actions Creator Login', () => {
 			email: '',
 			password: '',
 		});
-
 		// Se despacha el accionCreator ha probar
 		store.dispatch(login());
 		const actions = store.getActions();
@@ -30,6 +29,7 @@ describe('Test Actions Creator Login', () => {
 
 		// Se verifica que la accion ejecutada sea la correcta
 		expect(actions[0].type).toEqual('LOGIN');
+		store.clearActions();
 	});
 
 	it('Logout', () => {
@@ -49,6 +49,7 @@ describe('Test Actions Creator Login', () => {
 
 		// Se verifica que la accion ejecutada sea la correcta
 		expect(actions[0].type).toEqual('LOGOUT');
+		store.clearActions();
 	});
 
 	it('Set Email', () => {
