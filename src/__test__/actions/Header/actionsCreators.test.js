@@ -7,7 +7,6 @@ import {
 	closeProfile,
 } from '../../../actions/Header/actionsCreators';
 
-
 const mockStore = configureStore();
 
 describe('Test Actions Creator Header', () => {
