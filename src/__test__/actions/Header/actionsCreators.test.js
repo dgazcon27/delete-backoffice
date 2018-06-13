@@ -24,7 +24,7 @@ describe('Test Actions Creator Header', () => {
 		expect(actions.length).toBe(1);
 
 		// Se verifica que la accion ejecutada sea la correcta
-		expect(actions[0].type).toEqual('OPEN_SIDEBAR2');
+		expect(actions[0].type).toEqual('OPEN_SIDEBAR');
 	});
 
 	it('Close Side Bar', () => {
