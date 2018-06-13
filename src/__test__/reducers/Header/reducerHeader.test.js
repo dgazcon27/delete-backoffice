@@ -49,15 +49,31 @@ describe('test Reducer Header', () => {
 			.toEqual({ openDrawer: true, openMenuProfile: null });
 	});
 
+	it('return Method closeSideBar', () => {
+		const event = document.createEvent('UIEvents');
+		expect(ReducerHeader(
+			{
+				openDrawer: true,
+				openMenuProfile: event.currentTarget,
+			},
+			closeSideBar(),
+		)).toEqual(initialState);
+	});
+
 	it('return Method openProfile', () => {
 		const event = document.createEvent('UIEvents');
 		expect(ReducerHeader(initialState, openProfile(event)))
 			.toEqual({ openDrawer: false, openMenuProfile: event.currentTarget });
 	});
 
-	it('return Method closeSideBar', () => {
+	it('return Method closeProfile', () => {
 		const event = document.createEvent('UIEvents');
-		expect(ReducerHeader({ openDrawer: true, openMenuProfile: event.currentTarget }, closeSideBar())).toEqual(initialState);
+		expect(ReducerHeader(
+			{
+				openDrawer: false,
+				openMenuProfile: event.currentTarget,
+			},
+			closeProfile(),
+		)).toEqual(initialState);
 	});
 });
-

@@ -1,12 +1,12 @@
 import ReducerUserType from '../../../reducers/userType/reducerUserType';
 
-import {
-	editUserType,
-	blockUserType,
-	deleteUserType,
-	openModal,
-	closeModal,
-} from '../../../actions/userType/actionsCreators';
+/*
+	solo se probo con openModal porque es
+	el unico que genera un cambio cuando
+	se realicen las otras funcionalidades
+	hay que incluirlas tambien
+*/
+import { openModal } from '../../../actions/userType/actionsCreators';
 
 describe('test Reducer Header', () => {
 	const initialState = {
