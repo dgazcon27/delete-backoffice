@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+
 
 import {
 	LOGIN,
@@ -40,7 +40,7 @@ export const setPassword = password => ({
 });
 
 export const requestLogin = (email, password) => {
-	const query = 'http://localhost:8000/login';
+	const query = 'http://localhost:8000/graphql/login';
 	const options = {
 		method: 'POST',
 		headers: {
@@ -52,16 +52,9 @@ export const requestLogin = (email, password) => {
 		}),
 	};
 
-	return (dispatch) => {
-		fetch(query, options)
-			.then(async () => {
-				/* await getTokenMutation({
-					variables: {
-						email,
-						password,
-					},
-				}); */
-				dispatch(login());
-			});
-	};
+	fetch(query, options)
+		.then(response => response.json())
+		.then((response) => {
+			localStorage.setItem('token', response.token);
+		});
 };
