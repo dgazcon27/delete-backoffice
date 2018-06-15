@@ -6,7 +6,6 @@ import {
 	logout,
 	setEmail,
 	setPassword,
-	requestLogin,
 } from '../../../actions/Login/actionsCreators';
 
 const middlewares = [thunk];
@@ -88,25 +87,5 @@ describe('Test Actions Creator Login', () => {
 
 		// Se verifica que la accion ejecutada sea la correcta
 		expect(actions[0].type).toEqual('SET_PASSWORD');
-	});
-
-	it('Petition Async Login', () => {
-		const store = mockStore({
-			auth: null,
-			token: null,
-			email: '',
-			password: '',
-		});
-
-		return store.dispatch(requestLogin('jwTqkAwFsV@gmail.com', 'secret'));
-		/* .then(() => {
-			const actions = store.getActions();
-
-			// Se verifica que se despacho una unica accion
-			expect(actions.length).toBe(1);
-
-			// Se verifica que la accion ejecutada sea la correcta
-			expect(actions[0]).toEqual(login());
-		}); */
 	});
 });

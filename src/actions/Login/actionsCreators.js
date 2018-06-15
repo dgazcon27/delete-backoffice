@@ -1,4 +1,4 @@
-
+import fetch from 'isomorphic-fetch';
 
 import {
 	LOGIN,
