@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import Login from '../Login/login';
 import { Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
 import Users from '../Users/users';
@@ -12,7 +11,7 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
-				<Route exact path='/' component={Login} />
+				<Route exact path='/' component={Dashboard} />
 				<Route path='/dashboard' component={Dashboard} />
 				<Route path='/pre-sale' component={Presale} />
 				<Route path='/box-office' component={BoxOffice} />

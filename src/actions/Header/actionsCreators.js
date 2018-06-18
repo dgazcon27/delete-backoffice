@@ -33,4 +33,3 @@ export const closeProfile = () => ({
 		description: CLOSE_PROFILE,
 	},
 });
-

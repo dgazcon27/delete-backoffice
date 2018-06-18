@@ -32,15 +32,15 @@ Login.propTypes = {
 	actionSetPassword: PropTypes.func.isRequired,
 };
 
-const mapStateToprops = state => ({
+const mapStateToProps = state => ({
 	email: state.ReducerLogin.email,
 	password: state.ReducerLogin.password,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionLogin: (email, password) => requestLogin(email, password),
+	actionLogin: (email, password) => dispatch(requestLogin(email, password)),
 	actionSetEmail: e => dispatch(setEmail(e.target.value)),
 	actionSetPassword: e => dispatch(setPassword(e.target.value)),
 });
 
-export default connect(mapStateToprops, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

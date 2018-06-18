@@ -17,21 +17,20 @@ import {
 	Menu,
 } from '@material-ui/core';
 
-
 import styles from './headerCss';
-
+import { requestLogout } from '../../actions/Login/actionsCreators';
 import {
 	openProfile,
 	closeProfile,
 	openSideBar,
 } from '../../actions/Header/actionsCreators';
 
-
 const Header = ({
+	classes,
 	openMenuProfile,
 	openDrawer,
-	classes,
 	actionOpenProfile,
+	actionLogout,
 	actionOpenSideBar,
 	actionCloseProfile,
 }) => (
@@ -52,7 +51,7 @@ const Header = ({
 					</IconButton>
 					<Menu id='menu-appbar' anchorEl={openMenuProfile} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top',	horizontal: 'right' }}	open={Boolean(openMenuProfile)}	onClose={actionCloseProfile}>
 						<MenuItem onClick={actionCloseProfile}>Profile</MenuItem>
-						<MenuItem onClick={actionCloseProfile}>Logout</MenuItem>
+						<MenuItem onClick={actionLogout}>Logout</MenuItem>
 					</Menu>
 				</div>
 			</Toolbar>
@@ -68,6 +67,7 @@ Header.propTypes = {
 	actionOpenSideBar: PropTypes.func.isRequired,
 	actionOpenProfile: PropTypes.func.isRequired,
 	actionCloseProfile: PropTypes.func.isRequired,
+	actionLogout: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
@@ -75,6 +75,7 @@ Header.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+	token: state.ReducerLogin.token,
 	openDrawer: state.ReducerHeader.openDrawer,
 	openMenuProfile: state.ReducerHeader.openMenuProfile,
 });
@@ -83,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
 	actionOpenSideBar: () => dispatch(openSideBar()),
 	actionOpenProfile: event => dispatch(openProfile(event)),
 	actionCloseProfile: () => dispatch(closeProfile()),
+	actionLogout: token => dispatch(requestLogout(token)),
 });
 
 export default compose(

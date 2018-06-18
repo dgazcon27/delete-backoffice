@@ -3,11 +3,10 @@ import {
 	LOGOUT,
 	SET_EMAIL,
 	SET_PASSWORD,
-
 } from '../../actions/Login/actionsTypes';
 
 const initialState = {
-	auth: null,
+	auth: localStorage.getItem('token') || null,
 	token: null,
 	email: '',
 	password: '',
@@ -19,11 +18,13 @@ const ReducerLogin = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				token: action.payload.token,
+				auth: true,
 			});
 		case LOGOUT:
 			return ({
 				...state,
 				token: action.payload.token,
+				auth: false,
 			});
 		case SET_EMAIL:
 			return ({

@@ -52,9 +52,30 @@ export const requestLogin = (email, password) => {
 		}),
 	};
 
-	fetch(query, options)
-		.then(response => response.json())
-		.then((response) => {
-			localStorage.setItem('token', response.token);
-		});
+	return (dispatch) => {
+		fetch(query, options)
+			.then(response => response.json())
+			.then((response) => {
+				localStorage.setItem('token', response.token);
+				dispatch(login(response.token));
+			});
+	};
+};
+
+export const requestLogout = (token) => {
+	const query = `http://localhost:8000/graphql/logout?token=${token}`;
+	const options = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	return (dispatch) => {
+		fetch(query, options)
+			.then(() => {
+				dispatch(logout(''));
+				localStorage.setItem('token', '');
+			});
+	};
 };
