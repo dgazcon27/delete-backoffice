@@ -3,8 +3,6 @@ import ReducerLogin from '../../../reducers/Login/reducerLogin';
 import {
 	login,
 	logout,
-	setEmail,
-	setPassword,
 } from '../../../actions/Login/actionsCreators';
 
 describe('test Reducer Header', () => {
@@ -57,7 +55,7 @@ describe('test Reducer Header', () => {
 			.toEqual({ ...initialState, token: null });
 	});
 
-	it('return Method Set Email', () => {
+	/* it('return Method Set Email', () => {
 		expect(ReducerLogin(initialState, setEmail('gregory@gmail.com')))
 			.toEqual({ ...initialState, email: 'gregory@gmail.com' });
 	});
@@ -66,5 +64,5 @@ describe('test Reducer Header', () => {
 	it('return Method Set Password', () => {
 		expect(ReducerLogin(initialState, setPassword('123456')))
 			.toEqual({ ...initialState, password: '123456' });
-	});
+	}); */
 });
