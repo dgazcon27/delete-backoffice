@@ -74,8 +74,8 @@ export const requestLogout = (token) => {
 	return (dispatch) => {
 		fetch(query, options)
 			.then(() => {
-				dispatch(logout(''));
-				localStorage.setItem('token', '');
+				dispatch(logout(null));
+				localStorage.setItem('token', null);
 			});
 	};
 };

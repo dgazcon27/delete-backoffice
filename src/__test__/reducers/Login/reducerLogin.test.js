@@ -1,13 +1,16 @@
+import 'jest-localstorage-mock';
 import ReducerLogin from '../../../reducers/Login/reducerLogin';
 
 import {
 	login,
 	logout,
+	setEmail,
+	setPassword,
 } from '../../../actions/Login/actionsCreators';
 
 describe('test Reducer Header', () => {
 	const initialState = {
-		auth: null,
+		auth: localStorage.getItem('token') || null,
 		token: null,
 		email: '',
 		password: '',
@@ -47,22 +50,21 @@ describe('test Reducer Header', () => {
 
 	it('return Method Login', () => {
 		expect(ReducerLogin(initialState, login('token')))
-			.toEqual({ ...initialState, token: 'token' });
+			.toEqual({ ...initialState, token: 'token', auth: true });
 	});
 
 	it('return Method Logout', () => {
 		expect(ReducerLogin(initialState, logout(null)))
-			.toEqual({ ...initialState, token: null });
+			.toEqual({ ...initialState, token: null, auth: false });
 	});
 
-	/* it('return Method Set Email', () => {
+	it('return Method Set Email', () => {
 		expect(ReducerLogin(initialState, setEmail('gregory@gmail.com')))
 			.toEqual({ ...initialState, email: 'gregory@gmail.com' });
 	});
 
-
 	it('return Method Set Password', () => {
 		expect(ReducerLogin(initialState, setPassword('123456')))
 			.toEqual({ ...initialState, password: '123456' });
-	}); */
+	}); 
 });
