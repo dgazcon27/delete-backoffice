@@ -10,8 +10,8 @@ import {
 
 describe('test Reducer Header', () => {
 	const initialState = {
-		auth: localStorage.getItem('token') || null,
-		token: null,
+		auth: false,
+		token: localStorage.getItem('token') || null,
 		email: '',
 		password: '',
 	};
@@ -66,5 +66,5 @@ describe('test Reducer Header', () => {
 	it('return Method Set Password', () => {
 		expect(ReducerLogin(initialState, setPassword('123456')))
 			.toEqual({ ...initialState, password: '123456' });
-	}); 
+	});
 });
