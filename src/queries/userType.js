@@ -5,6 +5,9 @@ const GET_ROLES = gql`
  		roles {
     		name
     		id
+    		status{
+    			id
+    		}
   		}
  	}
 `;

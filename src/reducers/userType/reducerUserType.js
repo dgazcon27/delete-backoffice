@@ -7,8 +7,11 @@ import {
 } from '../../actions/userType/actionsTypes';
 
 const initialState = {
-	openModal: false,
-	modalType: null,
+	isOpen: false,
+	modalType: 'type',
+	name: 'name',
+	id: 0,
+	statusValue: 0,
 };
 
 const ReducerUserType = (state = initialState, action = {}) => {
@@ -16,28 +19,33 @@ const ReducerUserType = (state = initialState, action = {}) => {
 		case EDIT_USER_TYPE:
 			return ({
 				...state,
-				openModal: true,
+				isOpen: true,
 			});
 		case BLOCK_USER_TYPE:
 			return ({
 				...state,
-				openModal: true,
+				isOpen: false,
+				id: action.payload.id,
+				statusValue: action.payload.status,
 			});
 		case DELETE_USER_TYPE:
 			return ({
 				...state,
-				openModal: true,
+				isOpen: true,
 			});
 		case OPEN_MODAL:
 			return ({
 				...state,
 				modalType: action.payload.modalType,
-				openModal: true,
+				isOpen: true,
+				name: action.payload.name,
+				id: action.payload.id,
+				statusValue: action.payload.statusValue,
 			});
 		case CLOSE_MODAL:
 			return ({
 				...state,
-				openModal: false,
+				isOpen: false,
 			});
 		default:
 			return state;

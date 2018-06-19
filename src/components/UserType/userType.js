@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { Query } from 'react-apollo';
+import {
+	graphql,
+	Query,
+} from 'react-apollo';
+import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
@@ -19,6 +23,7 @@ import {
 	Modal,
 } from '@material-ui/core';
 
+import styles from './userTypeCss';
 import {
 	editUserType,
 	blockUserType,
@@ -28,14 +33,18 @@ import {
 } from '../../actions/userType/actionsCreators';
 
 import GET_ROLES from '../../queries/userType';
-import styles from './userTypeCss';
 
 const UserType = ({
+	id,
+	statusValue,
+	name,
 	classes,
-	modalOpen,
+	isOpen,
 	modalType,
 	actionOpenModal,
 	actionCloseModal,
+	actionBlockUserType,
+	blockRolMutation,
 }) => (
 	<Query query={GET_ROLES}>
 		{({ loading, error, data }) => {
@@ -52,7 +61,6 @@ const UserType = ({
 					<div> Error :( </div>
 				);
 			}
-
 			return (
 				<div>
 					<div>
@@ -81,13 +89,13 @@ const UserType = ({
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell>
-													<IconButton onClick={() => { actionOpenModal('edit'); }}>
+													<IconButton onClick={() => { actionOpenModal('edit', rol); }}>
 														<Edit />
 													</IconButton>
-													<IconButton onClick={() => { actionOpenModal('delete'); }}>
+													<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
 														<Delete />
 													</IconButton>
-													<IconButton onClick={() => { actionOpenModal('block'); }}>
+													<IconButton onClick={() => { actionOpenModal('block', rol); }}>
 														<Block />
 													</IconButton>
 												</TableCell>
@@ -100,7 +108,7 @@ const UserType = ({
 					</div>
 
 					<Modal
-						open={modalOpen}
+						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
 						hideBackdrop
 						disableAutoFocus={false}
@@ -121,74 +129,105 @@ const UserType = ({
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6> Bloquear Rol </h6>
 									<p>
-										`¿Estas seguro que desea bloquear el rol elemento?`
+										¿Estas seguro que desea bloquear el rol {name}?
 									</p>
 									<span>
-										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
-											Si
-										</a>
+										<IconButton
+											onClick={() => { actionBlockUserType(id, statusValue, blockRolMutation); }}
+										>
+										Si
+										</IconButton>
 										&nbsp;
 										&nbsp;
-										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
-											No
-										</a>
+										<IconButton onClick={actionCloseModal} >
+										No
+										</IconButton>
 									</span>
 								</Paper>
 							}
-
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
-									<h6> Eliminar Rol </h6>
+									<h6>
+										Eliminar Rol
+									</h6>
 									<p>
-										`¿Estas seguro que desea bloquear este Elemento?`
+										¿Estas seguro que desea eliminar el rol {name} ?
 									</p>
 									<span>
-										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
+										<IconButton onClick={actionCloseModal}>
 											Si
-										</a>
+										</IconButton>
 										&nbsp;
 										&nbsp;
-										<a onClick={actionCloseModal} className={classNames(classes.a)} role='presentation'>
+										<IconButton onClick={actionCloseModal}>
 											No
-										</a>
+										</IconButton>
 									</span>
 								</Paper>
 							}
 						</div>
 					</Modal>
+
 				</div>
 			);
 		}}
 	</Query>
 );
 
+
+const BLOCK_ROL = gql`
+mutation blockRol($id:Int!, $status:Int!){
+blockedRole(id:$id,status:$status) {
+    name
+    id
+    status {
+      name
+      id
+    }
+	}
+}
+`;
+
 UserType.propTypes = {
-	classes: PropTypes.object.isRequired,
-	modalOpen: PropTypes.bool.isRequired,
+	isOpen: PropTypes.bool,
+	statusValue: PropTypes.number,
 	modalType: PropTypes.string,
+	id: PropTypes.number.isRequired,
+	name: PropTypes.string,
+	classes: PropTypes.object.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
+	actionBlockUserType: PropTypes.func.isRequired,
+	blockRolMutation: PropTypes.func.isRequired,
+
 };
 
 UserType.defaultProps = {
 	modalType: '',
+	isOpen: false,
+	statusValue: 0,
+	name: '',
 };
 
 const mapStateToProps = state => ({
-	modalOpen: state.ReducerUserType.openModal,
+	isOpen: state.ReducerUserType.isOpen,
 	modalType: state.ReducerUserType.modalType,
+	statusValue: state.ReducerUserType.statusValue,
+	name: state.ReducerUserType.name,
+	id: state.ReducerUserType.id,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionEditUserType: () => dispatch(editUserType()),
-	actionBlockUserType: () => dispatch(blockUserType()),
+	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
+	actionBlockUserType: (id, statusValue, blockRolMutation) =>
+		dispatch(blockUserType(id, statusValue, blockRolMutation)),
 	actionDeleteUserType: () => dispatch(deleteUserType()),
-	actionOpenModal: modalType => dispatch(openModal(modalType)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionEditUserType: () => dispatch(editUserType()),
 });
 
 export default compose(
+	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(UserType);
-

@@ -10,8 +10,11 @@ import { openModal } from '../../../actions/userType/actionsCreators';
 
 describe('test Reducer Header', () => {
 	const initialState = {
-		openModal: false,
-		modalType: null,
+		isOpen: false,
+		modalType: 'type',
+		name: 'name',
+		id: 0,
+		statusValue: 0,
 	};
 
 	/*
@@ -48,6 +51,6 @@ describe('test Reducer Header', () => {
 
 	it('return Method Open Modal', () => {
 		expect(ReducerUserType(initialState, openModal('open modal')))
-			.toEqual({ ...initialState, modalType: 'open modal', openModal: true });
+			.toEqual({ ...initialState, modalType: 'open modal', isOpen: true });
 	});
 });
