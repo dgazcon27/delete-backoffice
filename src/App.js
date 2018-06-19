@@ -27,7 +27,7 @@ const App = ({ auth, classes }) => (
 
 App.propTypes = {
 	classes: PropTypes.object.isRequired,
-	auth: PropTypes.string.isRequired,
+	auth: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

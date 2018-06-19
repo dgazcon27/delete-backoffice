@@ -76,6 +76,7 @@ export const requestLogout = (token) => {
 			.then(() => {
 				dispatch(logout(null));
 				localStorage.setItem('token', null);
+				localStorage.removeItem('token');
 			});
 	};
 };

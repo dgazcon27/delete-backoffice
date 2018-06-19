@@ -6,8 +6,8 @@ import {
 } from '../../actions/Login/actionsTypes';
 
 const initialState = {
-	auth: localStorage.getItem('token') || null,
-	token: null,
+	auth: Boolean(localStorage.getItem('token')),
+	token: localStorage.getItem('token') || null,
 	email: '',
 	password: '',
 };
