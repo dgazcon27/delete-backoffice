@@ -6,6 +6,14 @@ import {
 } from './actionsTypes';
 // import fetch from 'isomorphic-fetch';
 
+
+const closeModal = () => ({
+	type: CLOSE_MODAL,
+	payload: {
+		description: CLOSE_MODAL,
+	},
+});
+
 const editUserType = () => ({
 	type: EDIT_USER_TYPE,
 	payload: {
@@ -15,8 +23,9 @@ const editUserType = () => ({
 
 const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
-	return async () => {
+	return async (dispatch) => {
 		await blockRolMutation({ variables: { id, status } });
+		dispatch(closeModal());
 	};
 };
 
@@ -39,12 +48,6 @@ const openModal = (modalType, _rol) => ({
 	},
 });
 
-const closeModal = () => ({
-	type: CLOSE_MODAL,
-	payload: {
-		description: CLOSE_MODAL,
-	},
-});
 
 export {
 	openModal,

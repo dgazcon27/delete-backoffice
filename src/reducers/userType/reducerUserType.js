@@ -24,7 +24,6 @@ const ReducerUserType = (state = initialState, action = {}) => {
 		case BLOCK_USER_TYPE:
 			return ({
 				...state,
-				isOpen: false,
 				id: action.payload.id,
 				statusValue: action.payload.status,
 			});
@@ -36,10 +35,10 @@ const ReducerUserType = (state = initialState, action = {}) => {
 		case OPEN_MODAL:
 			return ({
 				...state,
-				modalType: action.payload.modalType,
 				isOpen: true,
-				name: action.payload.name,
 				id: action.payload.id,
+				name: action.payload.name,
+				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
 		case CLOSE_MODAL:
