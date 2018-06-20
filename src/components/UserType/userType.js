@@ -7,9 +7,7 @@ import {
 	graphql,
 	Query,
 } from 'react-apollo';
-import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import Block from '@material-ui/icons/Block';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import {
@@ -21,6 +19,7 @@ import {
 	TableRow,
 	Paper,
 	Modal,
+	Switch,
 } from '@material-ui/core';
 
 import styles from './userTypeCss';
@@ -32,7 +31,10 @@ import {
 	closeModal,
 } from '../../actions/userType/actionsCreators';
 
-import GET_ROLES from '../../queries/userType';
+import {
+	GET_ROLES,
+	BLOCK_ROL,
+} from '../../queries/userType';
 
 const UserType = ({
 	id,
@@ -95,9 +97,11 @@ const UserType = ({
 													<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
 														<Delete />
 													</IconButton>
-													<IconButton onClick={() => { actionOpenModal('block', rol); }}>
-														<Block />
-													</IconButton>
+													<Switch
+														onClick={() => { actionOpenModal('block', rol); }}
+														checked={rol.status.id === 2}
+														value='checked'
+													/>
 												</TableCell>
 											</TableRow>
 										))
@@ -127,10 +131,21 @@ const UserType = ({
 
 							{modalType === 'block' &&
 								<Paper className={classNames(classes.paperOnModal)}>
-									<h6> Bloquear Rol </h6>
-									<p>
+									{statusValue === 1 && <h6> Bloquear Rol </h6>}
+									{statusValue === 2 && <h6> Desbloquear Rol </h6>}
+									{
+										statusValue === 1 &&
+										<p>
 										¿Estas seguro que desea bloquear el rol {name}?
-									</p>
+										</p>
+									}
+									{
+										statusValue === 2 &&
+										<p>
+											¿Estas seguro que desea desbloquear el rol {name}?
+										</p>
+									}
+
 									<span>
 										<IconButton
 											onClick={() => { actionBlockUserType(id, statusValue, blockRolMutation); }}
@@ -174,19 +189,18 @@ const UserType = ({
 	</Query>
 );
 
-
-const BLOCK_ROL = gql`
-mutation blockRol($id:Int!, $status:Int!){
-blockedRole(id:$id,status:$status) {
-    name
-    id
-    status {
-      name
-      id
-    }
-	}
-}
-`;
+// const BLOCK_ROL = gql`
+// mutation blockRol($id:Int!, $status:Int!){
+// blockedRole(id:$id,status:$status) {
+//     name
+//     id
+//     status {
+//       name
+//       id
+//     }
+// 	}
+// }
+// `;
 
 UserType.propTypes = {
 	isOpen: PropTypes.bool,

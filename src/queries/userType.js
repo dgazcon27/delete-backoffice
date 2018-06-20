@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const GET_ROLES = gql`
+export const GET_ROLES = gql`
  	query { 
  		roles {
     		name
@@ -11,4 +11,17 @@ const GET_ROLES = gql`
   		}
  	}
 `;
-export default GET_ROLES;
+
+export const BLOCK_ROL = gql`
+mutation blockRol($id:Int!, $status:Int!){
+blockedRole(id:$id,status:$status) {
+    name
+    id
+    status {
+      name
+      id
+    }
+	}
+}
+`;
+// export default { GET_ROLES, BLOCK_ROL };
