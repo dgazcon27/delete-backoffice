@@ -7,6 +7,8 @@ import {
 	SET_PASSWORD,
 } from './actionsTypes';
 
+import { closeProfile } from '../../actions/Header/actionsCreators';
+
 export const login = token => ({
 	type: LOGIN,
 	payload: {
@@ -65,7 +67,6 @@ export const requestLogin = (email, password) => {
 export const requestLogout = (token) => {
 	const query = `http://localhost:8000/graphql/logout?token=${token}`;
 	const options = {
-		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -74,6 +75,7 @@ export const requestLogout = (token) => {
 	return (dispatch) => {
 		fetch(query, options)
 			.then(() => {
+				dispatch(closeProfile());
 				dispatch(logout(null));
 				localStorage.setItem('token', null);
 				localStorage.removeItem('token');

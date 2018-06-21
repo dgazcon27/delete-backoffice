@@ -84,7 +84,7 @@ const mapDispatchToProps = dispatch => ({
 	actionOpenSideBar: () => dispatch(openSideBar()),
 	actionOpenProfile: event => dispatch(openProfile(event)),
 	actionCloseProfile: () => dispatch(closeProfile()),
-	actionLogout: token => dispatch(requestLogout(token)),
+	actionLogout: (event, token) => dispatch(requestLogout(token)),
 });
 
 export default compose(

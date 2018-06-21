@@ -41,7 +41,7 @@ const openModal = (modalType, _rol) => ({
 	type: OPEN_MODAL,
 	payload: {
 		modalType,
-		description: openModal,
+		description: OPEN_MODAL,
 		statusValue: _rol.status.id,
 		name: _rol.name,
 		id: _rol.id,
@@ -56,3 +56,4 @@ export {
 	blockUserType,
 	deleteUserType,
 };
+

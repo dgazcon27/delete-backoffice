@@ -2,7 +2,6 @@ import configureStore from 'redux-mock-store';
 
 import {
 	editUserType,
-	blockUserType,
 	deleteUserType,
 	openModal,
 	closeModal,
@@ -25,19 +24,19 @@ describe('Test Actions Creator UserType', () => {
 		expect(actions[0].type).toEqual('EDIT_USER_TYPE');
 	});
 
-	it('Block User Type', () => {
-		const store = mockStore({});
+	/* it('Block User Type', () => {
+		//const store = mockStore({});
 
 		// Se despacha el actionCreator ha probar
-		store.dispatch(blockUserType());
-		const actions = store.getActions();
+		// store.dispatch(blockUserType());
+		// const actions = store.getActions();
 
 		// Se verifica que se despacho una unica accion
-		expect(actions.length).toBe(1);
+		// expect(actions.length).toBe(1);
 
 		// Se verifica que la accion ejecutada sea la correcta
-		expect(actions[0].type).toEqual('BLOCK_USER_TYPE');
-	});
+		// expect(actions[0].type).toEqual('BLOCK_USER_TYPE');
+	}); */
 
 	it('Delete User Type', () => {
 		const store = mockStore({});
@@ -55,9 +54,14 @@ describe('Test Actions Creator UserType', () => {
 
 	it('Open Modal', () => {
 		const store = mockStore({});
+		const rol = {
+			status: { id: 1 },
+			name: 'ADMIN',
+			id: 1,
+		};
 
 		// Se despacha el actionCreator ha probar
-		store.dispatch(openModal());
+		store.dispatch(openModal('TYPE_OF_MODAL', rol));
 		const actions = store.getActions();
 
 		// Se verifica que se despacho una unica accion
