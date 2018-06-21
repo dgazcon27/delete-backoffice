@@ -43,7 +43,7 @@ const openModal = (modalType, _rol) => ({
 		modalType,
 		description: openModal,
 		statusValue: _rol.status.id,
-		_name: _rol.name,
+		name: _rol.name,
 		id: _rol.id,
 	},
 });
