@@ -20,6 +20,7 @@ import {
 	Paper,
 	Modal,
 	Switch,
+	Tooltip,
 } from '@material-ui/core';
 
 import styles from './userTypeCss';
@@ -74,34 +75,47 @@ const UserType = ({
 								Agregar Nuevo
 							</a>
 						</h5>
-
 						<Paper>
-							<Table >
-
+							<Table>
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
-										<TableCell>Opciones</TableCell>
+										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
-
 								<TableBody>
 									{
 										data.roles.map(rol => (
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
-												<TableCell>
+												<TableCell className={classes.alignRight}>
 													<IconButton onClick={() => { actionOpenModal('edit', rol); }}>
 														<Edit />
 													</IconButton>
-													<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
-														<Delete />
-													</IconButton>
-													<Switch
-														onClick={() => { actionOpenModal('block', rol); }}
-														checked={rol.status.id === 2}
-														value='checked'
-													/>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Eliminar Rol'
+													>
+														<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
+															<Delete />
+														</IconButton>
+													</Tooltip>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Bloquear / Desbloquear'
+													>
+														<Switch
+															onClick={() => { actionOpenModal('block', rol); }}
+															checked={rol.status.id === 2}
+															value='checked'
+														/>
+													</Tooltip>
 												</TableCell>
 											</TableRow>
 										))
@@ -188,19 +202,6 @@ const UserType = ({
 		}}
 	</Query>
 );
-
-// const BLOCK_ROL = gql`
-// mutation blockRol($id:Int!, $status:Int!){
-// blockedRole(id:$id,status:$status) {
-//     name
-//     id
-//     status {
-//       name
-//       id
-//     }
-// 	}
-// }
-// `;
 
 UserType.propTypes = {
 	isOpen: PropTypes.bool,

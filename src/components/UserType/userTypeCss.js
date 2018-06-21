@@ -11,6 +11,14 @@ const styles = () => ({
 		padding: '25px',
 		marginTop: '45% !important',
 	},
+	alignRight: {
+		textAlign: 'right',
+		paddingRight: '3% !important',
+	},
+	alignRightOption: {
+		textAlign: 'right',
+		paddingRight: '10% !important',
+	},
 });
 
 export default styles;

@@ -20,6 +20,5 @@ export const getMiddleware = () => {
 	/* if (false) {
 		return applyMiddleware(promiseMiddleware, localStorageMiddleware);
 	}
-
 	return applyMiddleware(promiseMiddleware, localStorageMiddleware, createLogger()); */
 };

@@ -8,8 +8,8 @@ import {
 
 const initialState = {
 	isOpen: false,
-	modalType: 'type',
-	name: 'name',
+	modalType: '',
+	name: '',
 	id: 0,
 	statusValue: 0,
 };

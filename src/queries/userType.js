@@ -11,7 +11,6 @@ export const GET_ROLES = gql`
   		}
  	}
 `;
-
 export const BLOCK_ROL = gql`
 mutation blockRol($id:Int!, $status:Int!){
 blockedRole(id:$id,status:$status) {
@@ -24,4 +23,3 @@ blockedRole(id:$id,status:$status) {
 	}
 }
 `;
-// export default { GET_ROLES, BLOCK_ROL };
