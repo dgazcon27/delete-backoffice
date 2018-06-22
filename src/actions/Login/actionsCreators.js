@@ -58,6 +58,10 @@ export const requestLogin = (email, password) => {
 		fetch(query, options)
 			.then(response => response.json())
 			.then((response) => {
+				if (response.error) {
+					return;
+				}
+
 				localStorage.setItem('token', response.token);
 				dispatch(login(response.token));
 			});
