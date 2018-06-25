@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {
+	compose,
 	graphql,
 	Query,
 } from 'react-apollo';
@@ -35,6 +35,7 @@ import {
 import {
 	GET_ROLES,
 	BLOCK_ROL,
+	DELETE_ROL,
 } from '../../queries/userType';
 
 const UserType = ({
@@ -46,8 +47,10 @@ const UserType = ({
 	modalType,
 	actionOpenModal,
 	actionCloseModal,
-	actionBlockUserType,
 	blockRolMutation,
+	deleteRolMutation,
+	actionBlockUserType,
+	actionDeleteUserType,
 }) => (
 	<Query query={GET_ROLES}>
 		{({ loading, error, data }) => {
@@ -58,7 +61,6 @@ const UserType = ({
 					</div>
 				);
 			}
-
 			if (error) {
 				return (
 					<div> Error :( </div>
@@ -124,7 +126,6 @@ const UserType = ({
 							</Table>
 						</Paper>
 					</div>
-
 					<Modal
 						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
@@ -183,7 +184,10 @@ const UserType = ({
 										¿Estas seguro que desea eliminar el rol {name} ?
 									</p>
 									<span>
-										<IconButton onClick={actionCloseModal}>
+										<IconButton onClick={() => {
+											actionDeleteUserType(id, statusValue, deleteRolMutation);
+										}}
+										>
 											Si
 										</IconButton>
 										&nbsp;
@@ -205,43 +209,47 @@ const UserType = ({
 
 UserType.propTypes = {
 	isOpen: PropTypes.bool,
-	statusValue: PropTypes.number,
-	modalType: PropTypes.string,
-	id: PropTypes.number.isRequired,
 	name: PropTypes.string,
+	modalType: PropTypes.string,
+	statusValue: PropTypes.number,
+	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	actionBlockUserType: PropTypes.func.isRequired,
+	actionDeleteUserType: PropTypes.func.isRequired,
 	blockRolMutation: PropTypes.func.isRequired,
-
+	deleteRolMutation: PropTypes.func.isRequired,
+	actionBlockUserType: PropTypes.func.isRequired,
 };
 
 UserType.defaultProps = {
-	modalType: '',
-	isOpen: false,
-	statusValue: 0,
 	name: '',
+	isOpen: false,
+	modalType: '',
+	statusValue: 0,
 };
 
 const mapStateToProps = state => ({
+	id: state.ReducerUserType.id,
+	name: state.ReducerUserType.name,
 	isOpen: state.ReducerUserType.isOpen,
+	update: state.ReducerUserType.update,
 	modalType: state.ReducerUserType.modalType,
 	statusValue: state.ReducerUserType.statusValue,
-	name: state.ReducerUserType.name,
-	id: state.ReducerUserType.id,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
 	actionBlockUserType: (id, statusValue, blockRolMutation) =>
 		dispatch(blockUserType(id, statusValue, blockRolMutation)),
-	actionDeleteUserType: () => dispatch(deleteUserType()),
+	actionDeleteUserType: (id, statusValue, deleteRolMutation) =>
+		dispatch(deleteUserType(id, statusValue, deleteRolMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionEditUserType: () => dispatch(editUserType()),
 });
 
 export default compose(
+	graphql(DELETE_ROL, { name: 'deleteRolMutation', options: { refetchQueries: [{ query: GET_ROLES }] } }),
 	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),

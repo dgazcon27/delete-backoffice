@@ -4,6 +4,7 @@ import {
 	DELETE_USER_TYPE,
 	OPEN_MODAL,
 	CLOSE_MODAL,
+	UPDATE_VIEW,
 } from '../../actions/userType/actionsTypes';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 	name: '',
 	id: 0,
 	statusValue: 0,
+	update: false,
 };
 
 const ReducerUserType = (state = initialState, action = {}) => {
@@ -46,6 +48,12 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				isOpen: false,
 			});
+		case UPDATE_VIEW:
+			return (
+				{
+					...state,
+					update: !action.payload.update,
+				});
 		default:
 			return state;
 	}

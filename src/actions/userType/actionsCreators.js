@@ -1,11 +1,8 @@
 import {
 	EDIT_USER_TYPE,
-	DELETE_USER_TYPE,
-	OPEN_MODAL,
 	CLOSE_MODAL,
+	OPEN_MODAL,
 } from './actionsTypes';
-// import fetch from 'isomorphic-fetch';
-
 
 const closeModal = () => ({
 	type: CLOSE_MODAL,
@@ -20,7 +17,6 @@ const editUserType = () => ({
 		description: EDIT_USER_TYPE,
 	},
 });
-
 const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
@@ -28,14 +24,13 @@ const blockUserType = (id, statusValue, blockRolMutation) => {
 		dispatch(closeModal());
 	};
 };
-
-const deleteUserType = () => ({
-	type: DELETE_USER_TYPE,
-	payload: {
-		description: DELETE_USER_TYPE,
-	},
-});
-
+const deleteUserType = (id, statusValue, deleteRolMutation) => {
+	const status = statusValue;
+	return async (dispatch) => {
+		await deleteRolMutation({ variables: { id, status } });
+		dispatch(closeModal());
+	};
+};
 
 const openModal = (modalType, _rol) => ({
 	type: OPEN_MODAL,
@@ -47,7 +42,6 @@ const openModal = (modalType, _rol) => ({
 		id: _rol.id,
 	},
 });
-
 
 export {
 	openModal,

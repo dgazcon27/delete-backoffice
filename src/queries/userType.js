@@ -12,14 +12,22 @@ export const GET_ROLES = gql`
  	}
 `;
 export const BLOCK_ROL = gql`
-mutation blockRol($id:Int!, $status:Int!){
-blockedRole(id:$id,status:$status) {
-    name
-    id
-    status {
-      name
-      id
+    mutation blockRol($id:Int!, $status:Int!) {
+        blockedRole(id:$id,status:$status) {
+            name
+            id
+            status {
+                name
+                id
+            }
+        }
     }
-	}
-}
+`;
+export const DELETE_ROL = gql`
+    mutation deleteRole($id:Int!){
+        deleteRole(id:$id) {
+            id
+            name
+        }
+    }
 `;
