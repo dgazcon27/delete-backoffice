@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import logo from './logo-delete.svg';
 
 import {
 	setEmail,
@@ -28,24 +29,41 @@ const styles = theme => ({
 		'border-radius': '0.3em',
 		'-webkit-box-shadow': '1px 3px 8px 3px #8e8e8e73',
 		'box-shadow': '1px 3px 8px 3px #8e8e8e73',
-		border: '2px solid grey',
+		border: '3px solid #455A64',
 		padding: '54px',
+		'text-align': 'left',
+		'background-color': '#ffffff',
 	},
 	centerLogin: {
 		display: 'flex',
 		'justify-content': 'center',
 		'align-items': 'center',
-		height: '100vh',
+		height: '60vh',
 	},
 	enterButton: {
 		float: 'right',
+		'background-color': '#455A64 !important',
 	},
 	recoverPassword: {
 		float: 'left',
 		'margin-top': '0.7vh',
+		color: '#90A4AE',
 	},
 	marginButtons: {
 		'margin-top': '8vh',
+	},
+	centerLogo: {
+		display: 'flex',
+		'justify-content': 'center',
+		'align-items': 'center',
+		'margin-top': '15vh',
+	},
+	label: {
+		'font-size': '14px',
+	},
+	inputs: {
+		'font-size': '16px !important',
+		'border-bottom': '2px solid #455A64 !important',
 	},
 });
 
@@ -56,44 +74,56 @@ const Login = ({
 	actionSetEmail,
 	actionSetPassword,
 	classes,
+}) => {
+	const html = document.querySelector('html');
+	html.setAttribute('style', 'background-color: #eceff1');
 
-}) => (
-	<Grid container className={classes.centerLogin}>
-		<div className={`${classes.paper} ${classes.login}`}>
-			<label htmlFor='Email'>
-				Usuario o email
-				<input
-					type='email'
-					defaultValue={email}
-					onChange={actionSetEmail}
-					placeholder='Email'
-				/>
-			</label>
+	return (
+		<div>
+			<Grid container className={classes.centerLogo}>
+				<img src={logo} alt='Logo Delete' width='500px' />
+			</Grid>
 
-			<label htmlFor='password'>
-				Contraseña
-				<input
-					type='password'
-					defaultValue={password}
-					onChange={actionSetPassword}
-					placeholder='Contraseña'
-				/>
-			</label>
+			<Grid container className={classes.centerLogin}>
+				<div className={`${classes.paper} ${classes.login}`}>
+					<label className={classes.label} htmlFor='Email'>
+						Usuario o email
+						<input
+							className={classes.inputs}
+							type='email'
+							defaultValue={email}
+							onChange={actionSetEmail}
+							placeholder='Email'
+						/>
+					</label>
 
-			<div className={classes.marginButtons}>
-				<a href='/' className={classes.recoverPassword}>Olvidé mi contraseña</a>
-				<Button
-					className={classes.enterButton}
-					color='primary'
-					onClick={() => actionLogin(email, password)}
-					variant='raised'
-				>
-					Ingresar
-				</Button>
-			</div>
+					<label className={classes.label} htmlFor='password'>
+						Contraseña
+						<input
+							className={classes.inputs}
+							type='password'
+							defaultValue={password}
+							onChange={actionSetPassword}
+							placeholder='Contraseña'
+						/>
+					</label>
+
+					<div className={classes.marginButtons}>
+						<a href='/' className={classes.recoverPassword}>Olvidé mi contraseña</a>
+						<Button
+							className={classes.enterButton}
+							color='primary'
+							onClick={() => actionLogin(email, password)}
+							variant='raised'
+						>
+							Ingresar
+						</Button>
+					</div>
+				</div>
+			</Grid>
 		</div>
-	</Grid>
-);
+	);
+};
 
 Login.propTypes = {
 	email: PropTypes.string.isRequired,
