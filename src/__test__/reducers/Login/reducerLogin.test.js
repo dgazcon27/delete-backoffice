@@ -6,10 +6,12 @@ import {
 	logout,
 	setEmail,
 	setPassword,
+	setError,
 } from '../../../actions/Login/actionsCreators';
 
 describe('test Reducer Header', () => {
 	const initialState = {
+		error: false,
 		auth: false,
 		token: localStorage.getItem('token') || null,
 		email: '',
@@ -66,5 +68,10 @@ describe('test Reducer Header', () => {
 	it('return Method Set Password', () => {
 		expect(ReducerLogin(initialState, setPassword('123456')))
 			.toEqual({ ...initialState, password: '123456' });
+	});
+
+	it('return Method Set Password', () => {
+		expect(ReducerLogin(initialState, setError(true)))
+			.toEqual({ ...initialState, error: true });
 	});
 });

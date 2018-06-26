@@ -3,9 +3,11 @@ import {
 	LOGOUT,
 	SET_EMAIL,
 	SET_PASSWORD,
+	SET_ERROR_STATUS,
 } from '../../actions/Login/actionsTypes';
 
 const initialState = {
+	error: false,
 	auth: Boolean(localStorage.getItem('token')),
 	token: localStorage.getItem('token') || null,
 	email: '',
@@ -35,6 +37,11 @@ const ReducerLogin = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				password: action.payload.password,
+			});
+		case SET_ERROR_STATUS:
+			return ({
+				...state,
+				error: action.payload.error,
 			});
 		default:
 			return state;

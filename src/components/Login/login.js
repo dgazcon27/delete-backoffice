@@ -62,12 +62,25 @@ const styles = theme => ({
 		'font-size': '14px',
 	},
 	inputs: {
-		'font-size': '16px !important',
 		'border-bottom': '2px solid #455A64 !important',
+		'font-size': '16px !important',
+	},
+	error: {
+		'background-color': '#455A64',
+		color: 'white',
+		height: '9%',
+		'margin-top': '22.5vh',
+		padding: '31px',
+		position: 'absolute',
+		width: 'auto',
+		'-webkit-box-shadow': '1px 3px 8px 3px #8e8e8e73',
+		'box-shadow': '1px 3px 8px 3px #8e8e8e73',
+		'font-size': '16px',
 	},
 });
 
 const Login = ({
+	error,
 	email,
 	password,
 	actionLogin,
@@ -120,12 +133,18 @@ const Login = ({
 						</Button>
 					</div>
 				</div>
+				{error &&
+					<div className={classes.error}>
+						Usuario y contraseña no concuerdan
+					</div>
+				}
 			</Grid>
 		</div>
 	);
 };
 
 Login.propTypes = {
+	error: PropTypes.bool.isRequired,
 	email: PropTypes.string.isRequired,
 	password: PropTypes.string.isRequired,
 	actionLogin: PropTypes.func.isRequired,
@@ -135,6 +154,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
+	error: state.ReducerLogin.error,
 	email: state.ReducerLogin.email,
 	password: state.ReducerLogin.password,
 });
