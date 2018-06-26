@@ -5,6 +5,7 @@ import {
 	LOGOUT,
 	SET_EMAIL,
 	SET_PASSWORD,
+	SET_ERROR_STATUS,
 } from './actionsTypes';
 
 import { closeProfile } from '../../actions/Header/actionsCreators';
@@ -41,6 +42,14 @@ export const setPassword = password => ({
 	},
 });
 
+export const setError = error => ({
+	type: SET_ERROR_STATUS,
+	payload: {
+		description: SET_ERROR_STATUS,
+		error,
+	},
+});
+
 export const requestLogin = (email, password) => {
 	const query = 'http://localhost:8000/graphql/login';
 	const options = {
@@ -58,8 +67,12 @@ export const requestLogin = (email, password) => {
 		fetch(query, options)
 			.then(response => response.json())
 			.then((response) => {
-				localStorage.setItem('token', response.token);
-				dispatch(login(response.token));
+				if (response.error) {
+					dispatch(setError(true));
+				} else {
+					localStorage.setItem('token', response.token);
+					dispatch(login(response.token));
+				}
 			});
 	};
 };
