@@ -10,10 +10,11 @@ import { openModal } from '../../../actions/userType/actionsCreators';
 
 describe('test Reducer Header', () => {
 	const initialState = {
-		isOpen: false,
-		modalType: '',
-		name: '',
 		id: 0,
+		name: '',
+		modalType: '',
+		isOpen: false,
+		descripcion: '',
 		statusValue: 0,
 	};
 

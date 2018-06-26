@@ -20,8 +20,8 @@ const styles = () => ({
 		paddingRight: '10% !important',
 	},
 	createContainer: {
-		height: '50%',
-		width: '50%',
+		height: '20%',
+		width: '40%',
 		display: 'block',
 		position: 'absolute !important',
 		top: '40% !important',

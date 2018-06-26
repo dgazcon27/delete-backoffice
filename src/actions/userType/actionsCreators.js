@@ -27,6 +27,7 @@ export const blockUserType = (id, statusValue, blockRolMutation) => {
 		dispatch(closeModal());
 	};
 };
+
 export const deleteUserType = (id, statusValue, deleteRolMutation) => {
 	const status = statusValue;
 	return async (dispatch) => {
@@ -62,6 +63,9 @@ export const setDescription = descripcion => ({
 	},
 });
 
-export const createRol = (name, descripcion, createRolMutation) =>
-	(async () => { await createRolMutation({ variables: { name, descripcion } }); });
-
+export const createRol = (name, descripcion, createRolMutation) => async (dispatch) => {
+	if (name !== '' && descripcion !== '') {
+		await createRolMutation({ variables: { name, descripcion } });
+		dispatch(closeModal());
+	}
+};
