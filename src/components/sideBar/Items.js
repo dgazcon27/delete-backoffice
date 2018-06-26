@@ -71,6 +71,14 @@ const Items = (
 				<ListItemText primary='UserType' />
 			</ListItem>
 		</Link>
+		<Link to='/user-type-create' href='/user-type-create'>
+			<ListItem button>
+				<ListItemIcon>
+					<DraftsIcon />
+				</ListItemIcon>
+				<ListItemText primary='UserTypeCreate' />
+			</ListItem>
+		</Link>
 		<Divider />
 
 		<ListItem button>

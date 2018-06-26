@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
+import UserTypeCreate from '../UserType/userTypeCreate';
 import Users from '../Users/users';
 
 const Main = (props) => {
@@ -16,6 +17,7 @@ const Main = (props) => {
 				<Route path='/pre-sale' component={Presale} />
 				<Route path='/box-office' component={BoxOffice} />
 				<Route path='/user-type' component={UserType} />
+				<Route path='/user-type-create' component={UserTypeCreate} />
 				<Route path='/users' component={Users} />
 			</Switch>
 		</main>

@@ -4,16 +4,17 @@ import {
 	DELETE_USER_TYPE,
 	OPEN_MODAL,
 	CLOSE_MODAL,
-	UPDATE_VIEW,
+	SET_NAME,
+	SET_DESCRIPTION,
 } from '../../actions/userType/actionsTypes';
 
 const initialState = {
+	id: 0,
+	name: '',
 	isOpen: false,
 	modalType: '',
-	name: '',
-	id: 0,
+	descripcion: '',
 	statusValue: 0,
-	update: false,
 };
 
 const ReducerUserType = (state = initialState, action = {}) => {
@@ -48,12 +49,16 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				isOpen: false,
 			});
-		case UPDATE_VIEW:
-			return (
-				{
-					...state,
-					update: !action.payload.update,
-				});
+		case SET_NAME:
+			return ({
+				...state,
+				name: action.payload.name,
+			});
+		case SET_DESCRIPTION:
+			return ({
+				...state,
+				descripcion: action.payload.descripcion,
+			});
 		default:
 			return state;
 	}

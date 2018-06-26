@@ -1,30 +1,33 @@
 import {
-	EDIT_USER_TYPE,
-	CLOSE_MODAL,
+	SET_NAME,
 	OPEN_MODAL,
+	CLOSE_MODAL,
+	EDIT_USER_TYPE,
+	SET_DESCRIPTION,
 } from './actionsTypes';
 
-const closeModal = () => ({
+export const closeModal = () => ({
 	type: CLOSE_MODAL,
 	payload: {
 		description: CLOSE_MODAL,
 	},
 });
 
-const editUserType = () => ({
+export const editUserType = () => ({
 	type: EDIT_USER_TYPE,
 	payload: {
 		description: EDIT_USER_TYPE,
 	},
 });
-const blockUserType = (id, statusValue, blockRolMutation) => {
+
+export const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
 		await blockRolMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };
-const deleteUserType = (id, statusValue, deleteRolMutation) => {
+export const deleteUserType = (id, statusValue, deleteRolMutation) => {
 	const status = statusValue;
 	return async (dispatch) => {
 		await deleteRolMutation({ variables: { id, status } });
@@ -32,7 +35,7 @@ const deleteUserType = (id, statusValue, deleteRolMutation) => {
 	};
 };
 
-const openModal = (modalType, _rol) => ({
+export const openModal = (modalType, _rol) => ({
 	type: OPEN_MODAL,
 	payload: {
 		modalType,
@@ -43,11 +46,22 @@ const openModal = (modalType, _rol) => ({
 	},
 });
 
-export {
-	openModal,
-	closeModal,
-	editUserType,
-	blockUserType,
-	deleteUserType,
-};
+export const setName = name => ({
+	type: SET_NAME,
+	payload: {
+		description: SET_NAME,
+		name,
+	},
+});
+
+export const setDescription = descripcion => ({
+	type: SET_DESCRIPTION,
+	payload: {
+		description: SET_DESCRIPTION,
+		descripcion,
+	},
+});
+
+export const createRol = (name, descripcion, createRolMutation) =>
+	(async () => { await createRolMutation({ variables: { name, descripcion } }); });
 

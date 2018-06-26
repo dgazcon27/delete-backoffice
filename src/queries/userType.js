@@ -31,3 +31,11 @@ export const DELETE_ROL = gql`
         }
     }
 `;
+export const CREATE_ROL = gql`
+    mutation createRol($name:String!, $descripcion:String!){
+        createRole(name:$name, description:$descripcion){
+            id
+            name
+        }
+    }
+`;

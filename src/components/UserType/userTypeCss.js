@@ -19,6 +19,20 @@ const styles = () => ({
 		textAlign: 'right',
 		paddingRight: '10% !important',
 	},
+	createContainer: {
+		height: '50%',
+		width: '50%',
+		display: 'block',
+		position: 'absolute !important',
+		top: '40% !important',
+		left: '20% !important',
+	},
+	createButton: {
+		display: 'inline',
+		left: '20% !important',
+		margin: '25px',
+		padding: '25px',
+	},
 });
 
 export default styles;

@@ -233,7 +233,6 @@ const mapStateToProps = state => ({
 	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
 	isOpen: state.ReducerUserType.isOpen,
-	update: state.ReducerUserType.update,
 	modalType: state.ReducerUserType.modalType,
 	statusValue: state.ReducerUserType.statusValue,
 });
