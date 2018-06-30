@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SideBar from './components/sideBar/sideBar';
@@ -35,6 +36,7 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
+	withRouter,
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, null),
 )(App);
