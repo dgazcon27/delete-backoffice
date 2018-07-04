@@ -51,8 +51,9 @@ const UserType = ({
 	deleteRolMutation,
 	actionBlockUserType,
 	actionDeleteUserType,
+	paginationPage,
 }) => (
-	<Query query={GET_ROLES}>
+	<Query query={GET_ROLES} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -220,6 +221,7 @@ UserType.propTypes = {
 	blockRolMutation: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
 	actionBlockUserType: PropTypes.func.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 };
 
 UserType.defaultProps = {
@@ -235,6 +237,7 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerUserType.isOpen,
 	modalType: state.ReducerUserType.modalType,
 	statusValue: state.ReducerUserType.statusValue,
+	paginationPage: state.ReducerUserType.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
