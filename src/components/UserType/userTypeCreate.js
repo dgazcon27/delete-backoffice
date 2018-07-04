@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,7 +13,7 @@ import {
 	Input,
 } from '@material-ui/core';
 import styles from './userTypeCss';
-import { CREATE_ROL } from '../../queries/userType';
+import { CREATE_ROL, GET_ROLES_WRAPPER } from '../../queries/userType';
 import {
 	setName,
 	setDescription,
@@ -26,6 +28,7 @@ const UserTypeCreate = ({
 	actionCreateRol,
 	createRolMutation,
 	actionSetDescription,
+	paginationPage,
 }) => (
 	<div>
 		<h4>Nuevo Rol</h4>
@@ -66,20 +69,25 @@ UserTypeCreate.propTypes = {
 	actionCreateRol: PropTypes.func.isRequired,
 	createRolMutation: PropTypes.func.isRequired,
 	actionSetDescription: PropTypes.func.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
+	paginationPage: state.ReducerUserType.paginationPage,
 });
+
 const mapDispatchToProps = dispatch => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionCreateRol: (name, descripcion, createRolMutation) =>
 		dispatch(createRol(name, descripcion, createRolMutation)),
 });
+
 export default compose(
-	graphql(CREATE_ROL, { name: 'createRolMutation' }),
+	graphql(CREATE_ROL, { name: 'createRolMutation', options: { refetchQueries: [{ query: GET_ROLES_WRAPPER }] } }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
+	GET_ROLES_WRAPPER,
 )(UserTypeCreate);

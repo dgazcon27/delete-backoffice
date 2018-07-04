@@ -15,6 +15,7 @@ const initialState = {
 	modalType: '',
 	descripcion: '',
 	statusValue: 0,
+	paginationPage: 1,
 };
 
 const ReducerUserType = (state = initialState, action = {}) => {
