@@ -33,6 +33,7 @@ import {
 } from '../../actions/userType/actionsCreators';
 
 import {
+	GET_ROLES_WRAPPER,
 	GET_ROLES,
 	BLOCK_ROL,
 	DELETE_ROL,
@@ -251,7 +252,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-	graphql(DELETE_ROL, { name: 'deleteRolMutation', options: { refetchQueries: [{ query: GET_ROLES }] } }),
+	graphql(DELETE_ROL, { name: 'deleteRolMutation', options: { refetchQueries: [{ query: GET_ROLES_WRAPPER }] } }),
 	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
