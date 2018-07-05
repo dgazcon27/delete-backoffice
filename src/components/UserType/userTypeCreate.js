@@ -13,7 +13,7 @@ import {
 	Input,
 } from '@material-ui/core';
 import styles from './userTypeCss';
-import { CREATE_ROL, GET_ROLES_WRAPPER } from '../../queries/userType';
+import { CREATE_ROL } from '../../queries/userType';
 import {
 	setName,
 	setDescription,
@@ -50,7 +50,7 @@ const UserTypeCreate = ({
 				defaultValue={descripcion}
 				onChange={actionSetDescription}
 			/>
-			<IconButton className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, createRolMutation)}>
+			<IconButton className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
 				Crear
 			</IconButton>
 			<IconButton className={classes.createButton} type='submit' >
@@ -78,16 +78,15 @@ const mapStateToProps = state => ({
 	paginationPage: state.ReducerUserType.paginationPage,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionCreateRol: (name, descripcion, createRolMutation) =>
-		dispatch(createRol(name, descripcion, createRolMutation)),
+	actionCreateRol: (name, descripcion, paginationPage, createRolMutation) =>
+		dispatch(createRol(name, descripcion, paginationPage, createRolMutation)),
 });
 
 export default compose(
-	graphql(CREATE_ROL, { name: 'createRolMutation', options: { refetchQueries: [{ query: GET_ROLES_WRAPPER }] } }),
+	graphql(CREATE_ROL, { name: 'createRolMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-	GET_ROLES_WRAPPER,
 )(UserTypeCreate);

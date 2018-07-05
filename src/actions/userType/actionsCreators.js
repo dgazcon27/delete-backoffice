@@ -6,6 +6,8 @@ import {
 	SET_DESCRIPTION,
 } from './actionsTypes';
 
+import { GET_ROLES } from '../../queries/userType';
+
 export const closeModal = () => ({
 	type: CLOSE_MODAL,
 	payload: {
@@ -28,10 +30,13 @@ export const blockUserType = (id, statusValue, blockRolMutation) => {
 	};
 };
 
-export const deleteUserType = (id, statusValue, deleteRolMutation) => {
+export const deleteUserType = (id, statusValue, paginationPage, deleteRolMutation) => {
 	const status = statusValue;
 	return async (dispatch) => {
-		await deleteRolMutation({ variables: { id, status } });
+		await deleteRolMutation({
+			variables: { id, status },
+			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+		});
 		dispatch(closeModal());
 	};
 };
@@ -63,9 +68,13 @@ export const setDescription = descripcion => ({
 	},
 });
 
-export const createRol = (name, descripcion, createRolMutation) => async (dispatch) => {
-	if (name !== '' && descripcion !== '') {
-		await createRolMutation({ variables: { name, descripcion } });
-		dispatch(closeModal());
-	}
-};
+export const createRol = (name, descripcion, paginationPage, createRolMutation) =>
+	async (dispatch) => {
+		if (name !== '' && descripcion !== '') {
+			await createRolMutation({
+				variables: { name, descripcion },
+				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+			});
+			dispatch(closeModal());
+		}
+	};

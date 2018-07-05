@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 
 export const GET_ROLES = gql`
 	query roles($paginationPage:Int!) {
@@ -13,15 +12,6 @@ export const GET_ROLES = gql`
 		}
 	}
 `;
-
-export const GET_ROLES_WRAPPER = graphql(GET_ROLES, {
-	options: ownProps => ({
-		variables: {
-			paginationPage: ownProps.paginationPage,
-		},
-	}),
-});
-
 
 export const BLOCK_ROL = gql`
 	mutation blockRol($id:Int!, $status:Int!) {

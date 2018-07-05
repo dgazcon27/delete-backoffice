@@ -33,7 +33,6 @@ import {
 } from '../../actions/userType/actionsCreators';
 
 import {
-	GET_ROLES_WRAPPER,
 	GET_ROLES,
 	BLOCK_ROL,
 	DELETE_ROL,
@@ -177,6 +176,7 @@ const UserType = ({
 									</span>
 								</Paper>
 							}
+
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6>
@@ -187,7 +187,7 @@ const UserType = ({
 									</p>
 									<span>
 										<IconButton onClick={() => {
-											actionDeleteUserType(id, statusValue, deleteRolMutation);
+											actionDeleteUserType(id, statusValue, paginationPage, deleteRolMutation);
 										}}
 										>
 											Si
@@ -245,14 +245,14 @@ const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
 	actionBlockUserType: (id, statusValue, blockRolMutation) =>
 		dispatch(blockUserType(id, statusValue, blockRolMutation)),
-	actionDeleteUserType: (id, statusValue, deleteRolMutation) =>
-		dispatch(deleteUserType(id, statusValue, deleteRolMutation)),
+	actionDeleteUserType: (id, statusValue, paginationPage, deleteRolMutation) =>
+		dispatch(deleteUserType(id, statusValue, paginationPage, deleteRolMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionEditUserType: () => dispatch(editUserType()),
 });
 
 export default compose(
-	graphql(DELETE_ROL, { name: 'deleteRolMutation', options: { refetchQueries: [{ query: GET_ROLES_WRAPPER }] } }),
+	graphql(DELETE_ROL, { name: 'deleteRolMutation' }),
 	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
