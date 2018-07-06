@@ -4,9 +4,17 @@ import {
 	CLOSE_MODAL,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
+	CLEAN_STATE,
 } from './actionsTypes';
 
 import { GET_ROLES } from '../../queries/userType';
+
+export const cleanState = () => ({
+	type: CLEAN_STATE,
+	payload: {
+		description: CLEAN_STATE,
+	},
+});
 
 export const closeModal = () => ({
 	type: CLOSE_MODAL,
@@ -75,6 +83,6 @@ export const createRol = (name, descripcion, paginationPage, createRolMutation) 
 				variables: { name, descripcion },
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 			});
-			dispatch(closeModal());
+			dispatch(cleanState());
 		}
 	};

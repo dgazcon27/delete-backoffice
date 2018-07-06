@@ -7,6 +7,7 @@ import {
 	graphql,
 	Query,
 } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
@@ -74,9 +75,9 @@ const UserType = ({
 							Roles
 						</h3>
 						<h5>
-							<a>
+							<Link to='/user-type-create' href='/user-type-create' >
 								Agregar Nuevo
-							</a>
+							</Link>
 						</h5>
 						<Paper>
 							<Table>

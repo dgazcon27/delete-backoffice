@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -50,12 +51,12 @@ const UserTypeCreate = ({
 				defaultValue={descripcion}
 				onChange={actionSetDescription}
 			/>
-			<IconButton className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
+			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
 				Crear
-			</IconButton>
-			<IconButton className={classes.createButton} type='submit' >
+			</Link>
+			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' >
 				Regresar
-			</IconButton>
+			</Link>
 		</div>
 	</div>
 );

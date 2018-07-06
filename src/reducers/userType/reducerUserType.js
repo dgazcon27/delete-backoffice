@@ -1,11 +1,12 @@
 import {
-	EDIT_USER_TYPE,
-	BLOCK_USER_TYPE,
-	DELETE_USER_TYPE,
+	SET_NAME,
 	OPEN_MODAL,
 	CLOSE_MODAL,
-	SET_NAME,
+	CLEAN_STATE,
+	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
+	BLOCK_USER_TYPE,
+	DELETE_USER_TYPE,
 } from '../../actions/userType/actionsTypes';
 
 const initialState = {
@@ -59,6 +60,13 @@ const ReducerUserType = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				descripcion: action.payload.descripcion,
+			});
+		case CLEAN_STATE:
+			return ({
+				...state,
+				id: 0,
+				name: '',
+				descripcion: '',
 			});
 		default:
 			return state;
