@@ -15,6 +15,7 @@ describe('test Reducer Header', () => {
 		modalType: '',
 		isOpen: false,
 		descripcion: '',
+		paginationPage: 1,
 		statusValue: 0,
 	};
 
