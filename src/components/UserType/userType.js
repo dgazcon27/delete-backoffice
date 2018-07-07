@@ -26,7 +26,6 @@ import {
 
 import styles from './userTypeCss';
 import {
-	editRol,
 	blockUserType,
 	deleteUserType,
 	openModal,
@@ -256,7 +255,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteUserType: (id, statusValue, paginationPage, deleteRolMutation) =>
 		dispatch(deleteUserType(id, statusValue, paginationPage, deleteRolMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditUserType: () => dispatch(editRol()),
 	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 });
 

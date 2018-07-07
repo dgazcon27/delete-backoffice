@@ -17,9 +17,9 @@ import styles from './userTypeCss';
 import { EDIT_ROL } from '../../queries/userType';
 import {
 	setRol,
+	editRol,
 	setName,
 	setDescription,
-	editRol,
 } from '../../actions/userType/actionsCreators';
 
 const UserTypeEdit = ({
@@ -29,8 +29,8 @@ const UserTypeEdit = ({
 	actionSetName,
 	actionEditRol,
 	editRolMutation,
-	actionSetDescription,
 	paginationPage,
+	actionSetDescription,
 }) => (
 	<div>
 		<h4>Editar Rol</h4>
@@ -82,7 +82,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionEditRol: (id, name, descripcion, paginationPage, editRolMutation) =>
+	actionEditRol: (id, name, descripcion, editRolMutation) =>
 		dispatch(editRol(id, name, descripcion, editRolMutation)),
 });
 
