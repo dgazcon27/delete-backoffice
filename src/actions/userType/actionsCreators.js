@@ -31,11 +31,11 @@ export const closeModal = () => ({
 	},
 });
 
-export const editRol = (name, descripcion, paginationPage, editRolMutation) =>
+export const editRol = (id, name, descripcion, paginationPage, editRolMutation) =>
 	async (dispatch) => {
 		if (name !== '' && descripcion !== '') {
 			await editRolMutation({
-				variables: { name, descripcion },
+				variables: { id, name, descripcion },
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 			});
 			dispatch(cleanState());

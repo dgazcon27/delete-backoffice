@@ -82,8 +82,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionEditRol: (id, name, descripcion, editRolMutation) =>
-		dispatch(editRol(id, name, descripcion, editRolMutation)),
+	actionEditRol: (id, name, descripcion, paginationPage, editRolMutation) =>
+		dispatch(editRol(id, name, descripcion, paginationPage, editRolMutation)),
 });
 
 export default compose(

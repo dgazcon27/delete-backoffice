@@ -25,7 +25,6 @@ const ReducerUserType = (state = initialState, action = {}) => {
 		case EDIT_USER_TYPE:
 			return ({
 				...state,
-				isOpen: true,
 			});
 		case SET_ROL:
 			return ({
