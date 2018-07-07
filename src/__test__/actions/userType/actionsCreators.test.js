@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 
 import {
-	editUserType,
+	// editUserType,
 	// deleteUserType,
 	openModal,
 	closeModal,
@@ -10,19 +10,19 @@ import {
 const mockStore = configureStore();
 
 describe('Test Actions Creator UserType', () => {
-	it('Edit User Type', () => {
-		const store = mockStore({});
+	// it('Edit User Type', () => {
+	// 	const store = mockStore({});
 
-		// Se despacha el actionCreator ha probar
-		store.dispatch(editUserType());
-		const actions = store.getActions();
+	// 	// Se despacha el actionCreator ha probar
+	// 	store.dispatch(editUserType());
+	// 	const actions = store.getActions();
 
-		// Se verifica que se despacho una unica accion
-		expect(actions.length).toBe(1);
+	// 	// Se verifica que se despacho una unica accion
+	// 	expect(actions.length).toBe(1);
 
-		// Se verifica que la accion ejecutada sea la correcta
-		expect(actions[0].type).toEqual('EDIT_USER_TYPE');
-	});
+	// 	// Se verifica que la accion ejecutada sea la correcta
+	// 	expect(actions[0].type).toEqual('EDIT_USER_TYPE');
+	// });
 
 	/* it('Block User Type', () => {
 		//const store = mockStore({});
