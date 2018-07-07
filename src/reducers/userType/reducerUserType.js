@@ -1,4 +1,5 @@
 import {
+	SET_ROL,
 	SET_NAME,
 	OPEN_MODAL,
 	CLOSE_MODAL,
@@ -25,6 +26,13 @@ const ReducerUserType = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				isOpen: true,
+			});
+		case SET_ROL:
+			return ({
+				...state,
+				id: action.payload.id,
+				name: action.payload.name,
+				descripcion: action.payload.descripcion,
 			});
 		case BLOCK_USER_TYPE:
 			return ({

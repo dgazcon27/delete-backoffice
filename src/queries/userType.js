@@ -43,3 +43,12 @@ export const CREATE_ROL = gql`
 		}
 	}
 `;
+
+export const EDIT_ROL = gql`
+	mutation updateRoleRol($id:Int!,$name:String, $descripcion:String){
+		updateRole(id:$id, name:$name, description:$descripcion){
+			id
+			name
+		}
+	}
+`;

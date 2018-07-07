@@ -2,13 +2,21 @@ import {
 	SET_NAME,
 	OPEN_MODAL,
 	CLOSE_MODAL,
-	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	CLEAN_STATE,
+	SET_ROL,
 } from './actionsTypes';
-
 import { GET_ROLES } from '../../queries/userType';
 
+export const setRol = (id, name, descripcion) => ({
+	type: SET_ROL,
+	payload: {
+		description: SET_ROL,
+		id,
+		name,
+		descripcion,
+	},
+});
 export const cleanState = () => ({
 	type: CLEAN_STATE,
 	payload: {
@@ -23,12 +31,16 @@ export const closeModal = () => ({
 	},
 });
 
-export const editUserType = () => ({
-	type: EDIT_USER_TYPE,
-	payload: {
-		description: EDIT_USER_TYPE,
-	},
-});
+export const editRol = (name, descripcion, paginationPage, editRolMutation) =>
+	async (dispatch) => {
+		if (name !== '' && descripcion !== '') {
+			await editRolMutation({
+				variables: { name, descripcion },
+				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+			});
+			dispatch(cleanState());
+		}
+	};
 
 export const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;

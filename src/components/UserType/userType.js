@@ -26,11 +26,12 @@ import {
 
 import styles from './userTypeCss';
 import {
-	editUserType,
+	editRol,
 	blockUserType,
 	deleteUserType,
 	openModal,
 	closeModal,
+	setRol,
 } from '../../actions/userType/actionsCreators';
 
 import {
@@ -41,18 +42,19 @@ import {
 
 const UserType = ({
 	id,
-	statusValue,
 	name,
-	classes,
 	isOpen,
+	classes,
 	modalType,
+	statusValue,
+	actionSetRol,
+	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	blockRolMutation,
 	deleteRolMutation,
 	actionBlockUserType,
 	actionDeleteUserType,
-	paginationPage,
 }) => (
 	<Query query={GET_ROLES} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -93,9 +95,13 @@ const UserType = ({
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell className={classes.alignRight}>
-													<IconButton onClick={() => { actionOpenModal('edit', rol); }}>
-														<Edit />
-													</IconButton>
+													<Link to='/user-type-edit' href='/user-type-edit'>
+														<IconButton
+															onClick={() => { actionSetRol(rol.id, rol.name, rol.description); }}
+														>
+															<Edit />
+														</IconButton>
+													</Link>
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
@@ -219,6 +225,7 @@ UserType.propTypes = {
 	classes: PropTypes.object.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
+	actionSetRol: PropTypes.func.isRequired,
 	actionDeleteUserType: PropTypes.func.isRequired,
 	blockRolMutation: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
@@ -249,7 +256,8 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteUserType: (id, statusValue, paginationPage, deleteRolMutation) =>
 		dispatch(deleteUserType(id, statusValue, paginationPage, deleteRolMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditUserType: () => dispatch(editUserType()),
+	actionEditUserType: () => dispatch(editRol()),
+	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 });
 
 export default compose(

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
 import UserTypeCreate from '../UserType/userTypeCreate';
+import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
 
 const Main = (props) => {
@@ -18,6 +19,7 @@ const Main = (props) => {
 				<Route path='/box-office' component={BoxOffice} />
 				<Route path='/user-type' component={UserType} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
+				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/users' component={Users} />
 			</Switch>
 		</main>

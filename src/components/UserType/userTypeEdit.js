@@ -14,25 +14,26 @@ import {
 	Input,
 } from '@material-ui/core';
 import styles from './userTypeCss';
-import { CREATE_ROL } from '../../queries/userType';
+import { EDIT_ROL } from '../../queries/userType';
 import {
+	setRol,
 	setName,
 	setDescription,
-	createRol,
+	editRol,
 } from '../../actions/userType/actionsCreators';
 
-const UserTypeCreate = ({
+const UserTypeEdit = ({
 	name,
 	classes,
 	descripcion,
 	actionSetName,
-	actionCreateRol,
-	createRolMutation,
+	actionEditRol,
+	editRolMutation,
 	actionSetDescription,
 	paginationPage,
 }) => (
 	<div>
-		<h4>Nuevo Rol</h4>
+		<h4>Editar Rol</h4>
 		<div className={classes.createContainer}>
 			<Input
 				type='text'
@@ -51,8 +52,8 @@ const UserTypeCreate = ({
 				defaultValue={descripcion}
 				onChange={actionSetDescription}
 			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
-				Crear
+			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={() => actionEditRol(name, descripcion, paginationPage, editRolMutation)}>
+				Confirmar
 			</Link>
 			<Link to='/user-type' href='/user-type' className={classes.createButton} >
 				Regresar
@@ -61,16 +62,15 @@ const UserTypeCreate = ({
 	</div>
 );
 
-
-UserTypeCreate.propTypes = {
+UserTypeEdit.propTypes = {
 	name: PropTypes.string.isRequired,
-	descripcion: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
+	descripcion: PropTypes.string.isRequired,
 	actionSetName: PropTypes.func.isRequired,
-	actionCreateRol: PropTypes.func.isRequired,
-	createRolMutation: PropTypes.func.isRequired,
-	actionSetDescription: PropTypes.func.isRequired,
+	actionEditRol: PropTypes.func.isRequired,
+	editRolMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	actionSetDescription: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -82,12 +82,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionCreateRol: (name, descripcion, paginationPage, createRolMutation) =>
-		dispatch(createRol(name, descripcion, paginationPage, createRolMutation)),
+	actionEditRol: (id, name, descripcion, paginationPage, editRolMutation) =>
+		dispatch(editRol(id, name, descripcion, editRolMutation)),
 });
 
 export default compose(
-	graphql(CREATE_ROL, { name: 'createRolMutation' }),
+	graphql(EDIT_ROL, { name: 'editRolMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(UserTypeCreate);
+)(UserTypeEdit);
