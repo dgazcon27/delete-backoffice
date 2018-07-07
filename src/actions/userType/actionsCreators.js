@@ -17,6 +17,7 @@ export const setRol = (id, name, descripcion) => ({
 		descripcion,
 	},
 });
+
 export const cleanState = () => ({
 	type: CLEAN_STATE,
 	payload: {

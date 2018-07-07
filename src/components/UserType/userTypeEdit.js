@@ -23,6 +23,7 @@ import {
 } from '../../actions/userType/actionsCreators';
 
 const UserTypeEdit = ({
+	id,
 	name,
 	classes,
 	descripcion,
@@ -52,7 +53,7 @@ const UserTypeEdit = ({
 				defaultValue={descripcion}
 				onChange={actionSetDescription}
 			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={() => actionEditRol(name, descripcion, paginationPage, editRolMutation)}>
+			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionEditRol(id, name, descripcion, paginationPage, editRolMutation)}>
 				Confirmar
 			</Link>
 			<Link to='/user-type' href='/user-type' className={classes.createButton} >
@@ -63,6 +64,7 @@ const UserTypeEdit = ({
 );
 
 UserTypeEdit.propTypes = {
+	id: PropTypes.number.isRequired,
 	name: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
 	descripcion: PropTypes.string.isRequired,
@@ -74,12 +76,13 @@ UserTypeEdit.propTypes = {
 };
 
 const mapStateToProps = state => ({
+	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionEditRol: (id, name, descripcion, paginationPage, editRolMutation) =>
