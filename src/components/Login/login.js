@@ -14,7 +14,7 @@ import {
 	requestLogin,
 } from '../../actions/Login/actionsCreators';
 
-const Login = ({
+export const Login = ({
 	error,
 	email,
 	password,
@@ -37,6 +37,7 @@ const Login = ({
 					<label className={classes.label} htmlFor='Email'>
 						Usuario o email
 						<input
+							id='email'
 							className={classes.inputs}
 							type='email'
 							defaultValue={email}
@@ -48,6 +49,7 @@ const Login = ({
 					<label className={classes.label} htmlFor='password'>
 						Contraseña
 						<input
+							id='password'
 							className={classes.inputs}
 							type='password'
 							defaultValue={password}

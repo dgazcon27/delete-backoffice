@@ -8,7 +8,7 @@ import SideBar from './components/sideBar/sideBar';
 import Header from './components/Header/header';
 import styles from './components/Header/headerCss';
 import Main from './components/Main/main';
-import Login from './components/Login/login';
+import { Login } from './components/Login/login';
 
 const App = ({ auth, classes }) => (
 	<div>
