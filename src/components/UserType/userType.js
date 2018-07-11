@@ -222,14 +222,14 @@ UserType.propTypes = {
 	statusValue: PropTypes.number,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionOpenModal: PropTypes.func.isRequired,
-	actionCloseModal: PropTypes.func.isRequired,
 	actionSetRol: PropTypes.func.isRequired,
-	actionDeleteUserType: PropTypes.func.isRequired,
+	actionOpenModal: PropTypes.func.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 	blockRolMutation: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
 	actionBlockUserType: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
+	actionDeleteUserType: PropTypes.func.isRequired,
 };
 
 UserType.defaultProps = {

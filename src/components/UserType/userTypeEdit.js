@@ -20,6 +20,7 @@ import {
 	editRol,
 	setName,
 	setDescription,
+	cleanState,
 } from '../../actions/userType/actionsCreators';
 
 const UserTypeEdit = ({
@@ -27,10 +28,11 @@ const UserTypeEdit = ({
 	name,
 	classes,
 	descripcion,
-	actionSetName,
 	actionEditRol,
-	editRolMutation,
+	actionSetName,
 	paginationPage,
+	editRolMutation,
+	actionCleanState,
 	actionSetDescription,
 }) => (
 	<div>
@@ -56,7 +58,7 @@ const UserTypeEdit = ({
 			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionEditRol(id, name, descripcion, paginationPage, editRolMutation)}>
 				Confirmar
 			</Link>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} >
+			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar
 			</Link>
 		</div>
@@ -70,6 +72,7 @@ UserTypeEdit.propTypes = {
 	descripcion: PropTypes.string.isRequired,
 	actionSetName: PropTypes.func.isRequired,
 	actionEditRol: PropTypes.func.isRequired,
+	actionCleanState: PropTypes.func.isRequired,
 	editRolMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionSetDescription: PropTypes.func.isRequired,
@@ -83,6 +86,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionCleanState: () => dispatch(cleanState()),
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionEditRol: (id, name, descripcion, paginationPage, editRolMutation) =>
