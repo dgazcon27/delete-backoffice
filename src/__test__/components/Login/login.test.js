@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Login } from '../../../components/Login/login';
+import { LoginTest } from '../../../components/Login/login';
 
 configure({ adapter: new Adapter() });
 
@@ -16,7 +16,7 @@ const setup = () => {
 		classes: {},
 	};
 
-	const enzymeWrapper = mount(<Login {...props} />);
+	const enzymeWrapper = mount(<LoginTest {...props} />);
 
 	return {
 		props,

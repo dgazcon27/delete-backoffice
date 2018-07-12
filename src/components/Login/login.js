@@ -14,7 +14,7 @@ import {
 	requestLogin,
 } from '../../actions/Login/actionsCreators';
 
-export const Login = ({
+const Login = ({
 	error,
 	email,
 	password,
@@ -101,6 +101,8 @@ const mapDispatchToProps = dispatch => ({
 	actionSetEmail: e => dispatch(setEmail(e.target.value)),
 	actionSetPassword: e => dispatch(setPassword(e.target.value)),
 });
+
+export { Login as LoginTest };
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
