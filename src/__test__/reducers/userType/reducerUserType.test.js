@@ -12,13 +12,13 @@ describe('test Reducer Header', () => {
 	const initialState = {
 		id: 0,
 		name: '',
-		modalType: '',
 		isOpen: false,
+		modalType: '',
 		descripcion: '',
-		paginationPage: 1,
 		statusValue: 0,
+		paginationPage: 0,
+		currentPage: 0,
 	};
-
 	/*
 		Prueba que el reducer retorne el estado inicial cuando no se
 		le pase algun valor

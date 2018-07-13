@@ -4,6 +4,8 @@ import {
 	OPEN_MODAL,
 	CLOSE_MODAL,
 	CLEAN_STATE,
+	PAGE_UP,
+	PAGE_DOWN,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -17,11 +19,24 @@ const initialState = {
 	modalType: '',
 	descripcion: '',
 	statusValue: 0,
-	paginationPage: 1,
+	paginationPage: 0,
+	currentPage: 0,
 };
 
 const ReducerUserType = (state = initialState, action = {}) => {
 	switch (action.type) {
+		case PAGE_UP:
+			return ({
+				...state,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
+			});
+		case PAGE_DOWN:
+			return ({
+				...state,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
+			});
 		case EDIT_USER_TYPE:
 			return ({
 				...state,
