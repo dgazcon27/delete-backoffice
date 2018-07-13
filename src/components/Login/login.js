@@ -37,6 +37,7 @@ const Login = ({
 					<label className={classes.label} htmlFor='Email'>
 						Usuario o email
 						<input
+							id='email'
 							className={classes.inputs}
 							type='email'
 							defaultValue={email}
@@ -48,6 +49,7 @@ const Login = ({
 					<label className={classes.label} htmlFor='password'>
 						Contraseña
 						<input
+							id='password'
 							className={classes.inputs}
 							type='password'
 							defaultValue={password}
@@ -99,6 +101,8 @@ const mapDispatchToProps = dispatch => ({
 	actionSetEmail: e => dispatch(setEmail(e.target.value)),
 	actionSetPassword: e => dispatch(setPassword(e.target.value)),
 });
+
+export { Login as LoginTest };
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
