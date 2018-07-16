@@ -95,7 +95,7 @@ const UserType = ({
 								</TableHead>
 								<TableBody>
 									{
-										data.roles.map(rol => (
+										data.roles.data.map(rol => (
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell className={classes.alignRight}>
@@ -138,7 +138,7 @@ const UserType = ({
 								<TableFooter>
 									<TableRow>
 										<TablePagination
-											count={50}
+											count={data.roles.total}
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
