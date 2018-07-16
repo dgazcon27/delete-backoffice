@@ -12,20 +12,23 @@ import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import {
-	IconButton,
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableRow,
-	Paper,
 	Modal,
+	Paper,
+	Table,
 	Switch,
 	Tooltip,
+	TableRow,
+	TableBody,
+	TableHead,
+	TableCell,
+	IconButton,
+	TableFooter,
+	TablePagination,
 } from '@material-ui/core';
 
 import styles from './userTypeCss';
 import {
+	changePage,
 	blockUserType,
 	deleteUserType,
 	openModal,
@@ -45,11 +48,13 @@ const UserType = ({
 	isOpen,
 	classes,
 	modalType,
+	currentPage,
 	statusValue,
 	actionSetRol,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
+	actionChangePage,
 	blockRolMutation,
 	deleteRolMutation,
 	actionBlockUserType,
@@ -90,7 +95,7 @@ const UserType = ({
 								</TableHead>
 								<TableBody>
 									{
-										data.roles.map(rol => (
+										data.roles.data.map(rol => (
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell className={classes.alignRight}>
@@ -130,6 +135,20 @@ const UserType = ({
 										))
 									}
 								</TableBody>
+								<TableFooter>
+									<TableRow>
+										<TablePagination
+											count={data.roles.total}
+											rowsPerPage={10}
+											page={paginationPage}
+											rowsPerPageOptions={[10]}
+											colSpan={3}
+											onChangePage={(event, changuedPage) => {
+												actionChangePage(currentPage, changuedPage);
+											}}
+										/>
+									</TableRow>
+								</TableFooter>
 							</Table>
 						</Paper>
 					</div>
@@ -225,8 +244,10 @@ UserType.propTypes = {
 	actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	currentPage: PropTypes.number.isRequired,
 	blockRolMutation: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
+	actionChangePage: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
 	actionBlockUserType: PropTypes.func.isRequired,
 	actionDeleteUserType: PropTypes.func.isRequired,
@@ -245,10 +266,13 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerUserType.isOpen,
 	modalType: state.ReducerUserType.modalType,
 	statusValue: state.ReducerUserType.statusValue,
+	currentPage: state.ReducerUserType.currentPage,
 	paginationPage: state.ReducerUserType.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionChangePage: (currentPage, paginationPage) =>
+		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
 	actionBlockUserType: (id, statusValue, blockRolMutation) =>
 		dispatch(blockUserType(id, statusValue, blockRolMutation)),

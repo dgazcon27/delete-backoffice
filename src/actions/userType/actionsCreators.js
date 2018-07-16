@@ -5,8 +5,20 @@ import {
 	SET_DESCRIPTION,
 	CLEAN_STATE,
 	SET_ROL,
+	PAGE_UP,
+	PAGE_DOWN,
 } from './actionsTypes';
+
 import { GET_ROLES } from '../../queries/userType';
+
+export const changePage = (currentPage, paginationPage) => ({
+	type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+	payload: {
+		description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		paginationPage,
+		currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+	},
+});
 
 export const setRol = (id, name, descripcion) => ({
 	type: SET_ROL,
