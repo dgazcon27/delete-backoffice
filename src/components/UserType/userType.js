@@ -282,6 +282,8 @@ const mapDispatchToProps = dispatch => ({
 	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 });
 
+export { UserType as UserTypeTest };
+
 export default compose(
 	graphql(DELETE_ROL, { name: 'deleteRolMutation' }),
 	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
