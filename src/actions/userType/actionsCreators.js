@@ -71,6 +71,7 @@ export const deleteUserType = (id, statusValue, paginationPage, deleteRolMutatio
 			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
+		window.location.reload();
 	};
 };
 
@@ -109,5 +110,6 @@ export const createRol = (name, descripcion, paginationPage, createRolMutation) 
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 			});
 			dispatch(cleanState());
+			window.location.reload();
 		}
 	};

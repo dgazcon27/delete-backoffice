@@ -72,6 +72,9 @@ const ReducerUserType = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				isOpen: false,
+				id: 0,
+				name: '',
+				descripcion: '',
 			});
 		case SET_NAME:
 			return ({
