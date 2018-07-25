@@ -19,10 +19,10 @@ export const editUser = () => ({
 		description: EDIT_USER,
 	},
 });
-export const blockUser = (id, statusValue, blockRolMutation) => {
+export const blockUser = (id, statusValue, blockUserMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
-		await blockRolMutation({ variables: { id, status } });
+		await blockUserMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };

@@ -15,14 +15,18 @@ import {
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import {
+	graphql,
 	compose,
 	Query,
 } from 'react-apollo';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import styles from '../UserType/userTypeCss';
-
-import { GET_USERS } from '../../queries/users';
+import {
+	GET_USERS,
+	BLOCK_USER,
+	DELETE_USER,
+} from '../../queries/users';
 
 import {
 	// editUser,
@@ -143,8 +147,8 @@ const Users = ({
 							}
 							{modalType === 'block' &&
 								<Paper className={classes.paperOnModal}>
-									{statusValue === 1 && <h6> Bloquear Rol </h6>}
-									{statusValue === 2 && <h6> Desbloquear Rol </h6>}
+									{statusValue === 1 && <h6> Bloquear usuario </h6>}
+									{statusValue === 2 && <h6> Desbloquear usuario </h6>}
 									{
 										statusValue === 1 &&
 										<p>
@@ -237,6 +241,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
+	graphql(DELETE_USER, { name: 'deleteUserMutation' }),
+	graphql(BLOCK_USER, { name: 'blockUserMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(Users);
