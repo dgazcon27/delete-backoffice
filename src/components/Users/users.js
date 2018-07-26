@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-	IconButton,
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableRow,
-	Paper,
-	Tooltip,
 	Modal,
+	Paper,
+	Table,
 	Switch,
+	Tooltip,
+	TableRow,
+	TableBody,
+	TableHead,
+	TableCell,
+	IconButton,
+	TableFooter,
+	TablePagination,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -27,7 +29,7 @@ import {
 	BLOCK_USER,
 	DELETE_USER,
 } from '../../queries/users';
-
+import { changePage } from '../../actions/userType/actionsCreators';
 import {
 	// editUser,
 	blockUser,
@@ -36,6 +38,7 @@ import {
 	closeModal,
 } from '../../actions/users/actionsCreators';
 
+
 const Users = ({
 	id,
 	name,
@@ -43,7 +46,9 @@ const Users = ({
 	classes,
 	modalType,
 	statusValue,
+	currentPage,
 	paginationPage,
+	actionChangePage,
 	actionOpenModal,
 	actionBlockUser,
 	actionDeleteUser,
@@ -125,6 +130,20 @@ const Users = ({
 										))
 									}
 								</TableBody>
+								<TableFooter>
+									<TableRow>
+										<TablePagination
+											count={data.users.total}
+											rowsPerPage={10}
+											page={paginationPage}
+											rowsPerPageOptions={[10]}
+											colSpan={3}
+											onChangePage={(event, changuedPage) => {
+												actionChangePage(currentPage, changuedPage);
+											}}
+										/>
+									</TableRow>
+								</TableFooter>
 							</Table>
 						</Paper>
 					</div>
@@ -208,6 +227,8 @@ const Users = ({
 );
 
 Users.propTypes = {
+	currentPage: PropTypes.number.isRequired,
+	actionChangePage: PropTypes.func.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	name: PropTypes.string.isRequired,
 	modalType: PropTypes.string.isRequired,
@@ -223,6 +244,7 @@ Users.propTypes = {
 	actionDeleteUser: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
+	currentPage: state.ReducerUserType.currentPage,
 	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
 	isOpen: state.ReducerUserType.isOpen,
@@ -232,6 +254,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionChangePage: (currentPage, paginationPage) =>
+		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _user) => dispatch(openModal(modalType, _user)),
 	actionBlockUser: (id, statusValue, blockUserMutation) =>
 		dispatch(blockUser(id, statusValue, blockUserMutation)),

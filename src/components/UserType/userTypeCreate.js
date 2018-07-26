@@ -1,5 +1,3 @@
-/* eslint no-unused-vars: "off" */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,7 +8,7 @@ import {
 	graphql,
 } from 'react-apollo';
 import {
-	IconButton,
+	// IconButton,
 	Input,
 } from '@material-ui/core';
 import styles from './userTypeCss';
@@ -79,7 +77,7 @@ const mapStateToProps = state => ({
 	paginationPage: state.ReducerUserType.paginationPage,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionCreateRol: (name, descripcion, paginationPage, createRolMutation) =>

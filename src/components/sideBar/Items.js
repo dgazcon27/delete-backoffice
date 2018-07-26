@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import StarIcon from '@material-ui/icons/Star';
@@ -36,15 +35,6 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/pre-sale' href='/pre-sale'>
-			<ListItem button>
-				<ListItemIcon>
-					<SendIcon />
-				</ListItemIcon>
-				<ListItemText primary='Pre-Venta' />
-			</ListItem>
-		</Link>
-
 		<Link to='/users' href='/users'>
 			<ListItem button>
 				<ListItemIcon>
@@ -54,29 +44,12 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/box-office' href='/box-office'>
-			<ListItem button>
-				<ListItemIcon>
-					<DraftsIcon />
-				</ListItemIcon>
-				<ListItemText primary='BoxOffice' />
-			</ListItem>
-		</Link>
-
 		<Link to='/user-type' href='/user-type'>
 			<ListItem button>
 				<ListItemIcon>
 					<DraftsIcon />
 				</ListItemIcon>
 				<ListItemText primary='UserType' />
-			</ListItem>
-		</Link>
-		<Link to='/user-type-create' href='/user-type-create'>
-			<ListItem button>
-				<ListItemIcon>
-					<DraftsIcon />
-				</ListItemIcon>
-				<ListItemText primary='UserTypeCreate' />
 			</ListItem>
 		</Link>
 		<Divider />
