@@ -5,6 +5,14 @@ import {
 } from '../../actions/users/actionsTypes';
 
 const initialState = {
+	id: 0,
+	name: '',
+	isOpen: false,
+	modalType: '',
+	descripcion: '',
+	statusValue: 0,
+	paginationPage: 0,
+	currentPage: 0,
 };
 
 const ReducerUser = (state = initialState, action = {}) => {
