@@ -25,7 +25,7 @@ import {
 	openSideBar,
 } from '../../actions/Header/actionsCreators';
 
-// import logo from './images/logo.svg';
+import logo from './images/logo.svg';
 
 const Header = ({
 	classes,
@@ -44,7 +44,7 @@ const Header = ({
 				</IconButton>
 
 				<Typography variant='title' color='inherit' className={classes.flex} noWrap>
-					logo
+					<img src={logo} className={classes.logo} alt='Logo Delete' width='150px' />
 				</Typography>
 
 				<div>

@@ -15,6 +15,7 @@ const styles = theme => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
+		backgroundColor: '#546E7A',
 	},
 	appBarShift: {
 		marginLeft: drawerWidth,
@@ -65,6 +66,10 @@ const styles = theme => ({
 	},
 	flex: {
 		flex: 1,
+	},
+	logo: {
+		position: 'absolute',
+		top: '1.5vh',
 	},
 });
 
