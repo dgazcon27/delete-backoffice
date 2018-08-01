@@ -25,6 +25,8 @@ import {
 	openSideBar,
 } from '../../actions/Header/actionsCreators';
 
+// import logo from './images/logo.svg';
+
 const Header = ({
 	classes,
 	openMenuProfile,
@@ -42,7 +44,7 @@ const Header = ({
 				</IconButton>
 
 				<Typography variant='title' color='inherit' className={classes.flex} noWrap>
-					Logo
+					logo
 				</Typography>
 
 				<div>

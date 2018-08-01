@@ -1,12 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import StarIcon from '@material-ui/icons/Star';
-import SendIcon from '@material-ui/icons/Send';
-import MailIcon from '@material-ui/icons/Mail';
+import Security from '@material-ui/icons/Security';
+import People from '@material-ui/icons/People';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/Report';
+import Apps from '@material-ui/icons/Apps';
+import Weekend from '@material-ui/icons/Weekend';
+import Wc from '@material-ui/icons/Wc';
+import Event from '@material-ui/icons/Event';
+import Album from '@material-ui/icons/Album';
+import Work from '@material-ui/icons/Work';
+import ContactPhone from '@material-ui/icons/ContactPhone';
+import GroupWork from '@material-ui/icons/GroupWork';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 
 import {
 	ListItem,
@@ -20,16 +26,7 @@ const Items = (
 		<Link to='/' href='/'>
 			<ListItem button>
 				<ListItemIcon>
-					<InboxIcon />
-				</ListItemIcon>
-				<ListItemText primary='Inbox' />
-			</ListItem>
-		</Link>
-
-		<Link to='/dashboard' href='/dashboard'>
-			<ListItem button>
-				<ListItemIcon>
-					<StarIcon />
+					<Apps />
 				</ListItemIcon>
 				<ListItemText primary='Dashboard' />
 			</ListItem>
@@ -38,28 +35,94 @@ const Items = (
 		<Link to='/users' href='/users'>
 			<ListItem button>
 				<ListItemIcon>
-					<SendIcon />
+					<People />
 				</ListItemIcon>
-				<ListItemText primary='users' />
+				<ListItemText primary='Usuarios' />
 			</ListItem>
 		</Link>
 
 		<Link to='/user-type' href='/user-type'>
 			<ListItem button>
 				<ListItemIcon>
-					<DraftsIcon />
+					<Security />
 				</ListItemIcon>
-				<ListItemText primary='UserType' />
+				<ListItemText primary='Tipos de Usuario' />
 			</ListItem>
 		</Link>
-		<Divider />
 
-		<ListItem button>
-			<ListItemIcon>
-				<MailIcon />
-			</ListItemIcon>
-			<ListItemText primary='All mail' />
-		</ListItem>
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<Weekend />
+				</ListItemIcon>
+				<ListItemText primary='Mesas' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<Wc />
+				</ListItemIcon>
+				<ListItemText primary='Invitados' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<Event />
+				</ListItemIcon>
+				<ListItemText primary='Eventos' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<Album />
+				</ListItemIcon>
+				<ListItemText primary='DJS' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<Work />
+				</ListItemIcon>
+				<ListItemText primary='Categorías' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<GroupWork />
+				</ListItemIcon>
+				<ListItemText primary='Departamentos' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<AttachMoney />
+				</ListItemIcon>
+				<ListItemText primary='Pre-Venta' />
+			</ListItem>
+		</Link>
+
+		<Link to='/user-type' href='/user-type'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Staff' />
+			</ListItem>
+		</Link>
+
+		<Divider />
 
 		<ListItem button>
 			<ListItemIcon>
