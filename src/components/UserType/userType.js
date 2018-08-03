@@ -42,6 +42,8 @@ import {
 	DELETE_ROL,
 } from '../../queries/userType';
 
+import Loading from '../Loading/loading';
+
 const UserType = ({
 	id,
 	name,
@@ -65,7 +67,7 @@ const UserType = ({
 			if (loading) {
 				return (
 					<div>
-						<h1>Loading ...</h1>
+						<Loading />
 					</div>
 				);
 			}
@@ -227,7 +229,6 @@ const UserType = ({
 							}
 						</div>
 					</Modal>
-
 				</div>
 			);
 		}}
