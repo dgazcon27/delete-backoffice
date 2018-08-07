@@ -103,8 +103,8 @@ let UserTypeCreate = ({
 );
 
 UserTypeCreate.propTypes = {
-	alertOpen: PropTypes.object.isRequired,
-	alertType: PropTypes.object.isRequired,
+	alertOpen: PropTypes.bool.isRequired,
+	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionCreateRol: PropTypes.func.isRequired,
