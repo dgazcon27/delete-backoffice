@@ -38,6 +38,7 @@ import {
 	closeModal,
 } from '../../actions/users/actionsCreators';
 
+import Loading from '../Loading/loading';
 
 const Users = ({
 	id,
@@ -61,7 +62,7 @@ const Users = ({
 			if (loading) {
 				return (
 					<div>
-						<h1>Loading ...</h1>
+						<Loading />
 					</div>
 				);
 			}
