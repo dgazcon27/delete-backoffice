@@ -56,7 +56,7 @@ let UserTypeCreate = ({
 			<Link to='/user-type' href='/user-type' className={classes.createButton} >
 				Regresar
 			</Link>
-			{alertType === 'nombre' &&
+			{alertType === 'name' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -64,7 +64,7 @@ let UserTypeCreate = ({
 					ContentProps={{
 						'aria-describedby': 'message-id',
 					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+					message={<span id='message-id'>No puede crear un rol sin nombre.</span>}
 				/>
 			}
 			{alertType === 'validation' &&

@@ -41,7 +41,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/user-type/' href='/user-type/'>
 			<ListItem button>
 				<ListItemIcon>
 					<Security />

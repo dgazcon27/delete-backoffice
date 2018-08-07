@@ -128,21 +128,14 @@ export const createRol = (name, descripcion, paginationPage, createRolMutation) 
 					setTimeout(() => (window.location.assign('user-type')), 2000);
 				})
 				.catch((res) => {
-					const a = res.graphQLErrors[0].message;
-					switch (a) {
-						case 'Variable "$descripcion" of required type "String!" was not provided.':
-							dispatch(openAlert('descripcion'));
-							break;
-						case 'Variable "$name" of required type "String!" was not provided.':
-							dispatch(openAlert('nombre'));
-							break;
-						case 'validation':
-							dispatch(openAlert('validation'));
-							break;
-						default:
-							dispatch(cleanState());
-							break;
-					}
+					const message = res.graphQLErrors[0];
+					const paso = message.message.split(' ');
+					const salida = paso.filter(e => e.includes('"$') || e.includes('validation'));
+					let s = salida.toString();
+					s = s.replace('$', '');
+					s = s.replace('"', '');
+					s = s.replace('"', '');
+					dispatch(openAlert(s));
 				});
 		}
 	};
