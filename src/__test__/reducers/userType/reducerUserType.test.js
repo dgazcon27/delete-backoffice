@@ -13,6 +13,8 @@ describe('test Reducer Header', () => {
 		id: 0,
 		name: '',
 		isOpen: false,
+		alertOpen: false,
+		alertType: '',
 		modalType: '',
 		descripcion: '',
 		statusValue: 0,
