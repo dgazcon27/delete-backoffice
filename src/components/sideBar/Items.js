@@ -41,7 +41,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/users-type' href='/users-type'>
 			<ListItem button>
 				<ListItemIcon>
 					<Security />
@@ -50,7 +50,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/tables' href='/tables'>
 			<ListItem button>
 				<ListItemIcon>
 					<Weekend />
@@ -59,7 +59,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/guests' href='/guests'>
 			<ListItem button>
 				<ListItemIcon>
 					<Wc />
@@ -68,7 +68,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/events' href='/events'>
 			<ListItem button>
 				<ListItemIcon>
 					<Event />
@@ -77,7 +77,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/djs' href='/djs'>
 			<ListItem button>
 				<ListItemIcon>
 					<Album />
@@ -86,7 +86,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/categories' href='/categories'>
 			<ListItem button>
 				<ListItemIcon>
 					<Work />
@@ -95,7 +95,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/departments' href='/Departments'>
 			<ListItem button>
 				<ListItemIcon>
 					<GroupWork />
@@ -104,7 +104,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/pre-sale' href='/pre-sale'>
 			<ListItem button>
 				<ListItemIcon>
 					<AttachMoney />
@@ -113,7 +113,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/staff' href='/staff'>
 			<ListItem button>
 				<ListItemIcon>
 					<ContactPhone />

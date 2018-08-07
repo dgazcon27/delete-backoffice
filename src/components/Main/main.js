@@ -1,11 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { Dashboard, Presale, BoxOffice } from '../hola';
 import UserType from '../UserType/userType';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
+import {
+	Dashboard,
+	Presale,
+	Tables,
+	Guests,
+	Events,
+	Djs,
+	Categories,
+	Departments,
+	Staff,
+} from '../hola';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -14,13 +24,18 @@ const Main = (props) => {
 			<div className={classes.toolbar} />
 			<Switch>
 				<Route exact path='/' component={Dashboard} />
-				<Route path='/dashboard' component={Dashboard} />
-				<Route path='/pre-sale' component={Presale} />
-				<Route path='/box-office' component={BoxOffice} />
-				<Route path='/user-type' component={UserType} />
-				<Route path='/user-type-create' component={UserTypeCreate} />
-				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/users' component={Users} />
+				<Route path='/users-type' component={UserType} />
+				<Route path='/user-type-edit' component={UserTypeEdit} />
+				<Route path='/user-type-create' component={UserTypeCreate} />
+				<Route path='/tables' component={Tables} />
+				<Route path='/guests' component={Guests} />
+				<Route path='/events' component={Events} />
+				<Route path='/djs' component={Djs} />
+				<Route path='/categories' component={Categories} />
+				<Route path='/Departments' component={Departments} />
+				<Route path='/pre-sale' component={Presale} />
+				<Route path='/staff' component={Staff} />
 			</Switch>
 		</main>
 	);
