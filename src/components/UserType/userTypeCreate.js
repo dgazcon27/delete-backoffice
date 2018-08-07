@@ -1,3 +1,4 @@
+/* eslint-disable  linebreak-style */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,76 +9,127 @@ import {
 	graphql,
 } from 'react-apollo';
 import {
-	// IconButton,
-	Input,
-} from '@material-ui/core';
+	Field,
+	reduxForm,
+	formValueSelector,
+} from 'redux-form';
+import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
 import { CREATE_ROL } from '../../queries/userType';
 import {
+	closeAlert,
 	setName,
 	setDescription,
 	createRol,
 } from '../../actions/userType/actionsCreators';
 
-const UserTypeCreate = ({
-	name,
+let UserTypeCreate = ({
 	classes,
-	descripcion,
-	actionSetName,
+	alertOpen,
+	alertType,
+	actionCloseAlert,
 	actionCreateRol,
 	createRolMutation,
-	actionSetDescription,
 	paginationPage,
+	myValues,
 }) => (
 	<div>
 		<h4>Nuevo Rol</h4>
 		<div className={classes.createContainer}>
-			<Input
+			<Field
+				name='name'
+				label='Name'
 				type='text'
-				placeholder='Nombre'
-				defaultValue={name}
-				onChange={actionSetName}
-				fullWidth
-				disableUnderline
+				component='input'
+				placeholder='Name'
 			/>
-			<Input
-				rows={5}
-				multiline
-				fullWidth
-				disableUnderline
-				placeholder='Descripcion'
-				defaultValue={descripcion}
-				onChange={actionSetDescription}
+			<Field
+				name='description'
+				type='text'
+				label='Description'
+				component='input'
+				placeholder='Description'
 			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
-				Crear
+			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={e => e.preventDefault(actionCreateRol(myValues.name, myValues.description, paginationPage, createRolMutation))}>
+			Crear
 			</Link>
 			<Link to='/user-type' href='/user-type' className={classes.createButton} >
 				Regresar
 			</Link>
+			{alertType === 'nombre' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{
+						'aria-describedby': 'message-id',
+					}}
+					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+				/>
+			}
+			{alertType === 'validation' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{
+						'aria-describedby': 'message-id',
+					}}
+					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+				/>
+			}
+			{alertType === 'descripcion' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{
+						'aria-describedby': 'message-id',
+					}}
+					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+				/>
+			}
+			{alertType === 'creado' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{ 'aria-describedby': 'message-id' }}
+					message={<span id='message-id'>El rol {myValues.name} fue creado con exito.</span>}
+				/>
+			}
 		</div>
 	</div>
 );
 
-
 UserTypeCreate.propTypes = {
-	name: PropTypes.string.isRequired,
-	descripcion: PropTypes.string.isRequired,
+	alertOpen: PropTypes.object.isRequired,
+	alertType: PropTypes.object.isRequired,
+	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetName: PropTypes.func.isRequired,
 	actionCreateRol: PropTypes.func.isRequired,
+	actionCloseAlert: PropTypes.func.isRequired,
 	createRolMutation: PropTypes.func.isRequired,
-	actionSetDescription: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 };
 
+UserTypeCreate = reduxForm({
+	form: 'UserTypeCreate',
+})(UserTypeCreate);
+
+const selector = formValueSelector('UserTypeCreate');
+
 const mapStateToProps = state => ({
+	alertType: state.ReducerUserType.alertType,
+	alertOpen: state.ReducerUserType.alertOpen,
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
+	myValues: selector(state, 'name', 'description'),
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionCloseAlert: () => dispatch(closeAlert()),
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionCreateRol: (name, descripcion, paginationPage, createRolMutation) =>

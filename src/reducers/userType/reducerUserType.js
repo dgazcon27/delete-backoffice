@@ -2,7 +2,9 @@ import {
 	SET_ROL,
 	SET_NAME,
 	OPEN_MODAL,
+	OPEN_ALERT,
 	CLOSE_MODAL,
+	CLOSE_ALERT,
 	CLEAN_STATE,
 	PAGE_UP,
 	PAGE_DOWN,
@@ -16,6 +18,8 @@ const initialState = {
 	id: 0,
 	name: '',
 	isOpen: false,
+	alertOpen: false,
+	alertType: '',
 	modalType: '',
 	descripcion: '',
 	statusValue: 0,
@@ -67,6 +71,17 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				name: action.payload.name,
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
+			});
+		case OPEN_ALERT:
+			return ({
+				...state,
+				alertOpen: true,
+				alertType: action.payload.alertType,
+			});
+		case CLOSE_ALERT:
+			return ({
+				...state,
+				alertOpen: false,
 			});
 		case CLOSE_MODAL:
 			return ({

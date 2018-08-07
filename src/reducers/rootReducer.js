@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
 import ReducerHeader from './Header/reducerHeader';
 import ReducerUserType from './userType/reducerUserType';
 import ReducerLogin from './Login/reducerLogin';
@@ -9,6 +10,8 @@ const rootReducer = combineReducers({
 	ReducerUserType,
 	ReducerLogin,
 	ReducerUser,
+	form: reduxFormReducer,
+
 });
 
 export default rootReducer;
