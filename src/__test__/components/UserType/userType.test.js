@@ -134,7 +134,7 @@ describe('Test <UserType />', () => {
 		const componentUserType = renderer
 			.create(<MockedProvider mocks={[]}><UserTypeTest {...props} /></MockedProvider>);
 		const tree = componentUserType.toJSON();
-		expect(tree.children[0].children).toContain('Loading ...');
+		expect(tree.children[0].children[0].props.alt).toContain('Loading Delete');
 	});
 
 	// Prueba que queda pendiente para luego replicarla al resto de los components

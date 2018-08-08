@@ -19,6 +19,8 @@ import renderTextField from '../RenderFields/renderFields';
 import { CREATE_ROL } from '../../queries/userType';
 import {
 	closeAlert,
+	setName,
+	setDescription,
 	createRol,
 } from '../../actions/userType/actionsCreators';
 
@@ -46,13 +48,13 @@ let UserTypeCreate = ({
 					label='name'
 				/>
 				<Field
-					name='description'
+					name='rolDescription'
 					type='text'
 					component={renderTextField}
 					validate={required}
 					label='description'
 				/>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.description, paginationPage, createRolMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/user-type' href='/user-type' className={classes.returnButton} >
@@ -60,6 +62,7 @@ let UserTypeCreate = ({
 				</Link>
 			</form>
 			{alertType === 'nombre' &&
+
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -81,7 +84,7 @@ let UserTypeCreate = ({
 					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 				/>
 			}
-			{alertType === 'descripcion' &&
+			{alertType === 'rolDescription' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -105,7 +108,6 @@ let UserTypeCreate = ({
 	</div>
 );
 
-
 UserTypeCreate.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
@@ -128,12 +130,16 @@ const selector = formValueSelector('UserTypeCreate');
 const mapStateToProps = state => ({
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
+	name: state.ReducerUserType.name,
+	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
-	myValues: selector(state, 'name', 'description'),
+	myValues: selector(state, 'name', 'rolDescription'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
+	actionSetName: e => dispatch(setName(e.target.value)),
+	actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionCreateRol: (name, descripcion, paginationPage, createRolMutation) =>
 		dispatch(createRol(name, descripcion, paginationPage, createRolMutation)),
 });

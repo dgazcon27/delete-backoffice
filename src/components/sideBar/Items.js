@@ -13,7 +13,6 @@ import Work from '@material-ui/icons/Work';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
 import AttachMoney from '@material-ui/icons/AttachMoney';
-import DraftsIcon from '@material-ui/icons/Drafts';
 
 import {
 	ListItem,
@@ -42,7 +41,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/user-type' href='/user-type'>
+		<Link to='/user-type/' href='/user-type/'>
 			<ListItem button>
 				<ListItemIcon>
 					<Security />
@@ -138,15 +137,6 @@ const Items = (
 			</ListItemIcon>
 			<ListItemText primary='Spam' />
 		</ListItem>
-
-		<Link to='/products' href='/products'>
-			<ListItem button>
-				<ListItemIcon>
-					<DraftsIcon />
-				</ListItemIcon>
-				<ListItemText primary='UserType' />
-			</ListItem>
-		</Link>s
 	</div>
 );
 
