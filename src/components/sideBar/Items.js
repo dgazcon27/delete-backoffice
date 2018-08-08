@@ -13,6 +13,7 @@ import Work from '@material-ui/icons/Work';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
 import AttachMoney from '@material-ui/icons/AttachMoney';
+import DraftsIcon from '@material-ui/icons/Drafts';
 
 import {
 	ListItem,
