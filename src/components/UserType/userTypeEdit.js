@@ -14,13 +14,14 @@ import {
 } from 'redux-form';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
+import { required, issue } from '../validations/validations';
+import renderTextField from '../RenderFields/renderFields';
 import { EDIT_ROL } from '../../queries/userType';
 import {
 	editRol,
 	cleanState,
 	closeAlert,
 } from '../../actions/userType/actionsCreators';
-
 
 let UserTypeEdit = ({
 	id,
@@ -33,30 +34,36 @@ let UserTypeEdit = ({
 	paginationPage,
 	editRolMutation,
 	actionCleanState,
+	handleSubmit,
+	submitting,
 }) => (
 	<div>
 		<h4>Editar Rol</h4>
 		<div className={classes.createContainer}>
-			<Field
-				name='name'
-				label='Name'
-				type='text'
-				component='input'
-				placeholder='Nombre'
-			/>
-			<Field
-				name='rolDescription'
-				type='text'
-				label='rolDescription'
-				component='input'
-				placeholder='Descripcion'
-			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={e => e.preventDefault(actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))}>
-			Confirmar
-			</Link>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
+			<form>
+				<Field
+					name='name'
+					label='Name'
+					type='text'
+					placeholder='Nombre'
+					component={renderTextField}
+					validate={issue}
+				/>
+				<Field
+					name='rolDescription'
+					type='text'
+					label='rolDescription'
+					placeholder='Descripcion'
+					component={renderTextField}
+					validate={required}
+				/>
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))} disabled={submitting} >
+				Confirmar
+				</button>
+				<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar
-			</Link>
+				</Link>
+			</form>
 			{alertType === 'edit' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -92,6 +99,8 @@ UserTypeEdit.propTypes = {
 	actionCleanState: PropTypes.func.isRequired,
 	editRolMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
+	submitting: PropTypes.bool.isRequired,
 };
 
 UserTypeEdit = reduxForm({
