@@ -16,7 +16,7 @@ describe('test Reducer Header', () => {
 		alertOpen: false,
 		alertType: '',
 		modalType: '',
-		descripcion: '',
+		rolDescription: '',
 		statusValue: 0,
 		paginationPage: 0,
 		currentPage: 0,
