@@ -45,6 +45,19 @@ export const closeModal = () => ({
 	},
 });
 
+export const openAlert = alertType => ({
+	type: OPEN_ALERT,
+	payload: {
+		alertType,
+		description: OPEN_ALERT,
+	},
+});
+export const closeAlert = () => ({
+	type: CLOSE_ALERT,
+	payload: {
+		description: OPEN_ALERT,
+	},
+});
 export const editRol = (id, name, descripcion, paginationPage, editRolMutation) =>
 	async (dispatch) => {
 		if (name !== '' && descripcion !== '') {
@@ -86,20 +99,6 @@ export const openModal = (modalType, _rol) => ({
 		id: _rol.id,
 	},
 });
-export const openAlert = alertType => ({
-	type: OPEN_ALERT,
-	payload: {
-		alertType,
-		description: OPEN_ALERT,
-	},
-});
-export const closeAlert = () => ({
-	type: CLOSE_ALERT,
-	payload: {
-		description: OPEN_ALERT,
-	},
-});
-
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {

@@ -72,6 +72,14 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
+		case CLOSE_MODAL:
+			return ({
+				...state,
+				isOpen: false,
+				id: 0,
+				name: '',
+				descripcion: '',
+			});
 		case OPEN_ALERT:
 			return ({
 				...state,
@@ -82,14 +90,6 @@ const ReducerUserType = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				alertOpen: false,
-			});
-		case CLOSE_MODAL:
-			return ({
-				...state,
-				isOpen: false,
-				id: 0,
-				name: '',
-				descripcion: '',
 			});
 		case SET_NAME:
 			return ({

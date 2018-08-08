@@ -11,7 +11,6 @@ const rootReducer = combineReducers({
 	ReducerLogin,
 	ReducerUser,
 	form: reduxFormReducer,
-
 });
 
 export default rootReducer;

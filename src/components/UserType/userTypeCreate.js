@@ -14,6 +14,8 @@ import {
 } from 'redux-form';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
+import { required } from '../validations/validations';
+import renderTextField from '../RenderFields/renderFields';
 import { CREATE_ROL } from '../../queries/userType';
 import {
 	closeAlert,
@@ -31,31 +33,36 @@ let UserTypeCreate = ({
 	createRolMutation,
 	paginationPage,
 	myValues,
+	submitting,
+	handleSubmit,
 }) => (
 	<div>
 		<h4>Nuevo Rol</h4>
 		<div className={classes.createContainer}>
-			<Field
-				name='name'
-				label='Name'
-				type='text'
-				component='input'
-				placeholder='Name'
-			/>
-			<Field
-				name='description'
-				type='text'
-				label='Description'
-				component='input'
-				placeholder='Description'
-			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={e => e.preventDefault(actionCreateRol(myValues.name, myValues.description, paginationPage, createRolMutation))}>
-			Crear
-			</Link>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} >
-				Regresar
-			</Link>
-			{alertType === 'name' &&
+
+			<form>
+				<Field
+					name='name'
+					type='text'
+					component={renderTextField}
+					validate={required}
+					label='name'
+				/>
+				<Field
+					name='description'
+					type='text'
+					component={renderTextField}
+					validate={required}
+					label='description'
+				/>
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.description, paginationPage, createRolMutation))} disabled={submitting} >
+					Crear
+				</button>
+				<Link to='/user-type' href='/user-type' className={classes.returnButton} >
+					Regresar
+				</Link>
+			</form>
+			{alertType === 'nombre' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -63,7 +70,7 @@ let UserTypeCreate = ({
 					ContentProps={{
 						'aria-describedby': 'message-id',
 					}}
-					message={<span id='message-id'>No puede crear un rol sin nombre.</span>}
+					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
 				/>
 			}
 			{alertType === 'validation' &&
@@ -110,6 +117,8 @@ UserTypeCreate.propTypes = {
 	actionCloseAlert: PropTypes.func.isRequired,
 	createRolMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	submitting: PropTypes.bool.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
 };
 
 UserTypeCreate = reduxForm({
