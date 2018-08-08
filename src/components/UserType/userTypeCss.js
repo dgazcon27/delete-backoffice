@@ -27,11 +27,18 @@ const styles = () => ({
 		top: '40% !important',
 		left: '20% !important',
 	},
-	createButton: {
+	returnButton: {
 		display: 'inline',
 		left: '20% !important',
 		margin: '25px',
 		padding: '25px',
+	},
+	createButton: {
+		background: 'white',
+		borderColor: 'white',
+		border: '0px',
+		color: '#039be5',
+		marginLeft: '25px',
 	},
 });
 

@@ -4,6 +4,8 @@ import {
 	OPEN_MODAL,
 	CLOSE_MODAL,
 	CLEAN_STATE,
+	OPEN_ALERT,
+	CLOSE_ALERT,
 	PAGE_UP,
 	PAGE_DOWN,
 	EDIT_USER_TYPE,
@@ -16,6 +18,8 @@ const initialState = {
 	id: 0,
 	name: '',
 	isOpen: false,
+	alertOpen: false,
+	alertType: '',
 	modalType: '',
 	descripcion: '',
 	statusValue: 0,
@@ -75,6 +79,17 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				id: 0,
 				name: '',
 				descripcion: '',
+			});
+		case OPEN_ALERT:
+			return ({
+				...state,
+				alertOpen: true,
+				alertType: action.payload.alertType,
+			});
+		case CLOSE_ALERT:
+			return ({
+				...state,
+				alertOpen: false,
 			});
 		case SET_NAME:
 			return ({
