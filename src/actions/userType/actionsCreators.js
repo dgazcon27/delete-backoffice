@@ -21,13 +21,13 @@ export const changePage = (currentPage, paginationPage) => ({
 	},
 });
 
-export const setRol = (id, name, descripcion) => ({
+export const setRol = (id, name, rolDescription) => ({
 	type: SET_ROL,
 	payload: {
 		description: SET_ROL,
 		id,
 		name,
-		descripcion,
+		rolDescription,
 	},
 });
 
@@ -44,17 +44,6 @@ export const closeModal = () => ({
 		description: CLOSE_MODAL,
 	},
 });
-
-export const editRol = (id, name, descripcion, paginationPage, editRolMutation) =>
-	async (dispatch) => {
-		if (name !== '' && descripcion !== '') {
-			await editRolMutation({
-				variables: { id, name, descripcion },
-				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-			});
-			dispatch(cleanState());
-		}
-	};
 
 export const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
@@ -108,23 +97,47 @@ export const setName = name => ({
 	},
 });
 
-export const setDescription = descripcion => ({
+export const setDescription = rolDescription => ({
 	type: SET_DESCRIPTION,
 	payload: {
 		description: SET_DESCRIPTION,
-		descripcion,
+		rolDescription,
 	},
 });
 
-export const createRol = (name, descripcion, paginationPage, createRolMutation) =>
+export const createRol = (name, rolDescription, paginationPage, createRolMutation) =>
 	async (dispatch) => {
-		if (name !== '' && descripcion !== '') {
+		if (name !== '' && rolDescription !== '') {
 			createRolMutation({
-				variables: { name, descripcion },
+				variables: { name, rolDescription },
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 			})
 				.then(() => {
 					dispatch(openAlert('creado'));
+					setTimeout(() => (window.location.assign('user-type')), 2000);
+				})
+				.catch((res) => {
+					const message = res.graphQLErrors[0];
+					const paso = message.message.split(' ');
+					const salida = paso.filter(e => e.includes('"$') || e.includes('validation'));
+					let s = salida.toString();
+					s = s.replace('$', '');
+					s = s.replace('"', '');
+					s = s.replace('"', '');
+					dispatch(openAlert(s));
+				});
+		}
+	};
+
+export const editRol = (id, name, rolDescription, paginationPage, editRolMutation) =>
+	async (dispatch) => {
+		if (name !== '' && rolDescription !== '') {
+			await editRolMutation({
+				variables: { id, name, rolDescription },
+				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+			})
+				.then(() => {
+					dispatch(openAlert('edit'));
 					setTimeout(() => (window.location.assign('user-type')), 2000);
 				})
 				.catch((res) => {

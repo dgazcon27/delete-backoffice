@@ -21,7 +21,7 @@ const initialState = {
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
-	descripcion: '',
+	rolDescription: '',
 	statusValue: 0,
 	paginationPage: 0,
 	currentPage: 0,
@@ -50,7 +50,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				id: action.payload.id,
 				name: action.payload.name,
-				descripcion: action.payload.descripcion,
+				rolDescription: action.payload.rolDescription,
 			});
 		case BLOCK_USER_TYPE:
 			return ({
@@ -89,7 +89,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				isOpen: false,
 				id: 0,
 				name: '',
-				descripcion: '',
+				rolDescription: '',
 			});
 		case SET_NAME:
 			return ({
@@ -99,14 +99,14 @@ const ReducerUserType = (state = initialState, action = {}) => {
 		case SET_DESCRIPTION:
 			return ({
 				...state,
-				descripcion: action.payload.descripcion,
+				rolDescription: action.payload.rolDescription,
 			});
 		case CLEAN_STATE:
 			return ({
 				...state,
 				id: 0,
 				name: '',
-				descripcion: '',
+				rolDescription: '',
 			});
 		default:
 			return state;

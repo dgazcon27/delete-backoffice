@@ -43,17 +43,17 @@ let UserTypeCreate = ({
 				placeholder='Name'
 			/>
 			<Field
-				name='description'
+				name='rolDescription'
 				type='text'
-				label='Description'
+				label='rolDescription'
 				component='input'
-				placeholder='Description'
+				placeholder='Descripcion'
 			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={e => e.preventDefault(actionCreateRol(myValues.name, myValues.description, paginationPage, createRolMutation))}>
+			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={e => e.preventDefault(actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))}>
 			Crear
 			</Link>
 			<Link to='/user-type' href='/user-type' className={classes.createButton} >
-				Regresar
+			Regresar
 			</Link>
 			{alertType === 'name' &&
 				<Snackbar
@@ -77,7 +77,7 @@ let UserTypeCreate = ({
 					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 				/>
 			}
-			{alertType === 'descripcion' &&
+			{alertType === 'rolDescription' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -124,7 +124,7 @@ const mapStateToProps = state => ({
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
-	myValues: selector(state, 'name', 'description'),
+	myValues: selector(state, 'name', 'rolDescription'),
 });
 
 const mapDispatchToProps = dispatch => ({
