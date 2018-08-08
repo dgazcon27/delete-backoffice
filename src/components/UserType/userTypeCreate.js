@@ -48,13 +48,13 @@ let UserTypeCreate = ({
 					label='name'
 				/>
 				<Field
-					name='description'
+					name='rolDescription'
 					type='text'
 					component={renderTextField}
 					validate={required}
 					label='description'
 				/>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.description, paginationPage, createRolMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/user-type' href='/user-type' className={classes.returnButton} >
