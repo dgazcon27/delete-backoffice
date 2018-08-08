@@ -12,6 +12,14 @@ import {
 } from './actionsTypes';
 import { GET_ROLES } from '../../queries/userType';
 
+const checkMessageError = (res) => {
+	const message = res.graphQLErrors[0];
+	const pass = message.message.split(' ');
+	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
+	const msg = errorOutput.toString();
+	return (msg.replace('$', '').replace('"', '').replace('"', ''));
+};
+
 export const changePage = (currentPage, paginationPage) => ({
 	type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
 	payload: {
@@ -117,14 +125,8 @@ export const createRol = (name, rolDescription, paginationPage, createRolMutatio
 					setTimeout(() => (window.location.assign('user-type')), 2000);
 				})
 				.catch((res) => {
-					const message = res.graphQLErrors[0];
-					const paso = message.message.split(' ');
-					const salida = paso.filter(e => e.includes('"$') || e.includes('validation'));
-					let s = salida.toString();
-					s = s.replace('$', '');
-					s = s.replace('"', '');
-					s = s.replace('"', '');
-					dispatch(openAlert(s));
+					const message = checkMessageError(res);
+					dispatch(openAlert(message));
 				});
 		}
 	};
@@ -141,14 +143,8 @@ export const editRol = (id, name, rolDescription, paginationPage, editRolMutatio
 					setTimeout(() => (window.location.assign('user-type')), 2000);
 				})
 				.catch((res) => {
-					const message = res.graphQLErrors[0];
-					const paso = message.message.split(' ');
-					const salida = paso.filter(e => e.includes('"$') || e.includes('validation'));
-					let s = salida.toString();
-					s = s.replace('$', '');
-					s = s.replace('"', '');
-					s = s.replace('"', '');
-					dispatch(openAlert(s));
+					const message = checkMessageError(res);
+					dispatch(openAlert(message));
 				});
 		}
 	};
