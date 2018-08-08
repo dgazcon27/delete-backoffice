@@ -1,0 +1,3 @@
+const CREATE_PROD = 'CREATE_PROD';
+
+export CREATE_PROD;
