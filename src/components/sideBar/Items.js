@@ -137,6 +137,15 @@ const Items = (
 			</ListItemIcon>
 			<ListItemText primary='Spam' />
 		</ListItem>
+
+		<Link to='/products' href='/products'>
+			<ListItem button>
+				<ListItemIcon>
+					<DraftsIcon />
+				</ListItemIcon>
+				<ListItemText primary='UserType' />
+			</ListItem>
+		</Link>s
 	</div>
 );
 

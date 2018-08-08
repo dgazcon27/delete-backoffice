@@ -2,6 +2,8 @@ import {
 	SET_NAME,
 	OPEN_MODAL,
 	CLOSE_MODAL,
+	OPEN_ALERT,
+	CLOSE_ALERT,
 	SET_DESCRIPTION,
 	CLEAN_STATE,
 	SET_ROL,
@@ -44,6 +46,19 @@ export const closeModal = () => ({
 	},
 });
 
+export const openAlert = alertType => ({
+	type: OPEN_ALERT,
+	payload: {
+		alertType,
+		description: OPEN_ALERT,
+	},
+});
+export const closeAlert = () => ({
+	type: CLOSE_ALERT,
+	payload: {
+		description: OPEN_ALERT,
+	},
+});
 export const editRol = (id, name, descripcion, paginationPage, editRolMutation) =>
 	async (dispatch) => {
 		if (name !== '' && descripcion !== '') {
@@ -105,11 +120,30 @@ export const setDescription = descripcion => ({
 export const createRol = (name, descripcion, paginationPage, createRolMutation) =>
 	async (dispatch) => {
 		if (name !== '' && descripcion !== '') {
-			await createRolMutation({
+			createRolMutation({
 				variables: { name, descripcion },
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-			});
-			dispatch(cleanState());
-			window.location.reload();
+			})
+				.then(() => {
+					dispatch(openAlert('creado'));
+					setTimeout(() => (window.location.assign('user-type')), 2000);
+				})
+				.catch((res) => {
+					const a = res.graphQLErrors[0].message;
+					switch (a) {
+						case 'Variable "$descripcion" of required type "String!" was not provided.':
+							dispatch(openAlert('descripcion'));
+							break;
+						case 'Variable "$name" of required type "String!" was not provided.':
+							dispatch(openAlert('nombre'));
+							break;
+						case 'validation':
+							dispatch(openAlert('validation'));
+							break;
+						default:
+							dispatch(cleanState());
+							break;
+					}
+				});
 		}
 	};
