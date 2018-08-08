@@ -39,7 +39,6 @@ let UserTypeCreate = ({
 	<div>
 		<h4>Nuevo Rol</h4>
 		<div className={classes.createContainer}>
-
 			<form>
 				<Field
 					name='name'
@@ -63,6 +62,7 @@ let UserTypeCreate = ({
 				</Link>
 			</form>
 			{alertType === 'nombre' &&
+
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -84,7 +84,7 @@ let UserTypeCreate = ({
 					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 				/>
 			}
-			{alertType === 'descripcion' &&
+			{alertType === 'rolDescription' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
@@ -133,7 +133,7 @@ const mapStateToProps = state => ({
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
-	myValues: selector(state, 'name', 'description'),
+	myValues: selector(state, 'name', 'rolDescription'),
 });
 
 const mapDispatchToProps = dispatch => ({
