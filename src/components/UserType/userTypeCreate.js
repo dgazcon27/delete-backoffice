@@ -49,10 +49,10 @@ const UserTypeCreate = ({
 				defaultValue={descripcion}
 				onChange={actionSetDescription}
 			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
+			<Link to='users-type' href='users-type' className={classes.createButton} type='submit' onClick={() => actionCreateRol(name, descripcion, paginationPage, createRolMutation)}>
 				Crear
 			</Link>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} >
+			<Link to='users-type' href='users-type' className={classes.createButton} >
 				Regresar
 			</Link>
 		</div>
