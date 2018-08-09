@@ -34,11 +34,17 @@ const styles = () => ({
 		padding: '25px',
 	},
 	createButton: {
+
 		background: 'white',
 		borderColor: 'white',
 		border: '0px',
 		color: '#039be5',
 		marginLeft: '25px',
+	},
+	button: {
+		'&:focus': {
+			background: 'white',
+		},
 	},
 });
 
