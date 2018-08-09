@@ -55,10 +55,10 @@ const UserTypeEdit = ({
 				defaultValue={descripcion}
 				onChange={actionSetDescription}
 			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionEditRol(id, name, descripcion, paginationPage, editRolMutation)}>
+			<Link to='/users-type' href='/users-type' className={classes.createButton} onClick={() => actionEditRol(id, name, descripcion, paginationPage, editRolMutation)}>
 				Confirmar
 			</Link>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
+			<Link to='/users-type' href='/users-type' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar
 			</Link>
 		</div>

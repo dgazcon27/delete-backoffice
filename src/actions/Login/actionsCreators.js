@@ -92,6 +92,7 @@ export const requestLogout = (token) => {
 				dispatch(logout(null));
 				localStorage.setItem('token', null);
 				localStorage.removeItem('token');
+				localStorage.removeItem('paginations');
 			});
 	};
 };
