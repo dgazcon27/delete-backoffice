@@ -19,8 +19,7 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField }
-	from '../RenderFields/renderFields';
+import { renderTextField } from '../RenderFields/renderFields';
 import { CREATE_ROL } from '../../queries/userType';
 import {
 	closeAlert,
