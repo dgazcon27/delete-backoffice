@@ -19,11 +19,7 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
-import {
-	renderTextField,
-	renderNumberField,
-	renderDateField,
-}
+import { renderTextField }
 	from '../RenderFields/renderFields';
 import { CREATE_ROL } from '../../queries/userType';
 import {
@@ -64,38 +60,6 @@ let UserTypeCreate = ({
 					label='description'
 					className='yourclass'
 				/>
-				<Field
-					name='Fecha'
-					type='date'
-					component={renderDateField}
-					validate={[required, empty]}
-					label='fecha'
-					className='yourclass'
-				/>
-				<Field
-					name='Age'
-					type='number'
-					component={renderNumberField}
-					validate={[required, empty]}
-					label='Age'
-					className='yourclass'
-				/>
-				{/* <TextField
-					label='DATE'
-					name='date'
-					validate={[required, empty]}
-					className='yourclass MuiInputt-formControl-16'
-				/>
-				<TextField
-					label='Age'
-					multiline={false}
-					type='number'
-					fullWidth
-					inputProps={{ min: "0", step: "1" }}
-					validate={[required, empty]}
-					className='yourclass MuiInputt-formControl-16'
-					disableUnderline={true}
-				/> */}
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
 					Crear
 				</button>

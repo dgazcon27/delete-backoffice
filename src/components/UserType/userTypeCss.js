@@ -41,11 +41,6 @@ const styles = () => ({
 		color: '#039be5',
 		marginLeft: '25px',
 	},
-	button: {
-		'&:focus': {
-			background: 'white',
-		},
-	},
 });
 
 export default styles;
