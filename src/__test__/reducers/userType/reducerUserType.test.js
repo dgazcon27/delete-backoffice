@@ -1,3 +1,4 @@
+import 'jest-localstorage-mock';
 import ReducerUserType from '../../../reducers/userType/reducerUserType';
 
 /*
@@ -21,6 +22,16 @@ describe('test Reducer Header', () => {
 		paginationPage: 0,
 		currentPage: 0,
 	};
+
+	// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
+	if (JSON.parse(localStorage.getItem('paginations'))) {
+		initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
+		initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+	} else {
+		initialState.paginationPage = 0;
+		initialState.currentPage = 0;
+	}
+
 	/*
 		Prueba que el reducer retorne el estado inicial cuando no se
 		le pase algun valor
