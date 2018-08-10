@@ -14,8 +14,13 @@ import {
 } from 'redux-form';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
-import { required, empty } from '../validations/validations';
-import { renderTextField } from '../RenderFields/renderFields';
+import './styles.css';
+import {
+	required,
+	empty,
+} from '../validations/validations';
+import { renderTextField }
+	from '../RenderFields/renderFields';
 import { CREATE_ROL } from '../../queries/userType';
 import {
 	closeAlert,
@@ -53,6 +58,7 @@ let UserTypeCreate = ({
 					component={renderTextField}
 					validate={[required, empty]}
 					label='description'
+					className='yourclass'
 				/>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
 					Crear
