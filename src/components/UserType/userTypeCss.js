@@ -1,15 +1,18 @@
 const styles = () => ({
 	modalOpenStyle: {
+		height: '30%',
+		width: '50%',
 		position: 'absolute !important',
 		top: '40% !important',
 		left: '35% !important',
-		marginTop: '0% !important',
 	},
 	paperOnModal: {
+		position: 'relative',
+		left: '-25%',
 		textAlign: 'center',
 		margin: '25px',
 		padding: '25px',
-		marginTop: '45% !important',
+		marginTop: '5%',
 	},
 	alignRight: {
 		textAlign: 'right',
