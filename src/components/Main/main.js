@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import UserType from '../UserType/userType';
+import Bank from '../Bank/bank';
+import BankCreate from '../Bank/bankCreate';
+import BankEdit from '../Bank/bankEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
@@ -36,6 +39,9 @@ const Main = (props) => {
 				<Route path='/Departments' component={Departments} />
 				<Route path='/pre-sale' component={Presale} />
 				<Route path='/staff' component={Staff} />
+				<Route path='/bank' component={Bank} />
+				<Route path='/bank-create' component={BankCreate} />
+				<Route path='/bank-edit' component={BankEdit} />
 			</Switch>
 		</main>
 	);
