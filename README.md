@@ -27,3 +27,5 @@ delete-back-office/
 	package.json
 	README.md
 ```
+push para template fixes
+
