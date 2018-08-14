@@ -165,7 +165,7 @@ const UserType = ({
 					<Modal
 						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
+						hideBackdrop={false}
 						disableAutoFocus={false}
 					>
 						<div>
