@@ -1,10 +1,19 @@
 import {
 	EDIT_USER,
 	OPEN_MODAL,
+	OPEN_ALERT,
+	CLOSE_ALERT,
 	CLOSE_MODAL,
 } from './actionsTypes';
 import { GET_USERS } from '../../queries/users';
 
+const checkMessageError = (res) => {
+	const message = res.graphQLErrors[0];
+	const pass = message.message.split(' ');
+	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
+	const msg = errorOutput.toString();
+	return (msg.replace('$', '').replace('"', '').replace('"', ''));
+};
 
 export const closeModal = () => ({
 	type: CLOSE_MODAL,
@@ -19,6 +28,22 @@ export const editUser = () => ({
 		description: EDIT_USER,
 	},
 });
+
+export const openAlert = alertType => ({
+	type: OPEN_ALERT,
+	payload: {
+		alertType,
+		description: OPEN_ALERT,
+	},
+});
+
+export const closeAlert = () => ({
+	type: CLOSE_ALERT,
+	payload: {
+		description: OPEN_ALERT,
+	},
+});
+
 export const blockUser = (id, statusValue, blockUserMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
@@ -49,3 +74,35 @@ export const openModal = (modalType, _user) => ({
 		id: _user.id,
 	},
 });
+
+export const createUser = (
+	myValues,
+	name,
+	email,
+	password,
+	lastName,
+	phone,
+	dni,
+	birthDate,
+	role,
+	citizenship,
+	createUserMutation,
+	paginationPage,
+) => (
+	async (dispatch) => {
+		createUserMutation({
+			variables: {
+				name, email, password, lastName, phone, dni, birthDate, role, citizenship,
+			},
+			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(openAlert('creado'));
+				setTimeout(() => (window.location.assign('user-type')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	}
+);

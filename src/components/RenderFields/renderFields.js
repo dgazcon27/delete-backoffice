@@ -1,6 +1,8 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Select from 'material-ui/Select';
+import InputLabel from 'material-ui/Input/InputLabel';
+// import FormControl from 'material-ui/Form/FormControl';
 import PropTypes from 'prop-types';
 import '../../components/UserType/styles.css';
 
@@ -17,12 +19,19 @@ export const renderTextField = field => (
 );
 
 export const renderSelectField = field => (
-	<Select
-		fullWidth
-		{...field.input}
-	>
-		{field.children}
-	</Select>
+	<div>
+		<InputLabel htmlFor='age-simple'>Age</InputLabel>
+		<Select
+			inputProps={{
+				name: 'age',
+				id: 'age-simple',
+			}}
+			fullWidth
+			{...field.input}
+		>
+			{field.children}
+		</Select>
+	</div>
 );
 
 export const renderDateField = field => (

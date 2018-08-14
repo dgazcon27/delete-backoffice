@@ -21,6 +21,7 @@ import {
 	compose,
 	Query,
 } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import styles from '../UserType/userTypeCss';
@@ -80,7 +81,7 @@ const Users = ({
 							Usuarios
 						</h3>
 						<h5>
-							Agregar Nuevo
+							<Link to='/users-create' href='/users-create'>Agregar Nuevo</Link>
 						</h5>
 
 						<Paper>
