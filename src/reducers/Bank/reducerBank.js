@@ -25,7 +25,6 @@ const initialState = {
 	modalType: '',
 	rolDescription: '',
 	statusValue: 0,
-	currency: '',
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage

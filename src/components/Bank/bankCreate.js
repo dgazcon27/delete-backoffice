@@ -12,8 +12,9 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './userTypeCss';
+import styles from './bankCss';
 import './styles.css';
 import {
 	required,
@@ -41,24 +42,29 @@ let BankCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h4>Nueva Banca</h4>
-		<div className={classes.createContainer}>
+		<h3 className={classes.formTitle}>Bancas</h3>
+		<Paper className={classes.createContainer}>
 			<form>
-				<Field
-					name='name'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='name'
-				/>
-				<Field
-					name='currency'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='currency'
-					className='yourclass'
-				/>
+				<h6 className={classes.formTitle}>Nueva banca</h6>
+				<div className={classes.formStyle}>
+					<Field
+						name='name'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='name'
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='currency'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='currency'
+						className='yourclass'
+					/>
+				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateBank(myValues.name, myValues.currency, paginationPage, createBankMutation))} disabled={submitting} >
 					Crear
 				</button>
@@ -98,7 +104,7 @@ let BankCreate = ({
 					message={<span id='message-id'>La banca {myValues.name} fue creado con exito.</span>}
 				/>
 			}
-		</div>
+		</Paper>
 	</div>
 );
 
