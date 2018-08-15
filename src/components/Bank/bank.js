@@ -15,7 +15,7 @@ import {
 	Modal,
 	Paper,
 	Table,
-	Switch,
+	// Switch,
 	Tooltip,
 	TableRow,
 	TableBody,
@@ -29,40 +29,35 @@ import {
 import styles from './userTypeCss';
 import {
 	changePage,
-	blockUserType,
-	deleteUserType,
+	deleteBank,
 	openModal,
 	closeModal,
-	setRol,
-} from '../../actions/userType/actionsCreators';
+	setBank,
+} from '../../actions/Bank/actionsCreators';
 
 import {
-	GET_ROLES,
-	BLOCK_ROL,
-	DELETE_ROL,
-} from '../../queries/userType';
+	GET_BANKS,
+	DELETE_BANK,
+} from '../../queries/bank';
 
 import Loading from '../Loading/loading';
 
-const UserType = ({
+const Bank = ({
 	id,
 	name,
 	isOpen,
 	classes,
 	modalType,
 	currentPage,
-	statusValue,
-	actionSetRol,
+	actionSetBank,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
-	blockRolMutation,
-	deleteRolMutation,
-	actionBlockUserType,
-	actionDeleteUserType,
+	deleteBankMutation,
+	actionDeleteBank,
 }) => (
-	<Query query={GET_ROLES} variables={{ paginationPage }}>
+	<Query query={GET_BANKS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -80,11 +75,11 @@ const UserType = ({
 				<div>
 					<div>
 						<h3>
-							Roles
+							Banca
 						</h3>
 						<h5>
-							<Link to='/user-type-create' href='/user-type-create' >
-								Agregar Nuevo
+							<Link to='/bank-create' href='/bank-create' >
+								Agregar Nueva
 							</Link>
 						</h5>
 						<Paper>
@@ -92,25 +87,30 @@ const UserType = ({
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
+										<TableCell>Moneda</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{
-										data.roles.data.map(rol => (
-											<TableRow key={rol.id}>
-												<TableCell >{rol.name}</TableCell>
+										data.banks.data.map(bank => (
+											<TableRow key={bank.id}>
+												<TableCell >{bank.name}</TableCell>
+												<TableCell >{bank.currency}</TableCell>
 												<TableCell className={classes.alignRight}>
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
 														leaveDelay={100}
 														placement='top'
-														title='Editar Rol.'
+														title='Editar bank.'
 													>
-														<Link to='/user-type-edit' href='/user-type-edit'>
+														<Link to='/bank-edit' href='/bank-edit'>
 															<IconButton
-																onClick={() => { actionSetRol(rol.id, rol.name, rol.description); }}
+																onClick={() => {
+																	actionSetBank(bank.id, bank.name, bank.currency);
+																}
+																}
 															>
 																<Edit />
 															</IconButton>
@@ -121,24 +121,11 @@ const UserType = ({
 														id='tooltip-controlled'
 														leaveDelay={100}
 														placement='top'
-														title='Eliminar Rol'
+														title='Eliminar bank'
 													>
-														<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
+														<IconButton onClick={() => { actionOpenModal('delete', bank); }}>
 															<Delete />
 														</IconButton>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Bloquear / Desbloquear'
-													>
-														<Switch
-															onClick={() => { actionOpenModal('block', rol); }}
-															checked={rol.status.id === 2}
-															value='checked'
-														/>
 													</Tooltip>
 												</TableCell>
 											</TableRow>
@@ -148,7 +135,7 @@ const UserType = ({
 								<TableFooter>
 									<TableRow>
 										<TablePagination
-											count={data.roles.total}
+											count={data.banks.total}
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
@@ -165,7 +152,7 @@ const UserType = ({
 					<Modal
 						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop={false}
+						hideBackdrop
 						disableAutoFocus={false}
 					>
 						<div>
@@ -179,50 +166,17 @@ const UserType = ({
 									</button>
 								</Paper>
 							}
-
-							{modalType === 'block' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									{statusValue === 1 && <h6> Bloquear Rol </h6>}
-									{statusValue === 2 && <h6> Desbloquear Rol </h6>}
-									{
-										statusValue === 1 &&
-										<p>
-										¿Estas seguro que desea bloquear el rol {name}?
-										</p>
-									}
-									{
-										statusValue === 2 &&
-										<p>
-											¿Estas seguro que desea desbloquear el rol {name}?
-										</p>
-									}
-
-									<span>
-										<IconButton
-											onClick={() => { actionBlockUserType(id, statusValue, blockRolMutation); }}
-										>
-										Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal} >
-										No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6>
-										Eliminar Rol
+										Eliminar bank
 									</h6>
 									<p>
-										¿Estas seguro que desea eliminar el rol {name} ?
+										¿Estas seguro que desea eliminar el bank {name} ?
 									</p>
 									<span>
 										<IconButton onClick={() => {
-											actionDeleteUserType(id, statusValue, paginationPage, deleteRolMutation);
+											actionDeleteBank(id, paginationPage, deleteBankMutation);
 										}}
 										>
 											Si
@@ -243,59 +197,52 @@ const UserType = ({
 	</Query>
 );
 
-UserType.propTypes = {
+Bank.propTypes = {
 	isOpen: PropTypes.bool,
 	name: PropTypes.string,
 	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetRol: PropTypes.func.isRequired,
+	actionSetBank: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
-	blockRolMutation: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	deleteRolMutation: PropTypes.func.isRequired,
-	actionBlockUserType: PropTypes.func.isRequired,
-	actionDeleteUserType: PropTypes.func.isRequired,
+	deleteBankMutation: PropTypes.func.isRequired,
+	actionDeleteBank: PropTypes.func.isRequired,
 };
 
-UserType.defaultProps = {
+Bank.defaultProps = {
 	name: '',
 	isOpen: false,
 	modalType: '',
-	statusValue: 0,
 };
 
 const mapStateToProps = state => ({
-	id: state.ReducerUserType.id,
-	name: state.ReducerUserType.name,
-	isOpen: state.ReducerUserType.isOpen,
-	modalType: state.ReducerUserType.modalType,
-	statusValue: state.ReducerUserType.statusValue,
-	currentPage: state.ReducerUserType.currentPage,
-	paginationPage: state.ReducerUserType.paginationPage,
+	currency: state.ReducerBank.currency,
+	id: state.ReducerBank.id,
+	name: state.ReducerBank.name,
+	isOpen: state.ReducerBank.isOpen,
+	modalType: state.ReducerBank.modalType,
+	currentPage: state.ReducerBank.currentPage,
+	paginationPage: state.ReducerBank.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionDeleteBank: (id, paginationPage, deleteBankMutation) =>
+		dispatch(deleteBank(id, paginationPage, deleteBankMutation)),
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
-	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
-	actionBlockUserType: (id, statusValue, blockRolMutation) =>
-		dispatch(blockUserType(id, statusValue, blockRolMutation)),
-	actionDeleteUserType: (id, statusValue, paginationPage, deleteRolMutation) =>
-		dispatch(deleteUserType(id, statusValue, paginationPage, deleteRolMutation)),
+	actionOpenModal: (modalType, bank) => dispatch(openModal(modalType, bank)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
+	actionSetBank: (id, currency, name) => dispatch(setBank(id, currency, name)),
 });
 
-export { UserType as UserTypeTest };
+export { Bank as BankTest };
 
 export default compose(
-	graphql(DELETE_ROL, { name: 'deleteRolMutation' }),
-	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
+	graphql(DELETE_BANK, { name: 'deleteBankMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(UserType);
+)(Bank);
