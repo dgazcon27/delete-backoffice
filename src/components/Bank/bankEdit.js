@@ -12,6 +12,7 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
 import { required, empty } from '../validations/validations';
@@ -38,25 +39,30 @@ let BankEdit = ({
 	submitting,
 }) => (
 	<div>
-		<h4>Editar Bank</h4>
-		<div className={classes.createContainer}>
+		<h3 className={classes.formTitle}>Bancas</h3>
+		<Paper className={classes.createContainer}>
 			<form>
-				<Field
-					name='name'
-					label='Name'
-					type='text'
-					placeholder='Nombre'
-					component={renderTextField}
-					validate={[required, empty]}
-				/>
-				<Field
-					name='currency'
-					label='currency'
-					type='text'
-					placeholder='Descripcion'
-					component={renderTextField}
-					validate={[required, empty]}
-				/>
+				<h6 className={classes.formTitle}>Banco</h6>
+				<div className={classes.formStyle}>
+					<Field
+						name='name'
+						label='Name'
+						type='text'
+						placeholder='Nombre'
+						component={renderTextField}
+						validate={[required, empty]}
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='currency'
+						label='currency'
+						type='text'
+						placeholder='Descripcion'
+						component={renderTextField}
+						validate={[required, empty]}
+					/>
+				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(id, myValues.name, myValues.currency, paginationPage, editBankMutation))} disabled={submitting} >
 				Confirmar
 				</button>
@@ -64,27 +70,27 @@ let BankEdit = ({
 				Regresar
 				</Link>
 			</form>
-			{alertType === 'edit' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>La banca {myValues.name} fue editado con exito.</span>}
-				/>
-			}
-			{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No pueden existir 2 o mas bancos con el mismo nombre verifique e intente de nuevo.</span>}
-				/>
-			}
-		</div>
+		</Paper>
+		{alertType === 'edit' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>La banca {myValues.name} fue editado con exito.</span>}
+			/>
+		}
+		{alertType === 'validation' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>No pueden existir 2 o mas bancos con el mismo nombre verifique e intente de nuevo.</span>}
+			/>
+		}
 	</div>
 );
 

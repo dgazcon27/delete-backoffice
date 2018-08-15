@@ -45,7 +45,7 @@ let BankCreate = ({
 		<h3 className={classes.formTitle}>Bancas</h3>
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Nueva banca</h6>
+				<h6 className={classes.formTitle}>Nuevo Banco</h6>
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
@@ -72,39 +72,38 @@ let BankCreate = ({
 					Regresar
 				</Link>
 			</form>
-			{alertType === 'nombre' &&
-
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear una banca sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					Bank={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>La banca que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-				/>
-			}
-			{alertType === 'creado' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>La banca {myValues.name} fue creado con exito.</span>}
-				/>
-			}
 		</Paper>
+		{alertType === 'nombre' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>No puede crear una banca sin {alertType}</span>}
+		/>
+		}
+		{alertType === 'validation' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				Bank={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>La banca que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+			/>
+		}
+		{alertType === 'creado' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>La banca {myValues.name} fue creado con exito.</span>}
+			/>
+		}
 	</div>
 );
 
