@@ -5,8 +5,8 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
-	graphql,
 	compose,
+	graphql,
 	Query,
 } from 'react-apollo';
 import {
@@ -20,22 +20,20 @@ import './styles.css';
 import {
 	empty,
 	required,
-	email,
 } from '../validations/validations';
 import {
 	renderTextField,
 	renderDateField,
 	renderSelectField,
-	renderPasswordField,
 } from '../RenderFields/renderFields';
 import {
 	GET_ROLES,
-	CREATE_USER,
+	EDIT_USER,
 	GET_COUNTRYS,
 } from '../../queries/users';
 import {
 	closeAlert,
-	createUser,
+	editUser,
 } from '../../actions/users/actionsCreators';
 
 const Roles = () => (
@@ -110,19 +108,21 @@ const Countrys = () => (
 	</Query>
 );
 
-let UsersCreate = ({
+let UsersEdit = ({
 	classes,
 	alertOpen,
 	alertType,
 	actionCloseAlert,
-	actionCreateUser,
-	createUserMutation,
+	actionEditUser,
+	editUserMutation,
 	paginationPage,
+	initialValues,
 	myValues,
 	submitting,
 	handleSubmit,
 }) => (
-	<div><h4>Nuevo Usuario</h4>
+	<div>
+		<h4>Editar Usuario</h4>
 		<div className={classes.createContainer}>
 			<form>
 				<Field
@@ -156,13 +156,6 @@ let UsersCreate = ({
 					label='Fecha de Nacimiento'
 					className='yourclass container'
 				/>
-				<Field
-					name='email'
-					type='text'
-					component={renderTextField}
-					validate={[required, email, empty]}
-					label='Correo'
-				/>
 				<Roles />
 				<Field
 					name='phone'
@@ -172,127 +165,85 @@ let UsersCreate = ({
 					label='Teléfono'
 				/>
 				<Countrys />
-				<Field
-					name='password'
-					type='password'
-					component={renderPasswordField}
-					validate={[required, empty]}
-					label='Contraseña'
-					className='yourclass'
-				/>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), createUserMutation, paginationPage))} disabled={submitting} >
-					Crear
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditUser(myValues, initialValues.id, myValues.name, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), editUserMutation, paginationPage))} disabled={submitting} >
+					Guardar
 				</button>
 				<Link to='/users' href='/users' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
-			{alertType === 'nombre' &&
-
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-				/>
-			}
-			{alertType === 'rolDescription' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'creado' &&
+			{alertType === 'editado' &&
 				<Snackbar
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
 					onClose={() => { setTimeout(actionCloseAlert, 100); }}
 					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>El usuario fue creado con éxito.</span>}
+					message={<span id='message-id'>El usuario fue editado con éxito.</span>}
 				/>
 			}
 		</div>
 	</div>
 );
 
-UsersCreate.propTypes = {
+UsersEdit.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionCreateUser: PropTypes.func.isRequired,
+	actionEditUser: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	createUserMutation: PropTypes.func.isRequired,
+	editUserMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
+	initialValues: PropTypes.object.isRequired,
 };
 
-UsersCreate = reduxForm({
-	form: 'UsersCreate',
-})(UsersCreate);
+UsersEdit = reduxForm({
+	form: 'UsersEdit',
+})(UsersEdit);
 
-const selector = formValueSelector('UsersCreate');
+const selector = formValueSelector('UsersEdit');
 
 const mapStateToProps = state => ({
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
 	paginationPage: state.ReducerUserType.paginationPage,
+	initialValues: state.ReducerUser,
 	myValues: selector(state, 'name', 'email', 'password', 'lastName', 'phone', 'dni', 'birthDate', 'role', 'citizenship'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionCreateUser: (
+	actionEditUser: (
 		myValues,
+		id,
 		name,
-		emaill,
-		password,
 		lastName,
 		phone,
 		dni,
 		birthDate,
 		role,
 		citizenship,
-		createUserMutation,
+		editUserMutation,
 		paginationPage,
-	) => dispatch(createUser(
+	) => dispatch(editUser(
 		myValues,
+		id,
 		name,
-		emaill,
-		password,
 		lastName,
 		phone,
 		dni,
 		birthDate,
 		role,
 		citizenship,
-		createUserMutation,
+		editUserMutation,
 		paginationPage,
 	)),
 });
 
 export default compose(
-	graphql(CREATE_USER, { name: 'createUserMutation' }),
+	graphql(EDIT_USER, { name: 'editUserMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(UsersCreate);
+)(UsersEdit);

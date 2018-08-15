@@ -41,6 +41,11 @@ const styles = () => ({
 		color: '#039be5',
 		marginLeft: '25px',
 	},
+	errorSelect: {
+		color: '#f44336',
+		boxSizing: 'inherit',
+		fontSize: '11px',
+	},
 });
 
 export default styles;

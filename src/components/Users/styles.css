@@ -1,0 +1,9 @@
+.container {
+	width: 100%;
+}
+
+.errorSelect {
+	color: #f44336;
+    box-sizing: inherit;
+    font-size: 11px;
+}

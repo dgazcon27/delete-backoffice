@@ -4,6 +4,7 @@ import {
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
+	SET_USER,
 } from './actionsTypes';
 import { GET_USERS } from '../../queries/users';
 
@@ -22,12 +23,39 @@ export const closeModal = () => ({
 	},
 });
 
-export const editUser = () => ({
-	type: EDIT_USER,
+export const setUser = (
+	id,
+	name,
+	lastName,
+	phone,
+	dni,
+	birthDate,
+	citizenship,
+	role,
+) => ({
+	type: SET_USER,
 	payload: {
 		description: EDIT_USER,
+		id,
+		name,
+		lastName,
+		phone,
+		dni,
+		birthDate,
+		citizenship,
+		role,
 	},
 });
+
+export const setPassword = (password, confirmation, paginationPage, setPasswordMutation) =>
+	async (dispatch) => {
+		await setPasswordMutation({
+			variables: { password, confirmation },
+			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
+		});
+		dispatch(closeModal());
+		window.location.reload();
+	};
 
 export const openAlert = alertType => ({
 	type: OPEN_ALERT,
@@ -98,7 +126,38 @@ export const createUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('user-type')), 2000);
+				setTimeout(() => (window.location.assign('users')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	}
+);
+
+export const editUser = (
+	myValues,
+	id,
+	name,
+	lastName,
+	phone,
+	dni,
+	birthDate,
+	role,
+	citizenship,
+	editUserMutation,
+	paginationPage,
+) => (
+	async (dispatch) => {
+		editUserMutation({
+			variables: {
+				id, name, lastName, phone, dni, birthDate, role, citizenship,
+			},
+			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(openAlert('editado'));
+				setTimeout(() => (window.location.assign('users')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

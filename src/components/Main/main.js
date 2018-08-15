@@ -6,6 +6,7 @@ import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
 import UsersCreate from '../Users/usersCreate';
+import UsersEdit from '../Users/usersEdit';
 import {
 	Dashboard,
 	Presale,
@@ -27,6 +28,7 @@ const Main = (props) => {
 				<Route exact path='/' component={Dashboard} />
 				<Route path='/users' component={Users} />
 				<Route path='/users-create' component={UsersCreate} />
+				<Route path='/users-edit' component={UsersEdit} />
 				<Route path='/user-type' component={UserType} />
 				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/user-type-create' component={UserTypeCreate} />

@@ -6,6 +6,17 @@ export const GET_USERS = gql`
 			data{
 				name
 				lastName
+				phone
+				dni
+				birthDate
+				citizenship{
+					id
+					name
+				}
+				role{
+					id
+					name
+				}
 				id
 				status {
 				name
@@ -47,12 +58,38 @@ export const CREATE_USER = gql`
 	}
 `;
 
+export const EDIT_USER = gql`
+	mutation updateUser($id:Int!, $name:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!){
+		updateUser(id:$id, name:$name, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship) {
+			name
+		}
+	}
+`;
+
 export const GET_ROLES = gql`
 	query{
 		roless{
 			id
 			name
 			description
+		}
+	}
+`;
+
+export const GET_COUNTRYS = gql`
+	query{
+		countrys{
+			id
+			value
+			name
+		}
+	}
+`;
+
+export const SET_PASSWORD = gql`
+	mutation resetPasswordUser($password:String!, $confirmation:String!) {
+		resetPasswordUser(password:$password, confirmation:$confirmation) {
+			password
 		}
 	}
 `;

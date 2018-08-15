@@ -6,6 +6,7 @@ const OPEN_MODAL = 'OPEN_MODAL';
 const OPEN_ALERT = 'OPEN_ALERT';
 const CLOSE_ALERT = 'CLOSE_ALERT';
 const CLOSE_MODAL = 'CLOSE_MODAL';
+const SET_USER = 'SET_USER';
 
 export {
 	CREATE_USER,
@@ -16,4 +17,5 @@ export {
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
+	SET_USER,
 };
