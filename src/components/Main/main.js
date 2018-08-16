@@ -5,10 +5,11 @@ import UserType from '../UserType/userType';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
+import Location from '../Location/location';
+import LocationCreate from '../Location/locationCreate';
 import {
 	Dashboard,
 	Presale,
-	Tables,
 	Guests,
 	Events,
 	Djs,
@@ -28,7 +29,8 @@ const Main = (props) => {
 				<Route path='/user-type' component={UserType} />
 				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
-				<Route path='/tables' component={Tables} />
+				<Route path='/tables' component={Location} />
+				<Route path='/create-tables' component={LocationCreate} />
 				<Route path='/guests' component={Guests} />
 				<Route path='/events' component={Events} />
 				<Route path='/djs' component={Djs} />
