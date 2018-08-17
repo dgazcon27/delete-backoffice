@@ -29,6 +29,7 @@ import {
 import styles from './userTypeCss';
 import {
 	changePage,
+	changePageSearch,
 	blockUserType,
 	deleteUserType,
 	openModal,
@@ -53,9 +54,10 @@ const UserType = ({
 	classes,
 	modalType,
 	currentPage,
+	paginationPage,
+	currentPageSearch,
 	statusValue,
 	actionSetRol,
-	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
@@ -63,13 +65,11 @@ const UserType = ({
 	deleteRolMutation,
 	actionBlockUserType,
 	actionDeleteUserType,
-	isSearching,
+	actionChangePageSearch,
+	query,
 }) => {
-	const query = 'AD';
-	const page = 0;
-
-	const params = isSearching ?
-		{ query: SEARCH_ROLES, variables: { query, page } } :
+	const params = query.length > 0 ?
+		{ query: SEARCH_ROLES, variables: { query, currentPageSearch } } :
 		{ query: GET_ROLES, variables: { paginationPage } };
 
 	return (
@@ -88,8 +88,8 @@ const UserType = ({
 					);
 				}
 
-				const response = isSearching ? data.search.roles.data : data.roles.data;
-				const total = isSearching ? data.search.roles.total : data.roles.total;
+				const response = query.length > 0 ? data.search.roles.data : data.roles.data;
+				const total = query.length > 0 ? data.search.roles.total : data.roles.total;
 
 				return (
 					<div>
@@ -156,16 +156,31 @@ const UserType = ({
 									</TableBody>
 									<TableFooter>
 										<TableRow>
-											<TablePagination
-												count={total}
-												rowsPerPage={10}
-												page={paginationPage}
-												rowsPerPageOptions={[10]}
-												colSpan={3}
-												onChangePage={(event, changuedPage) => {
-													actionChangePage(currentPage, changuedPage);
-												}}
-											/>
+											{query.length > 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={currentPageSearch}
+													rowsPerPageOptions={[10]}
+													colSpan={3}
+													onChangePage={(event, nextPage) => {
+														actionChangePageSearch(currentPageSearch, nextPage);
+													}}
+												/>
+											}
+
+											{ query.length === 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={paginationPage}
+													rowsPerPageOptions={[10]}
+													colSpan={3}
+													onChangePage={(event, nextPage) => {
+														actionChangePage(currentPage, nextPage);
+													}}
+												/>
+											}
 										</TableRow>
 									</TableFooter>
 								</Table>
@@ -253,6 +268,7 @@ const UserType = ({
 };
 
 UserType.propTypes = {
+	query: PropTypes.string,
 	isOpen: PropTypes.bool,
 	name: PropTypes.string,
 	modalType: PropTypes.string,
@@ -263,13 +279,14 @@ UserType.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
+	currentPageSearch: PropTypes.number.isRequired,
 	blockRolMutation: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
 	actionBlockUserType: PropTypes.func.isRequired,
 	actionDeleteUserType: PropTypes.func.isRequired,
-	isSearching: PropTypes.bool.isRequired,
+	actionChangePageSearch: PropTypes.func.isRequired,
 };
 
 UserType.defaultProps = {
@@ -277,6 +294,7 @@ UserType.defaultProps = {
 	isOpen: false,
 	modalType: '',
 	statusValue: 0,
+	query: '',
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -285,15 +303,17 @@ const mapStateToProps = (state, ownProps) => ({
 	isOpen: state.ReducerUserType.isOpen,
 	modalType: state.ReducerUserType.modalType,
 	statusValue: state.ReducerUserType.statusValue,
-	currentPage: ownProps.currentPage || state.ReducerUserType.currentPage,
-	paginationPage: ownProps.paginationPage || state.ReducerUserType.paginationPage,
+	currentPage: state.ReducerUserType.currentPage,
+	paginationPage: state.ReducerUserType.paginationPage,
+	currentPageSearch: state.ReducerUserType.currentPageSearch,
 	query: ownProps.query,
-	isSearching: ownProps.isSearching,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
+	actionChangePageSearch: (currentPage, paginationPage) =>
+		dispatch(changePageSearch(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
 	actionBlockUserType: (id, statusValue, blockRolMutation) =>
 		dispatch(blockUserType(id, statusValue, blockRolMutation)),

@@ -1,10 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import UserType from './userType';
+import { setSearch } from '../../actions/Search/actionCreatorSearchRoles';
 
-const ComponentUserType = () => (
+const ComponentUserType = ({
+	query,
+	searching,
+	actionSetSearch,
+}) => (
 	<div>
 		<h3>
 			Roles
@@ -20,14 +26,26 @@ const ComponentUserType = () => (
 			label='Search field'
 			type='search'
 			margin='normal'
+			onChange={actionSetSearch}
 		/>
 
-		<Button variant='raised' color='primary' >
-			Primary
-		</Button>
-
-		<UserType isSearching={false} />
+		<UserType isSearching={searching} query={query} />
 	</div>
 );
 
-export default ComponentUserType;
+ComponentUserType.propTypes = {
+	query: PropTypes.string.isRequired,
+	searching: PropTypes.bool.isRequired,
+	actionSetSearch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+	query: state.ReducerSearchRoles.query,
+	searching: state.ReducerSearchRoles.isSearching,
+});
+
+const mapDispatchToProps = dispatch => ({
+	actionSetSearch: e => dispatch(setSearch(e.target.value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComponentUserType);
