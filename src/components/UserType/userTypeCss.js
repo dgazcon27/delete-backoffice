@@ -34,12 +34,34 @@ const styles = () => ({
 		padding: '25px',
 	},
 	createButton: {
-
 		background: 'white',
 		borderColor: 'white',
 		border: '0px',
 		color: '#039be5',
 		marginLeft: '25px',
+	},
+	search: {
+		display: 'inline-flex',
+		'align-items': 'baseline',
+		width: '100%',
+		'margin-bottom': '1%',
+	},
+	searchAlignRigth: {
+		'margin-right': 'auto',
+	},
+	searchSize: {
+		width: '20% !important',
+		'border-bottom': 'none !important',
+		'background-color': '#bcb9b9 !important',
+		'padding-left': '1vw !important',
+		'border-radius': '0.2rem !important',
+	},
+	addNew: {
+		margin: '10px',
+		'background-color': 'white !important',
+	},
+	extendedIcon: {
+		marginRight: '10px',
 	},
 });
 
