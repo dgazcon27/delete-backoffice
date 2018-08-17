@@ -17,21 +17,21 @@ const ComponentUserType = ({
 	classes,
 }) => (
 	<div>
-		<h3>
+		<h5 className={classes.title}>
 			Roles
-		</h3>
+		</h5>
 
 		<div className={classes.search}>
 			<h5 className={classes.searchAlignRigth}>
 				<Link to='/user-type-create' href='/user-type-create' >
 					<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-						<Add />
-						<pre />
+						<Add className={classes.marginIcon} />
 						Agregar Nuevo
 					</Button>
 				</Link>
 			</h5>
 			<input
+				id='search'
 				className={classes.searchSize}
 				type='search'
 				onChange={actionSetSearch}

@@ -63,6 +63,12 @@ const styles = () => ({
 	extendedIcon: {
 		marginRight: '10px',
 	},
+	title: {
+		'margin-left': '2%',
+	},
+	marginIcon: {
+		'margin-right': '10px',
+	},
 });
 
 export default styles;

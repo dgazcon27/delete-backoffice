@@ -8,3 +8,7 @@
 label + .MuiInputt-formControl-16 {
     margin-top: 2px;
 }
+
+input#search::placeholder {
+	color: black;
+}
