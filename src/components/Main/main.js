@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import UserType from '../UserType/userType';
 import Bank from '../Bank/bank';
 import BankCreate from '../Bank/bankCreate';
+import BankAccountCreate from '../Bank/bankAccountCreate';
 import BankEdit from '../Bank/bankEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
@@ -45,6 +46,7 @@ const Main = (props) => {
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
 				<Route path='/bank-create' component={BankCreate} />
+				<Route path='/bank-account-create' component={BankAccountCreate} />
 				<Route path='/bank-edit' component={BankEdit} />
 			</Switch>
 		</main>

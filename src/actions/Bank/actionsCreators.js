@@ -121,6 +121,32 @@ export const createBank = (name, currency, paginationPage, createBankMutation) =
 				});
 		}
 	};
+export const createBankAccount = (
+	bank,
+	owner,
+	accountNumber,
+	type,
+	comment,
+	currency,
+	paginationPage,
+	createBankAccountMutation,
+) =>
+	async (dispatch) => {
+		createBankAccountMutation({
+			variables: {
+				bank, owner, accountNumber, type, comment, currency,
+			},
+			refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(openAlert('creado'));
+				setTimeout(() => (window.location.assign('bank')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	};
 
 export const editBank = (id, name, currency, paginationPage, editBankMutation) =>
 	async (dispatch) => {

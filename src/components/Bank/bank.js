@@ -15,7 +15,6 @@ import {
 	Modal,
 	Paper,
 	Table,
-	// Switch,
 	Tooltip,
 	TableRow,
 	TableBody,
@@ -78,9 +77,16 @@ const Bank = ({
 							Banca
 						</h3>
 						<h5>
-							<Link to='/bank-create' href='/bank-create' >
-								Agregar Nueva
-							</Link>
+							<div>
+								<Link to='/bank-create' href='/bank-create' >
+									Agregar Banco
+								</Link>
+							</div>
+							<div>
+								<Link to='/bank-account-create' href='/bank-account-create' >
+								Agregar cuenta bancaria
+								</Link>
+							</div>
 						</h5>
 						<Paper>
 							<Table>

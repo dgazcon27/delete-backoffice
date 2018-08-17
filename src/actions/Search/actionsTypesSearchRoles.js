@@ -1,0 +1,4 @@
+const SET_SEARCH = 'SET_SEARCH';
+const SET_SEARCH1 = 'SET_SEARCH';
+
+export { SET_SEARCH, SET_SEARCH1 };
