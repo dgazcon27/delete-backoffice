@@ -36,6 +36,7 @@ const ComponentUserType = ({
 				type='search'
 				onChange={actionSetSearch}
 				placeholder='Buscar'
+				value={query}
 			/>
 		</div>
 		<UserType isSearching={searching} query={query} />
