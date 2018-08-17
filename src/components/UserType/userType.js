@@ -29,6 +29,7 @@ import {
 import styles from './userTypeCss';
 import {
 	changePage,
+	changePageSearch,
 	blockUserType,
 	deleteUserType,
 	openModal,
@@ -42,6 +43,8 @@ import {
 	DELETE_ROL,
 } from '../../queries/userType';
 
+import { SEARCH_ROLES } from '../../queries/search';
+
 import Loading from '../Loading/loading';
 
 const UserType = ({
@@ -51,9 +54,10 @@ const UserType = ({
 	classes,
 	modalType,
 	currentPage,
+	paginationPage,
+	currentPageSearch,
 	statusValue,
 	actionSetRol,
-	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
@@ -61,189 +65,210 @@ const UserType = ({
 	deleteRolMutation,
 	actionBlockUserType,
 	actionDeleteUserType,
-}) => (
-	<Query query={GET_ROLES} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div> Error :( </div>
-				);
-			}
-			return (
-				<div>
-					<div>
-						<h3>
-							Roles
-						</h3>
-						<h5>
-							<Link to='/user-type-create' href='/user-type-create' >
-								Agregar Nuevo
-							</Link>
-						</h5>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										data.roles.data.map(rol => (
-											<TableRow key={rol.id}>
-												<TableCell >{rol.name}</TableCell>
-												<TableCell className={classes.alignRight}>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Editar Rol.'
-													>
-														<Link to='/user-type-edit' href='/user-type-edit'>
-															<IconButton
-																onClick={() => { actionSetRol(rol.id, rol.name, rol.description); }}
-															>
-																<Edit />
-															</IconButton>
-														</Link>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Eliminar Rol'
-													>
-														<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
-															<Delete />
-														</IconButton>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Bloquear / Desbloquear'
-													>
-														<Switch
-															onClick={() => { actionOpenModal('block', rol); }}
-															checked={rol.status.id === 2}
-															value='checked'
-														/>
-													</Tooltip>
-												</TableCell>
-											</TableRow>
-										))
-									}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.roles.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={3}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop={false}
-						disableAutoFocus={false}
-					>
+	actionChangePageSearch,
+	query,
+}) => {
+	const params = query.length > 0 ?
+		{ query: SEARCH_ROLES, variables: { query, currentPageSearch } } :
+		{ query: GET_ROLES, variables: { paginationPage } };
+
+	return (
+		<Query {...params}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
 						<div>
-							{modalType === 'edit' &&
-								<Paper>
-									<h1>
-										contenido edit modal
-									</h1>
-									<button onClick={actionCloseModal}>
-										cerrar
-									</button>
-								</Paper>
-							}
-
-							{modalType === 'block' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									{statusValue === 1 && <h6> Bloquear Rol </h6>}
-									{statusValue === 2 && <h6> Desbloquear Rol </h6>}
-									{
-										statusValue === 1 &&
-										<p>
-										¿Estas seguro que desea bloquear el rol {name}?
-										</p>
-									}
-									{
-										statusValue === 2 &&
-										<p>
-											¿Estas seguro que desea desbloquear el rol {name}?
-										</p>
-									}
-
-									<span>
-										<IconButton
-											onClick={() => { actionBlockUserType(id, statusValue, blockRolMutation); }}
-										>
-										Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal} >
-										No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-
-							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar Rol
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el rol {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeleteUserType(id, statusValue, paginationPage, deleteRolMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
-							}
+							<Loading />
 						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+					);
+				}
+				if (error) {
+					return (
+						<div> Error :( </div>
+					);
+				}
+
+				const response = query.length > 0 ? data.search.roles.data : data.roles.data;
+				const total = query.length > 0 ? data.search.roles.total : data.roles.total;
+
+				return (
+					<div>
+						<div>
+							<Paper>
+								<Table>
+									<TableHead>
+										<TableRow>
+											<TableCell>Nombre</TableCell>
+											<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+										{
+											response.map(rol => (
+												<TableRow key={rol.id}>
+													<TableCell >{rol.name}</TableCell>
+													<TableCell className={classes.alignRight}>
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Editar Rol.'
+														>
+															<Link to='/user-type-edit' href='/user-type-edit'>
+																<IconButton
+																	onClick={() => {
+																		actionSetRol(rol.id, rol.name, rol.description);
+																	}}
+																>
+																	<Edit />
+																</IconButton>
+															</Link>
+														</Tooltip>
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Eliminar Rol'
+														>
+															<IconButton onClick={() => { actionOpenModal('delete', rol); }}>
+																<Delete />
+															</IconButton>
+														</Tooltip>
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Bloquear / Desbloquear'
+														>
+															<Switch
+																onClick={() => { actionOpenModal('block', rol); }}
+																checked={rol.status.id === 2}
+																value='checked'
+															/>
+														</Tooltip>
+													</TableCell>
+												</TableRow>
+											))
+										}
+									</TableBody>
+									<TableFooter>
+										<TableRow>
+											{query.length > 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={currentPageSearch}
+													rowsPerPageOptions={[10]}
+													colSpan={3}
+													onChangePage={(event, nextPage) => {
+														actionChangePageSearch(currentPageSearch, nextPage);
+													}}
+												/>
+											}
+
+											{ query.length === 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={paginationPage}
+													rowsPerPageOptions={[10]}
+													colSpan={3}
+													onChangePage={(event, nextPage) => {
+														actionChangePage(currentPage, nextPage);
+													}}
+												/>
+											}
+										</TableRow>
+									</TableFooter>
+								</Table>
+							</Paper>
+						</div>
+						<Modal
+							open={isOpen}
+							className={classNames(classes.modalOpenStyle)}
+							hideBackdrop
+							disableAutoFocus={false}
+						>
+							<div>
+								{ 	modalType === 'edit' &&
+									<Paper>
+										<h1>
+											contenido edit modal
+										</h1>
+										<button onClick={actionCloseModal}>
+											cerrar
+										</button>
+									</Paper>
+								}
+
+								{	modalType === 'block' &&
+									<Paper className={classNames(classes.paperOnModal)}>
+										{statusValue === 1 && <h6> Bloquear Rol </h6>}
+										{statusValue === 2 && <h6> Desbloquear Rol </h6>}
+										{
+											statusValue === 1 &&
+											<p>
+												¿Estas seguro que desea bloquear el rol {name}?
+											</p>
+										}
+										{
+											statusValue === 2 &&
+											<p>
+											¿Estas seguro que desea desbloquear el rol {name}?
+											</p>
+										}
+
+										<span>
+											<IconButton
+												onClick={() => { actionBlockUserType(id, statusValue, blockRolMutation); }}
+											>
+											Si
+											</IconButton>
+											&nbsp;
+											&nbsp;
+											<IconButton onClick={actionCloseModal} >
+											No
+											</IconButton>
+										</span>
+									</Paper>
+								}
+								{	modalType === 'delete' &&
+									<Paper className={classNames(classes.paperOnModal)}>
+										<h6>
+											Eliminar Rol
+										</h6>
+										<p>
+											¿Estas seguro que desea eliminar el rol {name} ?
+										</p>
+										<span>
+											<IconButton onClick={() => {
+												actionDeleteUserType(id, statusValue, paginationPage, deleteRolMutation);
+											}}
+											>
+											Si
+											</IconButton>
+											&nbsp;
+											&nbsp;
+											<IconButton onClick={actionCloseModal}>
+											No
+											</IconButton>
+										</span>
+									</Paper>
+								}
+							</div>
+						</Modal>
+					</div>
+				);
+			}}
+		</Query>
+	);
+};
 
 UserType.propTypes = {
+	query: PropTypes.string,
 	isOpen: PropTypes.bool,
 	name: PropTypes.string,
 	modalType: PropTypes.string,
@@ -254,12 +279,14 @@ UserType.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
+	currentPageSearch: PropTypes.number.isRequired,
 	blockRolMutation: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
 	actionBlockUserType: PropTypes.func.isRequired,
 	actionDeleteUserType: PropTypes.func.isRequired,
+	actionChangePageSearch: PropTypes.func.isRequired,
 };
 
 UserType.defaultProps = {
@@ -267,9 +294,10 @@ UserType.defaultProps = {
 	isOpen: false,
 	modalType: '',
 	statusValue: 0,
+	query: '',
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
 	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
 	isOpen: state.ReducerUserType.isOpen,
@@ -277,11 +305,15 @@ const mapStateToProps = state => ({
 	statusValue: state.ReducerUserType.statusValue,
 	currentPage: state.ReducerUserType.currentPage,
 	paginationPage: state.ReducerUserType.paginationPage,
+	currentPageSearch: state.ReducerUserType.currentPageSearch,
+	query: ownProps.query,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
+	actionChangePageSearch: (currentPage, paginationPage) =>
+		dispatch(changePageSearch(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _rol) => dispatch(openModal(modalType, _rol)),
 	actionBlockUserType: (id, statusValue, blockRolMutation) =>
 		dispatch(blockUserType(id, statusValue, blockRolMutation)),
