@@ -112,3 +112,4 @@ export default compose(
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(ModalPassword);
+
