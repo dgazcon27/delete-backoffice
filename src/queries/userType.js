@@ -38,8 +38,8 @@ export const DELETE_ROL = gql`
 `;
 
 export const CREATE_ROL = gql`
-	mutation createRol($name:String!, $descripcion:String!){
-		createRole(name:$name, description:$descripcion){
+	mutation createRol($name:String!, $rolDescription:String!){
+		createRole(name:$name, description:$rolDescription){
 			id
 			name
 		}
@@ -47,8 +47,8 @@ export const CREATE_ROL = gql`
 `;
 
 export const EDIT_ROL = gql`
-	mutation updateRoleRol($id:Int!,$name:String, $descripcion:String){
-		updateRole(id:$id, name:$name, description:$descripcion){
+	mutation updateRoleRol($id:Int!,$name:String, $rolDescription:String){
+		updateRole(id:$id, name:$name, description:$rolDescription){
 			id
 			name
 		}

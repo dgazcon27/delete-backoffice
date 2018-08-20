@@ -42,6 +42,8 @@ import {
 	DELETE_ROL,
 } from '../../queries/userType';
 
+import Loading from '../Loading/loading';
+
 const UserType = ({
 	id,
 	name,
@@ -65,7 +67,7 @@ const UserType = ({
 			if (loading) {
 				return (
 					<div>
-						<h1>Loading ...</h1>
+						<Loading />
 					</div>
 				);
 			}
@@ -99,13 +101,21 @@ const UserType = ({
 											<TableRow key={rol.id}>
 												<TableCell >{rol.name}</TableCell>
 												<TableCell className={classes.alignRight}>
-													<Link to='/user-type-edit' href='/user-type-edit'>
-														<IconButton
-															onClick={() => { actionSetRol(rol.id, rol.name, rol.description); }}
-														>
-															<Edit />
-														</IconButton>
-													</Link>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Editar Rol.'
+													>
+														<Link to='/user-type-edit' href='/user-type-edit'>
+															<IconButton
+																onClick={() => { actionSetRol(rol.id, rol.name, rol.description); }}
+															>
+																<Edit />
+															</IconButton>
+														</Link>
+													</Tooltip>
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
@@ -227,7 +237,6 @@ const UserType = ({
 							}
 						</div>
 					</Modal>
-
 				</div>
 			);
 		}}

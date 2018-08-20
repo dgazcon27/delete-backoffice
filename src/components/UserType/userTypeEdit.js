@@ -1,5 +1,3 @@
-/* eslint no-unused-vars: "off" */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,87 +8,123 @@ import {
 	graphql,
 } from 'react-apollo';
 import {
-	IconButton,
-	Input,
-} from '@material-ui/core';
+	Field,
+	reduxForm,
+	formValueSelector,
+} from 'redux-form';
+import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
+import { required, empty } from '../validations/validations';
+import { renderTextField } from '../RenderFields/renderFields';
 import { EDIT_ROL } from '../../queries/userType';
 import {
-	setRol,
 	editRol,
-	setName,
-	setDescription,
 	cleanState,
+	closeAlert,
 } from '../../actions/userType/actionsCreators';
 
-const UserTypeEdit = ({
+let UserTypeEdit = ({
 	id,
-	name,
 	classes,
-	descripcion,
+	myValues,
+	alertOpen,
+	alertType,
 	actionEditRol,
-	actionSetName,
+	actionCloseAlert,
 	paginationPage,
 	editRolMutation,
 	actionCleanState,
-	actionSetDescription,
+	handleSubmit,
+	submitting,
 }) => (
 	<div>
 		<h4>Editar Rol</h4>
 		<div className={classes.createContainer}>
-			<Input
-				type='text'
-				placeholder='Nombre'
-				defaultValue={name}
-				onChange={actionSetName}
-				fullWidth
-				disableUnderline
-			/>
-			<Input
-				rows={5}
-				multiline
-				fullWidth
-				disableUnderline
-				placeholder='Descripcion'
-				defaultValue={descripcion}
-				onChange={actionSetDescription}
-			/>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionEditRol(id, name, descripcion, paginationPage, editRolMutation)}>
+			<form>
+				<Field
+					name='name'
+					label='Name'
+					type='text'
+					placeholder='Nombre'
+					component={renderTextField}
+					validate={[required, empty]}
+				/>
+				<Field
+					name='rolDescription'
+					type='text'
+					label='rolDescription'
+					placeholder='Descripcion'
+					component={renderTextField}
+					validate={[required, empty]}
+				/>
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))} disabled={submitting} >
 				Confirmar
-			</Link>
-			<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
+				</button>
+				<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar
-			</Link>
+				</Link>
+			</form>
+			{alertType === 'edit' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{ 'aria-describedby': 'message-id' }}
+					message={<span id='message-id'>El rol {myValues.name} fue editado con exito.</span>}
+				/>
+			}
+			{alertType === 'validation' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{
+						'aria-describedby': 'message-id',
+					}}
+					message={<span id='message-id'>No pueden existir 2 o mas roles con el mismo nombre verifique e intente de nuevo.</span>}
+				/>
+			}
 		</div>
 	</div>
 );
 
 UserTypeEdit.propTypes = {
 	id: PropTypes.number.isRequired,
-	name: PropTypes.string.isRequired,
+	alertOpen: PropTypes.bool.isRequired,
+	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
-	descripcion: PropTypes.string.isRequired,
-	actionSetName: PropTypes.func.isRequired,
+	myValues: PropTypes.object.isRequired,
+	actionCloseAlert: PropTypes.func.isRequired,
 	actionEditRol: PropTypes.func.isRequired,
 	actionCleanState: PropTypes.func.isRequired,
 	editRolMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	actionSetDescription: PropTypes.func.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
+	submitting: PropTypes.bool.isRequired,
 };
 
+UserTypeEdit = reduxForm({
+	form: 'UserTypeEdit',
+})(UserTypeEdit);
+
+const selector = formValueSelector('UserTypeEdit');
+
 const mapStateToProps = state => ({
+	alertType: state.ReducerUserType.alertType,
+	alertOpen: state.ReducerUserType.alertOpen,
+	initialValues: state.ReducerUserType,
 	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
-	descripcion: state.ReducerUserType.descripcion,
+	rolDescription: state.ReducerUserType.rolDescription,
 	paginationPage: state.ReducerUserType.paginationPage,
+	myValues: selector(state, 'name', 'rolDescription'),
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
-	actionSetName: e => dispatch(setName(e.target.value)),
-	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionEditRol: (id, name, descripcion, paginationPage, editRolMutation) =>
-		dispatch(editRol(id, name, descripcion, paginationPage, editRolMutation)),
+	actionEditRol: (id, name, rolDescription, paginationPage, editRolMutation) =>
+		dispatch(editRol(id, name, rolDescription, paginationPage, editRolMutation)),
 });
 
 export default compose(

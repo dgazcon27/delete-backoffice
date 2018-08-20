@@ -1,6 +1,8 @@
 import {
 	SET_NAME,
 	OPEN_MODAL,
+	OPEN_ALERT,
+	CLOSE_ALERT,
 	CLOSE_MODAL,
 	SET_DESCRIPTION,
 	CLEAN_STATE,
@@ -8,25 +10,37 @@ import {
 	PAGE_UP,
 	PAGE_DOWN,
 } from './actionsTypes';
-
 import { GET_ROLES } from '../../queries/userType';
 
-export const changePage = (currentPage, paginationPage) => ({
-	type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-	payload: {
-		description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		paginationPage,
-		currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-	},
-});
+const checkMessageError = (res) => {
+	const message = res.graphQLErrors[0];
+	const pass = message.message.split(' ');
+	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
+	const msg = errorOutput.toString();
+	return (msg.replace('$', '').replace('"', '').replace('"', ''));
+};
+export const changePage = (currentPage, paginationPage) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
+	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
 
-export const setRol = (id, name, descripcion) => ({
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+
+	return ({
+		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		payload: {
+			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+			paginationPage,
+			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+		},
+	});
+};
+export const setRol = (id, name, rolDescription) => ({
 	type: SET_ROL,
 	payload: {
 		description: SET_ROL,
 		id,
 		name,
-		descripcion,
+		rolDescription,
 	},
 });
 
@@ -43,18 +57,19 @@ export const closeModal = () => ({
 		description: CLOSE_MODAL,
 	},
 });
-
-export const editRol = (id, name, descripcion, paginationPage, editRolMutation) =>
-	async (dispatch) => {
-		if (name !== '' && descripcion !== '') {
-			await editRolMutation({
-				variables: { id, name, descripcion },
-				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-			});
-			dispatch(cleanState());
-		}
-	};
-
+export const openAlert = alertType => ({
+	type: OPEN_ALERT,
+	payload: {
+		alertType,
+		description: OPEN_ALERT,
+	},
+});
+export const closeAlert = () => ({
+	type: CLOSE_ALERT,
+	payload: {
+		description: OPEN_ALERT,
+	},
+});
 export const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
@@ -85,7 +100,6 @@ export const openModal = (modalType, _rol) => ({
 		id: _rol.id,
 	},
 });
-
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {
@@ -94,22 +108,46 @@ export const setName = name => ({
 	},
 });
 
-export const setDescription = descripcion => ({
+export const setDescription = rolDescription => ({
 	type: SET_DESCRIPTION,
 	payload: {
 		description: SET_DESCRIPTION,
-		descripcion,
+		rolDescription,
 	},
 });
 
-export const createRol = (name, descripcion, paginationPage, createRolMutation) =>
+export const createRol = (name, rolDescription, paginationPage, createRolMutation) =>
 	async (dispatch) => {
-		if (name !== '' && descripcion !== '') {
-			await createRolMutation({
-				variables: { name, descripcion },
+		if (name !== '' && rolDescription !== '') {
+			createRolMutation({
+				variables: { name, rolDescription },
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-			});
-			dispatch(cleanState());
-			window.location.reload();
+			})
+				.then(() => {
+					dispatch(openAlert('creado'));
+					setTimeout(() => (window.location.assign('user-type')), 2000);
+				})
+				.catch((res) => {
+					const message = checkMessageError(res);
+					dispatch(openAlert(message));
+				});
+		}
+	};
+
+export const editRol = (id, name, rolDescription, paginationPage, editRolMutation) =>
+	async (dispatch) => {
+		if (name !== '' && rolDescription !== '') {
+			await editRolMutation({
+				variables: { id, name, rolDescription },
+				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+			})
+				.then(() => {
+					dispatch(openAlert('edit'));
+					setTimeout(() => (window.location.assign('user-type')), 2000);
+				})
+				.catch((res) => {
+					const message = checkMessageError(res);
+					dispatch(openAlert(message));
+				});
 		}
 	};
