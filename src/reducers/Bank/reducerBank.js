@@ -8,13 +8,13 @@ import {
 	CLEAN_STATE,
 	PAGE_UP,
 	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
 	DELETE_USER_TYPE,
 } from '../../actions/userType/actionsTypes';
+
+import { SET_BANK } from '../../actions/Bank/actionsTypes';
 
 const initialState = {
 	id: 0,
@@ -25,19 +25,18 @@ const initialState = {
 	modalType: '',
 	rolDescription: '',
 	statusValue: 0,
-	paginationPage: 0,
-	currentPage: 0,
-	paginationPageSearch: 0,
-	currentPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
 	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+} else {
+	initialState.paginationPage = 0;
+	initialState.currentPage = 0;
 }
 
-const ReducerUserType = (state = initialState, action = {}) => {
+const ReducerBank = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case PAGE_UP:
 			return ({
@@ -51,18 +50,6 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
 			});
-		case SEARCH_PAGE_UP:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case SEARCH_PAGE_DOWN:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
 		case EDIT_USER_TYPE:
 			return ({
 				...state,
@@ -73,6 +60,13 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				id: action.payload.id,
 				name: action.payload.name,
 				rolDescription: action.payload.rolDescription,
+			});
+		case SET_BANK:
+			return ({
+				...state,
+				id: action.payload.id,
+				name: action.payload.name,
+				currency: action.payload.currency,
 			});
 		case BLOCK_USER_TYPE:
 			return ({
@@ -135,4 +129,4 @@ const ReducerUserType = (state = initialState, action = {}) => {
 	}
 };
 
-export default ReducerUserType;
+export default ReducerBank;

@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
+import ComponentUserType from '../UserType/componentUserType';
+import Bank from '../Bank/bank';
+import BankCreate from '../Bank/bankCreate';
+import BankEdit from '../Bank/bankEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
@@ -27,6 +31,7 @@ const Main = (props) => {
 			<Switch>
 				<Route exact path='/' component={Dashboard} />
 				<Route path='/users' component={Users} />
+				<Route path='/user-type' component={ComponentUserType} />
 				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
 				<Route path='/tables' component={ComponentLocation} />
@@ -39,6 +44,9 @@ const Main = (props) => {
 				<Route path='/Departments' component={Departments} />
 				<Route path='/pre-sale' component={Presale} />
 				<Route path='/staff' component={Staff} />
+				<Route path='/bank' component={Bank} />
+				<Route path='/bank-create' component={BankCreate} />
+				<Route path='/bank-edit' component={BankEdit} />
 			</Switch>
 		</main>
 	);
