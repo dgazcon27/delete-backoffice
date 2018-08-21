@@ -1,5 +1,5 @@
 import {
-	SET_ROL,
+	SET_LOCATION,
 	SET_NAME,
 	OPEN_MODAL,
 	OPEN_ALERT,
@@ -8,23 +8,28 @@ import {
 	CLEAN_STATE,
 	PAGE_UP,
 	PAGE_DOWN,
-	EDIT_USER_TYPE,
+	EDIT_LOCATION,
+	SEARCH_PAGE_UP,
+	SEARCH_PAGE_DOWN,
 	SET_DESCRIPTION,
-	BLOCK_USER_TYPE,
-	DELETE_USER_TYPE,
-} from '../../actions/userType/actionsTypes';
-
-import { SET_BANK } from '../../actions/Bank/actionsTypes';
+	BLOCK_LOCATION,
+	DELETE_LOCATION,
+} from '../../actions/location/actionsTypes';
 
 const initialState = {
 	id: 0,
 	name: '',
+	locationDescription: '',
+	fullcapacity: 0,
+	capacity: 0,
+	status: 0,
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
-	rolDescription: '',
 	statusValue: 0,
+	paginationPageSearch: 0,
+	currentPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -36,7 +41,7 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.currentPage = 0;
 }
 
-const ReducerUserType = (state = initialState, action = {}) => {
+const ReducerLocation = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case PAGE_UP:
 			return ({
@@ -50,31 +55,39 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
 			});
-		case EDIT_USER_TYPE:
+		case EDIT_LOCATION:
 			return ({
 				...state,
 			});
-		case SET_ROL:
-			return ({
-				...state,
-				id: action.payload.id,
-				name: action.payload.name,
-				rolDescription: action.payload.rolDescription,
-			});
-		case SET_BANK:
+		case SET_LOCATION:
 			return ({
 				...state,
 				id: action.payload.id,
 				name: action.payload.name,
-				currency: action.payload.currency,
+				locationDescription: action.payload.locationDescription,
+				fullcapacity: action.payload.fullcapacity,
+				capacity: action.payload.capacity,
+				status: action.payload.status,
 			});
-		case BLOCK_USER_TYPE:
+		case SEARCH_PAGE_UP:
+			return ({
+				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
+			});
+		case SEARCH_PAGE_DOWN:
+			return ({
+				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
+			});
+		case BLOCK_LOCATION:
 			return ({
 				...state,
 				id: action.payload.id,
 				statusValue: action.payload.status,
 			});
-		case DELETE_USER_TYPE:
+		case DELETE_LOCATION:
 			return ({
 				...state,
 				isOpen: true,
@@ -129,4 +142,4 @@ const ReducerUserType = (state = initialState, action = {}) => {
 	}
 };
 
-export default ReducerUserType;
+export default ReducerLocation;

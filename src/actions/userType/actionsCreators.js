@@ -9,8 +9,6 @@ import {
 	SET_ROL,
 	PAGE_UP,
 	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
 import { GET_ROLES } from '../../queries/userType';
 
@@ -21,9 +19,8 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-
 export const changePage = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
 	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
@@ -37,22 +34,6 @@ export const changePage = (currentPage, paginationPage) => {
 		},
 	});
 };
-
-export const changePageSearch = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
-	paginations.userTypeSearch = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-			paginationPageSearch: paginationPage,
-			currentPageSearch: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
-
 export const setRol = (id, name, rolDescription) => ({
 	type: SET_ROL,
 	payload: {
@@ -76,7 +57,6 @@ export const closeModal = () => ({
 		description: CLOSE_MODAL,
 	},
 });
-
 export const openAlert = alertType => ({
 	type: OPEN_ALERT,
 	payload: {
@@ -84,14 +64,12 @@ export const openAlert = alertType => ({
 		description: OPEN_ALERT,
 	},
 });
-
 export const closeAlert = () => ({
 	type: CLOSE_ALERT,
 	payload: {
 		description: OPEN_ALERT,
 	},
 });
-
 export const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {

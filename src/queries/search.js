@@ -35,3 +35,22 @@ export const SEARCH_USER = gql`
 		}
 	}
 `;
+
+export const SEARCH_LOCATIONS = gql`
+	query search($query:String!,$page:Int) {
+		search(query:$query,page:$page) {
+			locations {
+				data{
+					name
+					id
+					description
+					status{
+						id
+					}
+				}
+				total
+			}
+		}
+	}
+`;
+

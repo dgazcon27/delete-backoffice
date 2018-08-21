@@ -12,7 +12,6 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
-import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
 import './styles.css';
@@ -42,29 +41,24 @@ let UserTypeCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Roles</h3>
-		<Paper className={classes.createContainer}>
+		<h4>Nuevo Rol</h4>
+		<div className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Nuevo Rol</h6>
-				<div className={classes.formStyle}>
-					<Field
-						name='name'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='name'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='rolDescription'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='description'
-						className='yourclass'
-					/>
-				</div>
+				<Field
+					name='name'
+					type='text'
+					component={renderTextField}
+					validate={[required, empty]}
+					label='name'
+				/>
+				<Field
+					name='rolDescription'
+					type='text'
+					component={renderTextField}
+					validate={[required, empty]}
+					label='description'
+					className='yourclass'
+				/>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
 					Crear
 				</button>
@@ -108,7 +102,6 @@ let UserTypeCreate = ({
 			}
 			{alertType === 'creado' &&
 				<Snackbar
-					className={classes.alertS}
 					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 					open={alertOpen}
 					onClose={() => { setTimeout(actionCloseAlert, 100); }}
@@ -116,7 +109,7 @@ let UserTypeCreate = ({
 					message={<span id='message-id'>El rol {myValues.name} fue creado con exito.</span>}
 				/>
 			}
-		</Paper>
+		</div>
 	</div>
 );
 

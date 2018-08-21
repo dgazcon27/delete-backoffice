@@ -1,8 +1,10 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-import Select from 'material-ui/Select';
 import PropTypes from 'prop-types';
-import '../../components/UserType/styles.css';
+import Select from 'material-ui/Select';
+import TextField from 'material-ui/TextField';
+import InputLabel from 'material-ui/Input/InputLabel';
+import FormControl from 'material-ui/Form/FormControl';
+import '../../components/Location/styles.css';
 
 export const renderTextField = field => (
 	<TextField
@@ -17,12 +19,17 @@ export const renderTextField = field => (
 );
 
 export const renderSelectField = field => (
-	<Select
-		fullWidth
-		{...field.input}
-	>
-		{field.children}
-	</Select>
+	<FormControl className={field.className}>
+		<InputLabel htmlFor='age-simple'>{field.label.charAt(0).toUpperCase() + field.label.slice(1)}</InputLabel>
+		<Select
+			fullWidth
+			{...field.input}
+			error={(field.meta.touched && field.meta.error)}
+		>
+			{field.children}
+		</Select>
+		{(field.meta.touched && field.meta.error) && <span className='errorSelect'>Este campo es oblogatorio</span>}
+	</FormControl>
 );
 
 export const renderDateField = field => (

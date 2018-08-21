@@ -12,7 +12,6 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
-import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './userTypeCss';
 import { required, empty } from '../validations/validations';
@@ -39,28 +38,25 @@ let UserTypeEdit = ({
 	submitting,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Roles</h3>
-		<Paper className={classes.createContainer}>
+		<h4>Editar Rol</h4>
+		<div className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Rol</h6>
-				<div className={classes.formStyle}>
-					<Field
-						name='name'
-						label='Name'
-						type='text'
-						placeholder='Nombre'
-						component={renderTextField}
-						validate={[required, empty]}
-					/>
-					<Field
-						name='rolDescription'
-						label='rolDescription'
-						type='text'
-						placeholder='Descripcion'
-						component={renderTextField}
-						validate={[required, empty]}
-					/>
-				</div>
+				<Field
+					name='name'
+					label='Name'
+					type='text'
+					placeholder='Nombre'
+					component={renderTextField}
+					validate={[required, empty]}
+				/>
+				<Field
+					name='rolDescription'
+					type='text'
+					label='rolDescription'
+					placeholder='Descripcion'
+					component={renderTextField}
+					validate={[required, empty]}
+				/>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))} disabled={submitting} >
 				Confirmar
 				</button>
@@ -68,27 +64,27 @@ let UserTypeEdit = ({
 				Regresar
 				</Link>
 			</form>
-		</Paper>
-		{alertType === 'edit' &&
-			<Snackbar
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				open={alertOpen}
-				onClose={() => { setTimeout(actionCloseAlert, 100); }}
-				ContentProps={{ 'aria-describedby': 'message-id' }}
-				message={<span id='message-id'>El rol {myValues.name} fue editado con exito.</span>}
-			/>
-		}
-		{alertType === 'validation' &&
-			<Snackbar
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				open={alertOpen}
-				onClose={() => { setTimeout(actionCloseAlert, 100); }}
-				ContentProps={{
-					'aria-describedby': 'message-id',
-				}}
-				message={<span id='message-id'>No pueden existir 2 o mas roles con el mismo nombre verifique e intente de nuevo.</span>}
-			/>
-		}
+			{alertType === 'edit' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{ 'aria-describedby': 'message-id' }}
+					message={<span id='message-id'>El rol {myValues.name} fue editado con exito.</span>}
+				/>
+			}
+			{alertType === 'validation' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{
+						'aria-describedby': 'message-id',
+					}}
+					message={<span id='message-id'>No pueden existir 2 o mas roles con el mismo nombre verifique e intente de nuevo.</span>}
+				/>
+			}
+		</div>
 	</div>
 );
 
