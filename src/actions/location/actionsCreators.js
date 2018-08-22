@@ -12,6 +12,7 @@ import {
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
+
 import { GET_LOCATIONS } from '../../queries/location';
 
 const checkMessageError = (res) => {
@@ -21,6 +22,7 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
+
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
 	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
@@ -51,6 +53,7 @@ export const changePageSearch = (currentPage, paginationPage) => {
 		},
 	});
 };
+
 export const setLocation = (id, name, locationDescription, fullcapacity, capacity, status) => ({
 	type: SET_LOCATION,
 	payload: {
@@ -77,6 +80,7 @@ export const closeModal = () => ({
 		description: CLOSE_MODAL,
 	},
 });
+
 export const openAlert = alertType => ({
 	type: OPEN_ALERT,
 	payload: {
@@ -84,12 +88,14 @@ export const openAlert = alertType => ({
 		description: OPEN_ALERT,
 	},
 });
+
 export const closeAlert = () => ({
 	type: CLOSE_ALERT,
 	payload: {
 		description: OPEN_ALERT,
 	},
 });
+
 export const blockLocation = (id, statusValue, blockLocationMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
@@ -120,6 +126,7 @@ export const openModal = (modalType, _location) => ({
 		id: _location.id,
 	},
 });
+
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {
@@ -160,7 +167,6 @@ export const createLocation = (
 			dispatch(openAlert(message));
 		});
 };
-
 
 export const editLocation = (
 	id,

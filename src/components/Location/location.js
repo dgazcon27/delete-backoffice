@@ -7,10 +7,12 @@ import {
 	graphql,
 	Query,
 } from 'react-apollo';
+
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+
 import {
 	Modal,
 	Paper,
@@ -25,7 +27,9 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
+
 import styles from './locationCss';
+
 import {
 	openModal,
 	closeModal,
@@ -35,11 +39,13 @@ import {
 	deleteLocation,
 	changePageSearch,
 } from '../../actions/location/actionsCreators';
+
 import {
 	GET_LOCATIONS,
 	BLOCK_LOCATION,
 	DELETE_LOCATION,
 } from '../../queries/location';
+
 import { SEARCH_LOCATIONS } from '../../queries/search';
 import Loading from '../Loading/loading';
 
@@ -65,7 +71,6 @@ const Location = ({
 	query,
 }) => 	{
 	const params = query.length > 0 ?
-
 		{ query: SEARCH_LOCATIONS, variables: { query, currentPageSearch } } :
 		{ query: GET_LOCATIONS, variables: { paginationPage } };
 	return (
@@ -91,14 +96,6 @@ const Location = ({
 				return (
 					<div>
 						<div>
-							<h3>
-								Ubicación
-							</h3>
-							<h5>
-								<Link to='/create-tables' href='/create-tables'>
-									Crear Ubicación
-								</Link>
-							</h5>
 							<Paper>
 								<Table>
 									<TableHead>

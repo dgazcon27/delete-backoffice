@@ -12,6 +12,7 @@ import {
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
+
 import { GET_ROLES } from '../../queries/userType';
 
 const checkMessageError = (res) => {

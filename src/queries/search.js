@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const SEARCH_ROLES = gql`
-	query search($query:String!,$currentPageSearch:Int) {
-		search(query:$query,page:$currentPageSearch) {
+	query search($query:String!, $currentPageSearch:Int) {
+		search(query:$query, page:$currentPageSearch) {
 			roles {
 				data{
 					name
@@ -37,8 +37,8 @@ export const SEARCH_USER = gql`
 `;
 
 export const SEARCH_LOCATIONS = gql`
-	query search($query:String!,$page:Int) {
-		search(query:$query,page:$page) {
+	query search($query:String!, $currentPageSearch:Int) {
+		search(query:$query, page:$currentPageSearch) {
 			locations {
 				data{
 					name

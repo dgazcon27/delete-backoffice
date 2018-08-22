@@ -12,13 +12,12 @@ import styles from './locationCss';
 
 const ComponentLocation = ({
 	query,
-	searching,
 	actionSetSearch,
 	classes,
 }) => (
 	<div>
 		<h5 className={classes.title}>
-			Roles
+			Ubicación
 		</h5>
 
 		<div className={classes.search}>
@@ -26,7 +25,7 @@ const ComponentLocation = ({
 				<Link to='/create-tables' href='/create-tables' >
 					<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 						<Add className={classes.marginIcon} />
-						Agregar Nuevo
+						Crear Ubicación
 					</Button>
 				</Link>
 			</h5>
@@ -39,20 +38,18 @@ const ComponentLocation = ({
 				value={query}
 			/>
 		</div>
-		<Location isSearching={searching} query={query} />
+		<Location query={query} />
 	</div>
 );
 
 ComponentLocation.propTypes = {
 	query: PropTypes.string.isRequired,
-	searching: PropTypes.bool.isRequired,
 	actionSetSearch: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
 	query: state.ReducerSearchLocation.query,
-	searching: state.ReducerSearchLocation.isSearching,
 });
 
 const mapDispatchToProps = dispatch => ({
