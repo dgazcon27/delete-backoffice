@@ -1,7 +1,6 @@
 import { SET_SEARCH } from '../../actions/Search/actionsTypesSearchRoles';
 
 const initialState = {
-	isSearching: false,
 	query: '',
 };
 
