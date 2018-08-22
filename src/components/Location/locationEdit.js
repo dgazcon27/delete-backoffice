@@ -36,9 +36,7 @@ import {
 	editLocation,
 } from '../../actions/location/actionsCreators';
 
-const Status = ({
-	classes,
-}) => (
+const Status = () => (
 	<Query query={GET_STATUS}>
 		{({ loading, error, data }) => {
 			if (loading || error) {
@@ -75,7 +73,6 @@ const Status = ({
 );
 
 let LocationEdit = ({
-	id,
 	classes,
 	alertOpen,
 	alertType,
@@ -104,7 +101,7 @@ let LocationEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='_description'
+						name='description'
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
@@ -135,7 +132,7 @@ let LocationEdit = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues._description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), paginationPage, editLocationMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), paginationPage, editLocationMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/tables' href='/tables' className={classes.returnButton} >
@@ -190,6 +187,7 @@ let LocationEdit = ({
 );
 
 LocationEdit.propTypes = {
+	initialValues: PropTypes.object.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -209,7 +207,6 @@ LocationEdit = reduxForm({
 const selector = formValueSelector('LocationEdit');
 
 const mapStateToProps = state => ({
-	id: state.ReducerLocation.id,
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
 	paginationPage: state.ReducerLocation.paginationPage,
@@ -219,8 +216,26 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionEditLocation: (id, name, _descripcion, fullcapacity, capacity, status, paginationPage, editLocationMutation) =>
-		dispatch(editLocation(id, name, _descripcion, fullcapacity, capacity, status, paginationPage, editLocationMutation)),
+	actionEditLocation: (
+		id,
+		name,
+		descripcion,
+		fullcapacity,
+		capacity,
+		status,
+		paginationPage,
+		editLocationMutation,
+	) =>
+		dispatch(editLocation(
+			id,
+			name,
+			descripcion,
+			fullcapacity,
+			capacity,
+			status,
+			paginationPage,
+			editLocationMutation,
+		)),
 });
 
 export default compose(
