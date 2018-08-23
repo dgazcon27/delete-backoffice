@@ -204,7 +204,7 @@ export const editBankAccount = (
 
 			.then(() => {
 				dispatch(openAlert('edit'));
-				setTimeout(() => (window.location.assign('bank')), 2000);
+				setTimeout(() => (window.location.assign('/bank-account')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
