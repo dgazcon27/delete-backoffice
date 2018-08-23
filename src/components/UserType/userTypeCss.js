@@ -69,6 +69,11 @@ const styles = () => ({
 		color: '#898989',
 		padding: '1% 3%',
 	},
+	errorSelect: {
+		color: '#f44336',
+		boxSizing: 'inherit',
+		fontSize: '11px',
+	},
 	search: {
 		display: 'inline-flex',
 		'align-items': 'baseline',
@@ -101,3 +106,4 @@ const styles = () => ({
 });
 
 export default styles;
+

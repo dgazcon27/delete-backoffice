@@ -31,32 +31,32 @@ import {
 	deleteBank,
 	openModal,
 	closeModal,
-	setBank,
+	setBankAccount,
 } from '../../actions/Bank/actionsCreators';
 
 import {
-	GET_BANKS,
-	DELETE_BANK,
+	GET_BANK_ACCOUNTS,
+	DELETE_BANK_ACCOUNT,
 } from '../../queries/bank';
 
 import Loading from '../Loading/loading';
 
-const Bank = ({
+const BankAccount = ({
 	id,
 	name,
 	isOpen,
 	classes,
 	modalType,
 	currentPage,
-	actionSetBank,
+	actionSetBankAccount,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
-	deleteBankMutation,
-	actionDeleteBank,
+	deleteBankAccountMutation,
+	actionDeleteBankAccount,
 }) => (
-	<Query query={GET_BANKS} variables={{ paginationPage }}>
+	<Query query={GET_BANK_ACCOUNTS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -74,12 +74,12 @@ const Bank = ({
 				<div>
 					<div>
 						<h3>
-							Banca
+							Cuentas bancarias
 						</h3>
 						<h5>
 							<div>
-								<Link to='/bank-create' href='/bank-create' >
-									Agregar Banco
+								<Link to='/bank-account-create' href='/bank-account-create' >
+									Agregar nueva cuenta
 								</Link>
 							</div>
 						</h5>
@@ -87,17 +87,19 @@ const Bank = ({
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Nombre</TableCell>
+										<TableCell>Propietario</TableCell>
+										<TableCell>Numero de cuenta</TableCell>
 										<TableCell>Moneda</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{
-										data.banks.data.map(bank => (
-											<TableRow key={bank.id}>
-												<TableCell >{bank.name}</TableCell>
-												<TableCell >{bank.currency}</TableCell>
+										data.bankAccounts.data.map(bankA => (
+											<TableRow key={bankA.id}>
+												<TableCell >{`${bankA.owner.name} ${bankA.owner.lastName}` }</TableCell>
+												<TableCell >{bankA.accountNumber}</TableCell>
+												<TableCell >{bankA.currency}</TableCell>
 												<TableCell className={classes.alignRight}>
 													<Tooltip
 														enterDelay={200}
@@ -106,10 +108,18 @@ const Bank = ({
 														placement='top'
 														title='Editar bank.'
 													>
-														<Link to='/bank-edit' href='/bank-edit'>
+														<Link to='/bank-account-edit/' href='/bank-account-edit'>
 															<IconButton
 																onClick={() => {
-																	actionSetBank(bank.id, bank.name, bank.currency);
+																	actionSetBankAccount(
+																		bankA.id,
+																		bankA.owner.id,
+																		bankA.bank.id,
+																		bankA.type,
+																		bankA.currency,
+																		bankA.accountNumber,
+																		bankA.comment,
+																	);
 																}
 																}
 															>
@@ -124,7 +134,7 @@ const Bank = ({
 														placement='top'
 														title='Eliminar bank'
 													>
-														<IconButton onClick={() => { actionOpenModal('delete', bank); }}>
+														<IconButton onClick={() => { actionOpenModal('delete', bankA); }}>
 															<Delete />
 														</IconButton>
 													</Tooltip>
@@ -136,7 +146,7 @@ const Bank = ({
 								<TableFooter>
 									<TableRow>
 										<TablePagination
-											count={data.banks.total}
+											count={data.bankAccounts.total}
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
@@ -158,37 +168,37 @@ const Bank = ({
 					>
 						<div>
 							{modalType === 'edit' &&
-								<Paper>
-									<h1>
+							<Paper>
+								<h1>
 										contenido edit modal
-									</h1>
-									<button onClick={actionCloseModal}>
+								</h1>
+								<button onClick={actionCloseModal}>
 										cerrar
-									</button>
-								</Paper>
+								</button>
+							</Paper>
 							}
 							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
+							<Paper className={classNames(classes.paperOnModal)}>
+								<h6>
 										Eliminar bank
-									</h6>
-									<p>
+								</h6>
+								<p>
 										¿Estas seguro que desea eliminar el bank {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeleteBank(id, paginationPage, deleteBankMutation);
-										}}
-										>
+								</p>
+								<span>
+									<IconButton onClick={() => {
+										actionDeleteBankAccount(id, paginationPage, deleteBankAccountMutation);
+									}}
+									>
 											Si
-										</IconButton>
+									</IconButton>
 										&nbsp;
 										&nbsp;
-										<IconButton onClick={actionCloseModal}>
+									<IconButton onClick={actionCloseModal}>
 											No
-										</IconButton>
-									</span>
-								</Paper>
+									</IconButton>
+								</span>
+							</Paper>
 							}
 						</div>
 					</Modal>
@@ -198,52 +208,61 @@ const Bank = ({
 	</Query>
 );
 
-Bank.propTypes = {
+BankAccount.propTypes = {
 	isOpen: PropTypes.bool,
 	name: PropTypes.string,
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetBank: PropTypes.func.isRequired,
+	actionSetBankAccount: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	deleteBankMutation: PropTypes.func.isRequired,
-	actionDeleteBank: PropTypes.func.isRequired,
+	deleteBankAccountMutation: PropTypes.func.isRequired,
+	actionDeleteBankAccount: PropTypes.func.isRequired,
 };
 
-Bank.defaultProps = {
+BankAccount.defaultProps = {
 	name: '',
 	isOpen: false,
 	modalType: '',
 };
 
 const mapStateToProps = state => ({
-	currency: state.ReducerBank.currency,
-	id: state.ReducerBank.id,
-	name: state.ReducerBank.name,
-	isOpen: state.ReducerBank.isOpen,
-	modalType: state.ReducerBank.modalType,
-	currentPage: state.ReducerBank.currentPage,
-	paginationPage: state.ReducerBank.paginationPage,
+	currency: state.ReducerBankAccount.currency,
+	id: state.ReducerBankAccount.id,
+	accountNumber: state.ReducerBankAccount.accountNumber,
+	isOpen: state.ReducerBankAccount.isOpen,
+	modalType: state.ReducerBankAccount.modalType,
+	currentPage: state.ReducerBankAccount.currentPage,
+	paginationPage: state.ReducerBankAccount.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionDeleteBank: (id, paginationPage, deleteBankMutation) =>
-		dispatch(deleteBank(id, paginationPage, deleteBankMutation)),
+	actionDeleteBankAccount: (id, paginationPage, deleteBankAccountMutation) =>
+		dispatch(deleteBank(id, paginationPage, deleteBankAccountMutation)),
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, bank) => dispatch(openModal(modalType, bank)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetBank: (id, currency, name) => dispatch(setBank(id, currency, name)),
+	actionSetBankAccount: (
+		id,
+		owner,
+		bank,
+		accountNumber,
+		type,
+		currency,
+		comment,
+	) =>
+		dispatch(setBankAccount(id, owner, bank, type, currency, accountNumber, comment)),
 });
 
-export { Bank as BankTest };
+export { BankAccount as BankAccountTest };
 
 export default compose(
-	graphql(DELETE_BANK, { name: 'deleteBankMutation' }),
+	graphql(DELETE_BANK_ACCOUNT, { name: 'deleteBankAccountMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Bank);
+)(BankAccount);

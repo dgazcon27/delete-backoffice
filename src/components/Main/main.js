@@ -4,10 +4,15 @@ import { Switch, Route } from 'react-router-dom';
 import ComponentUserType from '../UserType/componentUserType';
 import Bank from '../Bank/bank';
 import BankCreate from '../Bank/bankCreate';
+import BankAccount from '../Bank/bankAccount';
+import BankAccountCreate from '../Bank/bankAccountCreate';
 import BankEdit from '../Bank/bankEdit';
+import BankAccountEdit from '../Bank/bankAccountEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
+import UsersCreate from '../Users/usersCreate';
+import UsersEdit from '../Users/usersEdit';
 import {
 	Dashboard,
 	Presale,
@@ -28,6 +33,8 @@ const Main = (props) => {
 			<Switch>
 				<Route exact path='/' component={Dashboard} />
 				<Route path='/users' component={Users} />
+				<Route path='/users-create' component={UsersCreate} />
+				<Route path='/users-edit' component={UsersEdit} />
 				<Route path='/user-type' component={ComponentUserType} />
 				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
@@ -40,8 +47,11 @@ const Main = (props) => {
 				<Route path='/pre-sale' component={Presale} />
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
+				<Route path='/bank-account' component={BankAccount} />
 				<Route path='/bank-create' component={BankCreate} />
+				<Route path='/bank-account-create' component={BankAccountCreate} />
 				<Route path='/bank-edit' component={BankEdit} />
+				<Route path='/bank-account-edit' component={BankAccountEdit} />
 			</Switch>
 		</main>
 	);

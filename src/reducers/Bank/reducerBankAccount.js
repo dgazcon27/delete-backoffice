@@ -1,6 +1,4 @@
 import {
-	SET_ROL,
-	SET_NAME,
 	OPEN_MODAL,
 	OPEN_ALERT,
 	CLOSE_MODAL,
@@ -8,25 +6,15 @@ import {
 	CLEAN_STATE,
 	PAGE_UP,
 	PAGE_DOWN,
-	EDIT_USER_TYPE,
-	SET_DESCRIPTION,
-	BLOCK_USER_TYPE,
-	DELETE_USER_TYPE,
 } from '../../actions/userType/actionsTypes';
 
-import {
-	SET_BANK,
-	SET_BANK_ACCOUNT,
-} from '../../actions/Bank/actionsTypes';
 
 const initialState = {
 	id: 0,
-	name: '',
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
-	rolDescription: '',
 	statusValue: 0,
 	accountNumber: '',
 };
@@ -40,7 +28,7 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.currentPage = 0;
 }
 
-const ReducerUserType = (state = initialState, action = {}) => {
+const ReducerBankAccount = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case PAGE_UP:
 			return ({
@@ -53,46 +41,6 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
-			});
-		case EDIT_USER_TYPE:
-			return ({
-				...state,
-			});
-		case SET_ROL:
-			return ({
-				...state,
-				id: action.payload.id,
-				name: action.payload.name,
-				rolDescription: action.payload.rolDescription,
-			});
-		case SET_BANK:
-			return ({
-				...state,
-				id: action.payload.id,
-				name: action.payload.name,
-				currency: action.payload.currency,
-			});
-		case SET_BANK_ACCOUNT:
-			return ({
-				...state,
-				bank: action.payload.bank,
-				owner: action.payload.owner,
-				id: action.payload.id,
-				accountNumber: action.payload.accountNumber,
-				currency: action.payload.currency,
-				type: action.payload.type,
-				comment: action.payload.comment,
-			});
-		case BLOCK_USER_TYPE:
-			return ({
-				...state,
-				id: action.payload.id,
-				statusValue: action.payload.status,
-			});
-		case DELETE_USER_TYPE:
-			return ({
-				...state,
-				isOpen: true,
 			});
 		case OPEN_MODAL:
 			return ({
@@ -122,16 +70,6 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
-			return ({
-				...state,
-				name: action.payload.name,
-			});
-		case SET_DESCRIPTION:
-			return ({
-				...state,
-				rolDescription: action.payload.rolDescription,
-			});
 		case CLEAN_STATE:
 			return ({
 				...state,
@@ -144,4 +82,4 @@ const ReducerUserType = (state = initialState, action = {}) => {
 	}
 };
 
-export default ReducerUserType;
+export default ReducerBankAccount;

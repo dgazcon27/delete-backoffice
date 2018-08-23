@@ -21,8 +21,10 @@ import {
 	compose,
 	Query,
 } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import VpnKey from '@material-ui/icons/VpnKey';
 import styles from '../UserType/userTypeCss';
 import {
 	GET_USERS,
@@ -31,12 +33,13 @@ import {
 } from '../../queries/users';
 import { changePage } from '../../actions/userType/actionsCreators';
 import {
-	// editUser,
+	setUser,
 	blockUser,
 	deleteUser,
 	openModal,
 	closeModal,
 } from '../../actions/users/actionsCreators';
+import ModalPassword from './modalPassword';
 
 import Loading from '../Loading/loading';
 
@@ -51,6 +54,7 @@ const Users = ({
 	paginationPage,
 	actionChangePage,
 	actionOpenModal,
+	actionSetUser,
 	actionBlockUser,
 	actionDeleteUser,
 	actionCloseModal,
@@ -80,7 +84,7 @@ const Users = ({
 							Usuarios
 						</h3>
 						<h5>
-							Agregar Nuevo
+							<Link to='/users-create' href='/users-create'>Agregar Nuevo</Link>
 						</h5>
 
 						<Paper>
@@ -88,6 +92,7 @@ const Users = ({
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
+										<TableCell>Tipo de Usuario</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
@@ -97,10 +102,33 @@ const Users = ({
 										data.users.data.map(user => (
 											<TableRow key={user.id}>
 												<TableCell >{`${user.name} ${user.lastName}`}</TableCell>
+												<TableCell >{`${user.role.name}`}</TableCell>
 												<TableCell className={classes.alignRight} >
-													<IconButton onClick={actionCloseModal}>
-														<Edit />
-													</IconButton>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Editar Usuario.'
+													>
+														<Link to='/users-edit' href='/users-edit'>
+															<IconButton onClick={() => {
+																actionSetUser(
+																	user.id,
+																	user.name,
+																	user.lastName,
+																	user.phone,
+																	user.dni,
+																	user.birthDate,
+																	user.citizenship.id,
+																	user.role.id,
+																);
+															}}
+															>
+																<Edit />
+															</IconButton>
+														</Link>
+													</Tooltip>
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
@@ -125,6 +153,17 @@ const Users = ({
 															checked={user.status.id === 2}
 															value='checked'
 														/>
+													</Tooltip>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Cambiar Contraseña'
+													>
+														<IconButton onClick={() => { actionOpenModal('password', user); }}>
+															<VpnKey />
+														</IconButton>
 													</Tooltip>
 												</TableCell>
 											</TableRow>
@@ -219,6 +258,11 @@ const Users = ({
 									</span>
 								</Paper>
 							}
+							{modalType === 'password' &&
+								<Paper className={(classes.paperOnModal)}>
+									<ModalPassword />
+								</Paper>
+							}
 						</div>
 					</Modal>
 				</div>
@@ -242,6 +286,7 @@ Users.propTypes = {
 	actionBlockUser: PropTypes.func.isRequired,
 	blockUserMutation: PropTypes.func.isRequired,
 	deleteUserMutation: PropTypes.func.isRequired,
+	actionSetUser: PropTypes.func.isRequired,
 	actionDeleteUser: PropTypes.func.isRequired,
 };
 
@@ -264,6 +309,25 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteUser: (id, statusValue, paginationPage, deleteUserMutation) =>
 		dispatch(deleteUser(id, statusValue, paginationPage, deleteUserMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionSetUser: (
+		id,
+		name,
+		lastName,
+		phone,
+		dni,
+		birthDate,
+		citizenship,
+		role,
+	) => dispatch(setUser(
+		id,
+		name,
+		lastName,
+		phone,
+		dni,
+		birthDate,
+		citizenship,
+		role,
+	)),
 });
 
 export default compose(

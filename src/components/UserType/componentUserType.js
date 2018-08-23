@@ -59,6 +59,7 @@ const mapDispatchToProps = dispatch => ({
 	actionSetSearch: e => dispatch(setSearch(e.target.value)),
 });
 
+
 export default compose(
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
