@@ -21,6 +21,8 @@ describe('test Reducer Header', () => {
 		statusValue: 0,
 		paginationPage: 0,
 		currentPage: 0,
+		paginationPageSearch: 0,
+		currentPageSearch: 0,
 	};
 
 	// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage

@@ -25,7 +25,7 @@ const checkMessageError = (res) => {
 };
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
