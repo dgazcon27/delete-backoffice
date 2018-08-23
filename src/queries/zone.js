@@ -1,13 +1,13 @@
 import gql from 'graphql-tag';
 
 export const GET_ZONES = gql`
-	query zones($paginationPage:Int!) {
-		zones(page:$paginationPage) {
+	query zoness($paginationPage:Int!) {
+		zoness(page:$paginationPage) {
 			data{
 				name
 				id
 				capacity
-				fullcapacity
+				maxcapacity
 				status{
 					id
 				}
@@ -17,34 +17,22 @@ export const GET_ZONES = gql`
 	}
 `;
 
-export const GET_ZONESS = gql`
-	query { 
-		zones{
-			name
-			id
-			status{
-				id
-			}
-		}
-	}
-`;
-
 export const CREATE_ZONE = gql`
-	mutation createZone($name:String!, $capacity:Int!, $max_capacity:Int!) {
-		createZone(name:$name,capacity:$capacity,max_capacity:$max_capacity) {
+	mutation createZone($name:String!, $capacity:Int!, $maxcapacity:Int!, $createdBy:Int!, $updatedBy:Int!) {
+		createZone(name:$name, capacity:$capacity, maxcapacity:$maxcapacity, createdBy:$createdBy, updatedBy:$updatedBy) {
 			name
 			capacity
-			max_capacity
+			maxcapacity
 		}
 	}
 `;
 export const EDIT_ZONE = gql`
-	mutation updateZone($id:Int!, $name:String!, $capacity:Int!, $max_capacity:Int!) {
-		updateZone(id:$id, name:$name, capacity:$capacity, max_capacity:$max_capacity) {
+	mutation updateZone($id:Int!, $name:String!, $capacity:Int!, $maxcapacity:Int!, $updatedBy:Int!) {
+		updateZone(id:$id, name:$name, capacity:$capacity, maxcapacity:$maxcapacity, updatedBy:$updatedBy) {
 			id
 			name
 			capacity
-			max_capacity	
+			maxcapacity	
 		}
 	}
 `;
@@ -65,6 +53,15 @@ export const BLOCK_ZONE = gql`
 export const DELETE_ZONE = gql`
 	mutation deleteZone($id:Int!){
 		deleteZone(id:$id) {
+			id
+			name
+		}
+	}
+`;
+
+export const GET_CURRENT = gql`
+	query getCurrent($token:String!){
+		getCurrent(token:$token) {
 			id
 			name
 		}

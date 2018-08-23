@@ -37,3 +37,12 @@ export const DELETE_USER = gql`
 		}
 	}
 `;
+
+export const GET_CURRENT_USER = gql`
+	query getCurrent($token:String!){
+		getCurrent(token:$token) {
+			id
+			name
+		}
+	}
+`;

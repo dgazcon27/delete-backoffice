@@ -35,13 +35,13 @@ export const changePage = (currentPage, paginationPage) => {
 	});
 };
 
-export const setZone = (id, name, maxCapacity, capacity) => ({
+export const setZone = (id, name, maxcapacity, capacity) => ({
 	type: SET_ZONE,
 	payload: {
 		description: SET_ZONE,
 		id,
 		name,
-		maxCapacity,
+		maxcapacity,
 		capacity,
 	},
 });
@@ -121,13 +121,15 @@ export const setDescription = rolDescription => ({
 export const createZone = (
 	name,
 	capacity,
-	maxCapacity,
+	maxcapacity,
+	createdBy,
+	updatedBy,
 	paginationPage,
 	createZoneMutation,
 ) => async (dispatch) => {
 	createZoneMutation({
 		variables: {
-			name, capacity, maxCapacity,
+			name, capacity, maxcapacity, createdBy, updatedBy,
 		},
 		refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
 	})
@@ -146,13 +148,14 @@ export const editZone = (
 	id,
 	name,
 	capacity,
-	maxCapacity,
+	maxcapacity,
+	updatedBy,
 	paginationPage,
 	editZoneMutation,
 ) => async (dispatch) => {
 	await editZoneMutation({
 		variables: {
-			id, name, capacity, maxCapacity,
+			id, name, capacity, maxcapacity, updatedBy,
 		},
 		refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
 	})

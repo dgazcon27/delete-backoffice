@@ -30,6 +30,7 @@ import {
 } from '../../actions/zone/actionsCreators';
 
 let ZoneCreate = ({
+	userId,
 	classes,
 	alertOpen,
 	alertType,
@@ -42,7 +43,7 @@ let ZoneCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Zona</h3>
+		<h3 className={classes.formTitle}>Zonas</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nueva Zona</h6>
@@ -57,7 +58,7 @@ let ZoneCreate = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='max_capacity'
+						name='maxcapacity'
 						type='text'
 						component={renderNumberField}
 						validate={required}
@@ -75,7 +76,7 @@ let ZoneCreate = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateZone(myValues.name, Number(myValues.capacity), Number(myValues.max_capacity), paginationPage, createZoneMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateZone(myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), userId, userId, paginationPage, createZoneMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
@@ -130,6 +131,7 @@ let ZoneCreate = ({
 );
 
 ZoneCreate.propTypes = {
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -149,10 +151,11 @@ ZoneCreate = reduxForm({
 const selector = formValueSelector('ZoneCreate');
 
 const mapStateToProps = state => ({
+	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerZone.alertType,
 	alertOpen: state.ReducerZone.alertOpen,
 	paginationPage: state.ReducerZone.paginationPage,
-	myValues: selector(state, 'name', 'max_capacity', 'capacity'),
+	myValues: selector(state, 'name', 'maxcapacity', 'capacity'),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -160,13 +163,17 @@ const mapDispatchToProps = dispatch => ({
 	actionCreateZone: (
 		name,
 		capacity,
-		maxCapacity,
+		maxcapacity,
+		createdBy,
+		updatedBy,
 		paginationPage,
 		createZoneMutation,
 	) => dispatch(createZone(
 		name,
 		capacity,
-		maxCapacity,
+		maxcapacity,
+		createdBy,
+		updatedBy,
 		paginationPage,
 		createZoneMutation,
 	)),

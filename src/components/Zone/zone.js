@@ -23,6 +23,7 @@ import {
 	TableCell,
 	IconButton,
 	TableFooter,
+	TablePagination,
 } from '@material-ui/core';
 import styles from './zoneCss';
 import {
@@ -33,10 +34,11 @@ import {
 	deleteZone,
 } from '../../actions/zone/actionsCreators';
 import {
-	GET_ZONESS,
+	GET_ZONES,
 	BLOCK_ZONE,
 	DELETE_ZONE,
 } from '../../queries/zone';
+import { changePage } from '../../actions/userType/actionsCreators';
 import Loading from '../Loading/loading';
 
 const Zone = ({
@@ -46,16 +48,18 @@ const Zone = ({
 	classes,
 	modalType,
 	statusValue,
-	paginationPage,
+	currentPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionEditZone,
+	paginationPage,
 	actionBlockZone,
 	actionDeleteZone,
+	actionChangePage,
 	blockZoneMutation,
 	deleteZoneMutation,
 }) => (
-	<Query query={GET_ZONESS}>
+	<Query query={GET_ZONES} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -75,7 +79,7 @@ const Zone = ({
 				<div>
 					<div>
 						<h3>
-								Zona
+							Zonas
 						</h3>
 						<h5>
 							<Link to='/Departments-create' href='/Departments-create'>
@@ -93,7 +97,7 @@ const Zone = ({
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{data.zones.map(zone => (
+									{data.zoness.data.map(zone => (
 										<TableRow key={zone.id}>
 											<TableCell>{zone.name}</TableCell>
 											<TableCell className={classes.alignRight}>
@@ -110,7 +114,7 @@ const Zone = ({
 																actionEditZone(
 																	zone.id,
 																	zone.name,
-																	zone.max_capacity,
+																	zone.maxcapacity,
 																	zone.capacity,
 																);
 															}}
@@ -147,7 +151,20 @@ const Zone = ({
 										</TableRow>
 									))}
 								</TableBody>
-								<TableFooter />
+								<TableFooter>
+									<TableRow>
+										<TablePagination
+											count={data.zoness.total}
+											rowsPerPage={10}
+											page={paginationPage}
+											rowsPerPageOptions={[10]}
+											colSpan={3}
+											onChangePage={(event, changuedPage) => {
+												actionChangePage(currentPage, changuedPage);
+											}}
+										/>
+									</TableRow>
+								</TableFooter>
 							</Table>
 						</Paper>
 					</div>
@@ -243,12 +260,14 @@ Zone.propTypes = {
 	statusValue: PropTypes.number,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
+	currentPage: PropTypes.number.isRequired,
 	actionEditZone: PropTypes.func.isRequired,
 	actionBlockZone: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeleteZone: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
+	actionChangePage: PropTypes.func.isRequired,
 	blockZoneMutation: PropTypes.func.isRequired,
 	deleteZoneMutation: PropTypes.func.isRequired,
 };
@@ -266,10 +285,13 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerZone.isOpen,
 	modalType: state.ReducerZone.modalType,
 	statusValue: state.ReducerZone.statusValue,
+	currentPage: state.ReducerZone.currentPage,
 	paginationPage: state.ReducerZone.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionChangePage: (currentPage, paginationPage) =>
+		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _Zone) => dispatch(openModal(modalType, _Zone)),
 	actionBlockZone: (id, statusValue, blockZoneMutation) =>
 		dispatch(blockZone(id, statusValue, blockZoneMutation)),
@@ -279,9 +301,9 @@ const mapDispatchToProps = dispatch => ({
 	actionEditZone: (
 		id,
 		name,
-		maxCapacity,
+		maxcapacity,
 		capacity,
-	) => dispatch(setZone(id, name, maxCapacity, capacity)),
+	) => dispatch(setZone(id, name, maxcapacity, capacity)),
 });
 
 export default compose(

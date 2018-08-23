@@ -30,6 +30,7 @@ import {
 } from '../../actions/zone/actionsCreators';
 
 let ZoneEdit = ({
+	userId,
 	classes,
 	alertOpen,
 	alertType,
@@ -43,7 +44,7 @@ let ZoneEdit = ({
 	initialValues,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Zona</h3>
+		<h3 className={classes.formTitle}>Zonas</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Zona</h6>
@@ -58,7 +59,7 @@ let ZoneEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='max_capacity'
+						name='maxcapacity'
 						type='text'
 						component={renderNumberField}
 						validate={required}
@@ -76,7 +77,7 @@ let ZoneEdit = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.max_capacity), paginationPage, editZoneMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), userId, paginationPage, editZoneMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
@@ -84,18 +85,6 @@ let ZoneEdit = ({
 				</Link>
 			</form>
 		</Paper>
-		{alertType === 'nombre' &&
-
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear una Zona sin {alertType}</span>}
-		/>
-		}
 		{alertType === 'validation' &&
 		<Snackbar
 			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -107,30 +96,20 @@ let ZoneEdit = ({
 			message={<span id='message-id'>La Zona que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 		/>
 		}
-		{alertType === 'rolDescription' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear una Zona sin {alertType}</span>}
-		/>
-		}
-		{alertType === 'creado' &&
+		{alertType === 'edit' &&
 		<Snackbar
 			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 			open={alertOpen}
 			onClose={() => { setTimeout(actionCloseAlert, 100); }}
 			ContentProps={{ 'aria-describedby': 'message-id' }}
-			message={<span id='message-id'>La Zona {myValues.name} fue edita con éxito.</span>}
+			message={<span id='message-id'>La Zona {myValues.name} fue editada con éxito.</span>}
 		/>
 		}
 	</div>
 );
 
 ZoneEdit.propTypes = {
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -151,10 +130,11 @@ ZoneEdit = reduxForm({
 const selector = formValueSelector('ZoneEdit');
 
 const mapStateToProps = state => ({
+	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerZone.alertType,
 	alertOpen: state.ReducerZone.alertOpen,
 	paginationPage: state.ReducerZone.paginationPage,
-	myValues: selector(state, 'name', 'max_capacity', 'capacity'),
+	myValues: selector(state, 'name', 'maxcapacity', 'capacity'),
 	initialValues: state.ReducerZone,
 });
 
@@ -164,14 +144,16 @@ const mapDispatchToProps = dispatch => ({
 		id,
 		name,
 		capacity,
-		maxCapacity,
+		maxcapacity,
+		updatedBy,
 		paginationPage,
 		editZoneMutation,
 	) => dispatch(editZone(
 		id,
 		name,
 		capacity,
-		maxCapacity,
+		maxcapacity,
+		updatedBy,
 		paginationPage,
 		editZoneMutation,
 	)),

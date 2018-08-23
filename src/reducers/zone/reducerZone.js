@@ -17,7 +17,7 @@ import {
 const initialState = {
 	id: 0,
 	name: '',
-	max_capacity: 0,
+	maxcapacity: 0,
 	capacity: 0,
 	isOpen: false,
 	alertOpen: false,
@@ -60,7 +60,7 @@ const ReducerZone = (state = initialState, action = {}) => {
 				...state,
 				id: action.payload.id,
 				name: action.payload.name,
-				max_capacity: action.payload.max_capacity,
+				maxcapacity: action.payload.maxcapacity,
 				capacity: action.payload.capacity,
 			});
 		case BLOCK_ZONE:
