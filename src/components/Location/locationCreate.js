@@ -6,29 +6,74 @@ import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
+	Query,
 } from 'react-apollo';
 import {
 	Field,
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import styles from './locationCss';
 import './styles.css';
 import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField } from '../RenderFields/renderFields';
-import { CREATE_LOCATION } from '../../queries/location';
+import {
+	renderTextField,
+	renderNumberField,
+	renderSelectField,
+} from '../RenderFields/renderFields';
+import {
+	CREATE_LOCATION,
+	GET_STATUS,
+} from '../../queries/location';
 import {
 	closeAlert,
-	setName,
-	setDescription,
 	createLocation,
 } from '../../actions/location/actionsCreators';
 
+const Status = () => (
+	<Query query={GET_STATUS}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='status'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='status'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='status'
+					type='select'
+					label='status'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.statuss.map(status => (
+						<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
 let LocationCreate = ({
+	userId,
 	classes,
 	alertOpen,
 	alertType,
@@ -41,79 +86,108 @@ let LocationCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h4>Nueva Ubicación</h4>
-		<div className={classes.createContainer}>
+		<h3 className={classes.formTitle}>Nueva Ubicación</h3>
+		<Paper className={classes.createContainer}>
 			<form>
-				<Field
-					name='name'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='name'
-				/>
-				<Field
-					name='rolDescription'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='description'
-					className='yourclass'
-				/>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateLocation(myValues.name, myValues.rolDescription, paginationPage, createLocationMutation))} disabled={submitting} >
+				<h6 className={classes.formTitle}>Nuevo Ubicación</h6>
+				<div className={classes.formStyle}>
+					<Field
+						name='name'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='name'
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='description'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='description'
+						className='yourclass'
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='fullcapacity'
+						type='text'
+						component={renderNumberField}
+						validate={[required, empty]}
+						label='Capacidad Máxima'
+						className='yourclass'
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='capacity'
+						type='text'
+						component={renderNumberField}
+						validate={[required, empty]}
+						label='Capacidad'
+						className='yourclass'
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Status />
+				</div>
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateLocation(myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), Number(userId), paginationPage, createLocationMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/tables' href='/tables' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
-			{alertType === 'nombre' &&
+		</Paper>
+		{alertType === 'nombre' &&
 
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-				/>
-			}
-			{alertType === 'rolDescription' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'creado' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>El rol {myValues.name} fue creado con exito.</span>}
-				/>
-			}
-		</div>
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>No puede crear una Ubicación sin {alertType}</span>}
+		/>
+		}
+		{alertType === 'validation' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>La Ubicación que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+		/>
+		}
+		{alertType === 'rolDescription' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>No puede crear una Ubicación sin {alertType}</span>}
+		/>
+		}
+		{alertType === 'creado' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{ 'aria-describedby': 'message-id' }}
+			message={<span id='message-id'>La Ubicación {myValues.name} fue creada con éxito.</span>}
+		/>
+		}
 	</div>
 );
 
 LocationCreate.propTypes = {
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -133,20 +207,36 @@ LocationCreate = reduxForm({
 const selector = formValueSelector('LocationCreate');
 
 const mapStateToProps = state => ({
+	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
-	name: state.ReducerLocation.name,
-	descripcion: state.ReducerLocation.descripcion,
 	paginationPage: state.ReducerLocation.paginationPage,
-	myValues: selector(state, 'name', 'rolDescription'),
+	myValues: selector(state, 'name', 'description', 'fullcapacity', 'capacity', 'status'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionSetName: e => dispatch(setName(e.target.value)),
-	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionCreateLocation: (name, descripcion, paginationPage, createLocationMutation) =>
-		dispatch(createLocation(name, descripcion, paginationPage, createLocationMutation)),
+	actionCreateLocation: (
+		name,
+		descripcion,
+		fullcapacity,
+		capacity,
+		status,
+		createdBy,
+		updatedBy,
+		paginationPage,
+		createLocationMutation,
+	) => dispatch(createLocation(
+		name,
+		descripcion,
+		fullcapacity,
+		capacity,
+		status,
+		createdBy,
+		updatedBy,
+		paginationPage,
+		createLocationMutation,
+	)),
 });
 
 export default compose(

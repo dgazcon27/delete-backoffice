@@ -8,27 +8,3 @@
 label + .MuiInputt-formControl-16 {
     margin-top: 2px;
 }
-
-.errorSelect {
-	color: #f44336;
-    box-sizing: inherit;
-    font-size: 11px;
-}
-
-.container {
-	width: '100%',
-}
-
-.formStyle{
-	padding: '3%';
-}
-	
-.formTitle: {
-	font-size: '1.25em';
-	color: '#898989';
-	padding: '1% 3%';
-}
-
-.formPrueba {
-	padding-left: 30px;
-}

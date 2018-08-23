@@ -6,26 +6,26 @@ import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'react-apollo';
 import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
-import Location from './location';
+import UserType from './userType';
 import { setSearch } from '../../actions/Search/actionCreatorSearchRoles';
-import styles from './locationCss';
+import styles from './userTypeCss';
 
-const ComponentLocation = ({
+const ComponentUserType = ({
 	query,
 	actionSetSearch,
 	classes,
 }) => (
 	<div>
 		<h5 className={classes.title}>
-			Ubicación
+			Roles
 		</h5>
 
 		<div className={classes.search}>
 			<h5 className={classes.searchAlignRigth}>
-				<Link to='/create-tables' href='/create-tables' >
+				<Link to='/user-type-create' href='/user-type-create' >
 					<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 						<Add className={classes.marginIcon} />
-						Crear Ubicación
+						Agregar Nuevo
 					</Button>
 				</Link>
 			</h5>
@@ -38,18 +38,18 @@ const ComponentLocation = ({
 				value={query}
 			/>
 		</div>
-		<Location query={query} />
+		<UserType query={query} />
 	</div>
 );
 
-ComponentLocation.propTypes = {
+ComponentUserType.propTypes = {
 	query: PropTypes.string.isRequired,
 	actionSetSearch: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-	query: state.ReducerSearchLocation.query,
+	query: state.ReducerSearchRoles.query,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(ComponentLocation);
+)(ComponentUserType);

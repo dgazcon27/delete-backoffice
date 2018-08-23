@@ -4,7 +4,7 @@ const initialState = {
 	query: '',
 };
 
-const ReducerSearchLocation = (state = initialState, action = {}) => {
+const ReducerSearchRoles = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case SET_SEARCH:
 			return ({
@@ -16,4 +16,4 @@ const ReducerSearchLocation = (state = initialState, action = {}) => {
 	}
 };
 
-export default ReducerSearchLocation;
+export default ReducerSearchRoles;

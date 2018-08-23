@@ -6,6 +6,9 @@ export const GET_LOCATIONS = gql`
 			data{
 				name
 				id
+				capacity
+				fullcapacity
+				description
 				status{
 					id
 				}
@@ -16,14 +19,22 @@ export const GET_LOCATIONS = gql`
 `;
 
 export const CREATE_LOCATION = gql`
-	mutation createLocation($id:Int!, $status:Int!) {
-		createLocation(id:$id,status:$status) {
+	mutation createLocation($name:String!, $description:String!, $fullcapacity:Int!, $capacity:Int!, $status:Int!, $createdBy:Int!, $updatedBy:Int!) {
+		createLocation(name:$name,description:$description,fullcapacity:$fullcapacity,capacity:$capacity, status:$status, createdBy:$createdBy, updatedBy:$updatedBy) {
 			name
-			id
-			status {
-				name
-				id
-			}
+			description
+			fullcapacity
+			capacity
+		}
+	}
+`;
+export const EDIT_LOCATION = gql`
+	mutation updateLocation($id:Int!, $name:String!, $description:String!, $fullcapacity:Int!, $capacity:Int!, $status:Int!, $updatedBy:Int!) {
+		updateLocation(id:$id, name:$name, description:$description, fullcapacity:$fullcapacity, capacity:$capacity, status:$status, updatedBy:$updatedBy) {
+			name
+			description
+			fullcapacity
+			capacity	
 		}
 	}
 `;
@@ -33,7 +44,7 @@ export const BLOCK_LOCATION = gql`
 		blockedLocation(id:$id,status:$status) {
 			name
 			id
-			status {
+			status{
 				name
 				id
 			}
@@ -44,6 +55,15 @@ export const BLOCK_LOCATION = gql`
 export const DELETE_LOCATION = gql`
 	mutation deleteLocation($id:Int!){
 		deleteLocation(id:$id) {
+			id
+			name
+		}
+	}
+`;
+
+export const GET_STATUS = gql`
+	query statuss{
+		statuss{
 			id
 			name
 		}

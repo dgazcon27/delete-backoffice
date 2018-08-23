@@ -16,6 +16,7 @@ export const GET_USERS = gql`
 		}
 	}
 `;
+
 export const BLOCK_USER = gql`
 	mutation blockUser($id:Int!, $status:Int!) {
 		blockedUser(id:$id,status:$status) {
@@ -32,6 +33,15 @@ export const BLOCK_USER = gql`
 export const DELETE_USER = gql`
 	mutation deleteUser($id:Int!){
 		deleteUser(id:$id) {
+			id
+			name
+		}
+	}
+`;
+
+export const GET_CURRENT_USER = gql`
+	query getCurrent($token:String!){
+		getCurrent(token:$token) {
 			id
 			name
 		}

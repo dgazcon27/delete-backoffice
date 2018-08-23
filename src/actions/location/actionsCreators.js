@@ -6,10 +6,13 @@ import {
 	CLOSE_MODAL,
 	SET_DESCRIPTION,
 	CLEAN_STATE,
-	SET_ROL,
+	SET_LOCATION,
 	PAGE_UP,
 	PAGE_DOWN,
+	SEARCH_PAGE_UP,
+	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
+
 import { GET_LOCATIONS } from '../../queries/location';
 
 const checkMessageError = (res) => {
@@ -19,6 +22,7 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
+
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
 	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
@@ -34,13 +38,32 @@ export const changePage = (currentPage, paginationPage) => {
 		},
 	});
 };
-export const setRol = (id, name, rolDescription) => ({
-	type: SET_ROL,
+
+export const changePageSearch = (currentPage, paginationPage) => {
+	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	paginations.userTypeSearch = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+
+	return ({
+		type: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
+		payload: {
+			description: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
+			paginationPageSearch: paginationPage,
+			currentPageSearch: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+		},
+	});
+};
+
+export const setLocation = (id, name, locationDescription, fullcapacity, capacity, status) => ({
+	type: SET_LOCATION,
 	payload: {
-		description: SET_ROL,
+		description: SET_LOCATION,
 		id,
 		name,
-		rolDescription,
+		locationDescription,
+		fullcapacity,
+		capacity,
+		status,
 	},
 });
 
@@ -57,6 +80,7 @@ export const closeModal = () => ({
 		description: CLOSE_MODAL,
 	},
 });
+
 export const openAlert = alertType => ({
 	type: OPEN_ALERT,
 	payload: {
@@ -64,12 +88,14 @@ export const openAlert = alertType => ({
 		description: OPEN_ALERT,
 	},
 });
+
 export const closeAlert = () => ({
 	type: CLOSE_ALERT,
 	payload: {
 		description: OPEN_ALERT,
 	},
 });
+
 export const blockLocation = (id, statusValue, blockLocationMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
@@ -100,6 +126,7 @@ export const openModal = (modalType, _location) => ({
 		id: _location.id,
 	},
 });
+
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {
@@ -116,38 +143,56 @@ export const setDescription = rolDescription => ({
 	},
 });
 
-export const createLocation = (name, rolDescription, paginationPage, createLocationMutation) =>
-	async (dispatch) => {
-		if (name !== '' && rolDescription !== '') {
-			createLocationMutation({
-				variables: { name, rolDescription },
-				refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
-			})
-				.then(() => {
-					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('user-type')), 2000);
-				})
-				.catch((res) => {
-					const message = checkMessageError(res);
-					dispatch(openAlert(message));
-				});
-		}
-	};
+export const createLocation = (
+	name,
+	description,
+	fullcapacity,
+	capacity,
+	status,
+	createdBy,
+	updatedBy,
+	paginationPage,
+	createLocationMutation,
+) => async (dispatch) => {
+	createLocationMutation({
+		variables: {
+			name, description, fullcapacity, capacity, status, createdBy, updatedBy,
+		},
+		refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
+	})
+		.then(() => {
+			dispatch(openAlert('creado'));
+			setTimeout(() => (window.location.assign('tables')), 2000);
+		})
+		.catch((res) => {
+			const message = checkMessageError(res);
+			dispatch(openAlert(message));
+		});
+};
 
-export const editRol = (id, name, rolDescription, paginationPage, editRolMutation) =>
-	async (dispatch) => {
-		if (name !== '' && rolDescription !== '') {
-			await editRolMutation({
-				variables: { id, name, rolDescription },
-				refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
-			})
-				.then(() => {
-					dispatch(openAlert('edit'));
-					setTimeout(() => (window.location.assign('user-type')), 2000);
-				})
-				.catch((res) => {
-					const message = checkMessageError(res);
-					dispatch(openAlert(message));
-				});
-		}
-	};
+export const editLocation = (
+	id,
+	name,
+	description,
+	fullcapacity,
+	capacity,
+	status,
+	updatedBy,
+	paginationPage,
+	editLocationMutation,
+) => async (dispatch) => {
+	await editLocationMutation({
+		variables: {
+			id, name, description, fullcapacity, capacity, status, updatedBy,
+		},
+		refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
+	})
+		.then(() => {
+			dispatch(openAlert('edit'));
+			setTimeout(() => (window.location.assign('tables')), 2000);
+		})
+		.catch((res) => {
+			const message = checkMessageError(res);
+			dispatch(openAlert(message));
+		});
+};

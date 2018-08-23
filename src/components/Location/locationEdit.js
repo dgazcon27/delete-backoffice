@@ -73,6 +73,7 @@ const Status = () => (
 );
 
 let LocationEdit = ({
+	userId,
 	classes,
 	alertOpen,
 	alertType,
@@ -101,7 +102,7 @@ let LocationEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='description'
+						name='locationDescription'
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
@@ -132,7 +133,7 @@ let LocationEdit = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), paginationPage, editLocationMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.locationDescription, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), userId, paginationPage, editLocationMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/tables' href='/tables' className={classes.returnButton} >
@@ -187,7 +188,7 @@ let LocationEdit = ({
 );
 
 LocationEdit.propTypes = {
-	initialValues: PropTypes.object.isRequired,
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -198,6 +199,7 @@ LocationEdit.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
+	initialValues: PropTypes.object.isRequired,
 };
 
 LocationEdit = reduxForm({
@@ -207,10 +209,12 @@ LocationEdit = reduxForm({
 const selector = formValueSelector('LocationEdit');
 
 const mapStateToProps = state => ({
+	id: state.ReducerLocation.id,
+	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
 	paginationPage: state.ReducerLocation.paginationPage,
-	myValues: selector(state, 'name', '_description', 'fullcapacity', 'capacity', 'status'),
+	myValues: selector(state, 'name', 'locationDescription', 'fullcapacity', 'capacity', 'status'),
 	initialValues: state.ReducerLocation,
 });
 
@@ -219,23 +223,24 @@ const mapDispatchToProps = dispatch => ({
 	actionEditLocation: (
 		id,
 		name,
-		descripcion,
+		locationDescription,
 		fullcapacity,
 		capacity,
 		status,
+		updatedBy,
 		paginationPage,
 		editLocationMutation,
-	) =>
-		dispatch(editLocation(
-			id,
-			name,
-			descripcion,
-			fullcapacity,
-			capacity,
-			status,
-			paginationPage,
-			editLocationMutation,
-		)),
+	) => dispatch(editLocation(
+		id,
+		name,
+		locationDescription,
+		fullcapacity,
+		capacity,
+		status,
+		updatedBy,
+		paginationPage,
+		editLocationMutation,
+	)),
 });
 
 export default compose(
