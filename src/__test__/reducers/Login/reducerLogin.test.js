@@ -14,6 +14,7 @@ describe('test Reducer Header', () => {
 		error: false,
 		auth: false,
 		token: localStorage.getItem('token') || null,
+		userId: localStorage.getItem('userId') || 0,
 		email: '',
 		password: '',
 	};
