@@ -14,7 +14,10 @@ import {
 	DELETE_USER_TYPE,
 } from '../../actions/userType/actionsTypes';
 
-import { SET_BANK } from '../../actions/Bank/actionsTypes';
+import {
+	SET_BANK,
+	SET_BANK_ACCOUNT,
+} from '../../actions/Bank/actionsTypes';
 
 const initialState = {
 	id: 0,
@@ -25,6 +28,7 @@ const initialState = {
 	modalType: '',
 	rolDescription: '',
 	statusValue: 0,
+	accountNumber: '',
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -67,6 +71,17 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				id: action.payload.id,
 				name: action.payload.name,
 				currency: action.payload.currency,
+			});
+		case SET_BANK_ACCOUNT:
+			return ({
+				...state,
+				bank: action.payload.bank,
+				owner: action.payload.owner,
+				id: action.payload.id,
+				accountNumber: action.payload.accountNumber,
+				currency: action.payload.currency,
+				type: action.payload.type,
+				comment: action.payload.comment,
 			});
 		case BLOCK_USER_TYPE:
 			return ({

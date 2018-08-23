@@ -12,6 +12,28 @@ export const GET_BANKS = gql`
 		}
 	}
 `;
+export const GET_BANK_ACCOUNTS = gql`
+	query bankAccounts($paginationPage:Int!) {
+		bankAccounts(page:$paginationPage) {
+			data{
+				id
+				accountNumber
+				currency
+				type
+				comment
+				bank {
+					id
+				} 
+				owner {
+					id
+					name 
+					lastName
+				}
+			}
+			total
+		}
+	}
+`;
 
 export const GET_USERSS = gql`
 	query{ 
@@ -39,6 +61,14 @@ export const DELETE_BANK = gql`
 	}
 `;
 
+export const DELETE_BANK_ACCOUNT = gql`
+	mutation deleteBankAccount ($id:Int!){
+		deleteBankAccount(id:$id) {
+			id
+		}
+	}
+`;
+
 export const CREATE_BANK = gql`
 	mutation createBank($name:String!, $currency:String!){
 		createBank(name:$name, currency:$currency){
@@ -60,6 +90,13 @@ export const EDIT_BANK = gql`
 		updateBank(id:$id, name:$name, currency:$currency){
 			id
 			name
+		}
+	}
+`;
+export const EDIT_BANK_ACCOUNT = gql`
+	mutation updateBankAccount($id:Int!, $bank:ID!, $owner:ID!, $accountNumber:String, $type:String, $currency:String, $comment:String){
+		updateBankAccount(id:$id, bank:$bank, owner:$owner, accountNumber:$accountNumber, type:$type, currency:$currency, comment:$comment){
+			id
 		}
 	}
 `;

@@ -82,11 +82,6 @@ const Bank = ({
 									Agregar Banco
 								</Link>
 							</div>
-							<div>
-								<Link to='/bank-account-create' href='/bank-account-create' >
-								Agregar cuenta bancaria
-								</Link>
-							</div>
 						</h5>
 						<Paper>
 							<Table>

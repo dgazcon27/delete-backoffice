@@ -9,8 +9,12 @@ import {
 	SET_BANK,
 	PAGE_UP,
 	PAGE_DOWN,
+	SET_BANK_ACCOUNT,
 } from './actionsTypes';
-import { GET_BANKS } from '../../queries/bank';
+import {
+	GET_BANKS,
+	GET_BANK_ACCOUNTS,
+} from '../../queries/bank';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -41,6 +45,19 @@ export const setBank = (id, name, currency) => ({
 		id,
 		name,
 		currency,
+	},
+});
+export const setBankAccount = (id, owner, bank, currency, accountNumber, type, comment) => ({
+	type: SET_BANK_ACCOUNT,
+	payload: {
+		description: SET_BANK_ACCOUNT,
+		id,
+		owner,
+		bank,
+		currency,
+		accountNumber,
+		type,
+		comment,
 	},
 });
 
@@ -136,11 +153,11 @@ export const createBankAccount = (
 			variables: {
 				bank, owner, accountNumber, type, comment, currency,
 			},
-			refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
+			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('bank')), 2000);
+				setTimeout(() => (window.location.assign('bank-account')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -155,6 +172,7 @@ export const editBank = (id, name, currency, paginationPage, editBankMutation) =
 				variables: { id, name, currency },
 				refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
 			})
+
 				.then(() => {
 					dispatch(openAlert('edit'));
 					setTimeout(() => (window.location.assign('bank')), 2000);
@@ -164,4 +182,32 @@ export const editBank = (id, name, currency, paginationPage, editBankMutation) =
 					dispatch(openAlert(message));
 				});
 		}
+	};
+export const editBankAccount = (
+	id,
+	bank,
+	owner,
+	accountNumber,
+	type,
+	currency,
+	comment,
+	paginationPage,
+	editBankAccountMutation,
+) =>
+	async (dispatch) => {
+		await editBankAccountMutation({
+			variables: {
+				id, bank, owner, accountNumber, type, currency, comment,
+			},
+			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
+		})
+
+			.then(() => {
+				dispatch(openAlert('edit'));
+				setTimeout(() => (window.location.assign('bank')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
 	};

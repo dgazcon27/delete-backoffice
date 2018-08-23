@@ -33,7 +33,7 @@ import {
 	createBankAccount,
 } from '../../actions/Bank/actionsCreators';
 
-const Banks = () => (
+export const Banks = () => (
 	<Query query={GET_BANKSS}>
 		{({ loading, error, data }) => {
 			if (loading) {
@@ -71,7 +71,7 @@ const Banks = () => (
 	</Query>
 );
 
-const Users = () => (
+export const Users = () => (
 	<Query query={GET_USERSS}>
 		{({ loading, error, data }) => {
 			if (loading) {
@@ -189,7 +189,7 @@ let BankAccountCreate = ({
 				>
 					Crear
 				</button>
-				<Link to='/bank' href='/bank' className={classes.returnButton} >
+				<Link to='/bank-account' href='/bank-account' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
@@ -208,12 +208,12 @@ let BankAccountCreate = ({
 		{alertType === 'validation' &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				Bank={alertOpen}
+				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{
 					'aria-describedby': 'message-id',
 				}}
-				message={<span id='message-id'>La banca que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+				message={<span id='message-id'>La cuenta que intenta crear ya existe verifique el numero he intente de nuevo.</span>}
 			/>
 		}
 		{alertType === 'creado' &&
@@ -222,7 +222,7 @@ let BankAccountCreate = ({
 				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{ 'aria-describedby': 'message-id' }}
-				message={<span id='message-id'>La banca {myValues.name} fue creado con exito.</span>}
+				message={<span id='message-id'>La cuenta fue creado con exito.</span>}
 			/>
 		}
 	</div>
@@ -248,11 +248,11 @@ BankAccountCreate = reduxForm({
 const selector = formValueSelector('BankAccountCreate');
 
 const mapStateToProps = state => ({
-	alertType: state.ReducerUserType.alertType,
-	alertOpen: state.ReducerUserType.alertOpen,
-	name: state.ReducerUserType.name,
-	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerUserType.paginationPage,
+	alertType: state.ReducerBankAccount.alertType,
+	alertOpen: state.ReducerBankAccount.alertOpen,
+	name: state.ReducerBankAccount.name,
+	descripcion: state.ReducerBankAccount.descripcion,
+	paginationPage: state.ReducerBankAccount.paginationPage,
 	myValues: selector(state, 'bank', 'owner', 'accountNumber', 'type', 'comment', 'currency'),
 });
 
