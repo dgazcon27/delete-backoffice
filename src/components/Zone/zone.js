@@ -32,13 +32,13 @@ import {
 	setZone,
 	blockZone,
 	deleteZone,
+	changePage,
 } from '../../actions/zone/actionsCreators';
 import {
 	GET_ZONES,
 	BLOCK_ZONE,
 	DELETE_ZONE,
 } from '../../queries/zone';
-import { changePage } from '../../actions/zone/actionsCreators';
 import Loading from '../Loading/loading';
 
 const Zone = ({
@@ -178,7 +178,7 @@ const Zone = ({
 							{modalType === 'edit' &&
 							<Paper>
 								<h1>
-									contenido edit modal
+											contenido edit modal
 								</h1>
 								<button onClick={actionCloseModal}>
 											cerrar
