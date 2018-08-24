@@ -20,6 +20,7 @@ const initialState = {
 	statusValue: 0,
 	paginationPage: 0,
 	currentPage: 0,
+	currentPageSearch: 0,
 };
 
 const ReducerUser = (state = initialState, action = {}) => {
