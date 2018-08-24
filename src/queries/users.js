@@ -19,8 +19,8 @@ export const GET_USERS = gql`
 				}
 				id
 				status {
-				name
-				id
+					name
+					id
 				}
 			}
 			total
