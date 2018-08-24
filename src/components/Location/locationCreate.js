@@ -140,18 +140,6 @@ let LocationCreate = ({
 				</Link>
 			</form>
 		</Paper>
-		{alertType === 'nombre' &&
-
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear una Ubicación sin {alertType}</span>}
-		/>
-		}
 		{alertType === 'validation' &&
 		<Snackbar
 			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -161,17 +149,6 @@ let LocationCreate = ({
 				'aria-describedby': 'message-id',
 			}}
 			message={<span id='message-id'>La Ubicación que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-		/>
-		}
-		{alertType === 'rolDescription' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear una Ubicación sin {alertType}</span>}
 		/>
 		}
 		{alertType === 'creado' &&

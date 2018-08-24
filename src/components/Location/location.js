@@ -116,7 +116,7 @@ const Location = ({
 														id='tooltip-controlled'
 														leaveDelay={100}
 														placement='top'
-														title='Editar Ubicación.'
+														title='Editar Ubicación'
 													>
 														<Link to='/edit-tables' href='/edit-tables'>
 															<IconButton

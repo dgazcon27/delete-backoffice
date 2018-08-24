@@ -134,25 +134,13 @@ let LocationEdit = ({
 					<Status />
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.locationDescription, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), userId, paginationPage, editLocationMutation))} disabled={submitting} >
-					Crear
+					Guardar
 				</button>
 				<Link to='/tables' href='/tables' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
 		</Paper>
-		{alertType === 'nombre' &&
-
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-		/>
-		}
 		{alertType === 'validation' &&
 		<Snackbar
 			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -161,34 +149,23 @@ let LocationEdit = ({
 			ContentProps={{
 				'aria-describedby': 'message-id',
 			}}
-			message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+			message={<span id='message-id'>La Ubicación que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 		/>
 		}
-		{alertType === 'rolDescription' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-		/>
-		}
-		{alertType === 'creado' &&
+		{alertType === 'edit' &&
 		<Snackbar
 			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 			open={alertOpen}
 			onClose={() => { setTimeout(actionCloseAlert, 100); }}
 			ContentProps={{ 'aria-describedby': 'message-id' }}
-			message={<span id='message-id'>El rol {myValues.name} fue creado con exito.</span>}
+			message={<span id='message-id'>La Ubicación {myValues.name} fue editado con éxito.</span>}
 		/>
 		}
 	</div>
 );
 
 LocationEdit.propTypes = {
-	userId: PropTypes.number.isRequired,
+	userId: PropTypes.string.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
