@@ -128,7 +128,17 @@ export const createUser = (
 	async (dispatch) => {
 		createUserMutation({
 			variables: {
-				name, email, password, lastName, phone, dni, birthDate, role, citizenship, createdBy, updatedBy,
+				name,
+				email,
+				password,
+				lastName,
+				phone,
+				dni,
+				birthDate,
+				role,
+				citizenship,
+				createdBy,
+				updatedBy,
 			},
 			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
 		})
