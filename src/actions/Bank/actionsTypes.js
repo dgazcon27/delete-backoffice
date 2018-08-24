@@ -15,7 +15,6 @@ const SET_BANK_ACCOUNT = 'SET_BANK_ACCOUNT';
 const PAGE_UP = 'PAGE_UP';
 const PAGE_DOWN = 'PAGE_DOWN';
 const CHANGE_PAGE = 'CHANGE_PAGE';
-
 export {
 	SET_ROL,
 	PAGE_UP,
