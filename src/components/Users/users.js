@@ -114,7 +114,7 @@ const Users = ({
 															id='tooltip-controlled'
 															leaveDelay={100}
 															placement='top'
-															title='Editar Usuario.'
+															title='Editar Usuario'
 														>
 															<Link to='/users-edit' href='/users-edit'>
 																<IconButton onClick={() => {
@@ -126,9 +126,9 @@ const Users = ({
 																		user.dni,
 																		user.birthDate,
 																		user.citizenship.id,
-																		user.role.id,
+																	user.role.id,
 																	);
-																}}
+																	}}
 																>
 																	<Edit />
 																</IconButton>
