@@ -87,9 +87,19 @@ export const GET_COUNTRYS = gql`
 `;
 
 export const SET_PASSWORD = gql`
-	mutation resetPasswordUser($password:String!, $confirmation:String!) {
-		resetPasswordUser(password:$password, confirmation:$confirmation) {
-			password
+	mutation resetPasswordIdUser($id:Int!, $password:String!, $confirmation:String!) {
+		resetPasswordIdUser(id:$id, password:$password, confirmation:$confirmation) {
+			id
+		}
+	}
+`;
+
+
+export const GET_CURRENT_USER = gql`
+	query getCurrent($token:String!){
+		getCurrent(token:$token) {
+			id
+			name
 		}
 	}
 `;

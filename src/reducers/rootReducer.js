@@ -7,6 +7,7 @@ import ReducerUser from './users/reducerUser';
 import ReducerSearchRoles from './userType/reducerSearchRoles';
 import ReducerBank from './Bank/reducerBank';
 import ReducerBankAccount from './Bank/reducerBankAccount';
+import ReducerZone from './zone/reducerZone';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
 	ReducerSearchRoles,
 	ReducerBank,
 	ReducerBankAccount,
+	ReducerZone,
 	form: reduxFormReducer,
 });
 

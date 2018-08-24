@@ -13,6 +13,9 @@ import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
 import UsersCreate from '../Users/usersCreate';
 import UsersEdit from '../Users/usersEdit';
+import Zone from '../Zone/zone';
+import ZoneCreate from '../Zone/zoneCreate';
+import ZoneEdit from '../Zone/zoneEdit';
 import {
 	Dashboard,
 	Presale,
@@ -21,7 +24,6 @@ import {
 	Events,
 	Djs,
 	Categories,
-	Departments,
 	Staff,
 } from '../hola';
 
@@ -43,7 +45,9 @@ const Main = (props) => {
 				<Route path='/events' component={Events} />
 				<Route path='/djs' component={Djs} />
 				<Route path='/categories' component={Categories} />
-				<Route path='/Departments' component={Departments} />
+				<Route path='/Departments' component={Zone} />
+				<Route path='/Departments-create' component={ZoneCreate} />
+				<Route path='/Departments-edit' component={ZoneEdit} />
 				<Route path='/pre-sale' component={Presale} />
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
