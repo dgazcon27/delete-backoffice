@@ -77,7 +77,7 @@ let ZoneEdit = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), userId, paginationPage, editZoneMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), Number(userId), paginationPage, editZoneMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
@@ -109,7 +109,7 @@ let ZoneEdit = ({
 );
 
 ZoneEdit.propTypes = {
-	userId: PropTypes.number.isRequired,
+	userId: PropTypes.string.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -130,12 +130,12 @@ ZoneEdit = reduxForm({
 const selector = formValueSelector('ZoneEdit');
 
 const mapStateToProps = state => ({
+	initialValues: state.ReducerZone,
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerZone.alertType,
 	alertOpen: state.ReducerZone.alertOpen,
 	paginationPage: state.ReducerZone.paginationPage,
 	myValues: selector(state, 'name', 'maxcapacity', 'capacity'),
-	initialValues: state.ReducerZone,
 });
 
 const mapDispatchToProps = dispatch => ({

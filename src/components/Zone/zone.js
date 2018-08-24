@@ -38,7 +38,7 @@ import {
 	BLOCK_ZONE,
 	DELETE_ZONE,
 } from '../../queries/zone';
-import { changePage } from '../../actions/userType/actionsCreators';
+import { changePage } from '../../actions/zone/actionsCreators';
 import Loading from '../Loading/loading';
 
 const Zone = ({
@@ -106,7 +106,7 @@ const Zone = ({
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
-													title='Editar Zona.'
+													title='Editar Zona'
 												>
 													<Link to='/Departments-edit' href='/Departments-edit'>
 														<IconButton
@@ -178,7 +178,7 @@ const Zone = ({
 							{modalType === 'edit' &&
 							<Paper>
 								<h1>
-											contenido edit modal
+									contenido edit modal
 								</h1>
 								<button onClick={actionCloseModal}>
 											cerrar
