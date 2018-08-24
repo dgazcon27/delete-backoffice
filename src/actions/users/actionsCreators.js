@@ -120,13 +120,15 @@ export const createUser = (
 	birthDate,
 	role,
 	citizenship,
+	createdBy,
+	updatedBy,
 	createUserMutation,
 	paginationPage,
 ) => (
 	async (dispatch) => {
 		createUserMutation({
 			variables: {
-				name, email, password, lastName, phone, dni, birthDate, role, citizenship,
+				name, email, password, lastName, phone, dni, birthDate, role, citizenship, createdBy, updatedBy,
 			},
 			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
 		})
@@ -151,13 +153,14 @@ export const editUser = (
 	birthDate,
 	role,
 	citizenship,
+	updatedBy,
 	editUserMutation,
 	paginationPage,
 ) => (
 	async (dispatch) => {
 		editUserMutation({
 			variables: {
-				id, name, lastName, phone, dni, birthDate, role, citizenship,
+				id, name, lastName, phone, dni, birthDate, role, citizenship, updatedBy,
 			},
 			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
 		})

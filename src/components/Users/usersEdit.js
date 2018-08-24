@@ -110,6 +110,7 @@ const Countrys = () => (
 );
 
 let UsersEdit = ({
+	usersId,
 	classes,
 	alertOpen,
 	alertType,
@@ -182,7 +183,7 @@ let UsersEdit = ({
 					<div className='input-field col s6'>
 						<Countrys />
 					</div>
-					<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditUser(myValues, initialValues.id, myValues.name, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), editUserMutation, paginationPage))} disabled={submitting} >
+					<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditUser(myValues, initialValues.id, myValues.name, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(usersId), editUserMutation, paginationPage))} disabled={submitting} >
 						Guardar
 					</button>
 					<Link to='/users' href='/users' className={classes.returnButton} >
@@ -204,6 +205,7 @@ let UsersEdit = ({
 );
 
 UsersEdit.propTypes = {
+	usersId: PropTypes.string.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -224,6 +226,7 @@ UsersEdit = reduxForm({
 const selector = formValueSelector('UsersEdit');
 
 const mapStateToProps = state => ({
+	usersId: state.ReducerLogin.usersId,
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
 	paginationPage: state.ReducerUserType.paginationPage,
@@ -243,6 +246,7 @@ const mapDispatchToProps = dispatch => ({
 		birthDate,
 		role,
 		citizenship,
+		updatedBy,
 		editUserMutation,
 		paginationPage,
 	) => dispatch(editUser(
@@ -255,6 +259,7 @@ const mapDispatchToProps = dispatch => ({
 		birthDate,
 		role,
 		citizenship,
+		updatedBy,
 		editUserMutation,
 		paginationPage,
 	)),

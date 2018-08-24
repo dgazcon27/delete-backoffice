@@ -112,6 +112,7 @@ const Countrys = () => (
 );
 
 let UsersCreate = ({
+	usersId,
 	classes,
 	alertOpen,
 	alertType,
@@ -203,7 +204,7 @@ let UsersCreate = ({
 					</div>
 
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), createUserMutation, paginationPage))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(usersId), Number(usersId), createUserMutation, paginationPage))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/users' href='/users' className={classes.returnButton} >
@@ -258,6 +259,7 @@ let UsersCreate = ({
 );
 
 UsersCreate.propTypes = {
+	usersId: PropTypes.string.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -277,6 +279,7 @@ UsersCreate = reduxForm({
 const selector = formValueSelector('UsersCreate');
 
 const mapStateToProps = state => ({
+	usersId: state.ReducerLogin.usersId,
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
 	paginationPage: state.ReducerUserType.paginationPage,
@@ -296,6 +299,8 @@ const mapDispatchToProps = dispatch => ({
 		birthDate,
 		role,
 		citizenship,
+		createdBy,
+		updatedBy,
 		createUserMutation,
 		paginationPage,
 	) => dispatch(createUser(
@@ -309,6 +314,8 @@ const mapDispatchToProps = dispatch => ({
 		birthDate,
 		role,
 		citizenship,
+		createdBy,
+		updatedBy,
 		createUserMutation,
 		paginationPage,
 	)),
