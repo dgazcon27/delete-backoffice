@@ -17,7 +17,6 @@ import {
 	Modal,
 	Paper,
 	Table,
-	Switch,
 	Tooltip,
 	TableRow,
 	TableBody,
@@ -145,19 +144,6 @@ const Location = ({
 														<IconButton onClick={() => { actionOpenModal('delete', location); }}>
 															<Delete />
 														</IconButton>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Bloquear / Desbloquear'
-													>
-														<Switch
-															onClick={() => { actionOpenModal('block', location); }}
-															checked={location.status.id === 2}
-															value='checked'
-														/>
 													</Tooltip>
 												</TableCell>
 											</TableRow>

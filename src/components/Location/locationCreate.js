@@ -164,7 +164,7 @@ let LocationCreate = ({
 );
 
 LocationCreate.propTypes = {
-	userId: PropTypes.number.isRequired,
+	userId: PropTypes.string.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
