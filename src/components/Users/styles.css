@@ -7,3 +7,14 @@
     box-sizing: inherit;
     font-size: 11px;
 }
+
+/*input:focus:not([read-only]) {
+	border-bottom: none!important;
+	box-shadow: none!important;	
+} */
+
+.yourclass input{ border:none!important; box-shadow: none!important; outline: none!important; background: none!important; } .yourclass input:focus{ border:none!important; box-shadow: none!important; outline: none!important; background: none!important; }
+
+label + .MuiInputt-formControl-16 {
+    margin-top: 2px;
+}

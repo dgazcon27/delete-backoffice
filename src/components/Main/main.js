@@ -16,10 +16,12 @@ import UsersEdit from '../Users/usersEdit';
 import Zone from '../Zone/zone';
 import ZoneCreate from '../Zone/zoneCreate';
 import ZoneEdit from '../Zone/zoneEdit';
+import LocationCreate from '../Location/locationCreate';
+import LocationEdit from '../Location/locationEdit';
+import ComponentLocation from '../Location/ComponentLocation';
 import {
 	Dashboard,
 	Presale,
-	Tables,
 	Guests,
 	Events,
 	Djs,
@@ -40,7 +42,9 @@ const Main = (props) => {
 				<Route path='/user-type' component={ComponentUserType} />
 				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
-				<Route path='/tables' component={Tables} />
+				<Route path='/tables' component={ComponentLocation} />
+				<Route path='/create-tables' component={LocationCreate} />
+				<Route path='/edit-tables' component={LocationEdit} />
 				<Route path='/guests' component={Guests} />
 				<Route path='/events' component={Events} />
 				<Route path='/djs' component={Djs} />

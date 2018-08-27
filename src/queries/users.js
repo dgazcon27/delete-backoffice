@@ -94,7 +94,6 @@ export const SET_PASSWORD = gql`
 	}
 `;
 
-
 export const GET_CURRENT_USER = gql`
 	query getCurrent($token:String!){
 		getCurrent(token:$token) {

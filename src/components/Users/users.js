@@ -289,15 +289,14 @@ Users.propTypes = {
 	actionSetUser: PropTypes.func.isRequired,
 	actionDeleteUser: PropTypes.func.isRequired,
 };
-
 const mapStateToProps = state => ({
-	currentPage: state.ReducerUser.currentPage,
-	id: state.ReducerUser.id,
-	name: state.ReducerUser.name,
-	isOpen: state.ReducerUser.isOpen,
-	modalType: state.ReducerUser.modalType,
-	statusValue: state.ReducerUser.statusValue,
-	paginationPage: state.ReducerUser.paginationPage,
+	currentPage: state.ReducerUserType.currentPage,
+	id: state.ReducerUserType.id,
+	name: state.ReducerUserType.name,
+	isOpen: state.ReducerUserType.isOpen,
+	modalType: state.ReducerUserType.modalType,
+	statusValue: state.ReducerUserType.statusValue,
+	paginationPage: state.ReducerUserType.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({

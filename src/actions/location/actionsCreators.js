@@ -6,14 +6,14 @@ import {
 	CLOSE_MODAL,
 	SET_DESCRIPTION,
 	CLEAN_STATE,
-	SET_ROL,
+	SET_LOCATION,
 	PAGE_UP,
 	PAGE_DOWN,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
 
-import { GET_ROLES } from '../../queries/userType';
+import { GET_LOCATIONS } from '../../queries/location';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -24,7 +24,7 @@ const checkMessageError = (res) => {
 };
 
 export const changePage = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
 	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
@@ -54,13 +54,16 @@ export const changePageSearch = (currentPage, paginationPage) => {
 	});
 };
 
-export const setRol = (id, name, rolDescription) => ({
-	type: SET_ROL,
+export const setLocation = (id, name, locationDescription, fullcapacity, capacity, status) => ({
+	type: SET_LOCATION,
 	payload: {
-		description: SET_ROL,
+		description: SET_LOCATION,
 		id,
 		name,
-		rolDescription,
+		locationDescription,
+		fullcapacity,
+		capacity,
+		status,
 	},
 });
 
@@ -93,36 +96,37 @@ export const closeAlert = () => ({
 	},
 });
 
-export const blockUserType = (id, statusValue, blockRolMutation) => {
+export const blockLocation = (id, statusValue, blockLocationMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
-		await blockRolMutation({ variables: { id, status } });
+		await blockLocationMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };
 
-export const deleteUserType = (id, statusValue, paginationPage, deleteRolMutation) => {
+export const deleteLocation = (id, statusValue, paginationPage, deleteLocationMutation) => {
 	const status = statusValue;
 	return async (dispatch) => {
-		await deleteRolMutation({
+		await deleteLocationMutation({
 			variables: { id, status },
-			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+			refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
 		window.location.reload();
 	};
 };
 
-export const openModal = (modalType, _rol) => ({
+export const openModal = (modalType, _location) => ({
 	type: OPEN_MODAL,
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _rol.status.id,
-		name: _rol.name,
-		id: _rol.id,
+		statusValue: _location.status.id,
+		name: _location.name,
+		id: _location.id,
 	},
 });
+
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {
@@ -139,38 +143,56 @@ export const setDescription = rolDescription => ({
 	},
 });
 
-export const createRol = (name, rolDescription, paginationPage, createRolMutation) =>
-	async (dispatch) => {
-		if (name !== '' && rolDescription !== '') {
-			createRolMutation({
-				variables: { name, rolDescription },
-				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-			})
-				.then(() => {
-					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('user-type')), 2000);
-				})
-				.catch((res) => {
-					const message = checkMessageError(res);
-					dispatch(openAlert(message));
-				});
-		}
-	};
+export const createLocation = (
+	name,
+	description,
+	fullcapacity,
+	capacity,
+	status,
+	createdBy,
+	updatedBy,
+	paginationPage,
+	createLocationMutation,
+) => async (dispatch) => {
+	createLocationMutation({
+		variables: {
+			name, description, fullcapacity, capacity, status, createdBy, updatedBy,
+		},
+		refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
+	})
+		.then(() => {
+			dispatch(openAlert('creado'));
+			setTimeout(() => (window.location.assign('tables')), 2000);
+		})
+		.catch((res) => {
+			const message = checkMessageError(res);
+			dispatch(openAlert(message));
+		});
+};
 
-export const editRol = (id, name, rolDescription, paginationPage, editRolMutation) =>
-	async (dispatch) => {
-		if (name !== '' && rolDescription !== '') {
-			await editRolMutation({
-				variables: { id, name, rolDescription },
-				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-			})
-				.then(() => {
-					dispatch(openAlert('edit'));
-					setTimeout(() => (window.location.assign('user-type')), 2000);
-				})
-				.catch((res) => {
-					const message = checkMessageError(res);
-					dispatch(openAlert(message));
-				});
-		}
-	};
+export const editLocation = (
+	id,
+	name,
+	description,
+	fullcapacity,
+	capacity,
+	status,
+	updatedBy,
+	paginationPage,
+	editLocationMutation,
+) => async (dispatch) => {
+	await editLocationMutation({
+		variables: {
+			id, name, description, fullcapacity, capacity, status, updatedBy,
+		},
+		refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
+	})
+		.then(() => {
+			dispatch(openAlert('edit'));
+			setTimeout(() => (window.location.assign('tables')), 2000);
+		})
+		.catch((res) => {
+			const message = checkMessageError(res);
+			dispatch(openAlert(message));
+		});
+};

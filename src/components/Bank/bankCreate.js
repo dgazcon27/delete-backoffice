@@ -85,15 +85,15 @@ let BankCreate = ({
 		/>
 		}
 		{alertType === 'validation' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>El Banco que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-		/>
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>El Banco que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+			/>
 		}
 		{alertType === 'creado' &&
 			<Snackbar
