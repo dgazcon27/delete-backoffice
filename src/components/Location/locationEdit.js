@@ -133,7 +133,7 @@ let LocationEdit = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.locationDescription, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), userId, paginationPage, editLocationMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.locationDescription, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<Link to='/tables' href='/tables' className={classes.returnButton} >
@@ -165,7 +165,7 @@ let LocationEdit = ({
 );
 
 LocationEdit.propTypes = {
-	userId: PropTypes.string.isRequired,
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,

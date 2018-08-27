@@ -77,7 +77,7 @@ let ZoneEdit = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), Number(userId), paginationPage, editZoneMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), userId, paginationPage, editZoneMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
@@ -109,7 +109,7 @@ let ZoneEdit = ({
 );
 
 ZoneEdit.propTypes = {
-	userId: PropTypes.string.isRequired,
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,

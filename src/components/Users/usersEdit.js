@@ -205,7 +205,7 @@ let UsersEdit = ({
 );
 
 UsersEdit.propTypes = {
-	userId: PropTypes.string.isRequired,
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,

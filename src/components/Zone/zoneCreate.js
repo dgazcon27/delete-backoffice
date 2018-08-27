@@ -76,7 +76,7 @@ let ZoneCreate = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateZone(myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), Number(userId), Number(userId), paginationPage, createZoneMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateZone(myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), Number(userId), userId, paginationPage, createZoneMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
@@ -131,7 +131,7 @@ let ZoneCreate = ({
 );
 
 ZoneCreate.propTypes = {
-	userId: PropTypes.string.isRequired,
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
