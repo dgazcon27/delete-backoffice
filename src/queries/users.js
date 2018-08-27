@@ -19,8 +19,8 @@ export const GET_USERS = gql`
 				}
 				id
 				status {
-				name
-				id
+					name
+					id
 				}
 			}
 			total
@@ -51,16 +51,16 @@ export const DELETE_USER = gql`
 `;
 
 export const CREATE_USER = gql`
-	mutation createUser($name:String!, $email:String!, $password:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!){
-		createUser(name:$name, email:$email, password:$password, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship) {
+	mutation createUser($name:String!, $email:String!, $password:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!, $createdBy:Int!, $updatedBy:Int!){
+		createUser(name:$name, email:$email, password:$password, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship, createdBy:$createdBy, updatedBy:$updatedBy) {
 			name
 		}
 	}
 `;
 
 export const EDIT_USER = gql`
-	mutation updateUser($id:Int!, $name:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!){
-		updateUser(id:$id, name:$name, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship) {
+	mutation updateUser($id:Int!, $name:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!, $updatedBy:Int!){
+		updateUser(id:$id, name:$name, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship, updatedBy:$updatedBy) {
 			name
 		}
 	}
@@ -102,3 +102,4 @@ export const GET_CURRENT_USER = gql`
 		}
 	}
 `;
+

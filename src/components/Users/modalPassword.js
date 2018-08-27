@@ -13,7 +13,6 @@ import {
 	formValueSelector,
 } from 'redux-form';
 import styles from './usersCss';
-import './styles.css';
 import {
 	empty,
 	required,
@@ -22,16 +21,20 @@ import { SET_PASSWORD } from '../../queries/users';
 import { renderPasswordField } from '../RenderFields/renderFields';
 import {
 	closeAlert,
+	closeModal,
 	setPassword,
 } from '../../actions/users/actionsCreators';
 
 let ModalPassword = ({
+	id,
 	classes,
 	myValues,
 	submitting,
 	handleSubmit,
+	paginationPage,
+	actionCloseModal,
 	actionSetPassword,
-	setPasswordMutation,
+	resetPasswordIdUserMutation,
 }) => (
 	<div><h4>Cambiar Contraseña</h4>
 		<form>
@@ -51,23 +54,27 @@ let ModalPassword = ({
 				label='Confirmación'
 				className='yourclass'
 			/>
-			<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionSetPassword(myValues.password, myValues.confirmation, setPasswordMutation))} disabled={submitting} >
-				Crear
+			<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionSetPassword(id, myValues.password, myValues.confirmation, paginationPage, resetPasswordIdUserMutation))} disabled={submitting} >
+				Confirmar
 			</button>
-			<Link to='/users' href='/users' className={classes.returnButton} >
-				Regresar
+
+			<Link to='/users' href='/users' onClick={actionCloseModal} className={classes.returnButton} >
+				Cancelar
 			</Link>
 		</form>
 	</div>
 );
 
 ModalPassword.propTypes = {
-	myValues: PropTypes.object.isRequired,
+	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetPassword: PropTypes.func.isRequired,
-	setPasswordMutation: PropTypes.func.isRequired,
-	handleSubmit: PropTypes.func.isRequired,
 	submitting: PropTypes.bool.isRequired,
+	myValues: PropTypes.object.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
+	paginationPage: PropTypes.number.isRequired,
+	actionSetPassword: PropTypes.func.isRequired,
+	resetPasswordIdUserMutation: PropTypes.func.isRequired,
 };
 
 ModalPassword = reduxForm({
@@ -77,25 +84,31 @@ ModalPassword = reduxForm({
 const selector = formValueSelector('ModalPassword');
 
 const mapStateToProps = state => ({
+	id: state.ReducerUserType.id,
 	paginationPage: state.ReducerUserType.paginationPage,
 	myValues: selector(state, 'password', 'confirmation'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
+	actionCloseModal: () => dispatch(closeModal()),
 	actionSetPassword: (
+		id,
 		password,
 		confirmation,
+		paginationPage,
 		setPasswordMutation,
 	) => dispatch(setPassword(
+		id,
 		password,
 		confirmation,
+		paginationPage,
 		setPasswordMutation,
 	)),
 });
 
 export default compose(
-	graphql(SET_PASSWORD, { name: 'setPasswordMutation' }),
+	graphql(SET_PASSWORD, { name: 'resetPasswordIdUserMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(ModalPassword);

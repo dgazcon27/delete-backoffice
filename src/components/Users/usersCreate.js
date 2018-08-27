@@ -14,6 +14,7 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './usersCss';
 import './styles.css';
@@ -111,6 +112,7 @@ const Countrys = () => (
 );
 
 let UsersCreate = ({
+	userId,
 	classes,
 	alertOpen,
 	alertType,
@@ -122,119 +124,142 @@ let UsersCreate = ({
 	submitting,
 	handleSubmit,
 }) => (
-	<div><h4>Nuevo Usuario</h4>
-		<div className={classes.createContainer}>
+	<div><h3 className={classes.formTitle}>Usuario</h3>
+		<Paper className={classes.createContainer}>
 			<form>
-				<Field
-					name='dni'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='CI/Pasaporte'
-					className='yourclass'
-				/>
-				<Field
-					name='name'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='Nombre'
-				/>
-				<Field
-					name='lastName'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='Apellido'
-					className='yourclass'
-				/>
-				<Field
-					name='birthDate'
-					type='date'
-					component={renderDateField}
-					validate={required}
-					label='Fecha de Nacimiento'
-					className='yourclass container'
-				/>
-				<Field
-					name='email'
-					type='text'
-					component={renderTextField}
-					validate={[required, email, empty]}
-					label='Correo'
-				/>
-				<Roles />
-				<Field
-					name='phone'
-					type='text'
-					component={renderTextField}
-					validate={[required, empty]}
-					label='Teléfono'
-				/>
-				<Countrys />
-				<Field
-					name='password'
-					type='password'
-					component={renderPasswordField}
-					validate={[required, empty]}
-					label='Contraseña'
-					className='yourclass'
-				/>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), createUserMutation, paginationPage))} disabled={submitting} >
+				<h6 className={classes.formTitle}>Nuevo Usuario</h6>
+				<div className='row'>
+					<div className='input-field col s6'>
+						<Field
+							name='dni'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='CI/Pasaporte'
+							className='yourclass'
+						/>
+					</div>
+					<div className='input-field col s6' >
+						<Field
+							name='name'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='Nombre'
+						/>
+					</div>
+					<div className='input-field col s6'>
+						<Field
+							name='lastName'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='Apellido'
+							className='yourclass'
+						/>
+					</div>
+					<div className='input-field col s6'>
+						<Field
+							name='birthDate'
+							type='date'
+							component={renderDateField}
+							validate={required}
+							label='Fecha de Nacimiento'
+							className='yourclass container'
+						/>
+					</div>
+					<div className='input-field col s6'>
+						<Field
+							name='email'
+							type='text'
+							component={renderTextField}
+							validate={[required, email, empty]}
+							label='Correo'
+						/>
+					</div>
+					<div className='input-field col s6'>
+						<Field
+							name='phone'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='Teléfono'
+						/>
+					</div>
+					<div className='input-field col s6'>
+						<Roles />
+					</div>
+					<div className='input-field col s6'>
+						<Countrys />
+					</div>
+					<div className='input-field col s6'>
+						<Field
+							name='password'
+							type='password'
+							component={renderPasswordField}
+							validate={[required, empty]}
+							label='Contraseña'
+							className='yourclass'
+						/>
+					</div>
+
+				</div>
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(userId), Number(userId), createUserMutation, paginationPage))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/users' href='/users' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
-			{alertType === 'nombre' &&
+		</Paper>
+		{alertType === 'nombre' &&
 
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-				/>
-			}
-			{alertType === 'rolDescription' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'creado' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>El usuario fue creado con éxito.</span>}
-				/>
-			}
-		</div>
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+		/>
+		}
+		{alertType === 'validation' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+		/>
+		}
+		{alertType === 'rolDescription' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{
+				'aria-describedby': 'message-id',
+			}}
+			message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+		/>
+		}
+		{alertType === 'creado' &&
+		<Snackbar
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			open={alertOpen}
+			onClose={() => { setTimeout(actionCloseAlert, 100); }}
+			ContentProps={{ 'aria-describedby': 'message-id' }}
+			message={<span id='message-id'>El usuario fue creado con éxito.</span>}
+		/>
+		}
 	</div>
 );
 
 UsersCreate.propTypes = {
+	userId: PropTypes.string.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -254,6 +279,7 @@ UsersCreate = reduxForm({
 const selector = formValueSelector('UsersCreate');
 
 const mapStateToProps = state => ({
+	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
 	paginationPage: state.ReducerUserType.paginationPage,
@@ -273,6 +299,8 @@ const mapDispatchToProps = dispatch => ({
 		birthDate,
 		role,
 		citizenship,
+		createdBy,
+		updatedBy,
 		createUserMutation,
 		paginationPage,
 	) => dispatch(createUser(
@@ -286,6 +314,8 @@ const mapDispatchToProps = dispatch => ({
 		birthDate,
 		role,
 		citizenship,
+		createdBy,
+		updatedBy,
 		createUserMutation,
 		paginationPage,
 	)),

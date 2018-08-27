@@ -54,3 +54,33 @@ export const SEARCH_LOCATIONS = gql`
 	}
 `;
 
+
+export const SEARCH_USERS = gql`
+	query search($query: String!, $currentPageSearch: Int) {
+		search(query: $query, page:$currentPageSearch) {
+			users {
+				data {
+					name
+					lastName
+					phone
+					dni
+					birthDate
+					citizenship {
+						id
+						name
+					}
+					role {
+						id
+						name
+					}
+					id
+					status {
+						name
+						id
+					}
+				}
+				total
+			}
+		}
+	}
+`;

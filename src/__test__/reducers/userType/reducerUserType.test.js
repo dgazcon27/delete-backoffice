@@ -9,7 +9,7 @@ import ReducerUserType from '../../../reducers/userType/reducerUserType';
 */
 import { openModal } from '../../../actions/userType/actionsCreators';
 
-describe('test Reducer Header', () => {
+describe('test Reducer UserType ', () => {
 	const initialState = {
 		id: 0,
 		name: '',
@@ -38,7 +38,7 @@ describe('test Reducer Header', () => {
 		Prueba que el reducer retorne el estado inicial cuando no se
 		le pase algun valor
 	*/
-	it('return the initial state', () => {
+	it('return the initial state 1', () => {
 		expect(ReducerUserType()).toEqual(initialState);
 	});
 
@@ -46,7 +46,7 @@ describe('test Reducer Header', () => {
 		Prueba que el reducer retorne el estado inicial cuando se le
 		pasa un valor undefined
 	*/
-	it('return the initial state', () => {
+	it('return the initial state 2', () => {
 		expect(ReducerUserType(undefined)).toEqual(initialState);
 	});
 
@@ -54,7 +54,7 @@ describe('test Reducer Header', () => {
 		Prueba que el reducer retorne el objecto inicial cuando se le
 		pasa state undefined
 	*/
-	it('return the initial state', () => {
+	it('return the initial state 3', () => {
 		expect(ReducerUserType(undefined, {})).toEqual(initialState);
 	});
 
@@ -62,7 +62,7 @@ describe('test Reducer Header', () => {
 		Prueba que el reducer retorne los objectos por default cuando se le
 		pasa tanto state y action undefined
 	*/
-	it('return the initial state', () => {
+	it('return the initial state 4', () => {
 		expect(ReducerUserType(undefined, undefined)).toEqual(initialState);
 	});
 
