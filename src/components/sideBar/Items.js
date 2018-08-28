@@ -7,7 +7,7 @@ import People from '@material-ui/icons/People';
 import Apps from '@material-ui/icons/Apps';
 import Weekend from '@material-ui/icons/Weekend';
 // import Wc from '@material-ui/icons/Wc';
-// import Event from '@material-ui/icons/Event';
+import Event from '@material-ui/icons/Event';
 // import Album from '@material-ui/icons/Album';
 // import Work from '@material-ui/icons/Work';
 // import ContactPhone from '@material-ui/icons/ContactPhone';
@@ -69,7 +69,7 @@ const Items = (
 			</ListItem>
 		</Link>
 		*/}
-		{/*		<Link to='/events' href='/events'>
+		<Link to='/events' href='/events'>
 			<ListItem button>
 				<ListItemIcon>
 					<Event />
@@ -78,6 +78,7 @@ const Items = (
 			</ListItem>
 		</Link>
 
+		{/*
 		<Link to='/djs' href='/djs'>
 			<ListItem button>
 				<ListItemIcon>

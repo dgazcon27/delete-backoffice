@@ -19,11 +19,13 @@ import ZoneEdit from '../Zone/zoneEdit';
 import LocationCreate from '../Location/locationCreate';
 import LocationEdit from '../Location/locationEdit';
 import ComponentLocation from '../Location/ComponentLocation';
+import Event from '../Event/event';
+import EventCreate from '../Event/eventCreate';
+import EventEdit from '../Event/eventEdit';
 import {
 	Dashboard,
 	Presale,
 	Guests,
-	Events,
 	Djs,
 	Categories,
 	Staff,
@@ -46,7 +48,9 @@ const Main = (props) => {
 				<Route path='/create-tables' component={LocationCreate} />
 				<Route path='/edit-tables' component={LocationEdit} />
 				<Route path='/guests' component={Guests} />
-				<Route path='/events' component={Events} />
+				<Route path='/events' component={Event} />
+				<Route path='/events-create' component={EventCreate} />
+				<Route path='/event-edit' component={EventEdit} />
 				<Route path='/djs' component={Djs} />
 				<Route path='/categories' component={Categories} />
 				<Route path='/Departments' component={Zone} />

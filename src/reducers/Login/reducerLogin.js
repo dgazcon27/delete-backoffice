@@ -13,7 +13,7 @@ const initialState = {
 	token: localStorage.getItem('token') || null,
 	email: '',
 	password: '',
-	userId: localStorage.getItem('userId') || 0,
+	userId: parseInt(localStorage.getItem('userId'), 10) || 0,
 };
 
 const ReducerLogin = (state = initialState, action = {}) => {

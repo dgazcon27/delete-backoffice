@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-
 import {
 	LOGIN,
 	LOGOUT,
@@ -20,6 +19,7 @@ export const login = token => ({
 		token,
 	},
 });
+
 
 export const logout = token => ({
 	type: LOGOUT,
@@ -83,19 +83,16 @@ export const requestLogin = (email, password) => {
 				} else {
 					localStorage.setItem('token', response.token);
 					dispatch(login(response.token));
-					client.query({
-						query: GET_CURRENT_USER,
-						variables: {
-							token: response.token,
-						},
-					})
+					client
+						.query({
+							query: GET_CURRENT_USER,
+							variables: { token: response.token },
+						})
 						.then((res) => {
-							localStorage.setItem('userId', res.data.getCurrent.id);
+							localStorage.setItem('userId', parseInt(res.data.getCurrent.id, 10));
 							dispatch(setCurrentUser(res.data.getCurrent.id));
 						})
-						.catch(() => {
-
-						});
+						.catch(() => {});
 				}
 			});
 	};
@@ -117,6 +114,7 @@ export const requestLogout = (token) => {
 				localStorage.setItem('token', null);
 				localStorage.removeItem('token');
 				localStorage.removeItem('paginations');
+				localStorage.removeItem(' ');
 			});
 	};
 };
