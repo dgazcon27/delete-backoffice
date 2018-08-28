@@ -24,7 +24,8 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import styles from './userTypeCss';
 import {
 	changePage,
@@ -73,16 +74,19 @@ const BankAccount = ({
 			return (
 				<div>
 					<div>
-						<h3>
-							Cuentas bancarias
-						</h3>
-						<h5>
-							<div>
-								<Link to='/bank-account-create' href='/bank-account-create' >
-									Agregar nueva cuenta
-								</Link>
-							</div>
+						<h5 className={classes.title}>
+							Cuentas Bancarias
 						</h5>
+						<div className={classes.search}>
+							<h5 className={classes.searchAlignRigth}>
+								<Link to='/bank-account-create' href='/bank-account-create' >
+									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
+										<Add className={classes.marginIcon} />
+										Agregar Nuevo
+									</Button>
+								</Link>
+							</h5>
+						</div>
 						<Paper>
 							<Table>
 								<TableHead>
