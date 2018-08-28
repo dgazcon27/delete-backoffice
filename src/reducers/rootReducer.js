@@ -11,6 +11,7 @@ import ReducerZone from './zone/reducerZone';
 import ReducerLocation from './location/reducerLocation';
 import ReducerSearchLocation from './location/reducerSearchLocation';
 import ReducerSearchUsers from './users/reducerSearchUsers';
+import ReducerEvent from './Event/reducerEvent';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
 	ReducerLocation,
 	ReducerSearchLocation,
 	ReducerSearchUsers,
+	ReducerEvent,
 	form: reduxFormReducer,
 });
 
