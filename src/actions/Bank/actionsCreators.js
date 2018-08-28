@@ -67,7 +67,7 @@ export const openAlert = alertType => ({
 export const closeAlert = () => ({
 	type: CLOSE_ALERT,
 	payload: {
-		description: OPEN_ALERT,
+		description: CLOSE_ALERT,
 	},
 });
 export const deleteBank = (id, paginationPage, deleteBankMutation) => (

@@ -30,7 +30,7 @@ export const renderDateField = field => (
 		fullWidth
 		multiline={false}
 		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
-		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		placeholder=''
 		type='date'
 		{...field.input}
 		className={field.className}

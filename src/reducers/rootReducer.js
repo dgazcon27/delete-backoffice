@@ -5,6 +5,7 @@ import ReducerUserType from './userType/reducerUserType';
 import ReducerLogin from './Login/reducerLogin';
 import ReducerUser from './users/reducerUser';
 import ReducerBank from './Bank/reducerBank';
+import ReducerEvent from './Event/reducerEvent';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	ReducerLogin,
 	ReducerUser,
 	ReducerBank,
+	ReducerEvent,
 	form: reduxFormReducer,
 });
 

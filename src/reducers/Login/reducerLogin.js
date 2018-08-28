@@ -4,6 +4,7 @@ import {
 	SET_EMAIL,
 	SET_PASSWORD,
 	SET_ERROR_STATUS,
+	SET_CURRENT_USERID,
 } from '../../actions/Login/actionsTypes';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 	token: localStorage.getItem('token') || null,
 	email: '',
 	password: '',
+	userId: parseInt(localStorage.getItem('userId'), 10) || 0,
 };
 
 const ReducerLogin = (state = initialState, action = {}) => {
@@ -42,6 +44,11 @@ const ReducerLogin = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				error: action.payload.error,
+			});
+		case SET_CURRENT_USERID:
+			return ({
+				...state,
+				userId: action.payload.userId,
 			});
 		default:
 			return state;

@@ -8,12 +8,14 @@ import BankEdit from '../Bank/bankEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import Users from '../Users/users';
+import Event from '../Event/event';
+import EventCreate from '../Event/eventCreate';
+import EventEdit from '../Event/eventEdit';
 import {
 	Dashboard,
 	Presale,
 	Tables,
 	Guests,
-	Events,
 	Djs,
 	Categories,
 	Departments,
@@ -33,7 +35,9 @@ const Main = (props) => {
 				<Route path='/user-type-create' component={UserTypeCreate} />
 				<Route path='/tables' component={Tables} />
 				<Route path='/guests' component={Guests} />
-				<Route path='/events' component={Events} />
+				<Route path='/events' component={Event} />
+				<Route path='/events-create' component={EventCreate} />
+				<Route path='/event-edit' component={EventEdit} />
 				<Route path='/djs' component={Djs} />
 				<Route path='/categories' component={Categories} />
 				<Route path='/Departments' component={Departments} />

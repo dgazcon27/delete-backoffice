@@ -1,14 +1,16 @@
 import fetch from 'isomorphic-fetch';
-
 import {
 	LOGIN,
 	LOGOUT,
 	SET_EMAIL,
 	SET_PASSWORD,
 	SET_ERROR_STATUS,
+	SET_CURRENT_USERID,
 } from './actionsTypes';
 
 import { closeProfile } from '../../actions/Header/actionsCreators';
+import { GET_CURRENT_USER } from '../../queries/users';
+import { client } from '../../config/configStore';
 
 export const login = token => ({
 	type: LOGIN,
@@ -17,6 +19,7 @@ export const login = token => ({
 		token,
 	},
 });
+
 
 export const logout = token => ({
 	type: LOGOUT,
@@ -50,6 +53,14 @@ export const setError = error => ({
 	},
 });
 
+export const setCurrentUser = userId => ({
+	type: SET_CURRENT_USERID,
+	payload: {
+		description: SET_CURRENT_USERID,
+		userId,
+	},
+});
+
 export const requestLogin = (email, password) => {
 	const query = 'http://localhost:8000/graphql/login';
 	const options = {
@@ -72,6 +83,16 @@ export const requestLogin = (email, password) => {
 				} else {
 					localStorage.setItem('token', response.token);
 					dispatch(login(response.token));
+					client
+						.query({
+							query: GET_CURRENT_USER,
+							variables: { token: response.token },
+						})
+						.then((res) => {
+							localStorage.setItem('userId', parseInt(res.data.getCurrent.id, 10));
+							dispatch(setCurrentUser(res.data.getCurrent.id));
+						})
+						.catch(() => {});
 				}
 			});
 	};
@@ -93,6 +114,7 @@ export const requestLogout = (token) => {
 				localStorage.setItem('token', null);
 				localStorage.removeItem('token');
 				localStorage.removeItem('paginations');
+				localStorage.removeItem(' ');
 			});
 	};
 };
