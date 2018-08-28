@@ -8,6 +8,8 @@ import {
 	Query,
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
@@ -24,40 +26,39 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
+
 import styles from './userTypeCss';
 import {
 	changePage,
 	deleteBank,
 	openModal,
 	closeModal,
-	setBankAccount,
+	setBank,
 } from '../../actions/Bank/actionsCreators';
 
 import {
-	GET_BANK_ACCOUNTS,
-	DELETE_BANK_ACCOUNT,
+	GET_BANKS,
+	DELETE_BANK,
 } from '../../queries/bank';
 
 import Loading from '../Loading/loading';
 
-const BankAccount = ({
+const Bank = ({
 	id,
 	name,
 	isOpen,
 	classes,
 	modalType,
 	currentPage,
-	actionSetBankAccount,
+	actionSetBank,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
-	deleteBankAccountMutation,
-	actionDeleteBankAccount,
+	deleteBankMutation,
+	actionDeleteBank,
 }) => (
-	<Query query={GET_BANK_ACCOUNTS} variables={{ paginationPage }}>
+	<Query query={GET_BANKS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -75,35 +76,31 @@ const BankAccount = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-							Cuentas Bancarias
+							Banca
 						</h5>
-						<div className={classes.search}>
-							<h5 className={classes.searchAlignRigth}>
-								<Link to='/bank-account-create' href='/bank-account-create' >
-									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-										<Add className={classes.marginIcon} />
-										Agregar Nuevo
-									</Button>
-								</Link>
-							</h5>
-						</div>
+						<h5 className={classes.searchAlignRigth}>
+							<Link to='/bank-create' href='/bank-create' >
+								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
+									<Add className={classes.marginIcon} />
+									Agregar Nuevo
+								</Button>
+							</Link>
+						</h5>
 						<Paper>
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Propietario</TableCell>
-										<TableCell>Numero de cuenta</TableCell>
+										<TableCell>Nombre</TableCell>
 										<TableCell>Moneda</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{
-										data.bankAccounts.data.map(bankA => (
-											<TableRow key={bankA.id}>
-												<TableCell >{`${bankA.owner.name} ${bankA.owner.lastName}` }</TableCell>
-												<TableCell >{bankA.accountNumber}</TableCell>
-												<TableCell >{bankA.currency}</TableCell>
+										data.banks.data.map(bank => (
+											<TableRow key={bank.id}>
+												<TableCell >{bank.name}</TableCell>
+												<TableCell >{bank.currency}</TableCell>
 												<TableCell className={classes.alignRight}>
 													<Tooltip
 														enterDelay={200}
@@ -112,18 +109,10 @@ const BankAccount = ({
 														placement='top'
 														title='Editar bank.'
 													>
-														<Link to='/bank-account-edit/' href='/bank-account-edit'>
+														<Link to='/bank-edit' href='/bank-edit'>
 															<IconButton
 																onClick={() => {
-																	actionSetBankAccount(
-																		bankA.id,
-																		bankA.owner.id,
-																		bankA.bank.id,
-																		bankA.type,
-																		bankA.currency,
-																		bankA.accountNumber,
-																		bankA.comment,
-																	);
+																	actionSetBank(bank.id, bank.name, bank.currency);
 																}
 																}
 															>
@@ -138,7 +127,7 @@ const BankAccount = ({
 														placement='top'
 														title='Eliminar bank'
 													>
-														<IconButton onClick={() => { actionOpenModal('delete', bankA); }}>
+														<IconButton onClick={() => { actionOpenModal('delete', bank); }}>
 															<Delete />
 														</IconButton>
 													</Tooltip>
@@ -150,7 +139,7 @@ const BankAccount = ({
 								<TableFooter>
 									<TableRow>
 										<TablePagination
-											count={data.bankAccounts.total}
+											count={data.banks.total}
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
@@ -172,37 +161,37 @@ const BankAccount = ({
 					>
 						<div>
 							{modalType === 'edit' &&
-							<Paper>
-								<h1>
+								<Paper>
+									<h1>
 										contenido edit modal
-								</h1>
-								<button onClick={actionCloseModal}>
+									</h1>
+									<button onClick={actionCloseModal}>
 										cerrar
-								</button>
-							</Paper>
+									</button>
+								</Paper>
 							}
 							{modalType === 'delete' &&
-							<Paper className={classNames(classes.paperOnModal)}>
-								<h6>
+								<Paper className={classNames(classes.paperOnModal)}>
+									<h6>
 										Eliminar bank
-								</h6>
-								<p>
+									</h6>
+									<p>
 										¿Estas seguro que desea eliminar el bank {name} ?
-								</p>
-								<span>
-									<IconButton onClick={() => {
-										actionDeleteBankAccount(id, paginationPage, deleteBankAccountMutation);
-									}}
-									>
+									</p>
+									<span>
+										<IconButton onClick={() => {
+											actionDeleteBank(id, paginationPage, deleteBankMutation);
+										}}
+										>
 											Si
-									</IconButton>
+										</IconButton>
 										&nbsp;
 										&nbsp;
-									<IconButton onClick={actionCloseModal}>
+										<IconButton onClick={actionCloseModal}>
 											No
-									</IconButton>
-								</span>
-							</Paper>
+										</IconButton>
+									</span>
+								</Paper>
 							}
 						</div>
 					</Modal>
@@ -212,61 +201,52 @@ const BankAccount = ({
 	</Query>
 );
 
-BankAccount.propTypes = {
+Bank.propTypes = {
 	isOpen: PropTypes.bool,
 	name: PropTypes.string,
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetBankAccount: PropTypes.func.isRequired,
+	actionSetBank: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	deleteBankAccountMutation: PropTypes.func.isRequired,
-	actionDeleteBankAccount: PropTypes.func.isRequired,
+	deleteBankMutation: PropTypes.func.isRequired,
+	actionDeleteBank: PropTypes.func.isRequired,
 };
 
-BankAccount.defaultProps = {
+Bank.defaultProps = {
 	name: '',
 	isOpen: false,
 	modalType: '',
 };
 
 const mapStateToProps = state => ({
-	currency: state.ReducerBankAccount.currency,
-	id: state.ReducerBankAccount.id,
-	accountNumber: state.ReducerBankAccount.accountNumber,
-	isOpen: state.ReducerBankAccount.isOpen,
-	modalType: state.ReducerBankAccount.modalType,
-	currentPage: state.ReducerBankAccount.currentPage,
-	paginationPage: state.ReducerBankAccount.paginationPage,
+	currency: state.ReducerBank.currency,
+	id: state.ReducerBank.id,
+	name: state.ReducerBank.name,
+	isOpen: state.ReducerBank.isOpen,
+	modalType: state.ReducerBank.modalType,
+	currentPage: state.ReducerBank.currentPage,
+	paginationPage: state.ReducerBank.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionDeleteBankAccount: (id, paginationPage, deleteBankAccountMutation) =>
-		dispatch(deleteBank(id, paginationPage, deleteBankAccountMutation)),
+	actionDeleteBank: (id, paginationPage, deleteBankMutation) =>
+		dispatch(deleteBank(id, paginationPage, deleteBankMutation)),
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, bank) => dispatch(openModal(modalType, bank)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetBankAccount: (
-		id,
-		owner,
-		bank,
-		accountNumber,
-		type,
-		currency,
-		comment,
-	) =>
-		dispatch(setBankAccount(id, owner, bank, type, currency, accountNumber, comment)),
+	actionSetBank: (id, currency, name) => dispatch(setBank(id, currency, name)),
 });
 
-export { BankAccount as BankAccountTest };
+export { Bank as BankTest };
 
 export default compose(
-	graphql(DELETE_BANK_ACCOUNT, { name: 'deleteBankAccountMutation' }),
+	graphql(DELETE_BANK, { name: 'deleteBankMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(BankAccount);
+)(Bank);
