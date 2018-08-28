@@ -2,23 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Security from '@material-ui/icons/Security';
 import People from '@material-ui/icons/People';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import ReportIcon from '@material-ui/icons/Report';
 import Apps from '@material-ui/icons/Apps';
 import Weekend from '@material-ui/icons/Weekend';
-import Wc from '@material-ui/icons/Wc';
-import Event from '@material-ui/icons/Event';
-import Album from '@material-ui/icons/Album';
-import Work from '@material-ui/icons/Work';
-import ContactPhone from '@material-ui/icons/ContactPhone';
-import GroupWork from '@material-ui/icons/GroupWork';
-import AttachMoney from '@material-ui/icons/AttachMoney';
+// import Wc from '@material-ui/icons/Wc';
+// import Event from '@material-ui/icons/Event';
+// import Album from '@material-ui/icons/Album';
+// import Work from '@material-ui/icons/Work';
+// import ContactPhone from '@material-ui/icons/ContactPhone';
+// import GroupWork from '@material-ui/icons/GroupWork';
+// import AttachMoney from '@material-ui/icons/AttachMoney';
+import AccountBalance from '@material-ui/icons/AccountBalance';
+import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 
 import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-	Divider,
+	// Divider,
 } from '@material-ui/core/';
 
 const Items = (
@@ -57,7 +59,7 @@ const Items = (
 				<ListItemText primary='Mesas' />
 			</ListItem>
 		</Link>
-
+		{/*
 		<Link to='/guests' href='/guests'>
 			<ListItem button>
 				<ListItemIcon>
@@ -66,8 +68,8 @@ const Items = (
 				<ListItemText primary='Invitados' />
 			</ListItem>
 		</Link>
-
-		<Link to='/events' href='/events'>
+		*/}
+		{/*		<Link to='/events' href='/events'>
 			<ListItem button>
 				<ListItemIcon>
 					<Event />
@@ -111,11 +113,11 @@ const Items = (
 				<ListItemText primary='Pre-Venta' />
 			</ListItem>
 		</Link>
-
+		*/}
 		<Link to='/bank' href='/bank'>
 			<ListItem button>
 				<ListItemIcon>
-					<AttachMoney />
+					<AccountBalance />
 				</ListItemIcon>
 				<ListItemText primary='Bank' />
 			</ListItem>
@@ -124,21 +126,21 @@ const Items = (
 		<Link to='/bank-account' href='/bank-account'>
 			<ListItem button>
 				<ListItemIcon>
-					<AttachMoney />
+					<AccountBalanceWallet />
 				</ListItemIcon>
 				<ListItemText primary='Bank-Account' />
 			</ListItem>
 		</Link>
 
-		<Link to='/staff' href='/staff'>
+		{/*	<Link to='/staff' href='/staff'>
 			<ListItem button>
 				<ListItemIcon>
 					<ContactPhone />
 				</ListItemIcon>
 				<ListItemText primary='Staff' />
 			</ListItem>
-		</Link>
-
+		</Link> */}
+		{/*
 		<Divider />
 
 		<ListItem button>
@@ -153,7 +155,7 @@ const Items = (
 				<ReportIcon />
 			</ListItemIcon>
 			<ListItemText primary='Spam' />
-		</ListItem>
+		</ListItem> */}
 	</div>
 );
 
