@@ -1,18 +1,14 @@
 import {
-	SET_NAME,
 	OPEN_MODAL,
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
-	SET_DESCRIPTION,
 	CLEAN_STATE,
-	SET_ZONE,
+	SET_PAYMENT,
 	PAGE_UP,
 	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
-import { GET_ZONES } from '../../queries/zone';
+import { GET_PAYMENTS } from '../../queries/payment';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -37,29 +33,17 @@ export const changePage = (currentPage, paginationPage) => {
 	});
 };
 
-export const changePageSearch = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
-	paginations.zoneSearch = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-			paginationPageSearch: paginationPage,
-			currentPageSearch: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
-
-export const setZone = (id, name, maxcapacity, capacity) => ({
-	type: SET_ZONE,
+export const setPayment = (id, purchaseRequest, amount, reference, comment, type, bankAccount) => ({
+	type: SET_PAYMENT,
 	payload: {
-		description: SET_ZONE,
+		description: SET_PAYMENT,
 		id,
-		name,
-		maxcapacity,
-		capacity,
+		purchaseRequest,
+		amount,
+		reference,
+		comment,
+		type,
+		bankAccount,
 	},
 });
 
@@ -89,70 +73,59 @@ export const closeAlert = () => ({
 		description: OPEN_ALERT,
 	},
 });
-export const blockZone = (id, statusValue, blockZoneMutation) => {
+
+export const blockPayment = (id, statusValue, blockPaymentMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
-		await blockZoneMutation({ variables: { id, status } });
+		await blockPaymentMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };
 
-export const deleteZone = (id, statusValue, paginationPage, deleteZoneMutation) => {
+export const deletePayment = (id, statusValue, paginationPage, deletePaymentMutation) => {
 	const status = statusValue;
 	return async (dispatch) => {
-		await deleteZoneMutation({
+		await deletePaymentMutation({
 			variables: { id, status },
-			refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
+			refetchQueries: [{ query: GET_PAYMENTS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
 		window.location.reload();
 	};
 };
 
-export const openModal = (modalType, _zone) => ({
+export const openModal = (modalType, _payment) => ({
 	type: OPEN_MODAL,
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _zone.status.id,
-		name: _zone.name,
-		id: _zone.id,
-	},
-});
-export const setName = name => ({
-	type: SET_NAME,
-	payload: {
-		description: SET_NAME,
-		name,
+		statusValue: 1,
+		name: _payment.id,
+		id: _payment.id,
 	},
 });
 
-export const setDescription = rolDescription => ({
-	type: SET_DESCRIPTION,
-	payload: {
-		description: SET_DESCRIPTION,
-		rolDescription,
-	},
-});
-
-export const createZone = (
-	name,
-	capacity,
-	maxcapacity,
+export const createPayment = (
+	purchaseRequest,
+	amount,
+	reference,
+	comment,
+	type,
+	bankAccount,
 	createdBy,
 	updatedBy,
 	paginationPage,
-	createZoneMutation,
+	createPaymentMutation,
 ) => async (dispatch) => {
-	createZoneMutation({
+	createPaymentMutation({
 		variables: {
-			name, capacity, maxcapacity, createdBy, updatedBy,
+			purchaseRequest, amount, reference, comment, type, bankAccount, createdBy, updatedBy,
 		},
-		refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
+		refetchQueries: [{ query: GET_PAYMENTS, variables: { paginationPage } }],
 	})
 		.then(() => {
 			dispatch(openAlert('creado'));
-			setTimeout(() => (window.location.assign('Departments')), 2000);
+			setTimeout(() => (window.location.assign('pre-sale')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);
@@ -161,24 +134,27 @@ export const createZone = (
 };
 
 
-export const editZone = (
+export const editPayment = (
 	id,
-	name,
-	capacity,
-	maxcapacity,
+	purchaseRequest,
+	amount,
+	reference,
+	comment,
+	type,
+	bankAccount,
 	updatedBy,
 	paginationPage,
-	editZoneMutation,
+	editPaymentMutation,
 ) => async (dispatch) => {
-	await editZoneMutation({
+	await editPaymentMutation({
 		variables: {
-			id, name, capacity, maxcapacity, updatedBy,
+			id, purchaseRequest, amount, reference, comment, type, bankAccount, updatedBy,
 		},
-		refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
+		refetchQueries: [{ query: GET_PAYMENTS, variables: { paginationPage } }],
 	})
 		.then(() => {
 			dispatch(openAlert('edit'));
-			setTimeout(() => (window.location.assign('Departments')), 2000);
+			setTimeout(() => (window.location.assign('pre-sale')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

@@ -159,8 +159,8 @@ let EventCreate = ({
 						type='text'
 						component={renderDateField}
 						validate={[required, empty]}
-						label=''
-						className='yourclass'
+						label='Inicio de preventa'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -169,8 +169,8 @@ let EventCreate = ({
 						type='text'
 						component={renderDateField}
 						validate={[required, empty]}
-						label=''
-						className='yourclass'
+						label='Fin de preventa'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -179,8 +179,8 @@ let EventCreate = ({
 						type='text'
 						component={renderDateField}
 						validate={[required, empty]}
-						label=''
-						className='yourclass'
+						label='Inicio de evento'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -189,8 +189,8 @@ let EventCreate = ({
 						type='text'
 						component={renderDateField}
 						validate={[required, empty]}
-						label=''
-						className='yourclass'
+						label='Fin de evento'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<button
@@ -215,21 +215,10 @@ let EventCreate = ({
 				</Link>
 			</form>
 		</Paper>
-		{alertType === 'nombre' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear un evento sin {alertType}</span>}
-		/>
-		}
 		{alertType === 'validation' &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				Bank={alertOpen}
+				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{
 					'aria-describedby': 'message-id',

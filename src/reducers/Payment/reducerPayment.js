@@ -1,26 +1,23 @@
 import {
-	SET_ZONE,
-	SET_NAME,
+	SET_PAYMENT,
 	OPEN_MODAL,
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
-	CLEAN_STATE,
 	PAGE_UP,
 	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
-	EDIT_ZONE,
-	SET_DESCRIPTION,
-	BLOCK_ZONE,
-	DELETE_ZONE,
-} from '../../actions/zone/actionsTypes';
+	EDIT_PAYMENT,
+	DELETE_PAYMENT,
+} from '../../actions/Payment/actionsTypes';
 
 const initialState = {
 	id: 0,
-	name: '',
-	maxcapacity: 0,
-	capacity: 0,
+	purchaseRequest: 0,
+	amount: '',
+	reference: '',
+	comment: '',
+	type: '',
+	bankAccount: 0,
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
@@ -39,7 +36,7 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.currentPage = 0;
 }
 
-const ReducerZone = (state = initialState, action = {}) => {
+const ReducerPayment = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case PAGE_UP:
 			return ({
@@ -53,37 +50,22 @@ const ReducerZone = (state = initialState, action = {}) => {
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
 			});
-		case SEARCH_PAGE_UP:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case SEARCH_PAGE_DOWN:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case EDIT_ZONE:
+		case EDIT_PAYMENT:
 			return ({
 				...state,
 			});
-		case SET_ZONE:
+		case SET_PAYMENT:
 			return ({
 				...state,
 				id: action.payload.id,
-				name: action.payload.name,
-				maxcapacity: action.payload.maxcapacity,
-				capacity: action.payload.capacity,
+				purchaseRequest: action.payload.purchaseRequest,
+				amount: action.payload.amount,
+				reference: action.payload.reference,
+				comment: action.payload.comment,
+				type: action.payload.type,
+				bankAccount: action.payload.bankAccount,
 			});
-		case BLOCK_ZONE:
-			return ({
-				...state,
-				id: action.payload.id,
-				statusValue: action.payload.status,
-			});
-		case DELETE_ZONE:
+		case DELETE_PAYMENT:
 			return ({
 				...state,
 				isOpen: true,
@@ -93,7 +75,6 @@ const ReducerZone = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 				id: action.payload.id,
-				name: action.payload.name,
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
@@ -102,8 +83,6 @@ const ReducerZone = (state = initialState, action = {}) => {
 				...state,
 				isOpen: false,
 				id: 0,
-				name: '',
-				descripcion: '',
 			});
 		case OPEN_ALERT:
 			return ({
@@ -116,26 +95,9 @@ const ReducerZone = (state = initialState, action = {}) => {
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
-			return ({
-				...state,
-				name: action.payload.name,
-			});
-		case SET_DESCRIPTION:
-			return ({
-				...state,
-				rolDescription: action.payload.rolDescription,
-			});
-		case CLEAN_STATE:
-			return ({
-				...state,
-				id: 0,
-				name: '',
-				rolDescription: '',
-			});
 		default:
 			return state;
 	}
 };
 
-export default ReducerZone;
+export default ReducerPayment;

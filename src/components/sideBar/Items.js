@@ -11,8 +11,8 @@ import Event from '@material-ui/icons/Event';
 // import Album from '@material-ui/icons/Album';
 // import Work from '@material-ui/icons/Work';
 // import ContactPhone from '@material-ui/icons/ContactPhone';
-// import GroupWork from '@material-ui/icons/GroupWork';
-// import AttachMoney from '@material-ui/icons/AttachMoney';
+import GroupWork from '@material-ui/icons/GroupWork';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 
@@ -96,6 +96,7 @@ const Items = (
 				<ListItemText primary='Categorías' />
 			</ListItem>
 		</Link>
+		*/}
 
 		<Link to='/departments' href='/Departments'>
 			<ListItem button>
@@ -105,7 +106,6 @@ const Items = (
 				<ListItemText primary='Departamentos' />
 			</ListItem>
 		</Link>
-
 		<Link to='/pre-sale' href='/pre-sale'>
 			<ListItem button>
 				<ListItemIcon>
@@ -114,7 +114,6 @@ const Items = (
 				<ListItemText primary='Pre-Venta' />
 			</ListItem>
 		</Link>
-		*/}
 		<Link to='/bank' href='/bank'>
 			<ListItem button>
 				<ListItemIcon>
