@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import {
 	Modal,
 	Paper,
@@ -25,7 +27,7 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-import styles from '../Shared/userTypeCss';
+import styles from './userTypeCss';
 
 
 import {
@@ -78,11 +80,16 @@ const Event = ({
 						<h3>
 							Evento
 						</h3>
-						<h5>
-							<Link to='/events-create' href='/events-create' >
-								Agregar Nuevo Evento
-							</Link>
-						</h5>
+						<div className={classes.search}>
+							<h5 className={classes.searchAlignRigth}>
+								<Link to='/events-create' href='/events-create' >
+									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
+										<Add className={classes.marginIcon} />
+										Agregar Nuevo
+									</Button>
+								</Link>
+							</h5>
+						</div>
 						<Paper>
 							<Table>
 								<TableHead>
