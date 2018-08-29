@@ -77,9 +77,9 @@ const Event = ({
 			return (
 				<div>
 					<div>
-						<h3>
+						<h5 className={classes.title}>
 							Evento
-						</h3>
+						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
 								<Link to='/events-create' href='/events-create' >
