@@ -22,9 +22,11 @@ import ComponentLocation from '../Location/ComponentLocation';
 import Event from '../Event/event';
 import EventCreate from '../Event/eventCreate';
 import EventEdit from '../Event/eventEdit';
+import Payment from '../Payment/payment';
+import PaymentEdit from '../Payment/paymentEdit';
+
 import {
 	Dashboard,
-	Presale,
 	Guests,
 	Djs,
 	Categories,
@@ -56,7 +58,6 @@ const Main = (props) => {
 				<Route path='/Departments' component={ComponentZone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
 				<Route path='/Departments-edit' component={ZoneEdit} />
-				<Route path='/pre-sale' component={Presale} />
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
 				<Route path='/bank-account' component={BankAccount} />
@@ -64,6 +65,8 @@ const Main = (props) => {
 				<Route path='/bank-account-create' component={BankAccountCreate} />
 				<Route path='/bank-edit' component={BankEdit} />
 				<Route path='/bank-account-edit' component={BankAccountEdit} />
+				<Route path='/pre-sale' component={Payment} />
+				<Route path='/pre-sale-edit' component={PaymentEdit} />
 			</Switch>
 		</main>
 	);

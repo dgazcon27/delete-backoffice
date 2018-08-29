@@ -13,6 +13,7 @@ import ReducerSearchLocation from './location/reducerSearchLocation';
 import ReducerSearchUsers from './users/reducerSearchUsers';
 import ReducerSearchZone from './zone/reducerSearchZone';
 import ReducerEvent from './Event/reducerEvent';
+import ReducerPayment from './Payment/reducerPayment';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
 	ReducerSearchUsers,
 	ReducerEvent,
 	ReducerSearchZone,
+	ReducerPayment,
 	form: reduxFormReducer,
 });
 
