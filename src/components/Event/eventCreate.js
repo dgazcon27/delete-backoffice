@@ -160,7 +160,7 @@ let EventCreate = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label='Inicio de preventa'
-						className='yourclass date-label'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -170,7 +170,7 @@ let EventCreate = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label='Fin de preventa'
-						className='yourclass date-label'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -180,7 +180,7 @@ let EventCreate = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label='Inicio de evento'
-						className='yourclass date-label'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -190,7 +190,7 @@ let EventCreate = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label='Fin de evento'
-						className='yourclass date-label'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<button

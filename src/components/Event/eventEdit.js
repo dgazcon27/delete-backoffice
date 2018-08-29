@@ -152,7 +152,7 @@ let EventEdit = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label=''
-						className='yourclass'
+						className='yourclass container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -162,7 +162,7 @@ let EventEdit = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label=''
-						className='yourclass'
+						className='yourclass container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -172,7 +172,7 @@ let EventEdit = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label=''
-						className='yourclass'
+						className='yourclass container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -182,7 +182,7 @@ let EventEdit = ({
 						component={renderDateField}
 						validate={[required, empty]}
 						label=''
-						className='yourclass'
+						className='yourclass container'
 					/>
 				</div>
 				<button
