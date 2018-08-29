@@ -41,7 +41,7 @@ export const changePage = (currentPage, paginationPage) => {
 
 export const changePageSearch = (currentPage, paginationPage) => {
 	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
-	paginations.userTypeSearch = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+	paginations.zoneSearch = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({

@@ -8,6 +8,8 @@ import {
 	CLEAN_STATE,
 	PAGE_UP,
 	PAGE_DOWN,
+	SEARCH_PAGE_UP,
+	SEARCH_PAGE_DOWN,
 	EDIT_ZONE,
 	SET_DESCRIPTION,
 	BLOCK_ZONE,
@@ -50,6 +52,18 @@ const ReducerZone = (state = initialState, action = {}) => {
 				...state,
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
+			});
+		case SEARCH_PAGE_UP:
+			return ({
+				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
+			});
+		case SEARCH_PAGE_DOWN:
+			return ({
+				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
 			});
 		case EDIT_ZONE:
 			return ({

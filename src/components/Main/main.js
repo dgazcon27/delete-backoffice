@@ -13,7 +13,7 @@ import UserTypeEdit from '../UserType/userTypeEdit';
 import ComponentUsers from '../Users/componentUsers';
 import UsersCreate from '../Users/usersCreate';
 import UsersEdit from '../Users/usersEdit';
-import Zone from '../Zone/zone';
+import ComponentZone from '../Zone/componentZone';
 import ZoneCreate from '../Zone/zoneCreate';
 import ZoneEdit from '../Zone/zoneEdit';
 import LocationCreate from '../Location/locationCreate';
@@ -53,7 +53,7 @@ const Main = (props) => {
 				<Route path='/event-edit' component={EventEdit} />
 				<Route path='/djs' component={Djs} />
 				<Route path='/categories' component={Categories} />
-				<Route path='/Departments' component={Zone} />
+				<Route path='/Departments' component={ComponentZone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
 				<Route path='/Departments-edit' component={ZoneEdit} />
 				<Route path='/pre-sale' component={Presale} />

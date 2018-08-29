@@ -84,3 +84,22 @@ export const SEARCH_USERS = gql`
 		}
 	}
 `;
+
+export const SEARCH_ZONES = gql`
+	query search($query: String!, $currentPageSearch: Int) {
+		search(query:$query, page:$currentPageSearch) {
+			zones{
+				data{
+					name
+					id
+					capacity
+					maxcapacity
+					status{
+						id
+					}
+				}
+				total
+			}
+		}
+	}
+`;
