@@ -150,7 +150,7 @@ const BankAccount = ({
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
-											colSpan={3}
+											colSpan={5}
 											onChangePage={(event, changuedPage) => {
 												actionChangePage(currentPage, changuedPage);
 											}}

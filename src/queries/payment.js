@@ -14,6 +14,7 @@ export const GET_PAYMENTS = gql`
 					bankAccount{
 						id
 						bank{
+							id
 							name
 						}
 					}

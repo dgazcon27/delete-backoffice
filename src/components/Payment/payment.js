@@ -75,11 +75,6 @@ const Payment = ({
 						<h3>
 							Pagos
 						</h3>
-						<h5>
-							<Link to='/Departments-create' href='/Departments-create'>
-									Crear pago
-							</Link>
-						</h5>
 						<Paper>
 							<Table>
 								<TableHead>
