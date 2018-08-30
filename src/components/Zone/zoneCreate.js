@@ -53,7 +53,7 @@ let ZoneCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='name'
+						label='Nombre'
 					/>
 				</div>
 				<div className={classes.formStyle}>

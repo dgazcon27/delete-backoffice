@@ -52,7 +52,7 @@ let BankCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='name'
+						label='Nombre'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -61,7 +61,7 @@ let BankCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='currency'
+						label='Descripcion'
 						className='yourclass'
 					/>
 				</div>

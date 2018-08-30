@@ -133,7 +133,8 @@ let BankAccountCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='accountNumber'
+						label='Número de cuenta'
+						placeholder='Número de cuenta'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -149,7 +150,8 @@ let BankAccountCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='type'
+						label='Tipo'
+						placeholder='Tipo'
 						className='yourclass'
 					/>
 				</div>
@@ -159,7 +161,8 @@ let BankAccountCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='currency'
+						label='Descripción'
+						placeholder='Descripción'
 						className='yourclass'
 					/>
 				</div>
@@ -169,7 +172,8 @@ let BankAccountCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='comment'
+						label='Comentario'
+						placeholder='Comentario'
 					/>
 				</div>
 				<button

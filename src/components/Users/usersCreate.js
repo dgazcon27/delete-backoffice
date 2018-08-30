@@ -83,7 +83,7 @@ const Countrys = () => (
 					<Field
 						name='citizenship'
 						type='select'
-						label='Citizenship'
+						label='Ciudadanía'
 						component={renderSelectField}
 						validate={required}
 						className='container'
@@ -97,7 +97,7 @@ const Countrys = () => (
 				<Field
 					name='citizenship'
 					type='select'
-					label='Citizenship'
+					label='Ciudadanía'
 					component={renderSelectField}
 					validate={required}
 					className='container'
@@ -148,7 +148,7 @@ let UsersCreate = ({
 							label='Nombre'
 						/>
 					</div>
-					<div className='input-field col s6'>
+					<div className='input-field col s6 l6'>
 						<Field
 							name='lastName'
 							type='text'
@@ -158,14 +158,14 @@ let UsersCreate = ({
 							className='yourclass'
 						/>
 					</div>
-					<div className='input-field col s6'>
+					<div className='col s6 l6'>
 						<Field
 							name='birthDate'
 							type='date'
 							component={renderDateField}
 							validate={required}
-							label='Fecha de Nacimiento'
-							className='yourclass container'
+							label='Fecha de nacimiento'
+							className='yourclass container date-label'
 						/>
 					</div>
 					<div className='input-field col s6'>

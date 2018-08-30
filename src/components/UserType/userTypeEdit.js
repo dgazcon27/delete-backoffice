@@ -46,7 +46,7 @@ let UserTypeEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
-						label='Name'
+						label='Nombre'
 						type='text'
 						placeholder='Nombre'
 						component={renderTextField}
@@ -54,9 +54,9 @@ let UserTypeEdit = ({
 					/>
 					<Field
 						name='rolDescription'
-						label='rolDescription'
+						label='Descripción'
 						type='text'
-						placeholder='Descripcion'
+						placeholder='Descripción'
 						component={renderTextField}
 						validate={[required, empty]}
 					/>
