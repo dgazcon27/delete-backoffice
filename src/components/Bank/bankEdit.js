@@ -46,7 +46,7 @@ let BankEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
-						label='Name'
+						label='Nombre'
 						type='text'
 						placeholder='Nombre'
 						component={renderTextField}
@@ -56,9 +56,9 @@ let BankEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='currency'
-						label='currency'
+						label='Descripción'
 						type='text'
-						placeholder='Descripcion'
+						placeholder='Descripción'
 						component={renderTextField}
 						validate={[required, empty]}
 					/>

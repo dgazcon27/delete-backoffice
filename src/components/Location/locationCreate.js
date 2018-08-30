@@ -73,7 +73,7 @@ const Status = () => (
 							type='select'
 							component={renderSelectField}
 							validate={required}
-							label='status'
+							label='Estatus'
 						>
 							<MenuItem />
 						</Field>
@@ -84,7 +84,7 @@ const Status = () => (
 				<Field
 					name='status'
 					type='select'
-					label='status'
+					label='Estatus'
 					component={renderSelectField}
 					validate={required}
 					className='container'
@@ -122,7 +122,7 @@ let LocationCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='name'
+						label='Nombre'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -131,7 +131,7 @@ let LocationCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='description'
+						label='Descripción'
 						className='yourclass'
 					/>
 				</div>

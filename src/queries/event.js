@@ -14,9 +14,13 @@ export const GET_EVENTS = gql`
 				status {
 					id
 				}
-				state {
-					id
+				state{
 					name
+					id
+					country {
+						name
+						id
+					}
 				}
 			}
 			total
