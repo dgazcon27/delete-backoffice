@@ -26,6 +26,7 @@ import {
 	renderTextField,
 	renderNumberField,
 	renderSelectField,
+	renderNumberMaxField,
 } from '../RenderFields/renderFields';
 import {
 	CREATE_LOCATION,
@@ -35,6 +36,31 @@ import {
 	closeAlert,
 	createLocation,
 } from '../../actions/location/actionsCreators';
+
+const validate = (values) => {
+	const errors = {};
+
+	if ((Number(values.fullcapacity) >= Number(values.capacity))) {
+		errors.capacity = false;
+	} else {
+		errors.capacity = true;
+	}
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+
+	if ((Number(values.fullcapacity) >= Number(values.capacity)) ||
+		(values.fullcapacity === undefined && values.capacity === undefined)) {
+		warnings.capacity = 'Este campo es obligatorio';
+	} else if (values.capacity === undefined) {
+		warnings.capacity = 'Este campo es obligatorio';
+	} else {
+		warnings.capacity = 'La cantidad supera la capacidad máxima';
+	}
+	return warnings;
+};
 
 const Status = () => (
 	<Query query={GET_STATUS}>
@@ -123,7 +149,7 @@ let LocationCreate = ({
 					<Field
 						name='capacity'
 						type='text'
-						component={renderNumberField}
+						component={renderNumberMaxField}
 						validate={[required, empty]}
 						label='Capacidad'
 						className='yourclass'
@@ -179,6 +205,8 @@ LocationCreate.propTypes = {
 
 LocationCreate = reduxForm({
 	form: 'LocationCreate',
+	validate,
+	warn,
 })(LocationCreate);
 
 const selector = formValueSelector('LocationCreate');

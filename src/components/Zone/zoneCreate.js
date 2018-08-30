@@ -22,12 +22,38 @@ import {
 import {
 	renderTextField,
 	renderNumberField,
+	renderNumberMaxField,
 } from '../RenderFields/renderFields';
 import { CREATE_ZONE } from '../../queries/zone';
 import {
 	closeAlert,
 	createZone,
 } from '../../actions/zone/actionsCreators';
+
+const validate = (values) => {
+	const errors = {};
+
+	if ((Number(values.maxcapacity) >= Number(values.capacity))) {
+		errors.capacity = false;
+	} else {
+		errors.capacity = true;
+	}
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+
+	if ((Number(values.fullcapacity) >= Number(values.capacity)) ||
+		(values.maxcapacity === undefined && values.capacity === undefined)) {
+		warnings.capacity = 'Este campo es obligatorio';
+	} else if (values.capacity === undefined) {
+		warnings.capacity = 'Este campo es obligatorio';
+	} else {
+		warnings.capacity = 'La cantidad supera la capacidad máxima';
+	}
+	return warnings;
+};
 
 let ZoneCreate = ({
 	userId,
@@ -70,7 +96,7 @@ let ZoneCreate = ({
 					<Field
 						name='capacity'
 						type='text'
-						component={renderNumberField}
+						component={renderNumberMaxField}
 						validate={required}
 						label='Capacidad'
 						className='yourclass'
@@ -146,6 +172,8 @@ ZoneCreate.propTypes = {
 
 ZoneCreate = reduxForm({
 	form: 'ZoneCreate',
+	validate,
+	warn,
 })(ZoneCreate);
 
 const selector = formValueSelector('ZoneCreate');
