@@ -21,6 +21,8 @@ import LocationEdit from '../Location/locationEdit';
 import ComponentLocation from '../Location/ComponentLocation';
 import Event from '../Event/event';
 import EventCreate from '../Event/eventCreate';
+import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
+import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import EventEdit from '../Event/eventEdit';
 import Payment from '../Payment/payment';
 import PaymentEdit from '../Payment/paymentEdit';
@@ -60,6 +62,8 @@ const Main = (props) => {
 				<Route path='/Departments-edit' component={ZoneEdit} />
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
+				<Route path='/purchase-request' component={PurchaseRequest} />
+				<Route path='/purchase-request-create' component={PurchaseRequestCreate} />
 				<Route path='/bank-account' component={BankAccount} />
 				<Route path='/bank-create' component={BankCreate} />
 				<Route path='/bank-account-create' component={BankAccountCreate} />
