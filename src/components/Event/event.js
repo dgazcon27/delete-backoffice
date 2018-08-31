@@ -62,8 +62,6 @@ const Event = ({
 }) => (
 	<Query query={GET_EVENTS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
-			console.log(data)
-
 			if (loading) {
 				return (
 					<div>

@@ -24,6 +24,9 @@ import EventCreate from '../Event/eventCreate';
 import EventEdit from '../Event/eventEdit';
 import Payment from '../Payment/payment';
 import PaymentEdit from '../Payment/paymentEdit';
+import Access from '../Access/access';
+import AccessCreate from '../Access/accessCreate';
+import AccessEdit from '../Access/accessEdit';
 
 import {
 	Dashboard,
@@ -67,6 +70,9 @@ const Main = (props) => {
 				<Route path='/bank-account-edit' component={BankAccountEdit} />
 				<Route path='/pre-sale' component={Payment} />
 				<Route path='/pre-sale-edit' component={PaymentEdit} />
+				<Route path='/access' component={Access} />
+				<Route path='/access-create' component={AccessCreate} />
+				<Route path='/access-edit' component={AccessEdit} />
 			</Switch>
 		</main>
 	);
