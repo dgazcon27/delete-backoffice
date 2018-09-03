@@ -8,9 +8,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { client } from './config/configStore';
 import rootReducer from './reducers/rootReducer';
+import verifyToken from './middleware/tokenExpiration';
 import App from './App';
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, verifyToken)));
 
 /* const enhancer = composeWithDevTools(getMiddleware());
 const store = createStore(rootReducer, enhancer); */
