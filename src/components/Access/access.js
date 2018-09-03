@@ -51,9 +51,7 @@ const Access = ({
 	actionEditAccess,
 	paginationPage,
 	actionDeleteAccess,
-	actionBlockAccess,
 	actionChangePage,
-	blockAccessMutation,
 	deleteAccessMutation,
 }) => (
 	<Query query={GET_ACCESS} variables={{ paginationPage }}>
@@ -175,37 +173,6 @@ const Access = ({
 								</button>
 							</Paper>
 							}
-							{modalType === 'block' &&
-							<Paper className={classes.paperOnModal}>
-								{statusValue === 1 && <h6> Bloquear acceso </h6>}
-								{statusValue === 2 && <h6> Desbloquear acceso </h6>}
-								{
-									statusValue === 1 &&
-									<p>
-											¿Estas seguro que desea bloquear el Acceso {name}?
-									</p>
-								}
-								{
-									statusValue === 2 &&
-									<p>
-												¿Estas seguro que desea desbloquear el Acceso {name}?
-									</p>
-								}
-
-								<span>
-									<IconButton
-										onClick={() => { actionBlockAccess(id, statusValue, blockAccessMutation); }}
-									>
-											Si
-									</IconButton>
-											&nbsp;
-											&nbsp;
-									<IconButton onClick={actionCloseModal} >
-											No
-									</IconButton>
-								</span>
-							</Paper>
-							}
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6>
@@ -246,13 +213,11 @@ Access.propTypes = {
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionEditAccess: PropTypes.func.isRequired,
-	actionBlockAccess: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeleteAccess: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	blockAccessMutation: PropTypes.func.isRequired,
 	deleteAccessMutation: PropTypes.func.isRequired,
 };
 
