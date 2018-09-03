@@ -9,6 +9,8 @@ import {
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import {
@@ -73,12 +75,22 @@ const Access = ({
 			return (
 				<div>
 					<div>
-						<h3>
-							Accesos
-						</h3>
-						<Link to='/access-create' href='/access-create' >
-							Crear Acceso
-						</Link>
+
+						<h5 className={classes.title}>
+							Acceso
+						</h5>
+
+						<div className={classes.search}>
+							<h5 className={classes.searchAlignRigth}>
+								<Link to='/access-create' href='/access-create' >
+									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
+										<Add className={classes.marginIcon} />
+										Crear Acceso
+									</Button>
+								</Link>
+							</h5>
+						</div>
+
 						<Paper>
 							<Table>
 								<TableHead>

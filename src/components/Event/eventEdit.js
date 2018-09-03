@@ -31,18 +31,18 @@ import { EDIT_EVENT } from '../../queries/event';
 
 const validate = (values) => {
 	const errors = {};
-	var presaleStart = new Date(values.presaleStart);
-	var presaleClosure = new Date(values.presaleClosure);
-	var eventStart = new Date(values.eventStart);
-	var eventClosure = new Date(values.eventClosure);
+	const presaleStart = new Date(values.presaleStart);
+	const presaleClosure = new Date(values.presaleClosure);
+	const eventStart = new Date(values.eventStart);
+	const eventClosure = new Date(values.eventClosure);
 
-	if ( presaleStart.getTime() <= presaleClosure.getTime() ) {
+	if (presaleStart.getTime() <= presaleClosure.getTime()) {
 		errors.presaleClosure = false;
 	} else {
 		errors.presaleClosure = true;
 	}
 
-	if ( eventStart.getTime() <= eventClosure.getTime() ) {
+	if (eventStart.getTime() <= eventClosure.getTime()) {
 		errors.eventClosure = false;
 	} else {
 		errors.eventClosure = true;
@@ -54,24 +54,24 @@ const validate = (values) => {
 
 const warn = (values) => {
 	const warnings = {};
-	var presaleStart = new Date(values.presaleStart);
-	var presaleClosure = new Date(values.presaleClosure);
-	var eventStart = new Date(values.eventStart);
-	var eventClosure = new Date(values.eventClosure);
+	const presaleStart = new Date(values.presaleStart);
+	const presaleClosure = new Date(values.presaleClosure);
+	const eventStart = new Date(values.eventStart);
+	const eventClosure = new Date(values.eventClosure);
 
-	if ( ( presaleStart.getTime() <= presaleClosure.getTime() )  ||
-		( ( values.presaleClosure === undefined ) && values.presaleStart === undefined ) ) {
+	if ((presaleStart.getTime() <= presaleClosure.getTime()) ||
+		((values.presaleClosure === undefined) && values.presaleStart === undefined)) {
 		warnings.presaleClosure = 'Este campo es obligatorio';
-	} else if ( values.presaleClosure === undefined ) {
+	} else if (values.presaleClosure === undefined) {
 		warnings.presaleClosure = 'Este campo es obligatorio';
 	} else {
 		warnings.presaleClosure = 'La fecha final supera a la fecha de Inicio';
 	}
 
-	if ( ( eventStart.getTime() <= eventClosure.getTime() )  ||
-		( ( values.eventClosure === undefined ) && values.eventStart === undefined ) ) {
+	if ((eventStart.getTime() <= eventClosure.getTime()) ||
+		((values.eventClosure === undefined) && values.eventStart === undefined)) {
 		warnings.eventClosure = 'Este campo es obligatorio';
-	} else if ( values.eventClosure === undefined ) {
+	} else if (values.eventClosure === undefined) {
 		warnings.eventClosure = 'Este campo es obligatorio';
 	} else {
 		warnings.eventClosure = 'La fecha final supera a la fecha de Inicio';
