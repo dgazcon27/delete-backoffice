@@ -52,6 +52,8 @@ let UserTypeEdit = ({
 						component={renderTextField}
 						validate={[required, empty]}
 					/>
+				</div>
+				<div className={classes.formStyle}>
 					<Field
 						name='rolDescription'
 						label='Descripción'
@@ -62,7 +64,7 @@ let UserTypeEdit = ({
 					/>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))} disabled={submitting} >
-				Confirmar
+				Guardar
 				</button>
 				<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar

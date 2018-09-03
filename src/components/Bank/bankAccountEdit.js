@@ -111,7 +111,7 @@ let BankAccountEdit = ({
 					))}
 					disabled={submitting}
 				>
-				Crear
+				Guardar
 				</button>
 				<Link to='/bank-account' href='/bank-account' className={classes.returnButton} >
 				Regresar

@@ -64,7 +64,7 @@ let BankEdit = ({
 					/>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(id, myValues.name, myValues.currency, paginationPage, editBankMutation))} disabled={submitting} >
-				Confirmar
+				Guardar
 				</button>
 				<Link to='/bank' href='/bank' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar

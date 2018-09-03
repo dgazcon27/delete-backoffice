@@ -9,6 +9,8 @@ import {
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import {
@@ -51,9 +53,7 @@ const Access = ({
 	actionEditAccess,
 	paginationPage,
 	actionDeleteAccess,
-	actionBlockAccess,
 	actionChangePage,
-	blockAccessMutation,
 	deleteAccessMutation,
 }) => (
 	<Query query={GET_ACCESS} variables={{ paginationPage }}>
@@ -75,12 +75,22 @@ const Access = ({
 			return (
 				<div>
 					<div>
-						<h3>
-							Accesos
-						</h3>
-						<Link to='/access-create' href='/access-create' >
-							Crear Acceso
-						</Link>
+
+						<h5 className={classes.title}>
+							Acceso
+						</h5>
+
+						<div className={classes.search}>
+							<h5 className={classes.searchAlignRigth}>
+								<Link to='/access-create' href='/access-create' >
+									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
+										<Add className={classes.marginIcon} />
+										Crear Acceso
+									</Button>
+								</Link>
+							</h5>
+						</div>
+
 						<Paper>
 							<Table>
 								<TableHead>
@@ -175,37 +185,6 @@ const Access = ({
 								</button>
 							</Paper>
 							}
-							{modalType === 'block' &&
-							<Paper className={classes.paperOnModal}>
-								{statusValue === 1 && <h6> Bloquear acceso </h6>}
-								{statusValue === 2 && <h6> Desbloquear acceso </h6>}
-								{
-									statusValue === 1 &&
-									<p>
-											¿Estas seguro que desea bloquear el Acceso {name}?
-									</p>
-								}
-								{
-									statusValue === 2 &&
-									<p>
-												¿Estas seguro que desea desbloquear el Acceso {name}?
-									</p>
-								}
-
-								<span>
-									<IconButton
-										onClick={() => { actionBlockAccess(id, statusValue, blockAccessMutation); }}
-									>
-											Si
-									</IconButton>
-											&nbsp;
-											&nbsp;
-									<IconButton onClick={actionCloseModal} >
-											No
-									</IconButton>
-								</span>
-							</Paper>
-							}
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6>
@@ -246,13 +225,11 @@ Access.propTypes = {
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionEditAccess: PropTypes.func.isRequired,
-	actionBlockAccess: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeleteAccess: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	blockAccessMutation: PropTypes.func.isRequired,
 	deleteAccessMutation: PropTypes.func.isRequired,
 };
 
