@@ -27,7 +27,7 @@ const verifyToken = store => next => (action) => {
 					});
 			}
 		}
-	}, 1800000);
+	}, 3600000);
 
 	return result;
 };
