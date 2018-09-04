@@ -10,7 +10,7 @@ import Weekend from '@material-ui/icons/Weekend';
 import Event from '@material-ui/icons/Event';
 // import Album from '@material-ui/icons/Album';
 // import Work from '@material-ui/icons/Work';
-// import ContactPhone from '@material-ui/icons/ContactPhone';
+import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import AccountBalance from '@material-ui/icons/AccountBalance';
@@ -131,7 +131,6 @@ const Items = (
 				<ListItemText primary='Bank-Account' />
 			</ListItem>
 		</Link>
-
 		<Link to='/purchase-request' href='/purchase-request'>
 			<ListItem button>
 				<ListItemIcon>
@@ -140,14 +139,23 @@ const Items = (
 				<ListItemText primary='Pre-Venta' />
 			</ListItem>
 		</Link>
-		{/*	<Link to='/staff' href='/staff'>
+		<Link to='/access' href='/access'>
 			<ListItem button>
 				<ListItemIcon>
 					<ContactPhone />
 				</ListItemIcon>
 				<ListItemText primary='Staff' />
 			</ListItem>
-		</Link> */}
+		</Link>
+		{/*	<Link to='/staff' href='/staff'>
+		<Link to='/access' href='/access'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Staff' />
+			</ListItem>
+		</Link>
 		{/*
 		<Divider />
 

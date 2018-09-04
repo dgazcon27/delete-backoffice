@@ -16,7 +16,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import styles from './locationCss';
+import styles from './accessCss';
 import './styles.css';
 import {
 	required,
@@ -24,43 +24,90 @@ import {
 } from '../validations/validations';
 import {
 	renderTextField,
-	renderNumberField,
 	renderSelectField,
-	renderNumberMaxField,
 } from '../RenderFields/renderFields';
 import {
-	CREATE_LOCATION,
+	CREATE_ACCESS,
 	GET_STATUS,
-} from '../../queries/location';
+	GET_LOCATIONS,
+	GET_ZONES,
+} from '../../queries/access';
 import {
 	closeAlert,
-	createLocation,
-} from '../../actions/location/actionsCreators';
+	createAccess,
+} from '../../actions/Access/actionsCreators';
 
-const validate = (values) => {
-	const errors = {};
+const Location = () => (
+	<Query query={GET_LOCATIONS}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='location'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='Ubicación'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='location'
+					type='select'
+					label='Ubicación'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.locationss.map(location => (
+						<MenuItem key={location.id} value={location.id}>{location.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 
-	if ((Number(values.fullcapacity) >= Number(values.capacity))) {
-		errors.capacity = false;
-	} else {
-		errors.capacity = true;
-	}
-	return errors;
-};
-
-const warn = (values) => {
-	const warnings = {};
-
-	if ((Number(values.fullcapacity) >= Number(values.capacity)) ||
-		(values.fullcapacity === undefined && values.capacity === undefined)) {
-		warnings.capacity = 'Este campo es obligatorio';
-	} else if (values.capacity === undefined) {
-		warnings.capacity = 'Este campo es obligatorio';
-	} else {
-		warnings.capacity = 'La cantidad supera la capacidad máxima';
-	}
-	return warnings;
-};
+const Zone = () => (
+	<Query query={GET_ZONES}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='zone'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='Zona'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='zone'
+					type='select'
+					label='Zona'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.zones.map(zone => (
+						<MenuItem key={zone.id} value={zone.id}>{zone.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 
 const Status = () => (
 	<Query query={GET_STATUS}>
@@ -98,24 +145,23 @@ const Status = () => (
 	</Query>
 );
 
-let LocationCreate = ({
-	userId,
+let AccessCreate = ({
 	classes,
 	alertOpen,
 	alertType,
 	actionCloseAlert,
-	actionCreateLocation,
-	createLocationMutation,
+	actionCreateAccess,
+	createAccessMutation,
 	paginationPage,
 	myValues,
 	submitting,
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nueva Ubicación</h3>
+		<h3 className={classes.formTitle}>Acceso</h3>
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Nuevo Ubicación</h6>
+				<h6 className={classes.formTitle}>Nuevo Acceso</h6>
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
@@ -132,36 +178,39 @@ let LocationCreate = ({
 						component={renderTextField}
 						validate={[required, empty]}
 						label='Descripción'
-						className='yourclass'
 					/>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='fullcapacity'
+						name='price'
 						type='text'
-						component={renderNumberField}
+						component={renderTextField}
 						validate={[required, empty]}
-						label='Capacidad Máxima'
-						className='yourclass'
+						label='Precio'
 					/>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='capacity'
+						name='currency'
 						type='text'
-						component={renderNumberMaxField}
+						component={renderTextField}
 						validate={[required, empty]}
-						label='Capacidad'
-						className='yourclass'
+						label='Moneda'
 					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Location />
+				</div>
+				<div className={classes.formStyle}>
+					<Zone />
 				</div>
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateLocation(myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), Number(userId), paginationPage, createLocationMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.price, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, createAccessMutation))} disabled={submitting} >
 					Crear
 				</button>
-				<Link to='/tables' href='/tables' className={classes.returnButton} >
+				<Link to='/access' href='/access' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
@@ -189,63 +238,59 @@ let LocationCreate = ({
 	</div>
 );
 
-LocationCreate.propTypes = {
-	userId: PropTypes.number.isRequired,
+AccessCreate.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionCreateLocation: PropTypes.func.isRequired,
+	actionCreateAccess: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	createLocationMutation: PropTypes.func.isRequired,
+	createAccessMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 };
 
-LocationCreate = reduxForm({
-	form: 'LocationCreate',
-	validate,
-	warn,
-})(LocationCreate);
+AccessCreate = reduxForm({
+	form: 'AccessCreate',
+})(AccessCreate);
 
-const selector = formValueSelector('LocationCreate');
+const selector = formValueSelector('AccessCreate');
 
 const mapStateToProps = state => ({
-	userId: state.ReducerLogin.userId,
-	alertType: state.ReducerLocation.alertType,
-	alertOpen: state.ReducerLocation.alertOpen,
-	paginationPage: state.ReducerLocation.paginationPage,
-	myValues: selector(state, 'name', 'description', 'fullcapacity', 'capacity', 'status'),
+	alertType: state.ReducerAccess.alertType,
+	alertOpen: state.ReducerAccess.alertOpen,
+	paginationPage: state.ReducerAccess.paginationPage,
+	myValues: selector(state, 'name', 'description', 'price', 'currency', 'location', 'zone', 'status'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionCreateLocation: (
+	actionCreateAccess: (
 		name,
 		descripcion,
-		fullcapacity,
-		capacity,
+		price,
+		currency,
+		location,
+		zone,
 		status,
-		createdBy,
-		updatedBy,
 		paginationPage,
-		createLocationMutation,
-	) => dispatch(createLocation(
+		createAccessMutation,
+	) => dispatch(createAccess(
 		name,
 		descripcion,
-		fullcapacity,
-		capacity,
+		price,
+		currency,
+		location,
+		zone,
 		status,
-		createdBy,
-		updatedBy,
 		paginationPage,
-		createLocationMutation,
+		createAccessMutation,
 	)),
 });
 
 export default compose(
-	graphql(CREATE_LOCATION, { name: 'createLocationMutation' }),
+	graphql(CREATE_ACCESS, { name: 'createAccessMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(LocationCreate);
+)(AccessCreate);

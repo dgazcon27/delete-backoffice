@@ -81,7 +81,7 @@ const Countrys = () => (
 					<Field
 						name='citizenship'
 						type='select'
-						label='Citizenship'
+						label='Ciudadanía'
 						component={renderSelectField}
 						validate={required}
 						className='container'
@@ -95,7 +95,7 @@ const Countrys = () => (
 				<Field
 					name='citizenship'
 					type='select'
-					label='Citizenship'
+					label='Ciudadanía'
 					component={renderSelectField}
 					validate={required}
 					className='container'

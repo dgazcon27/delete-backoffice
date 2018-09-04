@@ -18,12 +18,38 @@ import {
 	required,
 } from '../validations/validations';
 import { SET_PASSWORD } from '../../queries/users';
-import { renderPasswordField } from '../RenderFields/renderFields';
+import {
+	renderPasswordField,
+	renderConfirmationField,
+} from '../RenderFields/renderFields';
 import {
 	closeAlert,
 	closeModal,
 	setPassword,
 } from '../../actions/users/actionsCreators';
+
+const validate = (values) => {
+	const errors = {};
+
+	if ((values.password === values.confirmation)) {
+		errors.confirmation = false;
+	} else {
+		errors.confirmation = true;
+	}
+
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+
+	if (values.password === values.confirmation) {
+		warnings.confirmation = 'Este campo es obligatorio';
+	} else {
+		warnings.confirmation = 'Debe coincidir con la contraseña';
+	}
+	return warnings;
+};
 
 let ModalPassword = ({
 	id,
@@ -42,17 +68,17 @@ let ModalPassword = ({
 				name='password'
 				type='password'
 				component={renderPasswordField}
-				validate={[required, empty]}
 				label='Contraseña'
 				className='yourclass'
+				validate={[required, empty]}
 			/>
 			<Field
 				name='confirmation'
 				type='password'
-				component={renderPasswordField}
-				validate={[required, empty]}
+				component={renderConfirmationField}
 				label='Confirmación'
 				className='yourclass'
+				validate={[required, empty]}
 			/>
 			<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionSetPassword(id, myValues.password, myValues.confirmation, paginationPage, resetPasswordIdUserMutation))} disabled={submitting} >
 				Confirmar
@@ -79,6 +105,8 @@ ModalPassword.propTypes = {
 
 ModalPassword = reduxForm({
 	form: 'ModalPassword',
+	validate,
+	warn,
 })(ModalPassword);
 
 const selector = formValueSelector('ModalPassword');

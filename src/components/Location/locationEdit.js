@@ -26,6 +26,7 @@ import {
 	renderTextField,
 	renderNumberField,
 	renderSelectField,
+	renderNumberMaxField,
 } from '../RenderFields/renderFields';
 import {
 	EDIT_LOCATION,
@@ -35,6 +36,31 @@ import {
 	closeAlert,
 	editLocation,
 } from '../../actions/location/actionsCreators';
+
+const validate = (values) => {
+	const errors = {};
+
+	if ((Number(values.fullcapacity) >= Number(values.capacity))) {
+		errors.capacity = false;
+	} else {
+		errors.capacity = true;
+	}
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+
+	if ((Number(values.fullcapacity) >= Number(values.capacity)) ||
+		(values.fullcapacity === undefined && values.capacity === undefined)) {
+		warnings.capacity = 'Este campo es obligatorio';
+	} else if (values.capacity === undefined) {
+		warnings.capacity = 'Este campo es obligatorio';
+	} else {
+		warnings.capacity = 'La cantidad supera la capacidad máxima';
+	}
+	return warnings;
+};
 
 const Status = () => (
 	<Query query={GET_STATUS}>
@@ -46,7 +72,7 @@ const Status = () => (
 						type='select'
 						component={renderSelectField}
 						validate={required}
-						label='status'
+						label='Estatus'
 					>
 						<MenuItem />
 					</Field>
@@ -57,7 +83,7 @@ const Status = () => (
 					<Field
 						name='status'
 						type='select'
-						label='status'
+						label='Estatus'
 						component={renderSelectField}
 						validate={required}
 						className='container'
@@ -97,7 +123,7 @@ let LocationEdit = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='name'
+						label='Nombre'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -106,7 +132,7 @@ let LocationEdit = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='description'
+						label='Descripción'
 						className='yourclass'
 					/>
 				</div>
@@ -124,7 +150,7 @@ let LocationEdit = ({
 					<Field
 						name='capacity'
 						type='text'
-						component={renderNumberField}
+						component={renderNumberMaxField}
 						validate={required}
 						label='Capacidad'
 						className='yourclass'
@@ -181,6 +207,8 @@ LocationEdit.propTypes = {
 
 LocationEdit = reduxForm({
 	form: 'LocationEdit',
+	validate,
+	warn,
 })(LocationEdit);
 
 const selector = formValueSelector('LocationEdit');

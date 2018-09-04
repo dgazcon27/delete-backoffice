@@ -104,7 +104,7 @@ const Event = ({
 										data.events.data.map(event => (
 											<TableRow key={event.id}>
 												<TableCell >{event.name}</TableCell>
-												<TableCell >{event.state.name}</TableCell>
+												<TableCell >{event.state.country.name}</TableCell>
 												<TableCell className={classes.alignRight}>
 													<Tooltip
 														enterDelay={200}

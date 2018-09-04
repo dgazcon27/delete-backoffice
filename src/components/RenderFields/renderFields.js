@@ -51,6 +51,22 @@ export const renderDateField = field => (
 	</FormControl>
 );
 
+export const renderDateMaxField = field => (
+	<FormControl className={field.className}>
+		<TextField
+			fullWidth
+			multiline={false}
+			label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+			placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+			type='date'
+			{...field.input}
+			className={field.className}
+			error={(field.meta.touched && field.meta.error)}
+			helperText={(field.meta.touched && field.meta.error) && <span>{field.meta.warning}</span>}
+		/>
+	</FormControl>
+);
+
 export const renderNumberField = field => (
 	<TextField
 		fullWidth
@@ -66,6 +82,21 @@ export const renderNumberField = field => (
 	/>
 );
 
+export const renderNumberMaxField = field => (
+	<TextField
+		fullWidth
+		multiline={false}
+		inputProps={{ min: '0', step: '1' }}
+		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		type='number'
+		{...field.input}
+		className={field.className}
+		error={(field.meta.touched && field.meta.error)}
+		helperText={(field.meta.touched && field.meta.error) && <span>{field.meta.warning}</span>}
+	/>
+);
+
 export const renderPasswordField = field => (
 	<TextField
 		fullWidth
@@ -78,6 +109,21 @@ export const renderPasswordField = field => (
 		className={field.className}
 		error={(field.meta.touched && field.meta.error)}
 		helperText={(field.meta.touched && field.meta.error) && <span>Este campo es oblogatorio</span>}
+	/>
+);
+
+export const renderConfirmationField = field => (
+	<TextField
+		fullWidth
+		multiline={false}
+		inputProps={{ min: '0', step: '1' }}
+		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		type='password'
+		{...field.input}
+		className={field.className}
+		error={(field.meta.touched && field.meta.error)}
+		helperText={(field.meta.touched && field.meta.error) && <span>{field.meta.warning}</span>}
 	/>
 );
 

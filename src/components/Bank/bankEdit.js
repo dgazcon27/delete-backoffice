@@ -46,7 +46,7 @@ let BankEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
-						label='Name'
+						label='Nombre'
 						type='text'
 						placeholder='Nombre'
 						component={renderTextField}
@@ -56,15 +56,15 @@ let BankEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='currency'
-						label='currency'
+						label='Descripción'
 						type='text'
-						placeholder='Descripcion'
+						placeholder='Descripción'
 						component={renderTextField}
 						validate={[required, empty]}
 					/>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(id, myValues.name, myValues.currency, paginationPage, editBankMutation))} disabled={submitting} >
-				Confirmar
+				Guardar
 				</button>
 				<Link to='/bank' href='/bank' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar
