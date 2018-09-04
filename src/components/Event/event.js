@@ -169,7 +169,7 @@ const Event = ({
 							{modalType === 'edit' &&
 								<Paper>
 									<h1>
-										contenido edit modal
+										Editar modal
 									</h1>
 									<button onClick={actionCloseModal}>
 										cerrar
@@ -179,7 +179,7 @@ const Event = ({
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6>
-										Eliminar bank
+										Eliminar evento
 									</h6>
 									<p>
 										¿Estas seguro que desea eliminar el evento {name} ?
@@ -250,7 +250,7 @@ const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, event) => dispatch(openModal(modalType, event)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionSetEvent: event =>
-		dispatch(setEvent(event)),
+		dispatch(setEvent(event, dispatch)),
 });
 
 export { Event as EventTest };

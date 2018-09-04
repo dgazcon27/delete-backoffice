@@ -32,6 +32,7 @@ import { CREATE_EVENT } from '../../queries/event';
 import {
 	closeAlert,
 	createEvent,
+	setCountriesStates,
 } from '../../actions/Event/actionsCreators';
 
 import GET_COUNTRIES from '../../queries/country';
@@ -87,7 +88,7 @@ const warn = (values) => {
 	return warnings;
 };
 
-const SelectStatus = () => (
+export const SelectStatus = () => (
 	<Query query={GET_STATUS}>
 		{({ loading, error, data }) => {
 			if (loading) {
@@ -125,13 +126,13 @@ const SelectStatus = () => (
 	</Query>
 );
 
-const SelectCountry = () => (
+export const SelectCountry = actionSelectCountry => (
 	<Query query={GET_COUNTRIES}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
 					<Field
-						name='state'
+						name='country'
 						type='select'
 						label='País'
 						component={renderSelectField}
@@ -147,13 +148,14 @@ const SelectCountry = () => (
 			}
 			return (
 				<Field
-					name='state'
+					name='country'
 					type='select'
 					label='País'
 					placeholder='País'
 					component={renderSelectField}
 					validate={required}
 					className='container'
+					onChange={actionSelectCountry.actionSelectCountry}
 				>
 					{data.countrys.map(country => (
 						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
@@ -162,6 +164,22 @@ const SelectCountry = () => (
 			);
 		}}
 	</Query>
+);
+
+export const SelectState = states => (
+	<Field
+		name='state'
+		type='select'
+		label='Estado'
+		placeholder='Estado'
+		component={renderSelectField}
+		validate={required}
+		className='container'
+	>
+		{states.states.map(state => (
+			<MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+		))}
+	</Field>
 );
 
 let EventCreate = ({
@@ -176,6 +194,8 @@ let EventCreate = ({
 	submitting,
 	handleSubmit,
 	userId,
+	actionSelectCountry,
+	states,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Eventos</h3>
@@ -202,7 +222,10 @@ let EventCreate = ({
 					/>
 				</div>
 				<div className={classes.formStyle}>
-					<SelectCountry />
+					<SelectCountry actionSelectCountry={actionSelectCountry} />
+				</div>
+				<div className={classes.formStyle}>
+					<SelectState states={states} />
 				</div>
 				<div className={classes.formStyle}>
 					<SelectStatus />
@@ -300,10 +323,12 @@ EventCreate.propTypes = {
 	actionCreateEvent: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	createEventMutation: PropTypes.func.isRequired,
+	actionSelectCountry: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	userId: PropTypes.number.isRequired,
+	states: PropTypes.array.isRequired,
 };
 
 EventCreate = reduxForm({
@@ -317,6 +342,7 @@ const selector = formValueSelector('EventCreate');
 const mapStateToProps = state => ({
 	alertType: state.ReducerEvent.alertType,
 	alertOpen: state.ReducerEvent.alertOpen,
+	states: state.ReducerEvent.states,
 	paginationPage: state.ReducerEvent.paginationPage,
 	userId: state.ReducerLogin.userId,
 	myValues: selector(
@@ -334,6 +360,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
+	actionSelectCountry: (event, id) => dispatch(setCountriesStates(event, id)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCreateEvent: (myValues, paginationPage, createdBy, updatedBy, createEventMutation) =>
 		dispatch(createEvent(myValues, paginationPage, createdBy, updatedBy, createEventMutation)),

@@ -6,6 +6,7 @@ import {
 	PAGE_UP,
 	PAGE_DOWN,
 	SET_EVENT,
+	SET_COUNTRIES_STATES,
 } from '../../actions/Event/actionsTypes';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
 	rolDescription: '',
 	statusValue: 0,
 	paginationPage: 0,
+	states: [],
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -86,7 +88,13 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				eventClosure: action.payload.eventClosure,
 				status: action.payload.status,
 				state: action.payload.state,
+				country: action.payload.country,
 				createdBy: action.payload.createdBy,
+			});
+		case SET_COUNTRIES_STATES:
+			return ({
+				...state,
+				states: action.payload.states,
 			});
 		default:
 			return state;
