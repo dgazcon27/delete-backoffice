@@ -72,9 +72,9 @@ const Payment = ({
 			return (
 				<div>
 					<div>
-						<h3>
+						<h5>
 							Pagos
-						</h3>
+						</h5>
 						<Paper>
 							<Table>
 								<TableHead>
