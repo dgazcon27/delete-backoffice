@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import {
 	compose,
-	Query,
 	graphql,
 } from 'react-apollo';
 import {
@@ -18,90 +16,16 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Paper from '@material-ui/core/Paper';
 import styles from '../Shared/userTypeCss';
 import { required, empty } from '../validations/validations';
-import { renderTextField, renderSelectField, renderDateField } from '../RenderFields/renderFields';
-import { editEvent, closeAlert, cleanState } from '../../actions/Event/actionsCreators';
-import GET_COUNTRIES from '../../queries/country';
-import GET_STATUS from '../../queries/status';
+import { renderTextField, renderDateField } from '../RenderFields/renderFields';
+import {
+	editEvent,
+	closeAlert,
+	cleanState,
+	setCountriesStates,
+} from '../../actions/Event/actionsCreators';
 import { EDIT_EVENT } from '../../queries/event';
+import { SelectStatus, SelectState, SelectCountry } from './eventCreate';
 
-const SelectStatus = () => (
-	<Query query={GET_STATUS}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='status'
-						type='select'
-						label='Estatus'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-
-			return (
-				<Field
-					name='status'
-					type='select'
-					label='Estatus'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.statuss.map(status => (
-						<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-const SelectCountry = () => (
-	<Query query={GET_COUNTRIES}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='state'
-						type='select'
-						label='País'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-
-			return (
-				<Field
-					name='state'
-					type='select'
-					label='País'
-					placeholder='País'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.countrys.map(country => (
-						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
 let EventEdit = ({
 	classes,
 	alertOpen,
@@ -114,6 +38,8 @@ let EventEdit = ({
 	submitting,
 	handleSubmit,
 	userId,
+	states,
+	actionSelectCountry,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Eventos</h3>
@@ -140,7 +66,10 @@ let EventEdit = ({
 					/>
 				</div>
 				<div className={classes.formStyle}>
-					<SelectCountry />
+					<SelectCountry actionSelectCountry={actionSelectCountry} />
+				</div>
+				<div className={classes.formStyle}>
+					<SelectState states={states} />
 				</div>
 				<div className={classes.formStyle}>
 					<SelectStatus />
@@ -221,7 +150,9 @@ EventEdit.propTypes = {
 	editEventMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionCleanState: PropTypes.func.isRequired,
+	actionSelectCountry: PropTypes.func.isRequired,
 	myValues: PropTypes.object.isRequired,
+	states: PropTypes.array.isRequired,
 };
 
 EventEdit = reduxForm({
@@ -237,6 +168,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerEvent.alertOpen,
 	initialValues: state.ReducerEvent,
 	userId: state.ReducerLogin.userId,
+	states: state.ReducerEvent.states,
 	name: state.ReducerEvent.name,
 	myValues: selector(
 		state,
@@ -249,11 +181,14 @@ const mapStateToProps = state => ({
 		'eventClosure',
 		'status',
 		'state',
+		'country',
+
 	),
 });
 
 
 const mapDispatchToProps = dispatch => ({
+	actionSelectCountry: (event, id) => dispatch(setCountriesStates(event, id)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
 	actionEditEvent: (event, updatedBy, editEventMutation) =>
