@@ -131,7 +131,23 @@ const Items = (
 				<ListItemText primary='Bank-Account' />
 			</ListItem>
 		</Link>
-
+		<Link to='/purchase-request' href='/purchase-request'>
+			<ListItem button>
+				<ListItemIcon>
+					<AttachMoney />
+				</ListItemIcon>
+				<ListItemText primary='Pre-Venta' />
+			</ListItem>
+		</Link>
+		<Link to='/access' href='/access'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Staff' />
+			</ListItem>
+		</Link>
+		{/*	<Link to='/staff' href='/staff'>
 		<Link to='/access' href='/access'>
 			<ListItem button>
 				<ListItemIcon>

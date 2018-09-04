@@ -16,7 +16,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Paper from '@material-ui/core/Paper';
 import styles from '../Shared/userTypeCss';
 import { required, empty } from '../validations/validations';
-import { renderTextField, renderDateField } from '../RenderFields/renderFields';
+import { renderTextField, renderDateField, renderDateMaxField } from '../RenderFields/renderFields';
 import {
 	editEvent,
 	closeAlert,
@@ -25,6 +25,56 @@ import {
 } from '../../actions/Event/actionsCreators';
 import { EDIT_EVENT } from '../../queries/event';
 import { SelectStatus, SelectState, SelectCountry } from './eventCreate';
+
+const validate = (values) => {
+	const errors = {};
+	const presaleStart = new Date(values.presaleStart);
+	const presaleClosure = new Date(values.presaleClosure);
+	const eventStart = new Date(values.eventStart);
+	const eventClosure = new Date(values.eventClosure);
+
+	if (presaleStart.getTime() <= presaleClosure.getTime()) {
+		errors.presaleClosure = false;
+	} else {
+		errors.presaleClosure = true;
+	}
+
+	if (eventStart.getTime() <= eventClosure.getTime()) {
+		errors.eventClosure = false;
+	} else {
+		errors.eventClosure = true;
+	}
+
+
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+	const presaleStart = new Date(values.presaleStart);
+	const presaleClosure = new Date(values.presaleClosure);
+	const eventStart = new Date(values.eventStart);
+	const eventClosure = new Date(values.eventClosure);
+
+	if ((presaleStart.getTime() <= presaleClosure.getTime()) ||
+		((values.presaleClosure === undefined) && values.presaleStart === undefined)) {
+		warnings.presaleClosure = 'Este campo es obligatorio';
+	} else if (values.presaleClosure === undefined) {
+		warnings.presaleClosure = 'Este campo es obligatorio';
+	} else {
+		warnings.presaleClosure = 'La fecha final supera a la fecha de Inicio';
+	}
+
+	if ((eventStart.getTime() <= eventClosure.getTime()) ||
+		((values.eventClosure === undefined) && values.eventStart === undefined)) {
+		warnings.eventClosure = 'Este campo es obligatorio';
+	} else if (values.eventClosure === undefined) {
+		warnings.eventClosure = 'Este campo es obligatorio';
+	} else {
+		warnings.eventClosure = 'La fecha final supera a la fecha de Inicio';
+	}
+	return warnings;
+};
 
 let EventEdit = ({
 	classes,
@@ -80,7 +130,7 @@ let EventEdit = ({
 						type='text'
 						component={renderDateField}
 						validate={[required, empty]}
-						label=''
+						label='Inicio de preventa'
 						className='yourclass container'
 					/>
 				</div>
@@ -88,9 +138,9 @@ let EventEdit = ({
 					<Field
 						name='presaleClosure'
 						type='text'
-						component={renderDateField}
+						component={renderDateMaxField}
 						validate={[required, empty]}
-						label=''
+						label='Fin de preventa'
 						className='yourclass container'
 					/>
 				</div>
@@ -100,7 +150,7 @@ let EventEdit = ({
 						type='text'
 						component={renderDateField}
 						validate={[required, empty]}
-						label=''
+						label='Inicio de evento'
 						className='yourclass container'
 					/>
 				</div>
@@ -108,9 +158,9 @@ let EventEdit = ({
 					<Field
 						name='eventClosure'
 						type='text'
-						component={renderDateField}
+						component={renderDateMaxField}
 						validate={[required, empty]}
-						label=''
+						label='Fin de evento'
 						className='yourclass container'
 					/>
 				</div>
@@ -120,7 +170,7 @@ let EventEdit = ({
 					disabled={submitting}
 					onClick={handleSubmit(() => actionEditEvent(myValues, userId, editEventMutation))}
 				>
-					Editar
+					Guardar
 				</button>
 				<Link to='/events' href='/events' className={classes.returnButton} onClick={() => actionCleanState()}>
 					Regresar
@@ -157,6 +207,8 @@ EventEdit.propTypes = {
 
 EventEdit = reduxForm({
 	form: 'EventEdit',
+	validate,
+	warn,
 })(EventEdit);
 
 const selector = formValueSelector('EventEdit');

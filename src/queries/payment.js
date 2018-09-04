@@ -29,15 +29,9 @@ export const GET_PAYMENTS = gql`
 `;
 
 export const CREATE_PAYMENT = gql`
-	mutation createPayment($purchaseRequest:Int!, $amount:Float!, $reference:String!, $comment:String!, $type:String!, $bankAccount:Int!, $createdBy:Int!, $updatedBy:Int!) {
+	mutation createPayment($purchaseRequest:Int!, $amount:Int!, $reference:String!, $comment:String!, $type:String!, $bankAccount:Int!, $createdBy:Int!, $updatedBy:Int!) {
 		createPayment(purchaseRequest:$purchaseRequest, amount:$amount, reference:$reference, comment:$comment, type:$type, bankAccount:$bankAccount, createdBy:$createdBy, updatedBy:$updatedBy) {
-			id
-			purchaseRequest
-			amount
-			reference
-			comment
-			type
-			bankAccount
+	id
 		}
 	}
 `;

@@ -22,7 +22,12 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField, renderSelectField, renderDateField } from '../RenderFields/renderFields';
+import {
+	renderTextField,
+	renderSelectField,
+	renderDateField,
+	renderDateMaxField,
+} from '../RenderFields/renderFields';
 import { CREATE_EVENT } from '../../queries/event';
 import {
 	closeAlert,
@@ -32,6 +37,56 @@ import {
 
 import GET_COUNTRIES from '../../queries/country';
 import GET_STATUS from '../../queries/status';
+
+const validate = (values) => {
+	const errors = {};
+	const presaleStart = new Date(values.presaleStart);
+	const presaleClosure = new Date(values.presaleClosure);
+	const eventStart = new Date(values.eventStart);
+	const eventClosure = new Date(values.eventClosure);
+
+	if (presaleStart.getTime() <= presaleClosure.getTime()) {
+		errors.presaleClosure = false;
+	} else {
+		errors.presaleClosure = true;
+	}
+
+	if (eventStart.getTime() <= eventClosure.getTime()) {
+		errors.eventClosure = false;
+	} else {
+		errors.eventClosure = true;
+	}
+
+
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+	const presaleStart = new Date(values.presaleStart);
+	const presaleClosure = new Date(values.presaleClosure);
+	const eventStart = new Date(values.eventStart);
+	const eventClosure = new Date(values.eventClosure);
+
+	if ((presaleStart.getTime() <= presaleClosure.getTime()) ||
+		((values.presaleClosure === undefined) && values.presaleStart === undefined)) {
+		warnings.presaleClosure = 'Este campo es obligatorio';
+	} else if (values.presaleClosure === undefined) {
+		warnings.presaleClosure = 'Este campo es obligatorio';
+	} else {
+		warnings.presaleClosure = 'La fecha final supera a la fecha de Inicio';
+	}
+
+	if ((eventStart.getTime() <= eventClosure.getTime()) ||
+		((values.eventClosure === undefined) && values.eventStart === undefined)) {
+		warnings.eventClosure = 'Este campo es obligatorio';
+	} else if (values.eventClosure === undefined) {
+		warnings.eventClosure = 'Este campo es obligatorio';
+	} else {
+		warnings.eventClosure = 'La fecha final supera a la fecha de Inicio';
+	}
+	return warnings;
+};
 
 export const SelectStatus = () => (
 	<Query query={GET_STATUS}>
@@ -189,7 +244,7 @@ let EventCreate = ({
 					<Field
 						name='presaleClosure'
 						type='text'
-						component={renderDateField}
+						component={renderDateMaxField}
 						validate={[required, empty]}
 						label='Fin de preventa'
 						className='yourclass date-label container'
@@ -209,7 +264,7 @@ let EventCreate = ({
 					<Field
 						name='eventClosure'
 						type='text'
-						component={renderDateField}
+						component={renderDateMaxField}
 						validate={[required, empty]}
 						label='Fin de evento'
 						className='yourclass date-label container'
@@ -278,6 +333,8 @@ EventCreate.propTypes = {
 
 EventCreate = reduxForm({
 	form: 'EventCreate',
+	validate,
+	warn,
 })(EventCreate);
 
 const selector = formValueSelector('EventCreate');
