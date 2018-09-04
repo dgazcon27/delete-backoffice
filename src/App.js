@@ -23,7 +23,7 @@ const App = ({ auth, classes, actionLogout }) => (
 				ref={(ref) => { this.idleTimer = ref; }}
 				element={document}
 				onIdle={() => actionLogout(localStorage.getItem('token'))}
-				timeout={1000 * 60}
+				timeout={1000 * 60 * 15}
 			>
 
 				<div className={classes.root}>
