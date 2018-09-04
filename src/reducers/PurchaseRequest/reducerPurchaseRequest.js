@@ -12,6 +12,7 @@ import {
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
 	SET_PURCHASE_REQ,
+	SET_TO_PAY,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
 
@@ -78,6 +79,11 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				event: action.payload.event,
 				status: action.payload.status,
 				comment: action.payload.comment,
+			});
+		case SET_TO_PAY:
+			return ({
+				...state,
+				id: action.payload.id,
 			});
 		case BLOCK_USER_TYPE:
 			return ({

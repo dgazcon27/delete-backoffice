@@ -16,6 +16,7 @@ const PAGE_UP = 'PAGE_UP';
 const PAGE_DOWN = 'PAGE_DOWN';
 const CHANGE_PAGE = 'CHANGE_PAGE';
 const SET_PURCHASE_REQ = 'SET_PURCHASE_REQ';
+const SET_TO_PAY = 'SET_TO_PAY';
 export {
 	SET_ROL,
 	PAGE_UP,
@@ -35,5 +36,6 @@ export {
 	SET_BANK,
 	SET_BANK_ACCOUNT,
 	SET_PURCHASE_REQ,
+	SET_TO_PAY,
 };
 

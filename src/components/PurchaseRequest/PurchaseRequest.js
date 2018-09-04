@@ -13,6 +13,7 @@ import Add from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import Payment from '@material-ui/icons/Payment';
 import {
 	Modal,
 	Paper,
@@ -34,6 +35,7 @@ import {
 	closeModal,
 	deletePurchaseReq,
 	setPurchaseReq,
+	setToPay,
 } from '../../actions/PurchaseRequest/actionsCreators';
 
 import {
@@ -51,13 +53,14 @@ const PurchaseRequest = ({
 	classes,
 	modalType,
 	currentPage,
-	actionSetPurchaseReq,
+	actionSetToPay,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
-	deletePurchaseReqMutation,
+	actionSetPurchaseReq,
 	actionDeletePurchaseReq,
+	deletePurchaseReqMutation,
 }) => (
 	<Query query={GET_PURCHASE_REQ} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -109,6 +112,27 @@ const PurchaseRequest = ({
 												<TableCell >{purchaseReq.pendingPayment}</TableCell>
 												<TableCell >{purchaseReq.event.name}</TableCell>
 												<TableCell className={classes.alignRight}>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Realizar pago'
+													>
+														<Link to='/payment' href='/payment'>
+															<IconButton
+																onClick={() => {
+																	actionSetToPay(
+																		purchaseReq.id,
+																		userId,
+																	);
+																}
+																}
+															>
+																<Payment />
+															</IconButton>
+														</Link>
+													</Tooltip>
 													<Link to='/purchase-request-edit/' href='/purchase-request-edit'>
 														<IconButton
 															onClick={() => {
@@ -209,6 +233,7 @@ PurchaseRequest.propTypes = {
 	id: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
+	actionSetToPay: PropTypes.func.isRequired,
 	actionSetPurchaseReq: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	deletePurchaseReqMutation: PropTypes.func.isRequired,
@@ -265,6 +290,14 @@ const mapDispatchToProps = dispatch => ({
 		totalPrice,
 		pendingPayment,
 		totalPaid,
+		userId,
+	)),
+
+	actionSetToPay: (
+		id,
+		userId,
+	) => dispatch(setToPay(
+		id,
 		userId,
 	)),
 });

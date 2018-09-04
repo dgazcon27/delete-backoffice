@@ -10,8 +10,50 @@ import {
 	GET_ACCESSS,
 	GET_EVENTSS,
 	GET_STATUSS,
+	GET_BANK_ACCOUNTS,
 } from './../queries/common';
 
+export const BankAccount = () => (
+	<Query query={GET_BANK_ACCOUNTS}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<Field
+						name='bankAccount'
+						type='select'
+						component={renderSelectField}
+						validate={required}
+						label='Cuenta de Banco'
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			return (
+				<div>
+					<Field
+						name='bankAccount'
+						type='select'
+						label='bankAccount'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						{data.bankAccountss.map(bankAccount => (
+							<MenuItem
+								key={bankAccount.id}
+								value={bankAccount.id}
+							>
+								{`${bankAccount.accountNumber} - ${bankAccount.owner.name} ${bankAccount.owner.lastName}`}
+							</MenuItem>
+						))}
+					</Field>
+				</div>
+			);
+		}}
+	</Query>
+);
 
 export const Banks = () => (
 	<Query query={GET_BANKSS}>

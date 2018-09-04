@@ -8,6 +8,7 @@ import {
 	PAGE_UP,
 	PAGE_DOWN,
 	SET_PURCHASE_REQ,
+	SET_TO_PAY,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
 
@@ -60,6 +61,13 @@ export const setPurchaseReq = (
 		pendingPayment,
 		totalPaid,
 		userId,
+	},
+});
+export const setToPay = id => ({
+	type: SET_TO_PAY,
+	payload: {
+		description: SET_TO_PAY,
+		id,
 	},
 });
 

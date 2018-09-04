@@ -17,6 +17,20 @@ export const GET_BANKSS = gql`
 			}
 		}	
 `;
+
+export const GET_BANK_ACCOUNTS = gql`
+	query{ 
+			bankAccountss{
+				id
+				accountNumber
+				owner{
+					name 
+					lastName
+				}
+			}
+		}	
+`;
+
 export const GET_ACCESSS = gql`
 	query{ 
 			accesss{
