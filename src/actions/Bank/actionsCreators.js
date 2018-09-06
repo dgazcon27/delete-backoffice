@@ -9,8 +9,12 @@ import {
 	SET_BANK,
 	PAGE_UP,
 	PAGE_DOWN,
+	SET_BANK_ACCOUNT,
 } from './actionsTypes';
-import { GET_BANKS } from '../../queries/bank';
+import {
+	GET_BANKS,
+	GET_BANK_ACCOUNTS,
+} from '../../queries/bank';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -21,7 +25,7 @@ const checkMessageError = (res) => {
 };
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
@@ -41,6 +45,19 @@ export const setBank = (id, name, currency) => ({
 		id,
 		name,
 		currency,
+	},
+});
+export const setBankAccount = (id, owner, bank, currency, accountNumber, type, comment) => ({
+	type: SET_BANK_ACCOUNT,
+	payload: {
+		description: SET_BANK_ACCOUNT,
+		id,
+		owner,
+		bank,
+		currency,
+		accountNumber,
+		type,
+		comment,
 	},
 });
 
@@ -67,7 +84,7 @@ export const openAlert = alertType => ({
 export const closeAlert = () => ({
 	type: CLOSE_ALERT,
 	payload: {
-		description: OPEN_ALERT,
+		description: CLOSE_ALERT,
 	},
 });
 export const deleteBank = (id, paginationPage, deleteBankMutation) => (
@@ -121,6 +138,32 @@ export const createBank = (name, currency, paginationPage, createBankMutation) =
 				});
 		}
 	};
+export const createBankAccount = (
+	bank,
+	owner,
+	accountNumber,
+	type,
+	comment,
+	currency,
+	paginationPage,
+	createBankAccountMutation,
+) =>
+	async (dispatch) => {
+		createBankAccountMutation({
+			variables: {
+				bank, owner, accountNumber, type, comment, currency,
+			},
+			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(openAlert('creado'));
+				setTimeout(() => (window.location.assign('bank-account')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	};
 
 export const editBank = (id, name, currency, paginationPage, editBankMutation) =>
 	async (dispatch) => {
@@ -129,6 +172,7 @@ export const editBank = (id, name, currency, paginationPage, editBankMutation) =
 				variables: { id, name, currency },
 				refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
 			})
+
 				.then(() => {
 					dispatch(openAlert('edit'));
 					setTimeout(() => (window.location.assign('bank')), 2000);
@@ -138,4 +182,32 @@ export const editBank = (id, name, currency, paginationPage, editBankMutation) =
 					dispatch(openAlert(message));
 				});
 		}
+	};
+export const editBankAccount = (
+	id,
+	bank,
+	owner,
+	accountNumber,
+	type,
+	currency,
+	comment,
+	paginationPage,
+	editBankAccountMutation,
+) =>
+	async (dispatch) => {
+		await editBankAccountMutation({
+			variables: {
+				id, bank, owner, accountNumber, type, currency, comment,
+			},
+			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
+		})
+
+			.then(() => {
+				dispatch(openAlert('edit'));
+				setTimeout(() => (window.location.assign('/bank-account')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
 	};

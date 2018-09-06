@@ -21,22 +21,26 @@ import {
 	compose,
 	Query,
 } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import VpnKey from '@material-ui/icons/VpnKey';
 import styles from '../UserType/userTypeCss';
 import {
 	GET_USERS,
 	BLOCK_USER,
 	DELETE_USER,
 } from '../../queries/users';
-import { changePage } from '../../actions/userType/actionsCreators';
+import { SEARCH_USERS } from '../../queries/search';
+import { changePage, changePageSearch } from '../../actions/userType/actionsCreators';
 import {
-	// editUser,
+	setUser,
 	blockUser,
 	deleteUser,
 	openModal,
 	closeModal,
 } from '../../actions/users/actionsCreators';
+import ModalPassword from './modalPassword';
 
 import Loading from '../Loading/loading';
 
@@ -49,183 +53,248 @@ const Users = ({
 	statusValue,
 	currentPage,
 	paginationPage,
+	currentPageSearch,
+	query,
 	actionChangePage,
 	actionOpenModal,
+	actionSetUser,
 	actionBlockUser,
 	actionDeleteUser,
 	actionCloseModal,
+	actionChangePageSearch,
 	blockUserMutation,
 	deleteUserMutation,
-}) => (
-	<Query query={GET_USERS} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
+}) => {
+	const params = query.length > 0 ?
+		{ query: SEARCH_USERS, variables: { query, currentPageSearch } } :
+		{ query: GET_USERS, variables: { paginationPage } };
 
-			if (error) {
-				return (
-					<div> Error :( </div>
-				);
-			}
-
-			return (
-				<div>
-					<div>
-						<h3>
-							Usuarios
-						</h3>
-						<h5>
-							Agregar Nuevo
-						</h5>
-
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
-									</TableRow>
-								</TableHead>
-
-								<TableBody>
-									{
-										data.users.data.map(user => (
-											<TableRow key={user.id}>
-												<TableCell >{`${user.name} ${user.lastName}`}</TableCell>
-												<TableCell className={classes.alignRight} >
-													<IconButton onClick={actionCloseModal}>
-														<Edit />
-													</IconButton>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Eliminar Usuario'
-													>
-														<IconButton onClick={() => { actionOpenModal('delete', user); }}>
-															<Delete />
-														</IconButton>
-													</Tooltip>
-
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Bloquear / Desbloquear'
-													>
-														<Switch
-															onClick={() => { actionOpenModal('block', user); }}
-															checked={user.status.id === 2}
-															value='checked'
-														/>
-													</Tooltip>
-												</TableCell>
-											</TableRow>
-										))
-									}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.users.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={3}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={(classes.modalOpenStyle)}
-						hideBackdrop
-						disableAutoFocus={false}
-					>
+	return (
+		<Query {...params}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
 						<div>
-							{modalType === 'edit' &&
-								<Paper>
-									<h1>
-										contenido edit modal
-									</h1>
-									<button onClick={actionCloseModal}>
-										cerrar
-									</button>
-								</Paper>
-							}
-							{modalType === 'block' &&
-								<Paper className={classes.paperOnModal}>
-									{statusValue === 1 && <h6> Bloquear usuario </h6>}
-									{statusValue === 2 && <h6> Desbloquear usuario </h6>}
-									{
-										statusValue === 1 &&
-										<p>
-										¿Estas seguro que desea bloquear el Usuario {name}?
-										</p>
-									}
-									{
-										statusValue === 2 &&
-										<p>
-											¿Estas seguro que desea desbloquear el Usuario {name}?
-										</p>
-									}
-
-									<span>
-										<IconButton
-											onClick={() => { actionBlockUser(id, statusValue, blockUserMutation); }}
-										>
-										Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal} >
-										No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-							{modalType === 'delete' &&
-								<Paper className={(classes.paperOnModal)}>
-									<h6>
-										Eliminar Usuario
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el Usuario {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeleteUser(id, statusValue, paginationPage, deleteUserMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
-							}
+							<Loading />
 						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+					);
+				}
+
+				if (error) {
+					return (
+						<div> Error :( </div>
+					);
+				}
+
+				const response = query.length > 0 ? data.search.users.data : data.users.data;
+				const total = query.length > 0 ? data.search.users.total : data.users.total;
+
+				return (
+					<div>
+						<div>
+							<Paper>
+								<Table>
+									<TableHead>
+										<TableRow>
+											<TableCell>Nombre</TableCell>
+											<TableCell>Tipo de Usuario</TableCell>
+											<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+										</TableRow>
+									</TableHead>
+
+									<TableBody>
+										{
+											response.map(user => (
+												<TableRow key={user.id}>
+													<TableCell >{`${user.name} ${user.lastName}`}</TableCell>
+													<TableCell >{`${user.role.name}`}</TableCell>
+													<TableCell className={classes.alignRight} >
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Editar Usuario'
+														>
+															<Link to='/users-edit' href='/users-edit'>
+																<IconButton onClick={() => {
+																	actionSetUser(
+																		user.id,
+																		user.name,
+																		user.lastName,
+																		user.phone,
+																		user.dni,
+																		user.birthDate,
+																		user.citizenship.id,
+																		user.role.id,
+																	);
+																}}
+																>
+																	<Edit />
+																</IconButton>
+															</Link>
+														</Tooltip>
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Eliminar Usuario'
+														>
+															<IconButton onClick={() => { actionOpenModal('delete', user); }}>
+																<Delete />
+															</IconButton>
+														</Tooltip>
+
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Bloquear / Desbloquear'
+														>
+															<Switch
+																onClick={() => { actionOpenModal('block', user); }}
+																checked={user.status.id === 2}
+																value='checked'
+															/>
+														</Tooltip>
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Cambiar Contraseña'
+														>
+															<IconButton onClick={() => { actionOpenModal('password', user); }}>
+																<VpnKey />
+															</IconButton>
+														</Tooltip>
+													</TableCell>
+												</TableRow>
+											))
+										}
+									</TableBody>
+									<TableFooter>
+										<TableRow>
+											{ query.length > 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={currentPageSearch}
+													rowsPerPageOptions={[10]}
+													colSpan={3}
+													onChangePage={(event, nextPage) => {
+														actionChangePageSearch(currentPageSearch, nextPage);
+													}}
+												/>
+											}
+
+											{ query.length === 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={paginationPage}
+													rowsPerPageOptions={[10]}
+													colSpan={3}
+													onChangePage={(event, nextPage) => {
+														actionChangePage(currentPage, nextPage);
+													}}
+												/>
+											}
+										</TableRow>
+									</TableFooter>
+								</Table>
+							</Paper>
+						</div>
+						<Modal
+							open={isOpen}
+							className={(classes.modalOpenStyle)}
+							hideBackdrop
+							disableAutoFocus={false}
+						>
+							<div>
+								{modalType === 'edit' &&
+									<Paper>
+										<h1>
+											contenido edit modal
+										</h1>
+										<button onClick={actionCloseModal}>
+											cerrar
+										</button>
+									</Paper>
+								}
+								{modalType === 'block' &&
+									<Paper className={classes.paperOnModal}>
+										{statusValue === 1 && <h6> Bloquear usuario </h6>}
+										{statusValue === 2 && <h6> Desbloquear usuario </h6>}
+										{
+											statusValue === 1 &&
+											<p>
+											¿Estas seguro que desea bloquear el Usuario {name}?
+											</p>
+										}
+										{
+											statusValue === 2 &&
+											<p>
+												¿Estas seguro que desea desbloquear el Usuario {name}?
+											</p>
+										}
+
+										<span>
+											<IconButton
+												onClick={() => { actionBlockUser(id, statusValue, blockUserMutation); }}
+											>
+											Si
+											</IconButton>
+											&nbsp;
+											&nbsp;
+											<IconButton onClick={actionCloseModal} >
+											No
+											</IconButton>
+										</span>
+									</Paper>
+								}
+								{modalType === 'delete' &&
+									<Paper className={(classes.paperOnModal)}>
+										<h6>
+											Eliminar Usuario
+										</h6>
+										<p>
+											¿Estas seguro que desea eliminar el Usuario {name} ?
+										</p>
+										<span>
+											<IconButton onClick={() => {
+												actionDeleteUser(id, statusValue, paginationPage, deleteUserMutation);
+											}}
+											>
+												Si
+											</IconButton>
+											&nbsp;
+											&nbsp;
+											<IconButton onClick={actionCloseModal}>
+												No
+											</IconButton>
+										</span>
+									</Paper>
+								}
+								{modalType === 'password' &&
+									<Paper className={(classes.paperOnModal)}>
+										<ModalPassword />
+									</Paper>
+								}
+							</div>
+						</Modal>
+					</div>
+				);
+			}}
+		</Query>
+	);
+};
+
+Users.defaultProps = {
+	query: '',
+};
 
 Users.propTypes = {
 	currentPage: PropTypes.number.isRequired,
@@ -238,32 +307,59 @@ Users.propTypes = {
 	classes: PropTypes.object.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	currentPageSearch: PropTypes.number.isRequired,
+	query: PropTypes.string,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionBlockUser: PropTypes.func.isRequired,
 	blockUserMutation: PropTypes.func.isRequired,
 	deleteUserMutation: PropTypes.func.isRequired,
+	actionSetUser: PropTypes.func.isRequired,
 	actionDeleteUser: PropTypes.func.isRequired,
+	actionChangePageSearch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-	currentPage: state.ReducerUser.currentPage,
-	id: state.ReducerUser.id,
-	name: state.ReducerUser.name,
-	isOpen: state.ReducerUser.isOpen,
-	modalType: state.ReducerUser.modalType,
-	statusValue: state.ReducerUser.statusValue,
-	paginationPage: state.ReducerUser.paginationPage,
+const mapStateToProps = (state, ownProps) => ({
+	currentPage: state.ReducerUserType.currentPage,
+	id: state.ReducerUserType.id,
+	name: state.ReducerUserType.name,
+	isOpen: state.ReducerUserType.isOpen,
+	modalType: state.ReducerUserType.modalType,
+	statusValue: state.ReducerUserType.statusValue,
+	paginationPage: state.ReducerUserType.paginationPage,
+	currentPageSearch: state.ReducerUserType.currentPageSearch,
+	query: ownProps.query,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
+	actionChangePageSearch: (currentPage, paginationPage) =>
+		dispatch(changePageSearch(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _user) => dispatch(openModal(modalType, _user)),
 	actionBlockUser: (id, statusValue, blockUserMutation) =>
 		dispatch(blockUser(id, statusValue, blockUserMutation)),
 	actionDeleteUser: (id, statusValue, paginationPage, deleteUserMutation) =>
 		dispatch(deleteUser(id, statusValue, paginationPage, deleteUserMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionSetUser: (
+		id,
+		name,
+		lastName,
+		phone,
+		dni,
+		birthDate,
+		citizenship,
+		role,
+	) => dispatch(setUser(
+		id,
+		name,
+		lastName,
+		phone,
+		dni,
+		birthDate,
+		citizenship,
+		role,
+	)),
 });
 
 export default compose(

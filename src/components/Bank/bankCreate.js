@@ -52,7 +52,7 @@ let BankCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='name'
+						label='Nombre'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -61,7 +61,7 @@ let BankCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='currency'
+						label='Moneda'
 						className='yourclass'
 					/>
 				</div>
@@ -87,12 +87,12 @@ let BankCreate = ({
 		{alertType === 'validation' &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				Bank={alertOpen}
+				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{
 					'aria-describedby': 'message-id',
 				}}
-				message={<span id='message-id'>La banca que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+				message={<span id='message-id'>El Banco que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 			/>
 		}
 		{alertType === 'creado' &&

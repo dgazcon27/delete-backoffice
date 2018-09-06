@@ -12,7 +12,6 @@ import styles from './userTypeCss';
 
 const ComponentUserType = ({
 	query,
-	searching,
 	actionSetSearch,
 	classes,
 }) => (
@@ -39,25 +38,24 @@ const ComponentUserType = ({
 				value={query}
 			/>
 		</div>
-		<UserType isSearching={searching} query={query} />
+		<UserType query={query} />
 	</div>
 );
 
 ComponentUserType.propTypes = {
 	query: PropTypes.string.isRequired,
-	searching: PropTypes.bool.isRequired,
 	actionSetSearch: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
 	query: state.ReducerSearchRoles.query,
-	searching: state.ReducerSearchRoles.isSearching,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionSetSearch: e => dispatch(setSearch(e.target.value)),
 });
+
 
 export default compose(
 	withStyles(styles, { withTheme: true }),

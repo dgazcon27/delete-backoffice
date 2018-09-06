@@ -1,4 +1,4 @@
-##  delete-back-office Instalation
+###  delete-back-office Instalation
 
 ```
 - npm install 
@@ -27,5 +27,5 @@ delete-back-office/
 	package.json
 	README.md
 ```
-push para template fixes
+push para template fixes 
 

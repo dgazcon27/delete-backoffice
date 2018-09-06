@@ -8,6 +8,8 @@ import {
 	Query,
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
@@ -15,7 +17,6 @@ import {
 	Modal,
 	Paper,
 	Table,
-	// Switch,
 	Tooltip,
 	TableRow,
 	TableBody,
@@ -74,12 +75,15 @@ const Bank = ({
 			return (
 				<div>
 					<div>
-						<h3>
+						<h5 className={classes.title}>
 							Banca
-						</h3>
-						<h5>
+						</h5>
+						<h5 className={classes.searchAlignRigth}>
 							<Link to='/bank-create' href='/bank-create' >
-								Agregar Nueva
+								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
+									<Add className={classes.marginIcon} />
+									Agregar Nuevo
+								</Button>
 							</Link>
 						</h5>
 						<Paper>

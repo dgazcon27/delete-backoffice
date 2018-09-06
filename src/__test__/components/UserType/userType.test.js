@@ -114,6 +114,7 @@ describe('Test <UserType />', () => {
 		modalType: '',
 		statusValue: 0,
 		paginationPage: 1,
+		currentPageSearch: 0,
 		currentPage: 0,
 		actionSetRol: jest.fn(),
 		actionOpenModal: jest.fn(),
@@ -123,6 +124,7 @@ describe('Test <UserType />', () => {
 		actionBlockUserType: jest.fn(),
 		actionDeleteUserType: jest.fn(),
 		actionChangePage: jest.fn(),
+		actionChangePageSearch: jest.fn(),
 	};
 
 	it('should render without error', () => {

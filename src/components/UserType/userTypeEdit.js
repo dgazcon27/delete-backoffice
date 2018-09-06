@@ -46,23 +46,25 @@ let UserTypeEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
-						label='Name'
+						label='Nombre'
 						type='text'
 						placeholder='Nombre'
 						component={renderTextField}
 						validate={[required, empty]}
 					/>
+				</div>
+				<div className={classes.formStyle}>
 					<Field
 						name='rolDescription'
-						label='rolDescription'
+						label='Descripción'
 						type='text'
-						placeholder='Descripcion'
+						placeholder='Descripción'
 						component={renderTextField}
 						validate={[required, empty]}
 					/>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))} disabled={submitting} >
-				Confirmar
+				Guardar
 				</button>
 				<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
 				Regresar
