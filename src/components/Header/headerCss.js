@@ -68,7 +68,7 @@ const styles = theme => ({
 		flex: 1,
 	},
 	logo: {
-		'margin-top': '0.3%',
+		'margin-top': '0.5%',
 	},
 });
 

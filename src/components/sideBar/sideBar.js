@@ -7,14 +7,18 @@ import { withStyles } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Drawer, List, Divider,	IconButton } from '@material-ui/core';
-import	styles from '../Header/headerCss';
+
 import Items from './Items';
 import { closeSideBar } from '../../actions/Header/actionsCreators';
+import logo from './images/logo.svg';
+import styles from './sidebarCss';
 
 const SideBar = ({ openDrawer, actionCloseSideBar, classes }) => (
 	<div>
 		<Drawer variant='permanent' classes={{ paper: classNames(classes.drawerPaper, !openDrawer && classes.drawerPaperClose) }} open={openDrawer} >
+
 			<div className={classes.toolbar}>
+				<img src={logo} className={classes.logo} alt='Logo Delete' width='150px' />
 				<IconButton onClick={actionCloseSideBar}>
 					{classes.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
 				</IconButton>
