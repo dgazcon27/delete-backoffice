@@ -172,6 +172,15 @@ const Items = (
 			</ListItemIcon>
 			<ListItemText primary='Spam' />
 		</ListItem> */}
+
+		<Link to='/search' href='/search'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='TEST' />
+			</ListItem>
+		</Link>
 	</div>
 );
 

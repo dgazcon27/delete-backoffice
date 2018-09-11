@@ -16,12 +16,14 @@ import ReducerPurchaseRequest from './PurchaseRequest/reducerPurchaseRequest';
 import ReducerEvent from './Event/reducerEvent';
 import ReducerPayment from './Payment/reducerPayment';
 import ReducerAccess from './Access/reducerAccess';
+import ReducerSearch from './Search/reducerSearch';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
 	ReducerUserType,
 	ReducerLogin,
 	ReducerUser,
+	ReducerSearch,
 	ReducerSearchRoles,
 	ReducerBank,
 	ReducerBankAccount,
