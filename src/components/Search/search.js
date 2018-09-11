@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import styles from './styleCss';
 
-import { setSearch } from '../../actions/Search/actionsCreators';
+import setSearch from '../../actions/Search/actionsCreators';
 
 const Search = ({
 	showButton,

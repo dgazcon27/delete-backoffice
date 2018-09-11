@@ -1,4 +1,4 @@
-const styles = () => ({ 
+const styles = () => ({
 	search: {
 		display: 'inline-flex',
 		'align-items': 'baseline',

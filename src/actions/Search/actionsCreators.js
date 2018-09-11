@@ -1,9 +1,11 @@
-import { SET_SEARCH } from './actionsTypes';
+import SET_SEARCH from './actionsTypes';
 
-export const setSearch = search => ({
+const setSearch = search => ({
 	type: SET_SEARCH,
 	payload: {
 		description: SET_SEARCH,
 		search,
 	},
 });
+
+export default setSearch;

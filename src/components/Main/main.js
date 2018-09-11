@@ -31,7 +31,7 @@ import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import AccessEdit from '../Access/accessEdit';
-import TestSearch from '../refactor/testSearch';
+import TestSearch from '../Search/testSearch';
 
 import {
 	Dashboard,
