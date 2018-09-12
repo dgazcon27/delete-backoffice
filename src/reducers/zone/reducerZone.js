@@ -6,8 +6,8 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_ZONE,
+	PAGE_DOWN_ZONE,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 	EDIT_ZONE,
@@ -26,32 +26,32 @@ const initialState = {
 	alertType: '',
 	modalType: '',
 	statusValue: 0,
-	paginationPage: 0,
+	paginationPageZone: 0,
 	currentPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+if (JSON.parse(localStorage.getItem('paginations')).zone) {
+	initialState.paginationPageZone = JSON.parse(localStorage.getItem('paginations')).zone;
+	initialState.currentPageZone = JSON.parse(localStorage.getItem('paginations')).zone;
 } else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
+	initialState.paginationPageZone = 0;
+	initialState.currentPageZone = 0;
 }
 
 const ReducerZone = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_ZONE:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPageZone: action.payload.paginationPageZone,
+				currentPageZone: action.payload.currentPageZone,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_ZONE:
 			return ({
 				...state,
 				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				currentPageZone: action.payload.currentPageZone,
 			});
 		case SEARCH_PAGE_UP:
 			return ({

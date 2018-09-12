@@ -162,7 +162,7 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerZone.alertType,
 	alertOpen: state.ReducerZone.alertOpen,
-	paginationPage: state.ReducerZone.paginationPage,
+	paginationPage: state.ReducerZone.paginationPageZone,
 	myValues: selector(state, 'name', 'maxcapacity', 'capacity'),
 });
 

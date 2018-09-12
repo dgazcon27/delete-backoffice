@@ -313,8 +313,8 @@ const mapStateToProps = (state, ownProps) => ({
 	isOpen: state.ReducerZone.isOpen,
 	modalType: state.ReducerZone.modalType,
 	statusValue: state.ReducerZone.statusValue,
-	currentPage: state.ReducerZone.currentPage,
-	paginationPage: state.ReducerZone.paginationPage,
+	currentPage: state.ReducerZone.currentPageZone,
+	paginationPage: state.ReducerZone.paginationPageZone,
 	currentPageSearch: state.ReducerUserType.currentPageSearch,
 	query: ownProps.query,
 });

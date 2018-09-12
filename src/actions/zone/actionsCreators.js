@@ -7,8 +7,8 @@ import {
 	SET_DESCRIPTION,
 	CLEAN_STATE,
 	SET_ZONE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_ZONE,
+	PAGE_DOWN_ZONE,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
@@ -21,18 +21,18 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPageZone) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).zone;
+	paginations.zone = currentPage < paginationPageZone ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPageZone ? PAGE_UP_ZONE : PAGE_DOWN_ZONE,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPageZone ? PAGE_UP_ZONE : PAGE_DOWN_ZONE,
+			paginationPageZone,
+			currentPage: currentPage < paginationPageZone ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };
