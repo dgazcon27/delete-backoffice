@@ -3,8 +3,8 @@ import {
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_EV,
+	PAGE_DOWN_EV,
 	SET_EVENT,
 	CLEAN_STATE,
 	SET_COUNTRIES_STATES,
@@ -102,18 +102,18 @@ export const setEvent = (event, dispatch) => {
 	});
 };
 
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPageEv) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).events;
+	paginations.events = currentPage < paginationPageEv ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPageEv ? PAGE_UP_EV : PAGE_DOWN_EV,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPageEv ? PAGE_UP_EV : PAGE_DOWN_EV,
+			paginationPageEv,
+			currentPageEv: currentPage < paginationPageEv ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

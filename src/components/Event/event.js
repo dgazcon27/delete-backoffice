@@ -236,8 +236,8 @@ const mapStateToProps = state => ({
 	id: state.ReducerEvent.id,
 	name: state.ReducerEvent.name,
 	modalType: state.ReducerEvent.modalType,
-	paginationPage: state.ReducerEvent.paginationPage,
-	currentPage: state.ReducerEvent.currentPage,
+	paginationPage: state.ReducerEvent.paginationPageEv,
+	currentPage: state.ReducerEvent.currentPageEv,
 	isOpen: state.ReducerEvent.isOpen,
 });
 

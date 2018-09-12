@@ -24,7 +24,7 @@ const checkMessageError = (res) => {
 };
 
 export const changePage = (currentPage, paginationPageLoc) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).location;
 	paginations.location = currentPage < paginationPageLoc ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
