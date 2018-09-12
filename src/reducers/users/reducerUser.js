@@ -3,8 +3,8 @@ import {
 	BLOCK_USER,
 	DELETE_USER,
 	SET_USER,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_USER,
+	PAGE_DOWN_USER,
 } from '../../actions/users/actionsTypes';
 
 const initialState = {
@@ -35,13 +35,13 @@ if (JSON.parse(localStorage.getItem('paginationsUsers'))) {
 }
 const ReducerUser = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_USER:
 			return ({
 				...state,
 				paginationPageUsers: action.payload.paginationPageUsers,
 				currentPageUsers: action.payload.currentPageUsers,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_USER:
 			return ({
 				...state,
 				paginationPageUsers: action.payload.paginationPageUsers,

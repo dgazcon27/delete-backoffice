@@ -5,8 +5,8 @@ import {
 	CLOSE_ALERT,
 	CLOSE_MODAL,
 	SET_USER,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_USER,
+	PAGE_DOWN_USER,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
@@ -27,9 +27,9 @@ export const changePage = (currentPage, paginationPageUsers) => {
 	localStorage.setItem('paginationsUsers', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPageUsers ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPageUsers ? PAGE_UP_USER : PAGE_DOWN_USER,
 		payload: {
-			description: currentPage < paginationPageUsers ? PAGE_UP : PAGE_DOWN,
+			description: currentPage < paginationPageUsers ? PAGE_UP_USER : PAGE_DOWN_USER,
 			paginationPageUsers,
 			currentPageUsers: currentPage < paginationPageUsers ? currentPage + 1 : currentPage - 1,
 		},
