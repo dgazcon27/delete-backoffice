@@ -8,9 +8,6 @@ import {
 	CLEAN_STATE,
 	PAGE_UP_BANK,
 	PAGE_DOWN_BANK,
-} from '../../actions/Bank/actionsTypes';
-
-import {
 	SET_BANK,
 	SET_BANK_ACCOUNT,
 } from '../../actions/Bank/actionsTypes';

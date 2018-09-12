@@ -38,6 +38,21 @@ export const changePage = (currentPage, paginationPageBank) => {
 		},
 	});
 };
+export const changePageAccount = (currentPage, paginationPageAc) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).bankAccount;
+	paginations.bankAccount = currentPage < paginationPageAc ? currentPage + 1 : currentPage - 1;
+
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+
+	return ({
+		type: currentPage < paginationPageAc ? PAGE_UP_BANK : PAGE_DOWN_BANK,
+		payload: {
+			description: currentPage < paginationPageAc ? PAGE_UP_BANK : PAGE_DOWN_BANK,
+			paginationPageAc,
+			currentPageAc: currentPage < paginationPageAc ? currentPage + 1 : currentPage - 1,
+		},
+	});
+};
 export const setBank = (id, name, currency) => ({
 	type: SET_BANK,
 	payload: {

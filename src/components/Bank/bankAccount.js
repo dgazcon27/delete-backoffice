@@ -28,7 +28,7 @@ import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import styles from './userTypeCss';
 import {
-	changePage,
+	changePageAccount,
 	deleteBank,
 	openModal,
 	closeModal,
@@ -240,15 +240,15 @@ const mapStateToProps = state => ({
 	accountNumber: state.ReducerBankAccount.accountNumber,
 	isOpen: state.ReducerBankAccount.isOpen,
 	modalType: state.ReducerBankAccount.modalType,
-	currentPage: state.ReducerBankAccount.currentPage,
-	paginationPage: state.ReducerBankAccount.paginationPage,
+	currentPage: state.ReducerBankAccount.currentPageAc,
+	paginationPage: state.ReducerBankAccount.paginationPageAc,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionDeleteBankAccount: (id, paginationPage, deleteBankAccountMutation) =>
 		dispatch(deleteBank(id, paginationPage, deleteBankAccountMutation)),
 	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
+		dispatch(changePageAccount(currentPage, paginationPage)),
 	actionOpenModal: (modalType, bank) => dispatch(openModal(modalType, bank)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionSetBankAccount: (
