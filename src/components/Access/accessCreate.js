@@ -260,7 +260,7 @@ const selector = formValueSelector('AccessCreate');
 const mapStateToProps = state => ({
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
-	paginationPage: state.ReducerAccess.paginationPage,
+	paginationPage: state.ReducerAccess.paginationPageAcc,
 	myValues: selector(state, 'name', 'description', 'price', 'currency', 'location', 'zone', 'status'),
 });
 

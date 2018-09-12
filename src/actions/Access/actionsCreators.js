@@ -5,8 +5,8 @@ import {
 	CLOSE_MODAL,
 	CLEAN_STATE,
 	SET_ACCESS,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_ACC,
+	PAGE_DOWN_ACC,
 } from './actionsTypes';
 import { GET_ACCESS } from '../../queries/access';
 
@@ -17,18 +17,18 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPageAcc) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).access;
+	paginations.access = currentPage < paginationPageAcc ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPageAcc ? PAGE_UP_ACC : PAGE_DOWN_ACC,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPageAcc ? PAGE_UP_ACC : PAGE_DOWN_ACC,
+			paginationPageAcc,
+			currentPageAcc: currentPage < paginationPageAcc ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

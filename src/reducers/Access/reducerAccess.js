@@ -4,8 +4,8 @@ import {
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_ACC,
+	PAGE_DOWN_ACC,
 	EDIT_ACCESS,
 	DELETE_ACCESS,
 } from '../../actions/Access/actionsTypes';
@@ -28,27 +28,27 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+if (JSON.parse(localStorage.getItem('paginations')).access) {
+	initialState.paginationPageAcc = JSON.parse(localStorage.getItem('paginations')).access;
+	initialState.currentPageAcc = JSON.parse(localStorage.getItem('paginations')).access;
 } else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
+	initialState.paginationPageAcc = 0;
+	initialState.currentPageAcc = 0;
 }
 
 const ReducerAccess = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_ACC:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPageAcc: action.payload.paginationPageAcc,
+				currentPageAcc: action.payload.currentPageAcc,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_ACC:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPageAcc: action.payload.paginationPageAcc,
+				currentPageAcc: action.payload.currentPageAcc,
 			});
 		case EDIT_ACCESS:
 			return ({

@@ -245,8 +245,8 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerAccess.isOpen,
 	modalType: state.ReducerAccess.modalType,
 	statusValue: state.ReducerAccess.statusValue,
-	currentPage: state.ReducerAccess.currentPage,
-	paginationPage: state.ReducerAccess.paginationPage,
+	currentPage: state.ReducerAccess.currentPageAcc,
+	paginationPage: state.ReducerAccess.paginationPageAcc,
 });
 
 const mapDispatchToProps = dispatch => ({
