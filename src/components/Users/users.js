@@ -32,13 +32,14 @@ import {
 	DELETE_USER,
 } from '../../queries/users';
 import { SEARCH_USERS } from '../../queries/search';
-import { changePage, changePageSearch } from '../../actions/userType/actionsCreators';
 import {
 	setUser,
 	blockUser,
 	deleteUser,
 	openModal,
 	closeModal,
+	changePage,
+	changePageSearch,
 } from '../../actions/users/actionsCreators';
 import ModalPassword from './modalPassword';
 
@@ -319,13 +320,13 @@ Users.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	currentPage: state.ReducerUserType.currentPage,
 	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
 	isOpen: state.ReducerUserType.isOpen,
 	modalType: state.ReducerUserType.modalType,
 	statusValue: state.ReducerUserType.statusValue,
-	paginationPage: state.ReducerUserType.paginationPage,
+	paginationPage: state.ReducerUser.paginationPageUsers,
+	currentPage: state.ReducerUser.currentPageUsers,
 	currentPageSearch: state.ReducerUserType.currentPageSearch,
 	query: ownProps.query,
 });

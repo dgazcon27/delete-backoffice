@@ -282,7 +282,7 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
-	paginationPage: state.ReducerUserType.paginationPage,
+	paginationPage: state.ReducerUser.paginationPageUsers,
 	myValues: selector(state, 'name', 'email', 'password', 'lastName', 'phone', 'dni', 'birthDate', 'role', 'citizenship'),
 });
 
