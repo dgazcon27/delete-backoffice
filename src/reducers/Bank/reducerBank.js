@@ -6,13 +6,9 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
-	EDIT_USER_TYPE,
-	SET_DESCRIPTION,
-	BLOCK_USER_TYPE,
-	DELETE_USER_TYPE,
-} from '../../actions/userType/actionsTypes';
+	PAGE_UP_BANK,
+	PAGE_DOWN_BANK,
+} from '../../actions/Bank/actionsTypes';
 
 import {
 	SET_BANK,
@@ -32,31 +28,26 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).bank || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).bank || 0;
+if (JSON.parse(localStorage.getItem('paginations')).bank) {
+	initialState.paginationPageBank = JSON.parse(localStorage.getItem('paginations')).bank || 0;
+	initialState.currentPageBank = JSON.parse(localStorage.getItem('paginations')).bank || 0;
 } else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
+	initialState.paginationPageBank = 0;
+	initialState.currentPageBank = 0;
 }
-
 const ReducerBank = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_BANK:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPageBank: action.payload.paginationPageBank,
+				currentPageBank: action.payload.currentPageBank,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_BANK:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case EDIT_USER_TYPE:
-			return ({
-				...state,
+				paginationPageBank: action.payload.paginationPageBank,
+				currentPageBank: action.payload.currentPageBank,
 			});
 		case SET_ROL:
 			return ({
@@ -82,17 +73,6 @@ const ReducerBank = (state = initialState, action = {}) => {
 				currency: action.payload.currency,
 				type: action.payload.type,
 				comment: action.payload.comment,
-			});
-		case BLOCK_USER_TYPE:
-			return ({
-				...state,
-				id: action.payload.id,
-				statusValue: action.payload.status,
-			});
-		case DELETE_USER_TYPE:
-			return ({
-				...state,
-				isOpen: true,
 			});
 		case OPEN_MODAL:
 			return ({
@@ -126,11 +106,6 @@ const ReducerBank = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				name: action.payload.name,
-			});
-		case SET_DESCRIPTION:
-			return ({
-				...state,
-				rolDescription: action.payload.rolDescription,
 			});
 		case CLEAN_STATE:
 			return ({

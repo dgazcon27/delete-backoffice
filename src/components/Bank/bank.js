@@ -229,8 +229,8 @@ const mapStateToProps = state => ({
 	name: state.ReducerBank.name,
 	isOpen: state.ReducerBank.isOpen,
 	modalType: state.ReducerBank.modalType,
-	currentPage: state.ReducerBank.currentPage,
-	paginationPage: state.ReducerBank.paginationPage,
+	currentPage: state.ReducerBank.currentPageBank,
+	paginationPage: state.ReducerBank.paginationPageBank,
 });
 
 const mapDispatchToProps = dispatch => ({

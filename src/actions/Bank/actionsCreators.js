@@ -7,8 +7,8 @@ import {
 	SET_DESCRIPTION,
 	CLEAN_STATE,
 	SET_BANK,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_BANK,
+	PAGE_DOWN_BANK,
 	SET_BANK_ACCOUNT,
 } from './actionsTypes';
 import {
@@ -23,18 +23,18 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPageBank) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).bank;
+	paginations.bank = currentPage < paginationPageBank ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPageBank ? PAGE_UP_BANK : PAGE_DOWN_BANK,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPageBank ? PAGE_UP_BANK : PAGE_DOWN_BANK,
+			paginationPageBank,
+			currentPageBank: currentPage < paginationPageBank ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

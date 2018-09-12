@@ -131,7 +131,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerUserType.alertOpen,
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerUserType.paginationPage,
+	paginationPage: state.ReducerBank.paginationPageBank,
 	myValues: selector(state, 'name', 'currency'),
 });
 
