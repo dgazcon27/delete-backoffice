@@ -215,7 +215,7 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
-	paginationPage: state.ReducerLocation.paginationPage,
+	paginationPage: state.ReducerLocation.paginationPageLoc,
 	myValues: selector(state, 'name', 'description', 'fullcapacity', 'capacity', 'status'),
 });
 
