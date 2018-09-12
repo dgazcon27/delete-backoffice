@@ -6,8 +6,8 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_UTYPE,
+	PAGE_DOWN_UTYPE,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 	EDIT_USER_TYPE,
@@ -25,31 +25,31 @@ const initialState = {
 	modalType: '',
 	rolDescription: '',
 	statusValue: 0,
-	paginationPage: 0,
-	currentPage: 0,
+	paginationPageUtype: 0,
+	currentPageUtype: 0,
 	paginationPageSearch: 0,
 	currentPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+if (JSON.parse(localStorage.getItem('paginations')).userType) {
+	initialState.paginationPageUtype = JSON.parse(localStorage.getItem('paginations')).userType;
+	initialState.currentPageUtype = JSON.parse(localStorage.getItem('paginations')).userType;
 }
 
 const ReducerUserType = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_UTYPE:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPageUtype: action.payload.paginationPageUtype,
+				currentPageUtype: action.payload.currentPageUtype,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_UTYPE:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPageUtype: action.payload.paginationPageUtype,
+				currentPageUtype: action.payload.currentPageUtype,
 			});
 		case SEARCH_PAGE_UP:
 			return ({

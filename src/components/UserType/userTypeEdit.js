@@ -122,7 +122,7 @@ const mapStateToProps = state => ({
 	id: state.ReducerUserType.id,
 	name: state.ReducerUserType.name,
 	rolDescription: state.ReducerUserType.rolDescription,
-	paginationPage: state.ReducerUserType.paginationPage,
+	paginationPage: state.ReducerUserType.paginationPageUtype,
 	myValues: selector(state, 'name', 'rolDescription'),
 });
 
