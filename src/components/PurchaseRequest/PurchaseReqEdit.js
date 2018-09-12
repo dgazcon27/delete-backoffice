@@ -149,7 +149,7 @@ const mapStateToProps = state => ({
 	id: state.ReducerPurchaseRequest.id,
 	name: state.ReducerPurchaseRequest.name,
 	currency: state.ReducerPurchaseRequest.currency,
-	paginationPage: state.ReducerPurchaseRequest.paginationPage,
+	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
 	userId: state.ReducerLogin.userId,
 	myValues: selector(state, 'user', 'access', 'event', 'status', 'comment'),
 });

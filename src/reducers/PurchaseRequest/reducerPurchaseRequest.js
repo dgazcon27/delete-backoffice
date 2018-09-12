@@ -6,8 +6,8 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_PREQ,
+	PAGE_DOWN_PREQ,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -37,27 +37,27 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
+if (JSON.parse(localStorage.getItem('paginations')).purchaseReq) {
+	initialState.paginationPagePreq = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
+	initialState.currentPagePreq = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
 } else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
+	initialState.paginationPagePreq = 0;
+	initialState.currentPagePreq = 0;
 }
 
 const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_PREQ:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPagePreq: action.payload.paginationPagePreq,
+				currentPagePreq: action.payload.currentPagePreq,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_PREQ:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPagePreq: action.payload.paginationPagePreq,
+				currentPagePreq: action.payload.currentPagePreq,
 			});
 		case EDIT_USER_TYPE:
 			return ({

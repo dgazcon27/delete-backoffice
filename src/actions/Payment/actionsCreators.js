@@ -5,8 +5,8 @@ import {
 	CLOSE_MODAL,
 	CLEAN_STATE,
 	SET_PAYMENT,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_PAY,
+	PAGE_DOWN_PAY,
 } from './actionsTypes';
 import { GET_PAYMENTS } from '../../queries/payment';
 
@@ -17,18 +17,18 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPagePay) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).payment;
+	paginations.payment = currentPage < paginationPagePay ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPagePay ? PAGE_UP_PAY : PAGE_DOWN_PAY,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPagePay ? PAGE_UP_PAY : PAGE_DOWN_PAY,
+			paginationPagePay,
+			currentPagePay: currentPage < paginationPagePay ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

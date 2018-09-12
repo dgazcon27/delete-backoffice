@@ -228,8 +228,8 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerPayment.isOpen,
 	modalType: state.ReducerPayment.modalType,
 	statusValue: state.ReducerPayment.statusValue,
-	currentPage: state.ReducerPayment.currentPage,
-	paginationPage: state.ReducerPayment.paginationPage,
+	currentPage: state.ReducerPayment.currentPagePay,
+	paginationPage: state.ReducerPayment.paginationPagePay,
 });
 
 const mapDispatchToProps = dispatch => ({

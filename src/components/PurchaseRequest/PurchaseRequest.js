@@ -256,8 +256,8 @@ const mapStateToProps = state => ({
 	name: state.ReducerPurchaseRequest.name,
 	isOpen: state.ReducerPurchaseRequest.isOpen,
 	modalType: state.ReducerPurchaseRequest.modalType,
-	currentPage: state.ReducerPurchaseRequest.currentPage,
-	paginationPage: state.ReducerPurchaseRequest.paginationPage,
+	currentPage: state.ReducerPurchaseRequest.currentPagePreq,
+	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
 	initialValues: state.ReducerPurchaseRequest,
 	userId: state.ReducerLogin.userId,
 });

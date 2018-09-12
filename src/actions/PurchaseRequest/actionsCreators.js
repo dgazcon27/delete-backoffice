@@ -5,8 +5,8 @@ import {
 	CLOSE_ALERT,
 	CLOSE_MODAL,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_PREQ,
+	PAGE_DOWN_PREQ,
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 } from './actionsTypes';
@@ -21,18 +21,18 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPagePreq) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).purchaseReq;
+	paginations.purchaseReq = currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
+			paginationPagePreq,
+			currentPagePreq: currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };
