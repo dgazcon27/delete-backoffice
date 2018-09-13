@@ -25,7 +25,7 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations')).bank) {
+if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPageBank = JSON.parse(localStorage.getItem('paginations')).bank || 0;
 	initialState.currentPageBank = JSON.parse(localStorage.getItem('paginations')).bank || 0;
 } else {

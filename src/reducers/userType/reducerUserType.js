@@ -32,9 +32,12 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations')).userType) {
+if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPageUtype = JSON.parse(localStorage.getItem('paginations')).userType;
 	initialState.currentPageUtype = JSON.parse(localStorage.getItem('paginations')).userType;
+} else {
+	initialState.paginationPageUtype = 0;
+	initialState.currentPageUtype = 0;
 }
 
 const ReducerUserType = (state = initialState, action = {}) => {
