@@ -111,10 +111,7 @@ export const requestLogout = (token) => {
 			.then(() => {
 				dispatch(closeProfile());
 				dispatch(logout(null));
-				localStorage.setItem('token', null);
-				localStorage.removeItem('token');
-				localStorage.removeItem('paginations');
-				localStorage.removeItem(' ');
+				localStorage.clear()
 			});
 	};
 };
