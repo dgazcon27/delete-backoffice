@@ -111,7 +111,7 @@ export const requestLogout = (token) => {
 			.then(() => {
 				dispatch(closeProfile());
 				dispatch(logout(null));
-				localStorage.clear()
+				localStorage.clear();
 			});
 	};
 };
