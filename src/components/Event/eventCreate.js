@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import {
 	compose,
 	graphql,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
@@ -24,7 +22,6 @@ import {
 } from '../validations/validations';
 import {
 	renderTextField,
-	renderSelectField,
 	renderDateField,
 	renderDateMaxField,
 } from '../RenderFields/renderFields';
@@ -35,8 +32,8 @@ import {
 	setCountriesStates,
 } from '../../actions/Event/actionsCreators';
 
-import GET_COUNTRIES from '../../queries/country';
-import GET_STATUS from '../../queries/status';
+
+import { Status, SelectCountry, SelectState } from '../commonComponent';
 
 const validate = (values) => {
 	const errors = {};
@@ -88,99 +85,6 @@ const warn = (values) => {
 	return warnings;
 };
 
-export const SelectStatus = () => (
-	<Query query={GET_STATUS}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='status'
-						type='select'
-						label='Estatus'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='status'
-					type='select'
-					label='Estatus'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.statuss.map(status => (
-						<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-export const SelectCountry = actionSelectCountry => (
-	<Query query={GET_COUNTRIES}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='country'
-						type='select'
-						label='País'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='country'
-					type='select'
-					label='País'
-					placeholder='País'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-					onChange={actionSelectCountry.actionSelectCountry}
-				>
-					{data.countrys.map(country => (
-						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-export const SelectState = states => (
-	<Field
-		name='state'
-		type='select'
-		label='Estado'
-		placeholder='Estado'
-		component={renderSelectField}
-		validate={required}
-		className='container'
-	>
-		{states.states.map(state => (
-			<MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
-		))}
-	</Field>
-);
 
 let EventCreate = ({
 	classes,
@@ -228,7 +132,7 @@ let EventCreate = ({
 					<SelectState states={states} />
 				</div>
 				<div className={classes.formStyle}>
-					<SelectStatus />
+					<Status />
 				</div>
 				<div className={classes.formStyle}>
 					<Field

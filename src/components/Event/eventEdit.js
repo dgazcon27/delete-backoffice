@@ -24,7 +24,13 @@ import {
 	setCountriesStates,
 } from '../../actions/Event/actionsCreators';
 import { EDIT_EVENT } from '../../queries/event';
-import { SelectStatus, SelectState, SelectCountry } from './eventCreate';
+
+import {
+	Status,
+	SelectCountry,
+	SelectState,
+} from '../commonComponent';
+
 
 const validate = (values) => {
 	const errors = {};
@@ -122,7 +128,7 @@ let EventEdit = ({
 					<SelectState states={states} />
 				</div>
 				<div className={classes.formStyle}>
-					<SelectStatus />
+					<Status />
 				</div>
 				<div className={classes.formStyle}>
 					<Field

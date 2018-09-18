@@ -11,7 +11,11 @@ import {
 	GET_EVENTSS,
 	GET_STATUSS,
 	GET_BANK_ACCOUNTS,
+	GET_LOCATIONS,
+	GET_ZONES,
+	GET_COUNTRIES,
 } from './../queries/common';
+
 
 export const BankAccount = () => (
 	<Query query={GET_BANK_ACCOUNTS}>
@@ -245,3 +249,130 @@ export const Status = () => (
 	</Query>
 );
 
+export const Location = () => (
+	<Query query={GET_LOCATIONS}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='location'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='Ubicación'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='location'
+					type='select'
+					label='Ubicación'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.locationss.map(location => (
+						<MenuItem key={location.id} value={location.id}>{location.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const Zone = () => (
+	<Query query={GET_ZONES}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='zone'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='Zona'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='zone'
+					type='select'
+					label='Zona'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.zones.map(zone => (
+						<MenuItem key={zone.id} value={zone.id}>{zone.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const SelectCountry = actionSelectCountry => (
+	<Query query={GET_COUNTRIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='country'
+						type='select'
+						label='País'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='country'
+					type='select'
+					label='País'
+					placeholder='País'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+					onChange={actionSelectCountry.actionSelectCountry}
+				>
+					{data.countrys.map(country => (
+						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const SelectState = states => (
+	<Field
+		name='state'
+		type='select'
+		label='Estado'
+		placeholder='Estado'
+		component={renderSelectField}
+		validate={required}
+		className='container'
+	>
+		{states.states.map(state => (
+			<MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+		))}
+	</Field>
+);
