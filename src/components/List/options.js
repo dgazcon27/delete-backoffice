@@ -1,9 +1,12 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import VpnKey from '@material-ui/icons/VpnKey';
+import { compose } from 'react-apollo';
 
 import {
 	Switch,
@@ -13,9 +16,11 @@ import {
 
 } from '@material-ui/core';
 
-const Options = () => (
-	<TableCell>
-		{
+import styles from './userTypeCss';
+
+const Options = ({ classes, active }) => (
+	<TableCell className={classes.alignRightOption}>
+		{active[0] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -30,7 +35,7 @@ const Options = () => (
 				</Link>
 			</Tooltip>
 		}
-		{
+		{active[1] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -43,7 +48,7 @@ const Options = () => (
 				</IconButton>
 			</Tooltip>
 		}
-		{
+		{active[2] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -54,7 +59,7 @@ const Options = () => (
 				<Switch />
 			</Tooltip>
 		}
-		{
+		{active[3] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -70,4 +75,17 @@ const Options = () => (
 	</TableCell>
 );
 
-export default Options;
+Options.propTypes = {
+	classes: PropTypes.object.isRequired,
+	active: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => ({
+	active: ownProps.buttonsActives,
+});
+
+export default compose(
+	withStyles(styles, { withTheme: true }),
+	connect(mapStateToProps, null),
+)(Options);
+

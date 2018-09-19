@@ -1,4 +1,4 @@
-/* eslint prefer-destructuring: "off" */
+/* eslint prefer-destructuring: 'off' */
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -42,40 +42,43 @@ const getIdElement = (idRow, idColumn) => (
 	String(idRow) + String(idColumn)
 );
 
-const List = ({ data, titles, classes }) => (
-	<div>
+const List = ({ data, titles, classes }) => {
+	const arrayActive = [true, true, true, true];
+	return (
 		<div>
-			<Paper>
-				<Table>
-					<TableHead>
-						<TableRow>
+			<div>
+				<Paper>
+					<Table>
+						<TableHead>
+							<TableRow>
+								{
+									titles.map(title => (
+										<TableCell key={title.id}>{ title.columName }</TableCell>
+									))
+								}
+								<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
 							{
-								titles.map(title => (
-									<TableCell key={title.id}>{ title.columName }</TableCell>
+								data.map(obj => (
+									<TableRow key={getValue(obj, 'id')}>
+										{
+											titles.map((column, index) => (
+												<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
+											))
+										}
+										<Options buttonsActives={arrayActive} />
+									</TableRow>
 								))
 							}
-							<TableCell className={classes.alignRightOption} >Opciones</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{
-							data.map(obj => (
-								<TableRow key={getValue(obj, 'id')}>
-									{
-										titles.map((column, index) => (
-											<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
-										))
-									}
-									<Options />
-								</TableRow>
-							))
-						}
-					</TableBody>
-				</Table>
-			</Paper>
+						</TableBody>
+					</Table>
+				</Paper>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 
 List.propTypes = {
