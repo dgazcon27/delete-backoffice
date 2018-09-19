@@ -6,14 +6,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import { compose } from 'react-apollo';
-
+import { Link } from 'react-router-dom';
+import Edit from '@material-ui/icons/Edit';
 import {
 	Paper,
 	Table,
+	Tooltip,
 	TableRow,
 	TableBody,
 	TableHead,
 	TableCell,
+	IconButton,
 } from '@material-ui/core';
 
 import styles from './userTypeCss';
@@ -65,6 +68,47 @@ const List = ({ data, titles, classes }) => (
 											<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
 										))
 									}
+									<TableCell>
+										<Tooltip
+											enterDelay={200}
+											id='tooltip-controlled'
+											leaveDelay={100}
+											placement='top'
+											title='Editar Rol.'
+										>
+											<Link to='/user-type-edit' href='/user-type-edit'>
+												<IconButton>
+													<Edit />
+												</IconButton>
+											</Link>
+										</Tooltip>
+										<Tooltip
+											enterDelay={200}
+											id='tooltip-controlled'
+											leaveDelay={100}
+											placement='top'
+											title='Editar Rol.'
+										>
+											<Link to='/user-type-edit' href='/user-type-edit'>
+												<IconButton>
+													<Edit />
+												</IconButton>
+											</Link>
+										</Tooltip>
+										<Tooltip
+											enterDelay={200}
+											id='tooltip-controlled'
+											leaveDelay={100}
+											placement='top'
+											title='Editar Rol.'
+										>
+											<Link to='/user-type-edit' href='/user-type-edit'>
+												<IconButton>
+													<Edit />
+												</IconButton>
+											</Link>
+										</Tooltip>
+									</TableCell>
 								</TableRow>
 							))
 						}
