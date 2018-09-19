@@ -42,54 +42,58 @@ const getIdElement = (idRow, idColumn) => (
 	String(idRow) + String(idColumn)
 );
 
-const List = ({ data, titles, classes }) => {
-	const arrayActive = [true, true, true, true];
-	return (
+const List = ({
+	data,
+	titles,
+	activeOptions,
+	classes,
+}) => (
+	<div>
 		<div>
-			<div>
-				<Paper>
-					<Table>
-						<TableHead>
-							<TableRow>
-								{
-									titles.map(title => (
-										<TableCell key={title.id}>{ title.columName }</TableCell>
-									))
-								}
-								<TableCell className={classes.alignRightOption} >Opciones</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
+			<Paper>
+				<Table>
+					<TableHead>
+						<TableRow>
 							{
-								data.map(obj => (
-									<TableRow key={getValue(obj, 'id')}>
-										{
-											titles.map((column, index) => (
-												<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
-											))
-										}
-										<Options buttonsActives={arrayActive} />
-									</TableRow>
+								titles.map(title => (
+									<TableCell key={title.id}>{ title.columName }</TableCell>
 								))
 							}
-						</TableBody>
-					</Table>
-				</Paper>
-			</div>
+							<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{
+							data.map(obj => (
+								<TableRow key={getValue(obj, 'id')}>
+									{
+										titles.map((column, index) => (
+											<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
+										))
+									}
+									<Options activeButtons={activeOptions} />
+								</TableRow>
+							))
+						}
+					</TableBody>
+				</Table>
+			</Paper>
 		</div>
-	);
-};
+	</div>
+);
 
 
 List.propTypes = {
 	data: PropTypes.array.isRequired,
 	titles: PropTypes.array.isRequired,
+	activeOptions: PropTypes.array.isRequired,
 	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
 	data: ownProps.dataToShow,
 	titles: ownProps.titlesColumns,
+	activeOptions: ownProps.activeOptions,
 });
 
 export default compose(

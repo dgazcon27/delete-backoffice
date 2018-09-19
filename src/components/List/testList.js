@@ -55,10 +55,13 @@ const TestList = () => {
 		jsonPath: 'test.hola.hala',
 	}];
 
+	const arrayActive = [true, true, true, true];
+
 	return (
 		<List
 			dataToShow={data}
 			titlesColumns={titles}
+			activeOptions={arrayActive}
 		/>
 	);
 };

@@ -81,7 +81,7 @@ Options.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	active: ownProps.buttonsActives,
+	active: ownProps.activeButtons,
 });
 
 export default compose(
