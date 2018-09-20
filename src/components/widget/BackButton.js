@@ -9,11 +9,9 @@ const BackButton = ({ classes }) => (
 		role='button'
 		className={classes.returnButton}
 		tabIndex={0}
-		onClick={() => {}}
-		onKeyDown={
-			(event) => {
-				event.preventDefault(window.history.back());
-			}}
+		onClick={(event) => {	event.preventDefault(window.history.back());	}
+		}
+		onKeyUp={() => { }}
 	>
 	Regresar
 	</div>);
