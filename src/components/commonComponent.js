@@ -5,6 +5,7 @@ import { Field } from 'redux-form';
 import { required } from './validations/validations';
 import { renderSelectField } from './RenderFields/renderFields';
 import {
+	GET_ROLESS,
 	GET_BANKSS,
 	GET_USERSS,
 	GET_ACCESSS,
@@ -90,6 +91,44 @@ export const Banks = () => (
 				>
 					{data.bankss.map(bank => (
 						<MenuItem key={bank.id} value={bank.id}>{bank.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const Roles = () => (
+	<Query query={GET_ROLESS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='roles'
+						type='select'
+						label='Roles'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='roles'
+					type='select'
+					label='Roles'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.roless.map(role => (
+						<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
 					))}
 				</Field>
 			);

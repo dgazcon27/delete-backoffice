@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -20,6 +19,7 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
+import BackButton from '../widget/BackButton';
 import { renderTextField } from '../RenderFields/renderFields';
 import { CREATE_BANK } from '../../queries/bank';
 import {
@@ -68,9 +68,7 @@ let BankCreate = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateBank(myValues.name, myValues.currency, paginationPage, createBankMutation))} disabled={submitting} >
 					Crear
 				</button>
-				<Link to='/bank' href='/bank' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

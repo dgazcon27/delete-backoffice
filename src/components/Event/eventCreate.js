@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -31,6 +30,7 @@ import {
 	createEvent,
 	setCountriesStates,
 } from '../../actions/Event/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 
 import { Status, SelectCountry, SelectState } from '../commonComponent';
@@ -191,9 +191,7 @@ let EventCreate = ({
 				>
 					Crear
 				</button>
-				<Link to='/events' href='/events' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

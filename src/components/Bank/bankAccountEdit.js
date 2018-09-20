@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -23,11 +22,12 @@ import {
 	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import {
 	Banks,
 	Users,
-} from './bankAccountCreate';
+} from '../commonComponent';
 
 let BankAccountEdit = ({
 	id,
@@ -113,9 +113,7 @@ let BankAccountEdit = ({
 				>
 				Guardar
 				</button>
-				<Link to='/bank-account' href='/bank-account' className={classes.returnButton} >
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&

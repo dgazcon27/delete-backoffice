@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -22,6 +21,7 @@ import {
 	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import { editPurchaseReq } from '../../actions/PurchaseRequest/actionsCreators';
 import {
@@ -42,7 +42,6 @@ let PurchaseRequestEdit = ({
 	handleSubmit,
 	paginationPage,
 	actionCloseAlert,
-	actionCleanState,
 	actionEditPurchaseReq,
 	editPurchaseReqMutation,
 }) => (
@@ -92,9 +91,7 @@ let PurchaseRequestEdit = ({
 				>
 				Confirmar
 				</button>
-				<Link to='/purchase-request' href='/purchase-request' className={classes.createButton} onClick={() => actionCleanState()}>
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -130,7 +127,6 @@ PurchaseRequestEdit.propTypes = {
 	actionEditPurchaseReq: PropTypes.func.isRequired,
 	editPurchaseReqMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	actionCleanState: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	submitting: PropTypes.bool.isRequired,

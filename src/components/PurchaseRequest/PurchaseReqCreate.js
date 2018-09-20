@@ -5,7 +5,6 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -24,6 +23,7 @@ import {
 	setName,
 	createPurchaseReq,
 } from '../../actions/PurchaseRequest/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import {
 	Banks,
@@ -97,9 +97,7 @@ let PurchaseRequestCreate = ({
 				>
 					Crear
 				</button>
-				<Link to='/purchase-request' href='/purchase-request' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

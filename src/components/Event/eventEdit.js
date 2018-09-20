@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -20,7 +19,6 @@ import { renderTextField, renderDateField, renderDateMaxField } from '../RenderF
 import {
 	editEvent,
 	closeAlert,
-	cleanState,
 	setCountriesStates,
 } from '../../actions/Event/actionsCreators';
 import { EDIT_EVENT } from '../../queries/event';
@@ -30,6 +28,7 @@ import {
 	SelectCountry,
 	SelectState,
 } from '../commonComponent';
+import BackButton from '../widget/BackButton';
 
 
 const validate = (values) => {
@@ -89,7 +88,6 @@ let EventEdit = ({
 	actionCloseAlert,
 	actionEditEvent,
 	editEventMutation,
-	actionCleanState,
 	myValues,
 	submitting,
 	handleSubmit,
@@ -178,9 +176,7 @@ let EventEdit = ({
 				>
 					Guardar
 				</button>
-				<Link to='/events' href='/events' className={classes.returnButton} onClick={() => actionCleanState()}>
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -205,7 +201,6 @@ EventEdit.propTypes = {
 	actionEditEvent: PropTypes.func.isRequired,
 	editEventMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	actionCleanState: PropTypes.func.isRequired,
 	actionSelectCountry: PropTypes.func.isRequired,
 	myValues: PropTypes.object.isRequired,
 	states: PropTypes.array.isRequired,
@@ -248,7 +243,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	actionSelectCountry: (event, id) => dispatch(setCountriesStates(event, id)),
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionCleanState: () => dispatch(cleanState()),
 	actionEditEvent: (event, updatedBy, editEventMutation) =>
 		dispatch(editEvent(event, updatedBy, editEventMutation)),
 });

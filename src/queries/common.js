@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const GET_ROLESS = gql`
+	query{ 
+			roless{
+				id
+				name
+			}
+		}	
+`;
+
 export const GET_USERSS = gql`
 	query{ 
 			userss{

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -26,6 +25,7 @@ import {
 	closeAlert,
 	editAccess,
 } from '../../actions/Access/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import {
 	Location,
@@ -99,9 +99,7 @@ let AccessEdit = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditAccess(initialValues.id, myValues.name, myValues.descriptionAccess, myValues.price, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, editAccessMutation))} disabled={submitting} >
 					Guardar
 				</button>
-				<Link to='/access' href='/access' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

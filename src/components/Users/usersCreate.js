@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	graphql,
 	compose,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
@@ -26,90 +23,19 @@ import {
 import {
 	renderTextField,
 	renderDateField,
-	renderSelectField,
 	renderPasswordField,
 } from '../RenderFields/renderFields';
-import {
-	GET_ROLES,
-	CREATE_USER,
-	GET_COUNTRYS,
-} from '../../queries/users';
+import { CREATE_USER } from '../../queries/users';
 import {
 	closeAlert,
 	createUser,
 } from '../../actions/users/actionsCreators';
 
-const Roles = () => (
-	<Query query={GET_ROLES}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='role'
-						type='select'
-						label='Tipo de Usuario'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) return 'Error!';
-			return (
-				<Field
-					name='role'
-					type='select'
-					label='Tipo de Usuario'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.roless.map(role => (
-						<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-const Countrys = () => (
-	<Query query={GET_COUNTRYS}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='citizenship'
-						type='select'
-						label='Ciudadanía'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) return 'Error!';
-			return (
-				<Field
-					name='citizenship'
-					type='select'
-					label='Ciudadanía'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.countrys.map(country => (
-						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
+import BackButton from '../widget/BackButton';
+import {
+	Roles,
+	SelectCountry,
+} from '../commonComponent';
 
 let UsersCreate = ({
 	userId,
@@ -190,7 +116,7 @@ let UsersCreate = ({
 						<Roles />
 					</div>
 					<div className='input-field col s6'>
-						<Countrys />
+						<SelectCountry />
 					</div>
 					<div className='input-field col s6'>
 						<Field
@@ -207,9 +133,7 @@ let UsersCreate = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(userId), Number(userId), createUserMutation, paginationPage))} disabled={submitting} >
 					Crear
 				</button>
-				<Link to='/users' href='/users' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

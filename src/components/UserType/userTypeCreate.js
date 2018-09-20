@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -28,6 +27,7 @@ import {
 	setDescription,
 	createRol,
 } from '../../actions/userType/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 let UserTypeCreate = ({
 	classes,
@@ -68,9 +68,7 @@ let UserTypeCreate = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
 					Crear
 				</button>
-				<Link to='/user-type' href='/user-type' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 			{alertType === 'nombre' &&
 
