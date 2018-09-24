@@ -127,12 +127,3 @@ export const GET_USER_BY_ID = gql`
 		}
 	}
 `;
-
-// user.id,
-// 																		user.name,
-// 																		user.lastName,
-// 																		user.phone,
-// 																		user.dni,
-// 																		user.birthDate,
-// 																		user.citizenship.id,
-// 																		user.role.id,
