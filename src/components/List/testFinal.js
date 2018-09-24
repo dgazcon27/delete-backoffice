@@ -28,12 +28,12 @@ const TestFinal = () => {
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'data.roles.data',
-			totalPath: 'data.roles.total',
+			dataPath: 'roles.data',
+			totalPath: 'roles.total',
 		},
 		searchComponent: {
-			dataPath: 'data.search.roles.data',
-			totalPath: 'data.search.roles.total',
+			dataPath: 'search.roles.data',
+			totalPath: 'search.roles.total',
 		},
 	};
 

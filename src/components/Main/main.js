@@ -33,6 +33,7 @@ import AccessCreate from '../Access/accessCreate';
 import AccessEdit from '../Access/accessEdit';
 import TestSearch from '../Search/testSearch';
 import TestList from '../List/testList';
+import TestFinal from '../List/testFinal';
 
 import {
 	Dashboard,
@@ -85,6 +86,7 @@ const Main = (props) => {
 				<Route path='/access-edit' component={AccessEdit} />
 				<Route path='/search' component={TestSearch} />
 				<Route path='/testList' component={TestList} />
+				<Route path='/testComponentList' component={TestFinal} />
 			</Switch>
 		</main>
 	);

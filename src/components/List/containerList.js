@@ -24,18 +24,25 @@ const ContainerList = ({
 	paginationPage,
 	currentPageSearch,
 }) => {
+	// Consulta por default del component
 	const QUERY_COMPONENT = objectQuery.queryComponent;
+
+	// Consulta utilizando el buscador
 	const QUERY_SEARCH = objectQuery.querySearch;
 
 	const params = query.length > 0 ?
 		{ query: QUERY_SEARCH, variables: { query, currentPageSearch } } :
 		{ query: QUERY_COMPONENT, variables: { paginationPage } };
 
+	// Ruta para obtener la data y el total del json de la consulta QUERY_COMPONENT
 	const { dataPath, totalPath } = objectPath.currentComponent;
 
+	// Ruta para obtener la data y el total del json de la consulta QUERY_SEARCH
 	const dataSearchPath = objectPath.searchComponent.dataPath;
 	const totalSearchPath = objectPath.searchComponent.totalPath;
 
+	// titlesColumns es un array de objetos que representas las columnas
+	// arrayActive es un vector de tipo booleno que indica que botones estan activos
 	const { titlesColumns, arrayActive } = objectList;
 
 	return (
