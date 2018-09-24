@@ -18,6 +18,8 @@ import ReducerPayment from './Payment/reducerPayment';
 import ReducerAccess from './Access/reducerAccess';
 import ReducerSearch from './Search/reducerSearch';
 
+import ReducerPagination from './List/reducerPagination';
+
 const rootReducer = combineReducers({
 	ReducerHeader,
 	ReducerUserType,
@@ -36,6 +38,7 @@ const rootReducer = combineReducers({
 	ReducerPayment,
 	ReducerAccess,
 	ReducerPurchaseRequest,
+	ReducerPagination,
 	form: reduxFormReducer,
 });
 

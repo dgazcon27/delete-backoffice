@@ -1,5 +1,6 @@
 import React from 'react';
 import List from './list';
+import Search from '../../components/Search/search';
 
 const TestList = () => {
 	const data = [{
@@ -14,7 +15,7 @@ const TestList = () => {
 	},
 	{
 		name: 'OWNER',
-		id: 3,
+		id: 2,
 		description: 'OWNER 2',
 		test: {
 			hola: {
@@ -22,6 +23,46 @@ const TestList = () => {
 			},
 		},
 
+	},
+	{
+		name: 'DJ',
+		id: 3,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 4,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 5,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 6,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
 	},
 	{
 		name: 'DJ',
@@ -35,7 +76,47 @@ const TestList = () => {
 	},
 	{
 		name: 'DJ',
-		id: 5,
+		id: 8,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 9,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 10,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 11,
+		description: 'DJ 3',
+		test: {
+			hola: {
+				hala: 'Madrid 3',
+			},
+		},
+	},
+	{
+		name: 'DJ',
+		id: 12,
 		description: 'DJ 4',
 		test: {
 			hola: {
@@ -58,11 +139,20 @@ const TestList = () => {
 	const arrayActive = [true, true, true, true];
 
 	return (
-		<List
-			dataToShow={data}
-			titlesColumns={titles}
-			activeOptions={arrayActive}
-		/>
+		<div>
+			<Search
+				showButton
+				showSearch
+				titleButton='Crear Zona'
+				url='/user-type'
+			/>
+
+			<List
+				dataToShow={data}
+				titlesColumns={titles}
+				activeOptions={arrayActive}
+			/>
+		</div>
 	);
 };
 
