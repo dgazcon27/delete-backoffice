@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { getEventById } from '../../actions/Event/actionsCreators';
+import { getUserById } from '../../actions/users/actionsCreators';
 import EventEdit from '../Event/eventEdit';
+import UsersEdit from '../Users/usersEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -23,6 +25,11 @@ class EditionComponent extends React.Component {
 				// statements_1
 				this.props.dispatch(getEventById(id));
 				this.setState({ tag: <EventEdit /> });
+				break;
+			case 'User':
+				// statements_1
+				this.props.dispatch(getUserById(id));
+				this.setState({ tag: <UsersEdit /> });
 				break;
 			default:
 				break;

@@ -12,7 +12,6 @@ import UserTypeCreate from '../UserType/userTypeCreate';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import ComponentUsers from '../Users/componentUsers';
 import UsersCreate from '../Users/usersCreate';
-import UsersEdit from '../Users/usersEdit';
 import ComponentZone from '../Zone/componentZone';
 import ZoneCreate from '../Zone/zoneCreate';
 import ZoneEdit from '../Zone/zoneEdit';
@@ -49,7 +48,7 @@ const Main = (props) => {
 				<Route exact path='/' component={Dashboard} />
 				<Route path='/users' component={ComponentUsers} />
 				<Route path='/users-create' component={UsersCreate} />
-				<Route path='/users-edit' component={UsersEdit} />
+				<Route path='/users-edit/:id' component={EditionComponent} />
 				<Route path='/user-type' component={ComponentUserType} />
 				<Route path='/user-type-edit' component={UserTypeEdit} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
