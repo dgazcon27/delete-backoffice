@@ -68,7 +68,12 @@ const styles = theme => ({
 		flex: 1,
 	},
 	logo: {
-		'margin-top': '0.5%',
+		position: 'relative',
+		'margin-top': '0%',
+		'margin-left': '10%',
+	},
+	ACT: {
+		border: '1px solid red',
 	},
 });
 

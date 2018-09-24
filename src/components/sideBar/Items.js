@@ -34,29 +34,21 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/users' href='/users'>
-			<ListItem button>
-				<ListItemIcon>
-					<People />
-				</ListItemIcon>
-				<ListItemText primary='Usuarios' />
-			</ListItem>
-		</Link>
-		<Link to='/user-type' href='/user-type'>
-			<ListItem button>
-				<ListItemIcon>
-					<Security />
-				</ListItemIcon>
-				<ListItemText primary='Tipos de Usuario' />
-			</ListItem>
-		</Link>
-
 		<Link to='/tables' href='/tables'>
 			<ListItem button>
 				<ListItemIcon>
 					<Weekend />
 				</ListItemIcon>
 				<ListItemText primary='Mesas' />
+			</ListItem>
+		</Link>
+
+		<Link to='/access' href='/access'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Accesos' />
 			</ListItem>
 		</Link>
 		{/*
@@ -119,7 +111,7 @@ const Items = (
 				<ListItemIcon>
 					<AccountBalance />
 				</ListItemIcon>
-				<ListItemText primary='Bank' />
+				<ListItemText primary='Banco' />
 			</ListItem>
 		</Link>
 
@@ -128,7 +120,7 @@ const Items = (
 				<ListItemIcon>
 					<AccountBalanceWallet />
 				</ListItemIcon>
-				<ListItemText primary='Bank-Account' />
+				<ListItemText primary='Cuentas Bancarias' />
 			</ListItem>
 		</Link>
 		<Link to='/purchase-request' href='/purchase-request'>
@@ -139,14 +131,25 @@ const Items = (
 				<ListItemText primary='Pre-Venta' />
 			</ListItem>
 		</Link>
-		<Link to='/access' href='/access'>
+
+		<Link to='/user-type' href='/user-type'>
 			<ListItem button>
 				<ListItemIcon>
-					<ContactPhone />
+					<Security />
 				</ListItemIcon>
-				<ListItemText primary='Staff' />
+				<ListItemText primary='Tipos de Usuario' />
 			</ListItem>
 		</Link>
+
+		<Link to='/users' href='/users'>
+			<ListItem button>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Usuarios' />
+			</ListItem>
+		</Link>
+
 		{/*	<Link to='/staff' href='/staff'>
 		<Link to='/access' href='/access'>
 			<ListItem button>

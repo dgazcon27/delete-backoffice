@@ -2,18 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './bankCss';
@@ -22,92 +19,15 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField, renderSelectField } from '../RenderFields/renderFields';
-import {
-	GET_BANKSS,
-	GET_USERSS,
-	CREATE_BANK_ACCOUNT,
-} from '../../queries/bank';
+import { renderTextField } from '../RenderFields/renderFields';
+import { CREATE_BANK_ACCOUNT } from '../../queries/bank';
 import {
 	closeAlert,
 	createBankAccount,
 } from '../../actions/Bank/actionsCreators';
 
-export const Banks = () => (
-	<Query query={GET_BANKSS}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='bank'
-						type='select'
-						label='Banco'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='bank'
-					type='select'
-					label='Banco'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.bankss.map(bank => (
-						<MenuItem key={bank.id} value={bank.id}>{bank.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-export const Users = () => (
-	<Query query={GET_USERSS}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<Field
-						name='user'
-						type='select'
-						label='Usuarios'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='owner'
-					type='select'
-					label='Usuarios'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.userss.map(user => (
-						<MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
+import BackButton from '../widget/BackButton';
+import { Banks, Users } from '../commonComponent';
 
 
 let BankAccountCreate = ({
@@ -193,9 +113,7 @@ let BankAccountCreate = ({
 				>
 					Crear
 				</button>
-				<Link to='/bank-account' href='/bank-account' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

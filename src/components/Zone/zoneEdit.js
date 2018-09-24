@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -29,6 +28,7 @@ import {
 	closeAlert,
 	editZone,
 } from '../../actions/zone/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 const validate = (values) => {
 	const errors = {};
@@ -106,9 +106,7 @@ let ZoneEdit = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), userId, paginationPage, editZoneMutation))} disabled={submitting} >
 					Guardar
 				</button>
-				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

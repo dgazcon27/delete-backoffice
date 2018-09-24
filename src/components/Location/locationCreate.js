@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
@@ -15,7 +13,6 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import styles from './locationCss';
 import './styles.css';
 import {
@@ -25,17 +22,16 @@ import {
 import {
 	renderTextField,
 	renderNumberField,
-	renderSelectField,
 	renderNumberMaxField,
 } from '../RenderFields/renderFields';
-import {
-	CREATE_LOCATION,
-	GET_STATUS,
-} from '../../queries/location';
+import { CREATE_LOCATION } from '../../queries/location';
 import {
 	closeAlert,
 	createLocation,
 } from '../../actions/location/actionsCreators';
+import BackButton from '../widget/BackButton';
+
+import { Status } from '../commonComponent';
 
 const validate = (values) => {
 	const errors = {};
@@ -61,42 +57,6 @@ const warn = (values) => {
 	}
 	return warnings;
 };
-
-const Status = () => (
-	<Query query={GET_STATUS}>
-		{({ loading, error, data }) => {
-			if (loading || error) {
-				return (
-					<div className='formStyle'>
-						<Field
-							name='status'
-							type='select'
-							component={renderSelectField}
-							validate={required}
-							label='Estatus'
-						>
-							<MenuItem />
-						</Field>
-					</div>
-				);
-			}
-			return (
-				<Field
-					name='status'
-					type='select'
-					label='Estatus'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.statuss.map(status => (
-						<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
 
 let LocationCreate = ({
 	userId,
@@ -161,9 +121,7 @@ let LocationCreate = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateLocation(myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), Number(userId), paginationPage, createLocationMutation))} disabled={submitting} >
 					Crear
 				</button>
-				<Link to='/tables' href='/tables' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

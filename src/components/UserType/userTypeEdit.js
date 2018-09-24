@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -20,9 +19,9 @@ import { renderTextField } from '../RenderFields/renderFields';
 import { EDIT_ROL } from '../../queries/userType';
 import {
 	editRol,
-	cleanState,
 	closeAlert,
 } from '../../actions/userType/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 let UserTypeEdit = ({
 	id,
@@ -34,7 +33,6 @@ let UserTypeEdit = ({
 	actionCloseAlert,
 	paginationPage,
 	editRolMutation,
-	actionCleanState,
 	handleSubmit,
 	submitting,
 }) => (
@@ -66,9 +64,7 @@ let UserTypeEdit = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRol(id, myValues.name, myValues.rolDescription, paginationPage, editRolMutation))} disabled={submitting} >
 				Guardar
 				</button>
-				<Link to='/user-type' href='/user-type' className={classes.createButton} onClick={() => actionCleanState()}>
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -102,7 +98,6 @@ UserTypeEdit.propTypes = {
 	myValues: PropTypes.object.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionEditRol: PropTypes.func.isRequired,
-	actionCleanState: PropTypes.func.isRequired,
 	editRolMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
@@ -128,7 +123,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionCleanState: () => dispatch(cleanState()),
 	actionEditRol: (id, name, rolDescription, paginationPage, editRolMutation) =>
 		dispatch(editRol(id, name, rolDescription, paginationPage, editRolMutation)),
 });
