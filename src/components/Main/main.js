@@ -25,12 +25,12 @@ import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import PayCreate from '../PurchaseRequest/PayCreate';
 import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
-import EventEdit from '../Event/eventEdit';
 import Payment from '../Payment/payment';
 import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import AccessEdit from '../Access/accessEdit';
+import EditionComponent from '../Shared/editionComponent';
 
 import {
 	Dashboard,
@@ -59,7 +59,7 @@ const Main = (props) => {
 				<Route path='/guests' component={Guests} />
 				<Route path='/events' component={Event} />
 				<Route path='/events-create' component={EventCreate} />
-				<Route path='/event-edit' component={EventEdit} />
+				<Route path='/event-edit/:id' component={EditionComponent} />
 				<Route path='/djs' component={Djs} />
 				<Route path='/categories' component={Categories} />
 				<Route path='/Departments' component={ComponentZone} />

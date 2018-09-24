@@ -79,3 +79,28 @@ export const EDIT_EVENT = gql`
 		}
 	}
 `;
+
+export const GET_EVENT_BY_ID = gql`
+	query event($id:Int!){
+		event(id:$id) {
+			id
+			name
+			description
+			presaleStart
+			presaleClosure
+			eventStart
+			eventClosure
+			status {
+				id
+			}
+			state{
+				name
+				id
+				country {
+					name
+					id
+				}
+			}
+		}
+	}
+`;
