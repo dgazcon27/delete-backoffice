@@ -9,7 +9,6 @@ import BankAccountCreate from '../Bank/bankAccountCreate';
 import BankEdit from '../Bank/bankEdit';
 import BankAccountEdit from '../Bank/bankAccountEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
-import UserTypeEdit from '../UserType/userTypeEdit';
 import ComponentUsers from '../Users/componentUsers';
 import UsersCreate from '../Users/usersCreate';
 import ComponentZone from '../Zone/componentZone';
@@ -50,7 +49,7 @@ const Main = (props) => {
 				<Route path='/users-create' component={UsersCreate} />
 				<Route path='/users-edit/:id' component={EditionComponent} />
 				<Route path='/user-type' component={ComponentUserType} />
-				<Route path='/user-type-edit' component={UserTypeEdit} />
+				<Route path='/user-type-edit/:id' component={EditionComponent} />
 				<Route path='/user-type-create' component={UserTypeCreate} />
 				<Route path='/tables' component={ComponentLocation} />
 				<Route path='/create-tables' component={LocationCreate} />

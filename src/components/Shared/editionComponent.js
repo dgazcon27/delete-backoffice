@@ -2,10 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'react-apollo';
 import PropTypes from 'prop-types';
+
 import { getEventById } from '../../actions/Event/actionsCreators';
 import { getUserById } from '../../actions/users/actionsCreators';
+import { getUserTypeById } from '../../actions/userType/actionsCreators';
+
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
+import UserTypeEdit from '../UserType/userTypeEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -30,6 +34,11 @@ class EditionComponent extends React.Component {
 				// statements_1
 				this.props.dispatch(getUserById(id));
 				this.setState({ tag: <UsersEdit /> });
+				break;
+			case 'UserType':
+				// statements_1
+				this.props.dispatch(getUserTypeById(id));
+				this.setState({ tag: <UserTypeEdit /> });
 				break;
 			default:
 				break;
