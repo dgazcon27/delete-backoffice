@@ -103,7 +103,6 @@ let LocationEdit = ({
 	classes,
 	alertOpen,
 	alertType,
-	initialValues,
 	actionCloseAlert,
 	actionEditLocation,
 	editLocationMutation,
@@ -159,7 +158,7 @@ let LocationEdit = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.locationDescription, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(myValues, Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<Link to='/tables' href='/tables' className={classes.returnButton} >
@@ -202,11 +201,11 @@ LocationEdit.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	initialValues: PropTypes.object.isRequired,
 };
 
 LocationEdit = reduxForm({
 	form: 'LocationEdit',
+	enableReinitialize: true,
 	validate,
 	warn,
 })(LocationEdit);
@@ -219,7 +218,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
 	paginationPage: state.ReducerLocation.paginationPage,
-	myValues: selector(state, 'name', 'locationDescription', 'fullcapacity', 'capacity', 'status'),
+	myValues: selector(state, 'id', 'name', 'locationDescription', 'fullcapacity', 'capacity', 'status'),
 	initialValues: state.ReducerLocation,
 });
 
