@@ -12,14 +12,15 @@ import { getValue } from './commonFunctions';
 
 import styles from './userTypeCss';
 import List from './list';
-import Search from '../../components/Search/search';
+
 import Loading from '../Loading/loading';
 
 const ContainerList = ({
 	objectQuery,
-	objectSearch,
 	objectList,
+	objectModal,
 	objectPath,
+	objectAction,
 	query,
 	paginationPage,
 	currentPageSearch,
@@ -70,18 +71,13 @@ const ContainerList = ({
 
 				return (
 					<div>
-						<Search
-							showButton={objectSearch.showButton}
-							showSearch={objectSearch.showSearch}
-							titleButton={objectSearch.titleButton}
-							url={objectSearch.url}
-						/>
-
 						<List
 							dataToShow={response}
 							titlesColumns={titlesColumns}
 							activeOptions={arrayActive}
 							itemTotal={total}
+							actions={objectAction}
+							propsModalComponent={objectModal}
 						/>
 					</div>
 				);
@@ -102,6 +98,26 @@ ContainerList.propTypes = {
 		titlesColumns: PropTypes.arrayOf(PropTypes.object),
 		arrayActive: PropTypes.arrayOf(PropTypes.bool),
 	}).isRequired,
+	objectModal: PropTypes.shape({
+		isOpen: PropTypes.bool.isRequired,
+		modalType: PropTypes.string.isRequired,
+		statusValue: PropTypes.number.isRequired,
+		messages: PropTypes.shape({
+			edit: PropTypes.shape({
+				title: PropTypes.string,
+			}),
+			block: PropTypes.shape({
+				titleStatus1: PropTypes.string,
+				msgStatus1: PropTypes.string,
+				titleStatus2: PropTypes.string,
+				msgStatus2: PropTypes.string,
+			}),
+			delete: PropTypes.shape({
+				title: PropTypes.string,
+				msg: PropTypes.string,
+			}),
+		}).isRequired,
+	}).isRequired,
 	objectPath: PropTypes.shape({
 		currentComponent: PropTypes.shape({
 			dataPath: PropTypes.string.isRequired,
@@ -112,6 +128,8 @@ ContainerList.propTypes = {
 			totalPath: PropTypes.string.isRequired,
 		}),
 	}).isRequired,
+
+	objectAction: PropTypes.object.isRequired,
 	query: PropTypes.string.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPageSearch: PropTypes.number.isRequired,
@@ -121,7 +139,9 @@ const mapStateToProps = (state, ownProps) => ({
 	objectQuery: ownProps.queries,
 	objectSearch: ownProps.propsSearchComponent,
 	objectList: ownProps.propsListComponent,
+	objectModal: ownProps.propsModalComponent,
 	objectPath: ownProps.objectPath,
+	objectAction: ownProps.actions,
 	query: state.ReducerSearch.query,
 	paginationPage: state.ReducerPagination.paginationPage,
 	currentPageSearch: state.ReducerPagination.currentPageSearch,

@@ -18,7 +18,12 @@ import {
 
 import styles from './userTypeCss';
 
-const Options = ({ classes, active }) => (
+const Options = ({
+	classes,
+	active,
+	actions,
+	rowData,
+}) => (
 	<TableCell className={classes.alignRightOption}>
 		{active[0] &&
 			<Tooltip
@@ -30,7 +35,7 @@ const Options = ({ classes, active }) => (
 			>
 				<Link to='/user-type-edit' href='/user-type-edit'>
 					<IconButton>
-						<Edit />
+						<Edit onClick={() => actions.edit(rowData.id, rowData.name, rowData.description)} />
 					</IconButton>
 				</Link>
 			</Tooltip>
@@ -44,7 +49,7 @@ const Options = ({ classes, active }) => (
 				title='Eliminar Rol'
 			>
 				<IconButton>
-					<Delete />
+					<Delete onClick={() => actions.openModal('delete', rowData)} />
 				</IconButton>
 			</Tooltip>
 		}
@@ -56,7 +61,11 @@ const Options = ({ classes, active }) => (
 				placement='top'
 				title='Bloquear / Desbloquear'
 			>
-				<Switch />
+				<Switch
+					onClick={() => actions.openModal('block', rowData)}
+					checked={rowData.status.id === 2}
+					value='checked'
+				/>
 			</Tooltip>
 		}
 		{active[3] &&
@@ -67,7 +76,7 @@ const Options = ({ classes, active }) => (
 				placement='top'
 				title='Cambiar Contraseña'
 			>
-				<IconButton>
+				<IconButton onClick={() => actions.openModal('password', rowData)}>
 					<VpnKey />
 				</IconButton>
 			</Tooltip>
@@ -78,10 +87,14 @@ const Options = ({ classes, active }) => (
 Options.propTypes = {
 	classes: PropTypes.object.isRequired,
 	active: PropTypes.array.isRequired,
+	actions: PropTypes.object.isRequired,
+	rowData: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
 	active: ownProps.activeButtons,
+	actions: ownProps.actions,
+	rowData: ownProps.rowData,
 });
 
 export default compose(

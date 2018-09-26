@@ -17,6 +17,7 @@ import { getValue, getIdElement } from './commonFunctions';
 import styles from './userTypeCss';
 import Options from './options';
 import Pagination from './pagination';
+import ModalsOptions from './modal';
 
 /*
  * @param {Object} obj - Es un objeto que contiene toda la informacion de la fila
@@ -30,6 +31,8 @@ const List = ({
 	activeOptions,
 	total,
 	classes,
+	actions,
+	modal,
 }) => (
 	<div>
 		<div>
@@ -54,10 +57,20 @@ const List = ({
 											<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
 										))
 									}
-									<Options activeButtons={activeOptions} />
+									<Options
+										activeButtons={activeOptions}
+										actions={actions}
+										rowData={obj}
+									/>
 								</TableRow>
 							))
 						}
+						<ModalsOptions
+							isOpen={modal.isOpen}
+							modalType={modal.modalType}
+							statusValue={modal.statusValue}
+							messages={modal.messages}
+						/>
 					</TableBody>
 					<Pagination total={total} />
 				</Table>
@@ -72,6 +85,27 @@ List.propTypes = {
 	activeOptions: PropTypes.array.isRequired,
 	total: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
+	actions: PropTypes.object.isRequired,
+	modal: PropTypes.shape({
+		isOpen: PropTypes.bool.isRequired,
+		modalType: PropTypes.string.isRequired,
+		statusValue: PropTypes.number.isRequired,
+		messages: PropTypes.shape({
+			edit: PropTypes.shape({
+				title: PropTypes.string,
+			}),
+			block: PropTypes.shape({
+				titleStatus1: PropTypes.string,
+				msgStatus1: PropTypes.string,
+				titleStatus2: PropTypes.string,
+				msgStatus2: PropTypes.string,
+			}),
+			delete: PropTypes.shape({
+				title: PropTypes.string,
+				msg: PropTypes.string,
+			}),
+		}).isRequired,
+	}).isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -79,6 +113,8 @@ const mapStateToProps = (state, ownProps) => ({
 	titles: ownProps.titlesColumns,
 	activeOptions: ownProps.activeOptions,
 	total: ownProps.itemTotal,
+	actions: ownProps.actions,
+	modal: ownProps.propsModalComponent,
 	query: state.ReducerSearch.query,
 });
 
