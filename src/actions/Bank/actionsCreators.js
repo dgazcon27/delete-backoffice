@@ -14,7 +14,9 @@ import {
 import {
 	GET_BANKS,
 	GET_BANK_ACCOUNTS,
+	GET_BANK_BY_ID,
 } from '../../queries/bank';
+import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -38,15 +40,32 @@ export const changePage = (currentPage, paginationPage) => {
 		},
 	});
 };
-export const setBank = (id, name, currency) => ({
+
+export const setBank = bank => ({
 	type: SET_BANK,
 	payload: {
 		description: SET_BANK,
-		id,
-		name,
-		currency,
+		id: bank.id,
+		name: bank.name,
+		currency: bank.currency,
 	},
 });
+
+export const getBankById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_BANK_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { bank } = res.data;
+				dispatch(setBank(bank));
+			})
+			.catch(() => {});
+	}
+);
+
 export const setBankAccount = (id, owner, bank, currency, accountNumber, type, comment) => ({
 	type: SET_BANK_ACCOUNT,
 	payload: {
@@ -165,23 +184,22 @@ export const createBankAccount = (
 			});
 	};
 
-export const editBank = (id, name, currency, paginationPage, editBankMutation) =>
+export const editBank = (bank, paginationPage, editBankMutation) =>
 	async (dispatch) => {
-		if (name !== '' && currency !== '') {
-			await editBankMutation({
-				variables: { id, name, currency },
-				refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
-			})
+		await editBankMutation({
+			variables: bank,
+			refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
+		})
 
-				.then(() => {
-					dispatch(openAlert('edit'));
-					setTimeout(() => (window.location.assign('bank')), 2000);
-				})
-				.catch((res) => {
-					const message = checkMessageError(res);
-					dispatch(openAlert(message));
-				});
-		}
+			.then(() => {
+				dispatch(setBank(bank));
+				dispatch(openAlert('edit'));
+				setTimeout(() => (window.location.replace('/bank')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
 	};
 export const editBankAccount = (
 	id,

@@ -101,3 +101,13 @@ export const EDIT_BANK_ACCOUNT = gql`
 	}
 `;
 
+export const GET_BANK_BY_ID = gql`
+	query bank($id:Int!){
+		bank(id:$id) {
+			name
+			id
+			currency
+		}
+	}
+`;
+

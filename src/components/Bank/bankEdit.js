@@ -25,7 +25,6 @@ import {
 } from '../../actions/Bank/actionsCreators';
 
 let BankEdit = ({
-	id,
 	classes,
 	myValues,
 	alertOpen,
@@ -63,7 +62,7 @@ let BankEdit = ({
 						validate={[required, empty]}
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(id, myValues.name, myValues.currency, paginationPage, editBankMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(myValues, paginationPage, editBankMutation))} disabled={submitting} >
 				Guardar
 				</button>
 				<Link to='/bank' href='/bank' className={classes.createButton} onClick={() => actionCleanState()}>
@@ -95,7 +94,6 @@ let BankEdit = ({
 );
 
 BankEdit.propTypes = {
-	id: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -111,6 +109,7 @@ BankEdit.propTypes = {
 
 BankEdit = reduxForm({
 	form: 'BankEdit',
+	enableReinitialize: true,
 })(BankEdit);
 
 const selector = formValueSelector('BankEdit');
@@ -119,18 +118,17 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerBank.alertType,
 	alertOpen: state.ReducerBank.alertOpen,
 	initialValues: state.ReducerBank,
-	id: state.ReducerBank.id,
 	name: state.ReducerBank.name,
 	currency: state.ReducerBank.currency,
 	paginationPage: state.ReducerBank.paginationPage,
-	myValues: selector(state, 'name', 'currency'),
+	myValues: selector(state, 'id', 'name', 'currency'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
-	actionEditBank: (id, name, currency, paginationPage, editBankMutation) =>
-		dispatch(editBank(id, name, currency, paginationPage, editBankMutation)),
+	actionEditBank: (bank, paginationPage, editBankMutation) =>
+		dispatch(editBank(bank, paginationPage, editBankMutation)),
 });
 
 export default compose(

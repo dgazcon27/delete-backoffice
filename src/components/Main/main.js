@@ -6,7 +6,6 @@ import Bank from '../Bank/bank';
 import BankCreate from '../Bank/bankCreate';
 import BankAccount from '../Bank/bankAccount';
 import BankAccountCreate from '../Bank/bankAccountCreate';
-import BankEdit from '../Bank/bankEdit';
 import BankAccountEdit from '../Bank/bankAccountEdit';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import ComponentUsers from '../Users/componentUsers';
@@ -71,7 +70,7 @@ const Main = (props) => {
 				<Route path='/bank-account' component={BankAccount} />
 				<Route path='/bank-create' component={BankCreate} />
 				<Route path='/bank-account-create' component={BankAccountCreate} />
-				<Route path='/bank-edit' component={BankEdit} />
+				<Route path='/bank-edit/:id' component={EditionComponent} />
 				<Route path='/bank-account-edit' component={BankAccountEdit} />
 				<Route path='/pre-sale' component={Payment} />
 				<Route path='/pre-sale-edit' component={PaymentEdit} />

@@ -7,11 +7,13 @@ import { getEventById } from '../../actions/Event/actionsCreators';
 import { getUserById } from '../../actions/users/actionsCreators';
 import { getUserTypeById } from '../../actions/userType/actionsCreators';
 import { getLocationById } from '../../actions/location/actionsCreators';
+import { getBankById } from '../../actions/Bank/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import LocationEdit from '../Location/locationEdit';
+import BankEdit from '../Bank/bankEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -46,6 +48,11 @@ class EditionComponent extends React.Component {
 				// statements_1
 				this.props.dispatch(getLocationById(id));
 				this.setState({ tag: <LocationEdit /> });
+				break;
+			case 'Bank':
+				// statements_1
+				this.props.dispatch(getBankById(id));
+				this.setState({ tag: <BankEdit /> });
 				break;
 			default:
 				break;
