@@ -34,7 +34,6 @@ import {
 	openModal,
 	closeModal,
 	deletePurchaseReq,
-	setPurchaseReq,
 	setToPay,
 } from '../../actions/PurchaseRequest/actionsCreators';
 
@@ -58,7 +57,6 @@ const PurchaseRequest = ({
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
-	actionSetPurchaseReq,
 	actionDeletePurchaseReq,
 	deletePurchaseReqMutation,
 }) => (
@@ -133,25 +131,8 @@ const PurchaseRequest = ({
 															</IconButton>
 														</Link>
 													</Tooltip>
-													<Link to='/purchase-request-edit/' href='/purchase-request-edit'>
-														<IconButton
-															onClick={() => {
-																actionSetPurchaseReq(
-																	purchaseReq.id,
-																	purchaseReq.user.id,
-																	purchaseReq.access.id,
-																	purchaseReq.event.id,
-																	purchaseReq.status.id,
-																	purchaseReq.comment,
-																	purchaseReq.totalPrice,
-																	purchaseReq.pendingPayment,
-																	purchaseReq.totalPaid,
-																	userId,
-
-																);
-															}
-															}
-														>
+													<Link to={{ pathname: `/purchase-request-edit/${purchaseReq.id}`, state: { type: 'Purchase' } }}>
+														<IconButton>
 															<Edit />
 														</IconButton>
 													</Link>
@@ -234,7 +215,6 @@ PurchaseRequest.propTypes = {
 	userId: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionSetToPay: PropTypes.func.isRequired,
-	actionSetPurchaseReq: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	deletePurchaseReqMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
@@ -269,30 +249,6 @@ const mapDispatchToProps = dispatch => ({
 	actionCloseModal: () => dispatch(closeModal()),
 	actionDeletePurchaseReq: (id, paginationPage, deletePurchaseReqMutation) =>
 		dispatch(deletePurchaseReq(id, paginationPage, deletePurchaseReqMutation)),
-	actionSetPurchaseReq: (
-		id,
-		user,
-		access,
-		event,
-		status,
-		comment,
-		totalPrice,
-		pendingPayment,
-		totalPaid,
-		userId,
-	) => dispatch(setPurchaseReq(
-		id,
-		user,
-		access,
-		event,
-		status,
-		comment,
-		totalPrice,
-		pendingPayment,
-		totalPaid,
-		userId,
-	)),
-
 	actionSetToPay: (
 		id,
 		userId,

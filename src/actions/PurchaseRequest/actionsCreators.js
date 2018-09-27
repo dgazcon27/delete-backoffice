@@ -11,8 +11,8 @@ import {
 	SET_TO_PAY,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
-
-import { GET_PURCHASE_REQ } from '../../queries/purchaseRequest';
+import { client } from '../../config/configStore';
+import { GET_PURCHASE_REQ, GET_PURCHASE_BY_ID } from '../../queries/purchaseRequest';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -36,8 +36,7 @@ export const changePage = (currentPage, paginationPage) => {
 		},
 	});
 };
-export const setPurchaseReq = (
-	id,
+/* id,
 	user,
 	access,
 	event,
@@ -46,23 +45,35 @@ export const setPurchaseReq = (
 	totalPrice,
 	pendingPayment,
 	totalPaid,
-	userId,
-) => ({
+	userId */
+
+export const setPurchaseReq = purchase => ({
 	type: SET_PURCHASE_REQ,
 	payload: {
+		...purchase,
+		user: purchase.user.id,
+		access: purchase.access.id,
+		event: purchase.event.id,
+		status: purchase.status.id,
 		description: SET_PURCHASE_REQ,
-		id,
-		user,
-		access,
-		event,
-		status,
-		comment,
-		totalPrice,
-		pendingPayment,
-		totalPaid,
-		userId,
 	},
 });
+
+export const getPurchaseById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_PURCHASE_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { purchaseRequest } = res.data;
+				dispatch(setPurchaseReq(purchaseRequest));
+			})
+			.catch(() => {});
+	}
+);
+
 export const setToPay = id => ({
 	type: SET_TO_PAY,
 	payload: {
@@ -156,12 +167,7 @@ export const createPurchaseReq = (
 	};
 
 export const editPurchaseReq = (
-	id,
-	user,
-	access,
-	event,
-	status,
-	comment,
+	purchase,
 	updatedBy,
 	paginationPage,
 	editPurchaseReqMutation,
@@ -169,12 +175,20 @@ export const editPurchaseReq = (
 	async (dispatch) => {
 		await editPurchaseReqMutation({
 			variables: {
-				id, user, access, event, status, comment, updatedBy,
+				...purchase,
+				updatedBy,
 			},
 			refetchQueries: [{ query: GET_PURCHASE_REQ, variables: { paginationPage } }],
 		})
 			.then(() => {
 				dispatch(openAlert('edit'));
+				dispatch(setPurchaseReq({
+					user: { id: purchase.user },
+					access: { id: purchase.access },
+					event: { id: purchase.event },
+					status: { id: purchase.status },
+					comment: purchase.comment,
+				}));
 				setTimeout(() => (window.location.assign('/purchase-request')), 2000);
 			})
 			.catch((res) => {

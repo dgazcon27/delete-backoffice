@@ -19,7 +19,6 @@ import EventCreate from '../Event/eventCreate';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import PayCreate from '../PurchaseRequest/PayCreate';
-import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
 import Payment from '../Payment/payment';
 import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
@@ -64,7 +63,7 @@ const Main = (props) => {
 				<Route path='/purchase-request' component={PurchaseRequest} />
 				<Route path='/purchase-request-create' component={PurchaseRequestCreate} />
 				<Route path='/payment' component={PayCreate} />
-				<Route path='/purchase-request-edit' component={PurchaseRequestEdit} />
+				<Route path='/purchase-request-edit/:id' component={EditionComponent} />
 				<Route path='/bank-account' component={BankAccount} />
 				<Route path='/bank-create' component={BankCreate} />
 				<Route path='/bank-account-create' component={BankAccountCreate} />
