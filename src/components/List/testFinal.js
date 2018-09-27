@@ -1,12 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { compose } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import ContainerList from './containerList';
 import Search from '../../components/Search/search';
-import { openModal, setRol } from '../../actions/userType/actionsCreators';
+import {
+	openModal,
+	closeModal,
+	setRol,
+	blockUserType,
+	deleteUserType,
+} from '../../actions/userType/actionsCreators';
 
-import { GET_ROLES } from '../../queries/userType';
+import {
+	GET_ROLES,
+	BLOCK_ROL,
+	DELETE_ROL,
+} from '../../queries/userType';
 import { SEARCH_ROLES } from '../../queries/search';
 
 /* import {
@@ -16,11 +26,18 @@ import { SEARCH_ROLES } from '../../queries/search';
 } from '../../actions/userType/actionsCreators'; */
 
 const TestFinal = ({
+	id,
 	isOpen,
 	modalType,
+	paginationPage,
 	statusValue,
 	actionSetRol,
 	actionOpenModal,
+	actionCloseModal,
+	actionBlock,
+	actionDelete,
+	blockRolMutation,
+	deleteRolMutation,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_ROLES,
@@ -55,9 +72,11 @@ const TestFinal = ({
 	};
 
 	const objectModal = {
+		id,
 		isOpen,
 		modalType,
 		statusValue,
+		paginationPage,
 		messages: {
 			edit: {
 				title: 'contenido edit modal',
@@ -78,6 +97,11 @@ const TestFinal = ({
 	const actions = {
 		edit: actionSetRol,
 		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		block: actionBlock,
+		queryblock: blockRolMutation,
+		delete: actionDelete,
+		queryDelete: deleteRolMutation,
 	};
 
 	return (
@@ -103,20 +127,38 @@ const TestFinal = ({
 TestFinal.propTypes = {
 	actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
+	actionBlock: PropTypes.func.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
+	id: PropTypes.number.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	modalType: PropTypes.string.isRequired,
 	statusValue: PropTypes.number.isRequired,
+	paginationPage: PropTypes.number.isRequired,
+	blockRolMutation: PropTypes.func.isRequired,
+	deleteRolMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+	id: state.ReducerUserType.id,
+	statusValue: state.ReducerUserType.statusValue,
+	paginationPage: state.ReducerPagination.paginationPage,
 	isOpen: state.ReducerUserType.isOpen,
 	modalType: state.ReducerUserType.modalType,
-	statusValue: state.ReducerUserType.statusValue,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
+	actionCloseModal: () => dispatch(closeModal()),
+	actionBlock: (id, statusValue, blockRolMutation) =>
+		dispatch(blockUserType(id, statusValue, blockRolMutation)),
+	actionDelete: (id, statusValue, paginationPage, deleteRolMutation) =>
+		dispatch(deleteUserType(id, statusValue, paginationPage, deleteRolMutation)),
 });
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(TestFinal);
+export default compose(
+	graphql(DELETE_ROL, { name: 'deleteRolMutation' }),
+	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
+	connect(mapStateToProps, mapDispatchToProps),
+)(TestFinal);

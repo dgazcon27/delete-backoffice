@@ -66,10 +66,13 @@ const List = ({
 							))
 						}
 						<ModalsOptions
+							id={modal.id}
 							isOpen={modal.isOpen}
 							modalType={modal.modalType}
 							statusValue={modal.statusValue}
+							paginationPage={modal.paginationPage}
 							messages={modal.messages}
+							actions={actions}
 						/>
 					</TableBody>
 					<Pagination total={total} />

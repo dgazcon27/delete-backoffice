@@ -13,11 +13,14 @@ import {
 import styles from './userTypeCss';
 
 const ModalsOptions = ({
+	id,
 	isOpen,
 	classes,
 	modalType,
 	statusValue,
+	paginationPage,
 	messages,
+	actions,
 }) => (
 	<Modal
 		open={isOpen}
@@ -55,12 +58,12 @@ const ModalsOptions = ({
 					}
 
 					<span>
-						<IconButton>
+						<IconButton onClick={() => actions.block(id, statusValue, actions.queryblock)}>
 						Si
 						</IconButton>
 						&nbsp;
 						&nbsp;
-						<IconButton >
+						<IconButton onClick={() => actions.closeModal()}>
 						No
 						</IconButton>
 					</span>
@@ -76,12 +79,14 @@ const ModalsOptions = ({
 					</p>
 
 					<span>
-						<IconButton >
-						Si
+						<IconButton
+							onClick={() => actions.delete(id, statusValue, paginationPage, actions.queryDelete)}
+						>
+							Si
 						</IconButton>
 						&nbsp;
 						&nbsp;
-						<IconButton >
+						<IconButton onClick={() => actions.closeModal()}>
 						No
 						</IconButton>
 					</span>
@@ -92,9 +97,11 @@ const ModalsOptions = ({
 );
 
 ModalsOptions.propTypes = {
+	id: PropTypes.number.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	modalType: PropTypes.string.isRequired,
 	statusValue: PropTypes.number.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	messages: PropTypes.shape({
 		edit: PropTypes.shape({
@@ -111,13 +118,17 @@ ModalsOptions.propTypes = {
 			msg: PropTypes.string,
 		}),
 	}).isRequired,
+	actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
+	id: ownProps.id,
 	isOpen: ownProps.isOpen,
 	modalType: ownProps.modalType,
 	statusValue: ownProps.statusValue,
+	paginationPage: ownProps.paginationPage,
 	messages: ownProps.messages,
+	actions: ownProps.actions,
 });
 
 export default compose(
