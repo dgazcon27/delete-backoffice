@@ -111,3 +111,22 @@ export const GET_BANK_BY_ID = gql`
 	}
 `;
 
+export const GET_ACCOUNT_BY_ID = gql`
+	query bankAccount($id:Int!){
+		bankAccount(id:$id) {
+			id
+			accountNumber
+			currency
+			type
+			comment
+			bank {
+				id
+			} 
+			owner {
+				id
+				name 
+				lastName
+			}
+		}
+	}
+`;

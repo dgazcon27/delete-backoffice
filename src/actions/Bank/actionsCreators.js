@@ -15,6 +15,7 @@ import {
 	GET_BANKS,
 	GET_BANK_ACCOUNTS,
 	GET_BANK_BY_ID,
+	GET_ACCOUNT_BY_ID,
 } from '../../queries/bank';
 import { client } from '../../config/configStore';
 
@@ -66,19 +67,35 @@ export const getBankById = id => (
 	}
 );
 
-export const setBankAccount = (id, owner, bank, currency, accountNumber, type, comment) => ({
+
+export const setBankAccount = account => ({
 	type: SET_BANK_ACCOUNT,
 	payload: {
 		description: SET_BANK_ACCOUNT,
-		id,
-		owner,
-		bank,
-		currency,
-		accountNumber,
-		type,
-		comment,
+		id: account.id,
+		owner: account.owner.id,
+		bank: account.bank.id,
+		currency: account.currency,
+		accountNumber: account.accountNumber,
+		type: account.type,
+		comment: account.comment,
 	},
 });
+
+export const getAccountById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ACCOUNT_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { bankAccount } = res.data;
+				dispatch(setBankAccount(bankAccount));
+			})
+			.catch(() => {});
+	}
+);
 
 export const cleanState = () => ({
 	type: CLEAN_STATE,
@@ -202,26 +219,23 @@ export const editBank = (bank, paginationPage, editBankMutation) =>
 			});
 	};
 export const editBankAccount = (
-	id,
-	bank,
-	owner,
-	accountNumber,
-	type,
-	currency,
-	comment,
+	account,
 	paginationPage,
 	editBankAccountMutation,
 ) =>
 	async (dispatch) => {
 		await editBankAccountMutation({
-			variables: {
-				id, bank, owner, accountNumber, type, currency, comment,
-			},
+			variables: account,
 			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
 		})
 
 			.then(() => {
 				dispatch(openAlert('edit'));
+				dispatch(setBankAccount({
+					...account,
+					owner: { id: account.owner },
+					bank: { id: account.bank },
+				}));
 				setTimeout(() => (window.location.assign('/bank-account')), 2000);
 			})
 			.catch((res) => {

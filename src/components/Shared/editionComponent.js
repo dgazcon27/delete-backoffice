@@ -7,13 +7,14 @@ import { getEventById } from '../../actions/Event/actionsCreators';
 import { getUserById } from '../../actions/users/actionsCreators';
 import { getUserTypeById } from '../../actions/userType/actionsCreators';
 import { getLocationById } from '../../actions/location/actionsCreators';
-import { getBankById } from '../../actions/Bank/actionsCreators';
+import { getBankById, getAccountById } from '../../actions/Bank/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
 import UserTypeEdit from '../UserType/userTypeEdit';
 import LocationEdit from '../Location/locationEdit';
 import BankEdit from '../Bank/bankEdit';
+import BankAccountEdit from '../Bank/bankAccountEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -30,29 +31,28 @@ class EditionComponent extends React.Component {
 		const { type } = this.props.location.state;
 		switch (type) {
 			case 'Event':
-				// statements_1
 				this.props.dispatch(getEventById(id));
 				this.setState({ tag: <EventEdit /> });
 				break;
 			case 'User':
-				// statements_1
 				this.props.dispatch(getUserById(id));
 				this.setState({ tag: <UsersEdit /> });
 				break;
 			case 'UserType':
-				// statements_1
 				this.props.dispatch(getUserTypeById(id));
 				this.setState({ tag: <UserTypeEdit /> });
 				break;
 			case 'Location':
-				// statements_1
 				this.props.dispatch(getLocationById(id));
 				this.setState({ tag: <LocationEdit /> });
 				break;
 			case 'Bank':
-				// statements_1
 				this.props.dispatch(getBankById(id));
 				this.setState({ tag: <BankEdit /> });
+				break;
+			case 'Account':
+				this.props.dispatch(getAccountById(id));
+				this.setState({ tag: <BankAccountEdit /> });
 				break;
 			default:
 				break;

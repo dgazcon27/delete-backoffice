@@ -30,7 +30,6 @@ import {
 } from './bankAccountCreate';
 
 let BankAccountEdit = ({
-	id,
 	classes,
 	myValues,
 	alertOpen,
@@ -99,13 +98,7 @@ let BankAccountEdit = ({
 					className={classes.createButton}
 					type='submit'
 					onClick={handleSubmit(() => actionEditBankAccount(
-						id,
-						myValues.bank,
-						myValues.owner,
-						myValues.accountNumber,
-						myValues.type,
-						myValues.currency,
-						myValues.comment,
+						myValues,
 						paginationPage,
 						editBankAccountMutation,
 					))}
@@ -143,7 +136,6 @@ let BankAccountEdit = ({
 
 
 BankAccountEdit.propTypes = {
-	id: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -158,6 +150,7 @@ BankAccountEdit.propTypes = {
 
 BankAccountEdit = reduxForm({
 	form: 'BankAccountEdit',
+	enableReinitialize: true,
 })(BankAccountEdit);
 
 const selector = formValueSelector('BankAccountEdit');
@@ -168,35 +161,22 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerBank.alertType,
 	alertOpen: state.ReducerBank.alertOpen,
 	initialValues: state.ReducerBank,
-	id: state.ReducerBank.id,
 	accountNumber: state.ReducerBank.accountNumber,
 	currency: state.ReducerBank.currency,
 	paginationPage: state.ReducerBank.paginationPage,
-	myValues: selector(state, 'owner', 'bank', 'type', 'accountNumber', 'currency', 'comment'),
+	myValues: selector(state, 'id', 'owner', 'bank', 'type', 'accountNumber', 'currency', 'comment'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
 	actionEditBankAccount: (
-		id,
-		owner,
 		bank,
-		type,
-		accountNumber,
-		currency,
-		comment,
 		paginationPage,
 		editBankAccountMutation,
 	) =>
 		dispatch(editBankAccount(
-			id,
-			owner,
 			bank,
-			type,
-			accountNumber,
-			currency,
-			comment,
 			paginationPage,
 			editBankAccountMutation,
 		)),
