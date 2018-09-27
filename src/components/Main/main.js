@@ -24,7 +24,6 @@ import Payment from '../Payment/payment';
 import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
-import AccessEdit from '../Access/accessEdit';
 import EditionComponent from '../Shared/editionComponent';
 
 import {
@@ -75,7 +74,7 @@ const Main = (props) => {
 				<Route path='/pre-sale-edit' component={PaymentEdit} />
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
-				<Route path='/access-edit' component={AccessEdit} />
+				<Route path='/access-edit/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);

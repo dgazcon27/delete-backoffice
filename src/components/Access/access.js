@@ -30,7 +30,6 @@ import styles from './accessCss';
 import {
 	openModal,
 	closeModal,
-	setAccess,
 	deleteAccess,
 	changePage,
 } from '../../actions/Access/actionsCreators';
@@ -50,7 +49,6 @@ const Access = ({
 	currentPage,
 	actionOpenModal,
 	actionCloseModal,
-	actionEditAccess,
 	paginationPage,
 	actionDeleteAccess,
 	actionChangePage,
@@ -117,21 +115,8 @@ const Access = ({
 													placement='top'
 													title='Editar Acceso'
 												>
-													<Link to='/access-edit' href='/access-edit'>
-														<IconButton
-															onClick={() => {
-																actionEditAccess(
-																	access.id,
-																	access.name,
-																	access.description,
-																	access.price,
-																	access.currency,
-																	access.location.id,
-																	access.zone.id,
-																	access.status.id,
-																);
-															}}
-														>
+													<Link to={{ pathname: `/access-edit/${access.id}`, state: { type: 'Access' } }}>
+														<IconButton >
 															<Edit />
 														</IconButton>
 													</Link>
@@ -224,7 +209,6 @@ Access.propTypes = {
 	name: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
-	actionEditAccess: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeleteAccess: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
@@ -256,16 +240,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteAccess: (id, statusValue, paginationPage, deleteAccessMutation) =>
 		dispatch(deleteAccess(id, statusValue, paginationPage, deleteAccessMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditAccess: (
-		id,
-		name,
-		description,
-		price,
-		currency,
-		location,
-		zone,
-		status,
-	) => dispatch(setAccess(id, name, description, price, currency, location, zone, status)),
 });
 
 export default compose(
