@@ -10,6 +10,7 @@ import { getLocationById } from '../../actions/location/actionsCreators';
 import { getBankById, getAccountById } from '../../actions/Bank/actionsCreators';
 import { getAccessById } from '../../actions/Access/actionsCreators';
 import { getPurchaseById } from '../../actions/PurchaseRequest/actionsCreators';
+import { getPaymentById } from '../../actions/Payment/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -19,6 +20,7 @@ import BankEdit from '../Bank/bankEdit';
 import BankAccountEdit from '../Bank/bankAccountEdit';
 import AccessEdit from '../Access/accessEdit';
 import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
+import PaymentEdit from '../Payment/paymentEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -33,6 +35,7 @@ class EditionComponent extends React.Component {
 
 	initialize(id) {
 		const { type } = this.props.location.state;
+		let fk = {};
 		switch (type) {
 			case 'Event':
 				this.props.dispatch(getEventById(id));
@@ -65,6 +68,11 @@ class EditionComponent extends React.Component {
 			case 'Purchase':
 				this.props.dispatch(getPurchaseById(id));
 				this.setState({ tag: <PurchaseRequestEdit /> });
+				break;
+			case 'Payment':
+				({ fk } = this.props.match.params);
+				this.props.dispatch(getPaymentById(id, fk));
+				this.setState({ tag: <PaymentEdit /> });
 				break;
 			default:
 				break;

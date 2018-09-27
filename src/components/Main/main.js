@@ -20,7 +20,6 @@ import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import PayCreate from '../PurchaseRequest/PayCreate';
 import Payment from '../Payment/payment';
-import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
@@ -70,7 +69,7 @@ const Main = (props) => {
 				<Route path='/bank-edit/:id' component={EditionComponent} />
 				<Route path='/bank-account-edit/:id' component={EditionComponent} />
 				<Route path='/pre-sale' component={Payment} />
-				<Route path='/pre-sale-edit' component={PaymentEdit} />
+				<Route path='/pre-sale-edit/:id/:fk' component={EditionComponent} />
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit/:id' component={EditionComponent} />

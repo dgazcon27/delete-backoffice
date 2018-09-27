@@ -36,25 +36,15 @@ export const changePage = (currentPage, paginationPage) => {
 		},
 	});
 };
-/* id,
-	user,
-	access,
-	event,
-	status,
-	comment,
-	totalPrice,
-	pendingPayment,
-	totalPaid,
-	userId */
 
 export const setPurchaseReq = purchase => ({
 	type: SET_PURCHASE_REQ,
 	payload: {
 		...purchase,
-		user: purchase.user.id,
-		access: purchase.access.id,
-		event: purchase.event.id,
-		status: purchase.status.id,
+		user: Number(purchase.user.id),
+		access: Number(purchase.access.id),
+		event: Number(purchase.event.id),
+		status: Number(purchase.status.id),
 		description: SET_PURCHASE_REQ,
 	},
 });

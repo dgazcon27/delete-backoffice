@@ -140,7 +140,7 @@ let PaymentEdit = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditPayment(initialValues.id, myValues.purchaseRequest, myValues.amount, myValues.reference, myValues.comment, myValues.type, myValues.bankAccount, Number(userId), paginationPage, editPaymentMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditPayment(myValues, Number(userId), paginationPage, editPaymentMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<Link to='/pre-sale' href='/pre-sale' className={classes.returnButton} >
@@ -161,7 +161,7 @@ let PaymentEdit = ({
 );
 
 PaymentEdit.propTypes = {
-	userId: PropTypes.string.isRequired,
+	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
@@ -177,6 +177,7 @@ PaymentEdit.propTypes = {
 
 PaymentEdit = reduxForm({
 	form: 'PaymentEdit',
+	enableReinitialize: true,
 })(PaymentEdit);
 
 const selector = formValueSelector('PaymentEdit');
@@ -187,7 +188,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerPayment.alertType,
 	alertOpen: state.ReducerPayment.alertOpen,
 	paginationPage: state.ReducerPayment.paginationPage,
-	myValues: selector(state, 'purchaseRequest', 'amount', 'reference', 'comment', 'type', 'bankAccount'),
+	myValues: selector(state, 'id', 'purchaseRequest', 'amount', 'reference', 'comment', 'type', 'bankAccount'),
 });
 
 const mapDispatchToProps = dispatch => ({
