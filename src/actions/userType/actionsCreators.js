@@ -109,7 +109,7 @@ export const deleteUserType = (id, statusValue, paginationPage, deleteRolMutatio
 			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		window.location.reload();
+		// window.location.reload();
 	};
 };
 
