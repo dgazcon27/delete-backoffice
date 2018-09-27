@@ -11,6 +11,7 @@ import { getBankById, getAccountById } from '../../actions/Bank/actionsCreators'
 import { getAccessById } from '../../actions/Access/actionsCreators';
 import { getPurchaseById } from '../../actions/PurchaseRequest/actionsCreators';
 import { getPaymentById } from '../../actions/Payment/actionsCreators';
+import { getZoneById } from '../../actions/zone/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -21,6 +22,7 @@ import BankAccountEdit from '../Bank/bankAccountEdit';
 import AccessEdit from '../Access/accessEdit';
 import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
 import PaymentEdit from '../Payment/paymentEdit';
+import ZoneEdit from '../Zone/zoneEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -73,6 +75,10 @@ class EditionComponent extends React.Component {
 				({ fk } = this.props.match.params);
 				this.props.dispatch(getPaymentById(id, fk));
 				this.setState({ tag: <PaymentEdit /> });
+				break;
+			case 'Zone':
+				this.props.dispatch(getZoneById(id));
+				this.setState({ tag: <ZoneEdit /> });
 				break;
 			default:
 				break;

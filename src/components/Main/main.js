@@ -11,7 +11,6 @@ import ComponentUsers from '../Users/componentUsers';
 import UsersCreate from '../Users/usersCreate';
 import ComponentZone from '../Zone/componentZone';
 import ZoneCreate from '../Zone/zoneCreate';
-import ZoneEdit from '../Zone/zoneEdit';
 import LocationCreate from '../Location/locationCreate';
 import ComponentLocation from '../Location/ComponentLocation';
 import Event from '../Event/event';
@@ -56,7 +55,7 @@ const Main = (props) => {
 				<Route path='/categories' component={Categories} />
 				<Route path='/Departments' component={ComponentZone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
-				<Route path='/Departments-edit' component={ZoneEdit} />
+				<Route path='/Departments-edit/:id' component={EditionComponent} />
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
 				<Route path='/purchase-request' component={PurchaseRequest} />
