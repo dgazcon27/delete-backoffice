@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
@@ -15,7 +13,6 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import styles from './paymentCss';
 import './styles.css';
 import {
@@ -25,58 +22,15 @@ import {
 import {
 	renderTextField,
 	renderNumberField,
-	renderSelectField,
 } from '../RenderFields/renderFields';
-import {
-	EDIT_PAYMENT,
-	GET_BANK_ACCOUNTS,
-} from '../../queries/payment';
+import { EDIT_PAYMENT } from '../../queries/payment';
+import BackButton from '../widget/BackButton';
 import {
 	closeAlert,
 	editPayment,
 } from '../../actions/Payment/actionsCreators';
 
-const BankAccount = () => (
-	<Query query={GET_BANK_ACCOUNTS}>
-		{({ loading, error, data }) => {
-			if (loading || error) {
-				return (
-					<Field
-						name='bankAccount'
-						type='select'
-						component={renderSelectField}
-						validate={required}
-						label='Cuenta de Banco'
-						className='container'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			return (
-				<div>
-					<Field
-						name='bankAccount'
-						type='select'
-						label='bankAccount'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						{data.bankAccountss.map(bankAccount => (
-							<MenuItem
-								key={bankAccount.id}
-								value={bankAccount.id}
-							>
-								{bankAccount.accountNumber}
-							</MenuItem>
-						))}
-					</Field>
-				</div>
-			);
-		}}
-	</Query>
-);
+import { BankAccount } from '../commonComponent';
 
 let PaymentEdit = ({
 	userId,
@@ -143,9 +97,7 @@ let PaymentEdit = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditPayment(initialValues.id, myValues.purchaseRequest, myValues.amount, myValues.reference, myValues.comment, myValues.type, myValues.bankAccount, Number(userId), paginationPage, editPaymentMutation))} disabled={submitting} >
 					Guardar
 				</button>
-				<Link to='/pre-sale' href='/pre-sale' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -20,9 +19,9 @@ import { renderTextField } from '../RenderFields/renderFields';
 import { EDIT_BANK } from '../../queries/bank';
 import {
 	editBank,
-	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 let BankEdit = ({
 	id,
@@ -34,7 +33,6 @@ let BankEdit = ({
 	actionCloseAlert,
 	paginationPage,
 	editBankMutation,
-	actionCleanState,
 	handleSubmit,
 	submitting,
 }) => (
@@ -66,9 +64,7 @@ let BankEdit = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(id, myValues.name, myValues.currency, paginationPage, editBankMutation))} disabled={submitting} >
 				Guardar
 				</button>
-				<Link to='/bank' href='/bank' className={classes.createButton} onClick={() => actionCleanState()}>
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -102,7 +98,6 @@ BankEdit.propTypes = {
 	myValues: PropTypes.object.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionEditBank: PropTypes.func.isRequired,
-	actionCleanState: PropTypes.func.isRequired,
 	editBankMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
@@ -128,7 +123,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionCleanState: () => dispatch(cleanState()),
 	actionEditBank: (id, name, currency, paginationPage, editBankMutation) =>
 		dispatch(editBank(id, name, currency, paginationPage, editBankMutation)),
 });

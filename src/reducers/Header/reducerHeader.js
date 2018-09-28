@@ -7,7 +7,7 @@ import {
 
 
 const stateInitial = {
-	openDrawer: false,
+	openDrawer: true,
 	openMenuProfile: null,
 };
 

@@ -44,9 +44,8 @@ const Header = ({
 				</IconButton>
 
 				<Typography variant='title' color='inherit' className={classes.flex} noWrap>
-					<img src={logo} className={classes.logo} alt='Logo Delete' width='150px' />
+					{!openDrawer && <img src={logo} className={classes.logo} alt='Logo Delete' width='150px' /> }
 				</Typography>
-
 				<div>
 					<IconButton	aria-owns={Boolean(openMenuProfile) ? 'menu-appbar' : null} onClick={actionOpenProfile} color='inherit'>
 						<AccountCircle />
