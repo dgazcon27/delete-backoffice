@@ -30,7 +30,9 @@ import Payment from '../Payment/payment';
 import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
-import AccessEdit from '../Access/accessEdit';
+import AccessList from '../Event/accessList';
+import AccessEventCreate from '../Event/accessEventCreate';
+import AccessEventEdit from '../Event/accessEventEdit';
 
 import {
 	Dashboard,
@@ -80,7 +82,9 @@ const Main = (props) => {
 				<Route path='/pre-sale-edit' component={PaymentEdit} />
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
-				<Route path='/access-edit' component={AccessEdit} />
+				<Route path='/event-access' component={AccessList} />
+				<Route path='/event-access-create' component={AccessEventCreate} />
+				<Route path='/event-access-edit' component={AccessEventEdit} />
 			</Switch>
 		</main>
 	);

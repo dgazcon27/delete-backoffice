@@ -8,6 +8,7 @@ import {
 	SET_EVENT,
 	CLEAN_STATE,
 	SET_COUNTRIES_STATES,
+	ADD_ACCESS,
 } from './actionsTypes';
 
 import { GET_EVENTS } from '../../queries/event';
@@ -101,6 +102,14 @@ export const setEvent = (event, dispatch) => {
 		},
 	});
 };
+
+export const addAccess = event => ({
+	type: ADD_ACCESS,
+	payload: {
+		description: ADD_ACCESS,
+		event,
+	},
+});
 
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));

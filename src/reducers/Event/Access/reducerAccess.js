@@ -9,10 +9,9 @@ import {
 	SET_COUNTRIES_STATES,
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
-	OPEN_MODAL_ACCESS,
 	ADD_ACCESS,
 	SET_ACCESS_EVENT,
-} from '../../actions/Event/actionsTypes';
+} from '../../../actions/Event/Access/actionsTypes';
 
 const initialState = {
 	id: 0,
@@ -47,7 +46,7 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.currentPage = 0;
 }
 
-const ReducerEvent = (state = initialState, action = {}) => {
+const ReducerEventAccess = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case PAGE_UP:
 			return ({
@@ -60,15 +59,6 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				...state,
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
-			});
-		case OPEN_MODAL:
-			return ({
-				...state,
-				isOpen: true,
-				id: action.payload.id,
-				name: action.payload.name,
-				modalType: action.payload.modalType,
-				statusValue: action.payload.statusValue,
 			});
 		case CLOSE_MODAL:
 			return ({
@@ -121,7 +111,7 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				withTickets: action.payload.withTickets,
 				activeTickets: action.payload.activeTickets,
 			});
-		case OPEN_MODAL_ACCESS:
+		case OPEN_MODAL:
 			return ({
 				...state,
 				isOpen: true,
@@ -152,4 +142,4 @@ const ReducerEvent = (state = initialState, action = {}) => {
 	}
 };
 
-export default ReducerEvent;
+export default ReducerEventAccess;

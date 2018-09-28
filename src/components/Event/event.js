@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import List from '@material-ui/icons/List';
 import Add from '@material-ui/icons/Add';
 import {
 	Modal,
@@ -29,13 +30,13 @@ import {
 } from '@material-ui/core';
 import styles from './userTypeCss';
 
-
 import {
 	changePage,
 	openModal,
 	closeModal,
 	deleteEvent,
 	setEvent,
+	addAccess,
 } from '../../actions/Event/actionsCreators';
 
 import {
@@ -59,6 +60,7 @@ const Event = ({
 	isOpen,
 	modalType,
 	actionSetEvent,
+	actionAddAccess,
 }) => (
 	<Query query={GET_EVENTS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -106,6 +108,23 @@ const Event = ({
 												<TableCell >{event.name}</TableCell>
 												<TableCell >{event.state.country.name}</TableCell>
 												<TableCell className={classes.alignRight}>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
+														title='Lista de Accesos'
+													>
+														<Link to='/event-access' href='/event-access'>
+															<IconButton
+																onClick={() => {
+																	actionAddAccess(event.id);
+																}}
+															>
+																<List />
+															</IconButton>
+														</Link>
+													</Tooltip>
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
@@ -218,6 +237,7 @@ Event.propTypes = {
 	id: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionSetEvent: PropTypes.func.isRequired,
+	actionAddAccess: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	actionDeleteEvent: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
@@ -251,6 +271,8 @@ const mapDispatchToProps = dispatch => ({
 	actionCloseModal: () => dispatch(closeModal()),
 	actionSetEvent: event =>
 		dispatch(setEvent(event, dispatch)),
+	actionAddAccess: event =>
+		dispatch(addAccess(event)),
 });
 
 export { Event as EventTest };
