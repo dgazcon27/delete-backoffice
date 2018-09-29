@@ -101,7 +101,7 @@ let BankAccountCreate = ({
 					type='submit'
 					onClick={handleSubmit(() => actionCreateBankAccount(
 						myValues.bank,
-						myValues.owner,
+						myValues.user,
 						myValues.accountNumber,
 						myValues.type,
 						myValues.comment,
@@ -175,14 +175,14 @@ const mapStateToProps = state => ({
 	name: state.ReducerBankAccount.name,
 	descripcion: state.ReducerBankAccount.descripcion,
 	paginationPage: state.ReducerBankAccount.paginationPage,
-	myValues: selector(state, 'bank', 'owner', 'accountNumber', 'type', 'comment', 'currency'),
+	myValues: selector(state, 'bank', 'user', 'accountNumber', 'type', 'comment', 'currency'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCreateBankAccount: (
 		bank,
-		owner,
+		user,
 		accountNumber,
 		type,
 		currency,
@@ -192,7 +192,7 @@ const mapDispatchToProps = dispatch => ({
 	) =>
 		dispatch(createBankAccount(
 			bank,
-			owner,
+			user,
 			accountNumber,
 			type,
 			currency,

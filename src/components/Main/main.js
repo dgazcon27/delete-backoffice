@@ -33,7 +33,6 @@ import AccessCreate from '../Access/accessCreate';
 import AccessEdit from '../Access/accessEdit';
 
 import {
-	Dashboard,
 	Guests,
 	Djs,
 	Categories,
@@ -46,7 +45,8 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
-				<Route exact path='/' component={Dashboard} />
+				<Route exact path='/' component={PurchaseRequest} />
+				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={ComponentUsers} />
 				<Route path='/users-create' component={UsersCreate} />
 				<Route path='/users-edit' component={UsersEdit} />
@@ -62,21 +62,19 @@ const Main = (props) => {
 				<Route path='/event-edit' component={EventEdit} />
 				<Route path='/djs' component={Djs} />
 				<Route path='/categories' component={Categories} />
-				<Route path='/Departments' component={ComponentZone} />
+				<Route path='/zones' component={ComponentZone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
 				<Route path='/Departments-edit' component={ZoneEdit} />
 				<Route path='/staff' component={Staff} />
 				<Route path='/bank' component={Bank} />
-				<Route path='/purchase-request' component={PurchaseRequest} />
 				<Route path='/purchase-request-create' component={PurchaseRequestCreate} />
-				<Route path='/payment' component={PayCreate} />
+				<Route path='/pay' component={PayCreate} />
 				<Route path='/purchase-request-edit' component={PurchaseRequestEdit} />
 				<Route path='/bank-account' component={BankAccount} />
 				<Route path='/bank-create' component={BankCreate} />
 				<Route path='/bank-account-create' component={BankAccountCreate} />
 				<Route path='/bank-edit' component={BankEdit} />
 				<Route path='/bank-account-edit' component={BankAccountEdit} />
-				<Route path='/pre-sale' component={Payment} />
 				<Route path='/pre-sale-edit' component={PaymentEdit} />
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />

@@ -77,7 +77,7 @@ const Access = ({
 					<div>
 
 						<h5 className={classes.title}>
-							Acceso
+							Accesos
 						</h5>
 
 						<div className={classes.search}>

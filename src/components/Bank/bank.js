@@ -76,7 +76,7 @@ const Bank = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-							Banca
+							Bancos
 						</h5>
 						<h5 className={classes.searchAlignRigth}>
 							<Link to='/bank-create' href='/bank-create' >

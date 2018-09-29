@@ -80,7 +80,7 @@ const PurchaseRequest = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-						PurchaseRequest
+						Taquilla
 						</h5>
 						<h5 className={classes.searchAlignRigth}>
 							<Link to='/purchase-request-create' href='/purchase-request-create' >
@@ -119,7 +119,7 @@ const PurchaseRequest = ({
 														placement='top'
 														title='Realizar pago'
 													>
-														<Link to='/payment' href='/payment'>
+														<Link to='/Pay' href='/Pay'>
 															<IconButton
 																onClick={() => {
 																	actionSetToPay(

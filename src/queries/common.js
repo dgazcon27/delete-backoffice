@@ -14,6 +14,7 @@ export const GET_USERSS = gql`
 			userss{
 				id
 				name
+				lastName
 			}
 		}	
 `;
@@ -51,6 +52,14 @@ export const GET_ACCESSS = gql`
 export const GET_EVENTSS = gql`
 	query{ 
 			eventss{
+				id
+				name
+			}
+		}	
+`;
+export const GET_A_EVENTSS = gql`
+	query{ 
+			activeEvents{
 				id
 				name
 			}
