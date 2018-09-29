@@ -138,7 +138,7 @@ PurchaseRequestCreate.propTypes = {
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
-	access: PropTypes.object.isRequired,
+	access: PropTypes.array.isRequired,
 	actionCreatePurchaseReq: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionSelectEvent: PropTypes.func.isRequired,

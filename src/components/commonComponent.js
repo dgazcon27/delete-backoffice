@@ -179,7 +179,7 @@ export const AccessE = (access) => {
 	if (access !== {} && access.access.length > 0) {
 		return (
 			<Field
-				name='accessEvent'
+				name='access'
 				type='select'
 				label='Accesos'
 				placeholder='Accesos'
@@ -187,14 +187,14 @@ export const AccessE = (access) => {
 				validate={required}
 				className='container'
 			>
-				{access.access.map(() => (
-					<MenuItem key={access.id} value={access.id}>{access.access.name}</MenuItem>
+				{access.access.map(acc => (
+					<MenuItem key={acc.id} value={acc.id}>{acc.access.name}</MenuItem>
 				))}
 			</Field>);
 	}
 	return (
 		<Field
-			name='accessEvent'
+			name='access'
 			type='select'
 			label='Accesos'
 			component={renderSelectField}
