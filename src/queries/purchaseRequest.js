@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const GET_ACCESS_BY_EVENT = gql`query accessByEvent($event:Int!){
+	accessByEvent(event:$event){
+		id
+		access{
+				name
+			}
+	}
+}
+`;
 
 export const GET_PURCHASE_REQ = gql`
 	query purchaseRequests($paginationPage:Int!){

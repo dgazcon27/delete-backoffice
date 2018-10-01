@@ -42,7 +42,7 @@ let BankCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Bancas</h3>
+		<h3 className={classes.formTitle}>Crear Banco</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Banco</h6>

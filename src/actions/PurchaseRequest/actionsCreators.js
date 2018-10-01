@@ -9,10 +9,11 @@ import {
 	PAGE_DOWN,
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
+	SET_ACCESS_EVENT,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
-
-import { GET_PURCHASE_REQ } from '../../queries/purchaseRequest';
+import { GET_PURCHASE_REQ, GET_ACCESS_BY_EVENT } from '../../queries/purchaseRequest';
+import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -122,8 +123,27 @@ export const setName = name => ({
 		name,
 	},
 });
+export const setAccess = access => ({
+	type: SET_ACCESS_EVENT,
+	payload: {
+		access,
+		description: SET_ACCESS_EVENT,
+	},
+});
 
-
+export const setAccessEvent = (event, id) => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ACCESS_BY_EVENT,
+				variables: { event: id },
+			})
+			.then((res) => {
+				dispatch(setAccess(res.data.accessByEvent));
+			})
+			.catch(() => {});
+	}
+);
 export const createPurchaseReq = (
 	myValues,
 	createdBy,
@@ -147,7 +167,7 @@ export const createPurchaseReq = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('purchase-request')), 2000);
+				setTimeout(() => (window.location.assign('/')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -210,3 +230,4 @@ export const editBankAccount = (
 				dispatch(openAlert(message));
 			});
 	};
+

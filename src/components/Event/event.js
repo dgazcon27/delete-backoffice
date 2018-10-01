@@ -78,7 +78,7 @@ const Event = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-							Evento
+							Eventos
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
