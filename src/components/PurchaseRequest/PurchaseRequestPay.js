@@ -84,7 +84,7 @@ const PurchaseRequestPay = ({
 														onClick={() => {
 															actionEditPayment(
 																payment.payment.id,
-																payment.purchaseRequest.id,
+																payment.id,
 																payment.payment.amount,
 																payment.payment.reference,
 																payment.payment.comment,

@@ -72,3 +72,28 @@ mutation updatePurchaseRequest ($id:Int!, $user:Int!, $access:Int!, $event:Int!,
 	{id}
 }
 `;
+
+export const PURCHASE_REQUEST_PAY = gql`
+	query purchaseRequestPayment($id:Int!){
+		purchaseRequestPayment(id:$id){
+			payment{
+				id
+				amount
+				reference
+				comment
+				type
+				created_at
+				bankAccount{
+					id
+					type
+					currency
+					bank{
+						id
+						name
+					}
+				}
+			}
+			id
+	}
+}
+`; 
