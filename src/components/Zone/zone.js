@@ -29,7 +29,6 @@ import styles from './zoneCss';
 import {
 	openModal,
 	closeModal,
-	setZone,
 	blockZone,
 	deleteZone,
 	changePage,
@@ -56,7 +55,6 @@ const Zone = ({
 	currentPageSearch,
 	actionOpenModal,
 	actionCloseModal,
-	actionEditZone,
 	paginationPage,
 	actionBlockZone,
 	actionDeleteZone,
@@ -116,17 +114,8 @@ const Zone = ({
 														placement='top'
 														title='Editar Zona'
 													>
-														<Link to='/Departments-edit' href='/Departments-edit'>
-															<IconButton
-																onClick={() => {
-																	actionEditZone(
-																		zone.id,
-																		zone.name,
-																		zone.maxcapacity,
-																		zone.capacity,
-																	);
-																}}
-															>
+														<Link to={{ pathname: `/Departments-edit/${zone.id}`, state: { type: 'Zone' } }}>
+															<IconButton>
 																<Edit />
 															</IconButton>
 														</Link>
@@ -287,7 +276,6 @@ Zone.propTypes = {
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	currentPageSearch: PropTypes.number.isRequired,
-	actionEditZone: PropTypes.func.isRequired,
 	actionBlockZone: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeleteZone: PropTypes.func.isRequired,
@@ -330,12 +318,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteZone: (id, statusValue, paginationPage, deleteZoneMutation) =>
 		dispatch(deleteZone(id, statusValue, paginationPage, deleteZoneMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditZone: (
-		id,
-		name,
-		maxcapacity,
-		capacity,
-	) => dispatch(setZone(id, name, maxcapacity, capacity)),
 });
 
 export default compose(

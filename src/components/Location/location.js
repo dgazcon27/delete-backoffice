@@ -33,7 +33,6 @@ import {
 	openModal,
 	closeModal,
 	changePage,
-	setLocation,
 	blockLocation,
 	deleteLocation,
 	changePageSearch,
@@ -60,7 +59,6 @@ const Location = ({
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
-	actionEditLocation,
 	actionBlockLocation,
 	actionDeleteLocation,
 	blockLocationMutation,
@@ -117,19 +115,8 @@ const Location = ({
 														placement='top'
 														title='Editar Ubicación'
 													>
-														<Link to='/edit-tables' href='/edit-tables'>
-															<IconButton
-																onClick={() => {
-																	actionEditLocation(
-																		location.id,
-																		location.name,
-																		location.description,
-																		location.fullcapacity,
-																		location.capacity,
-																		location.status.id,
-																	);
-																}}
-															>
+														<Link to={{ pathname: `/edit-tables/${location.id}`, state: { type: 'Location' } }}>
+															<IconButton>
 																<Edit />
 															</IconButton>
 														</Link>
@@ -280,7 +267,6 @@ Location.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	actionEditLocation: PropTypes.func.isRequired,
 	actionBlockLocation: PropTypes.func.isRequired,
 	actionDeleteLocation: PropTypes.func.isRequired,
 	blockLocationMutation: PropTypes.func.isRequired,
@@ -319,14 +305,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteLocation: (id, statusValue, paginationPage, deleteLocationMutation) =>
 		dispatch(deleteLocation(id, statusValue, paginationPage, deleteLocationMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditLocation: (
-		id,
-		name,
-		description,
-		fullcapacity,
-		capacity,
-		status,
-	) => dispatch(setLocation(id, name, description, fullcapacity, capacity, status)),
 });
 
 export default compose(

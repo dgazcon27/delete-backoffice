@@ -76,3 +76,18 @@ export const GET_BANK_ACCOUNTS = gql`
 		}
 	}
 `;
+
+export const GET_PAYMENT_BY_ID = gql`
+	query payment($id:Int!){
+		payment(id:$id) {
+			id
+			amount
+			reference
+			comment
+			type
+			bankAccount{
+				id
+			}
+		}
+	}
+`;

@@ -106,6 +106,7 @@ UserTypeEdit.propTypes = {
 
 UserTypeEdit = reduxForm({
 	form: 'UserTypeEdit',
+	enableReinitialize: true,
 })(UserTypeEdit);
 
 const selector = formValueSelector('UserTypeEdit');

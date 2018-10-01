@@ -196,18 +196,19 @@ EventEdit.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
+	myValues: PropTypes.object.isRequired,
 	userId: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	actionEditEvent: PropTypes.func.isRequired,
 	editEventMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionSelectCountry: PropTypes.func.isRequired,
-	myValues: PropTypes.object.isRequired,
 	states: PropTypes.array.isRequired,
 };
 
 EventEdit = reduxForm({
 	form: 'EventEdit',
+	enableReinitialize: true,
 	validate,
 	warn,
 })(EventEdit);

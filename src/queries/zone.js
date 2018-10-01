@@ -67,3 +67,17 @@ export const GET_CURRENT = gql`
 		}
 	}
 `;
+
+export const GET_ZONE_BY_ID = gql`
+	query zone($id:Int!){
+		zone(id:$id) {
+			name
+			id
+			capacity
+			maxcapacity
+			status{
+				id
+			}
+		}
+	}
+`;

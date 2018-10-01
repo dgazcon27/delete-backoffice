@@ -32,7 +32,6 @@ import {
 } from '../commonComponent';
 
 let PurchaseRequestEdit = ({
-	id,
 	userId,
 	classes,
 	myValues,
@@ -77,12 +76,7 @@ let PurchaseRequestEdit = ({
 					className={classes.createButton}
 					type='submit'
 					onClick={handleSubmit(() => actionEditPurchaseReq(
-						id,
-						parseInt(myValues.user, 10),
-						parseInt(myValues.access, 10),
-						parseInt(myValues.event, 10),
-						parseInt(myValues.status, 10),
-						myValues.comment,
+						myValues,
 						userId,
 						paginationPage,
 						editPurchaseReqMutation,
@@ -119,7 +113,6 @@ let PurchaseRequestEdit = ({
 
 PurchaseRequestEdit.propTypes = {
 	userId: PropTypes.number.isRequired,
-	id: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -134,6 +127,7 @@ PurchaseRequestEdit.propTypes = {
 
 PurchaseRequestEdit = reduxForm({
 	form: 'PurchaseRequestEdit',
+	enableReinitialize: true,
 })(PurchaseRequestEdit);
 
 const selector = formValueSelector('PurchaseRequestEdit');
@@ -142,34 +136,23 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerPurchaseRequest.alertType,
 	alertOpen: state.ReducerPurchaseRequest.alertOpen,
 	initialValues: state.ReducerPurchaseRequest,
-	id: state.ReducerPurchaseRequest.id,
 	name: state.ReducerPurchaseRequest.name,
 	currency: state.ReducerPurchaseRequest.currency,
 	paginationPage: state.ReducerPurchaseRequest.paginationPage,
 	userId: state.ReducerLogin.userId,
-	myValues: selector(state, 'user', 'access', 'event', 'status', 'comment'),
+	myValues: selector(state, 'id', 'user', 'access', 'event', 'status', 'comment'),
 });
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
 	actionEditPurchaseReq: (
-		id,
-		user,
-		access,
-		event,
-		status,
-		comment,
+		purchase,
 		paginationPage,
 		updatedBy,
 		editPurchaseReqMutation,
 	) =>
 		dispatch(editPurchaseReq(
-			id,
-			user,
-			access,
-			event,
-			status,
-			comment,
+			purchase,
 			paginationPage,
 			updatedBy,
 			editPurchaseReqMutation,

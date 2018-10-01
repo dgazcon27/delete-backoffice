@@ -81,3 +81,30 @@ mutation updatePurchaseRequest ($id:Int!, $user:Int!, $access:Int!, $event:Int!,
 	{id}
 }
 `;
+
+export const GET_PURCHASE_BY_ID = gql`
+	query purchaseRequest($id:Int!){
+		purchaseRequest(id:$id) {
+			id
+			totalPrice
+			pendingPayment
+			totalPaid
+			user{
+				id name lastName dni
+				}
+			access{
+				id
+				name
+			 }
+			event{
+				id
+				name
+				eventStart
+			}
+			status{
+				id
+			}
+			comment
+		}
+	}
+`;

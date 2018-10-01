@@ -10,7 +10,8 @@ import {
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
-import { GET_USERS } from '../../queries/users';
+import { GET_USERS, GET_USER_BY_ID } from '../../queries/users';
+import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -58,29 +59,35 @@ export const closeModal = () => ({
 	},
 });
 
-export const setUser = (
-	id,
-	name,
-	lastName,
-	phone,
-	dni,
-	birthDate,
-	citizenship,
-	role,
-) => ({
+export const setUser = user => ({
 	type: SET_USER,
 	payload: {
 		description: EDIT_USER,
-		id,
-		name,
-		lastName,
-		phone,
-		dni,
-		birthDate,
-		citizenship,
-		role,
+		id: user.id,
+		name: user.name,
+		lastName: user.lastName,
+		phone: user.phone,
+		dni: user.dni,
+		birthDate: user.birthDate,
+		citizenship: user.citizenship.id,
+		role: user.role.id,
 	},
 });
+
+export const getUserById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_USER_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { user } = res.data;
+				dispatch(setUser(user));
+			})
+			.catch(() => {});
+	}
+);
 
 export const setPassword = (
 	id,
@@ -211,7 +218,7 @@ export const editUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('editado'));
-				setTimeout(() => (window.location.assign('users')), 2000);
+				setTimeout(() => (window.location.replace('/users')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

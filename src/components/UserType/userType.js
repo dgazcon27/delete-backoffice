@@ -34,7 +34,6 @@ import {
 	deleteUserType,
 	openModal,
 	closeModal,
-	setRol,
 } from '../../actions/userType/actionsCreators';
 
 import {
@@ -57,7 +56,6 @@ const UserType = ({
 	paginationPage,
 	currentPageSearch,
 	statusValue,
-	actionSetRol,
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
@@ -115,12 +113,8 @@ const UserType = ({
 															placement='top'
 															title='Editar Rol.'
 														>
-															<Link to='/user-type-edit' href='/user-type-edit'>
-																<IconButton
-																	onClick={() => {
-																		actionSetRol(rol.id, rol.name, rol.description);
-																	}}
-																>
+															<Link to={{ pathname: `/user-type-edit/${rol.id}`, state: { type: 'UserType' } }}>
+																<IconButton>
 																	<Edit />
 																</IconButton>
 															</Link>
@@ -275,7 +269,6 @@ UserType.propTypes = {
 	statusValue: PropTypes.number,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
@@ -320,7 +313,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteUserType: (id, statusValue, paginationPage, deleteRolMutation) =>
 		dispatch(deleteUserType(id, statusValue, paginationPage, deleteRolMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 });
 
 export { UserType as UserTypeTest };

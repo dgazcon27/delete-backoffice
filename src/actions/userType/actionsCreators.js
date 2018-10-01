@@ -12,8 +12,8 @@ import {
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
-
-import { GET_ROLES } from '../../queries/userType';
+import { client } from '../../config/configStore';
+import { GET_ROLES, GET_ROL_BY_ID } from '../../queries/userType';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -54,13 +54,13 @@ export const changePageSearch = (currentPage, paginationPage) => {
 	});
 };
 
-export const setRol = (id, name, rolDescription) => ({
+export const setRol = role => ({
 	type: SET_ROL,
 	payload: {
 		description: SET_ROL,
-		id,
-		name,
-		rolDescription,
+		id: role.id,
+		name: role.name,
+		rolDescription: role.description,
 	},
 });
 
@@ -92,6 +92,21 @@ export const closeAlert = () => ({
 		description: OPEN_ALERT,
 	},
 });
+
+export const getUserTypeById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ROL_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { role } = res.data;
+				dispatch(setRol(role));
+			})
+			.catch(() => {});
+	}
+);
 
 export const blockUserType = (id, statusValue, blockRolMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
@@ -148,7 +163,7 @@ export const createRol = (name, rolDescription, paginationPage, createRolMutatio
 			})
 				.then(() => {
 					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('user-type')), 2000);
+					setTimeout(() => (window.location.replace('/user-type')), 2000);
 				})
 				.catch((res) => {
 					const message = checkMessageError(res);
@@ -165,8 +180,9 @@ export const editRol = (id, name, rolDescription, paginationPage, editRolMutatio
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 			})
 				.then(() => {
+					dispatch(setRol({ id, name, description: rolDescription }));
 					dispatch(openAlert('edit'));
-					setTimeout(() => (window.location.assign('user-type')), 2000);
+					setTimeout(() => (window.location.replace('/user-type')), 2000);
 				})
 				.catch((res) => {
 					const message = checkMessageError(res);

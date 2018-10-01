@@ -44,7 +44,6 @@ let AccessEdit = ({
 	myValues,
 	submitting,
 	handleSubmit,
-	initialValues,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Acceso</h3>
@@ -96,7 +95,7 @@ let AccessEdit = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditAccess(initialValues.id, myValues.name, myValues.descriptionAccess, myValues.price, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, editAccessMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditAccess(myValues, paginationPage, editAccessMutation))} disabled={submitting} >
 					Guardar
 				</button>
 				<BackButton />
@@ -136,11 +135,11 @@ AccessEdit.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	initialValues: PropTypes.object.isRequired,
 };
 
 AccessEdit = reduxForm({
 	form: 'AccessEdit',
+	enableReinitialize: true,
 })(AccessEdit);
 
 const selector = formValueSelector('AccessEdit');
@@ -151,31 +150,17 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
 	paginationPage: state.ReducerAccess.paginationPage,
-	myValues: selector(state, 'name', 'descriptionAccess', 'price', 'currency', 'location', 'zone', 'status'),
+	myValues: selector(state, 'id', 'name', 'descriptionAccess', 'price', 'currency', 'location', 'zone', 'status'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionEditAccess: (
-		id,
-		name,
-		descripcion,
-		price,
-		currency,
-		location,
-		zone,
-		status,
+		access,
 		paginationPage,
 		editAccessMutation,
 	) => dispatch(editAccess(
-		id,
-		name,
-		descripcion,
-		price,
-		currency,
-		location,
-		zone,
-		status,
+		access,
 		paginationPage,
 		editAccessMutation,
 	)),
