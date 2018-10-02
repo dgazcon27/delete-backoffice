@@ -4,7 +4,7 @@ import Security from '@material-ui/icons/Security';
 import People from '@material-ui/icons/People';
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import ReportIcon from '@material-ui/icons/Report';
-import Apps from '@material-ui/icons/Apps';
+// import Apps from '@material-ui/icons/Apps';
 import Weekend from '@material-ui/icons/Weekend';
 // import Wc from '@material-ui/icons/Wc';
 import Event from '@material-ui/icons/Event';
@@ -28,28 +28,30 @@ const Items = (
 		<Link to='/' href='/'>
 			<ListItem button>
 				<ListItemIcon>
+					<AttachMoney />
+				</ListItemIcon>
+				<ListItemText primary='Taquilla' />
+			</ListItem>
+		</Link>
+		<Link to='/payment' href='/payment'>
+			<ListItem button>
+				<ListItemIcon>
+					<AttachMoney />
+				</ListItemIcon>
+				<ListItemText primary='Pagos' />
+			</ListItem>
+		</Link>
+
+
+		{/* <Link to='/' href='/'>
+			<ListItem button>
+				<ListItemIcon>
 					<Apps />
 				</ListItemIcon>
 				<ListItemText primary='Dashboard' />
 			</ListItem>
 		</Link>
-
-		<Link to='/users' href='/users'>
-			<ListItem button>
-				<ListItemIcon>
-					<People />
-				</ListItemIcon>
-				<ListItemText primary='Usuarios' />
-			</ListItem>
-		</Link>
-		<Link to='/user-type' href='/user-type'>
-			<ListItem button>
-				<ListItemIcon>
-					<Security />
-				</ListItemIcon>
-				<ListItemText primary='Tipos de Usuario' />
-			</ListItem>
-		</Link>
+		*/}
 
 		<Link to='/tables' href='/tables'>
 			<ListItem button>
@@ -57,6 +59,15 @@ const Items = (
 					<Weekend />
 				</ListItemIcon>
 				<ListItemText primary='Mesas' />
+			</ListItem>
+		</Link>
+
+		<Link to='/access' href='/access'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Accesos' />
 			</ListItem>
 		</Link>
 		{/*
@@ -98,28 +109,21 @@ const Items = (
 		</Link>
 		*/}
 
-		<Link to='/departments' href='/Departments'>
+		<Link to='/zones' href='/zones'>
 			<ListItem button>
 				<ListItemIcon>
 					<GroupWork />
 				</ListItemIcon>
-				<ListItemText primary='Departamentos' />
+				<ListItemText primary='Zonas' />
 			</ListItem>
 		</Link>
-		<Link to='/pre-sale' href='/pre-sale'>
-			<ListItem button>
-				<ListItemIcon>
-					<AttachMoney />
-				</ListItemIcon>
-				<ListItemText primary='Pre-Venta' />
-			</ListItem>
-		</Link>
+
 		<Link to='/bank' href='/bank'>
 			<ListItem button>
 				<ListItemIcon>
 					<AccountBalance />
 				</ListItemIcon>
-				<ListItemText primary='Bank' />
+				<ListItemText primary='Bancos' />
 			</ListItem>
 		</Link>
 
@@ -128,25 +132,27 @@ const Items = (
 				<ListItemIcon>
 					<AccountBalanceWallet />
 				</ListItemIcon>
-				<ListItemText primary='Bank-Account' />
+				<ListItemText primary='Cuentas Bancarias' />
 			</ListItem>
 		</Link>
-		<Link to='/purchase-request' href='/purchase-request'>
+		<Link to='/users' href='/users'>
 			<ListItem button>
 				<ListItemIcon>
-					<AttachMoney />
+					<People />
 				</ListItemIcon>
-				<ListItemText primary='Pre-Venta' />
+				<ListItemText primary='Usuarios' />
 			</ListItem>
 		</Link>
-		<Link to='/access' href='/access'>
+		<Link to='/user-type' href='/user-type'>
 			<ListItem button>
 				<ListItemIcon>
-					<ContactPhone />
+					<Security />
 				</ListItemIcon>
-				<ListItemText primary='Staff' />
+				<ListItemText primary='Tipos de Usuario' />
 			</ListItem>
 		</Link>
+
+
 		{/*	<Link to='/staff' href='/staff'>
 		<Link to='/access' href='/access'>
 			<ListItem button>
@@ -173,7 +179,7 @@ const Items = (
 			<ListItemText primary='Spam' />
 		</ListItem> */}
 
-		<Link to='/search' href='/search'>
+		<Link to='/testComponentList' href='/testComponentList'>
 			<ListItem button>
 				<ListItemIcon>
 					<ContactPhone />

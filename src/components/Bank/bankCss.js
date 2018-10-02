@@ -34,6 +34,7 @@ const styles = () => ({
 		left: '28% !important',
 	},
 	returnButton: {
+		cursor: 'pointer',
 		fontSize: '1.1em',
 		borderRadius: '5%',
 		color: '#4b5f69',
@@ -58,6 +59,7 @@ const styles = () => ({
 		color: '#4b5f69',
 		marginLeft: '25px',
 		'box-shadow': '0px 2px 1px 0px #8e8e8e73',
+
 	},
 	formStyle: {
 		padding: '3%',

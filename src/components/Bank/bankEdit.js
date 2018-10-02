@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -20,12 +19,11 @@ import { renderTextField } from '../RenderFields/renderFields';
 import { EDIT_BANK } from '../../queries/bank';
 import {
 	editBank,
-	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 let BankEdit = ({
-	id,
 	classes,
 	myValues,
 	alertOpen,
@@ -34,7 +32,6 @@ let BankEdit = ({
 	actionCloseAlert,
 	paginationPage,
 	editBankMutation,
-	actionCleanState,
 	handleSubmit,
 	submitting,
 }) => (
@@ -63,12 +60,10 @@ let BankEdit = ({
 						validate={[required, empty]}
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(id, myValues.name, myValues.currency, paginationPage, editBankMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(myValues, paginationPage, editBankMutation))} disabled={submitting} >
 				Guardar
 				</button>
-				<Link to='/bank' href='/bank' className={classes.createButton} onClick={() => actionCleanState()}>
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -95,14 +90,12 @@ let BankEdit = ({
 );
 
 BankEdit.propTypes = {
-	id: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
 	myValues: PropTypes.object.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionEditBank: PropTypes.func.isRequired,
-	actionCleanState: PropTypes.func.isRequired,
 	editBankMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
@@ -111,6 +104,7 @@ BankEdit.propTypes = {
 
 BankEdit = reduxForm({
 	form: 'BankEdit',
+	enableReinitialize: true,
 })(BankEdit);
 
 const selector = formValueSelector('BankEdit');
@@ -119,18 +113,16 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerBank.alertType,
 	alertOpen: state.ReducerBank.alertOpen,
 	initialValues: state.ReducerBank,
-	id: state.ReducerBank.id,
 	name: state.ReducerBank.name,
 	currency: state.ReducerBank.currency,
 	paginationPage: state.ReducerBank.paginationPage,
-	myValues: selector(state, 'name', 'currency'),
+	myValues: selector(state, 'id', 'name', 'currency'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
-	actionCleanState: () => dispatch(cleanState()),
-	actionEditBank: (id, name, currency, paginationPage, editBankMutation) =>
-		dispatch(editBank(id, name, currency, paginationPage, editBankMutation)),
+	actionEditBank: (bank, paginationPage, editBankMutation) =>
+		dispatch(editBank(bank, paginationPage, editBankMutation)),
 });
 
 export default compose(

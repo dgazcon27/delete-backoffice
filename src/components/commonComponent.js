@@ -5,13 +5,19 @@ import { Field } from 'redux-form';
 import { required } from './validations/validations';
 import { renderSelectField } from './RenderFields/renderFields';
 import {
+	GET_ROLESS,
 	GET_BANKSS,
 	GET_USERSS,
 	GET_ACCESSS,
 	GET_EVENTSS,
+	GET_A_EVENTSS,
 	GET_STATUSS,
 	GET_BANK_ACCOUNTS,
+	GET_LOCATIONS,
+	GET_ZONES,
+	GET_COUNTRIES,
 } from './../queries/common';
+
 
 export const BankAccount = () => (
 	<Query query={GET_BANK_ACCOUNTS}>
@@ -93,6 +99,44 @@ export const Banks = () => (
 	</Query>
 );
 
+export const Roles = () => (
+	<Query query={GET_ROLESS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='roles'
+						type='select'
+						label='Roles'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='roles'
+					type='select'
+					label='Roles'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.roless.map(role => (
+						<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
 export const Users = () => (
 	<Query query={GET_USERSS}>
 		{({ loading, error, data }) => {
@@ -123,13 +167,43 @@ export const Users = () => (
 					className='container'
 				>
 					{data.userss.map(user => (
-						<MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
+						<MenuItem key={user.id} value={user.id}>{`${user.name} ${user.lastName}`}</MenuItem>
 					))}
 				</Field>
 			);
 		}}
 	</Query>
 );
+
+export const AccessE = (access) => {
+	if (access !== {} && access.access.length > 0) {
+		return (
+			<Field
+				name='access'
+				type='select'
+				label='Accesos'
+				placeholder='Accesos'
+				component={renderSelectField}
+				validate={required}
+				className='container'
+			>
+				{access.access.map(acc => (
+					<MenuItem key={acc.id} value={acc.id}>{acc.access.name}</MenuItem>
+				))}
+			</Field>);
+	}
+	return (
+		<Field
+			name='access'
+			type='select'
+			label='Accesos'
+			component={renderSelectField}
+			validate={required}
+			className='container'
+		>
+			<MenuItem />
+		</Field>);
+};
 
 export const Access = () => (
 	<Query query={GET_ACCESSS}>
@@ -169,6 +243,85 @@ export const Access = () => (
 	</Query>
 );
 
+
+export const SelectCountry = actionSelectCountry => (
+	<Query query={GET_COUNTRIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='country'
+						type='select'
+						label='País'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='country'
+					type='select'
+					label='País'
+					placeholder='País'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+					onChange={actionSelectCountry.actionSelectCountry}
+				>
+					{data.countrys.map(country => (
+						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const Aevents = actionSelectEvent => (
+	<Query query={GET_A_EVENTSS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='event'
+						type='select'
+						label='Eventos'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='event'
+					type='select'
+					label='Eventos'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+					onChange={actionSelectEvent.actionSelectEvent}
+				>
+					{data.activeEvents.map(event => (
+						<MenuItem key={event.id} value={event.id}>{event.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 export const Events = () => (
 	<Query query={GET_EVENTSS}>
 		{({ loading, error, data }) => {
@@ -206,6 +359,7 @@ export const Events = () => (
 		}}
 	</Query>
 );
+
 
 export const Status = () => (
 	<Query query={GET_STATUSS}>
@@ -245,3 +399,90 @@ export const Status = () => (
 	</Query>
 );
 
+export const Location = () => (
+	<Query query={GET_LOCATIONS}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='location'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='Ubicación'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='location'
+					type='select'
+					label='Ubicación'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.locationss.map(location => (
+						<MenuItem key={location.id} value={location.id}>{location.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const Zone = () => (
+	<Query query={GET_ZONES}>
+		{({ loading, error, data }) => {
+			if (loading || error) {
+				return (
+					<div className='formStyle'>
+						<Field
+							name='zone'
+							type='select'
+							component={renderSelectField}
+							validate={required}
+							label='Zona'
+						>
+							<MenuItem />
+						</Field>
+					</div>
+				);
+			}
+			return (
+				<Field
+					name='zone'
+					type='select'
+					label='Zona'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.zones.map(zone => (
+						<MenuItem key={zone.id} value={zone.id}>{zone.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const SelectState = states => (
+	<Field
+		name='state'
+		type='select'
+		label='Estado'
+		placeholder='Estado'
+		component={renderSelectField}
+		validate={required}
+		className='container'
+	>
+		{states.states.map(state => (
+			<MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+		))}
+	</Field>
+);

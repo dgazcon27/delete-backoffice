@@ -99,9 +99,8 @@ ContainerList.propTypes = {
 		arrayActive: PropTypes.arrayOf(PropTypes.bool),
 	}).isRequired,
 	objectModal: PropTypes.shape({
-		isOpen: PropTypes.bool.isRequired,
-		modalType: PropTypes.string.isRequired,
-		statusValue: PropTypes.number.isRequired,
+		componentState: PropTypes.object.isRequired,
+		paginationPage: PropTypes.number.isRequired,
 		messages: PropTypes.shape({
 			edit: PropTypes.shape({
 				title: PropTypes.string,

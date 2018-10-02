@@ -66,12 +66,7 @@ const List = ({
 							))
 						}
 						<ModalsOptions
-							id={modal.id}
-							isOpen={modal.isOpen}
-							modalType={modal.modalType}
-							statusValue={modal.statusValue}
-							paginationPage={modal.paginationPage}
-							messages={modal.messages}
+							componentState={modal}
 							actions={actions}
 						/>
 					</TableBody>
@@ -90,9 +85,8 @@ List.propTypes = {
 	classes: PropTypes.object.isRequired,
 	actions: PropTypes.object.isRequired,
 	modal: PropTypes.shape({
-		isOpen: PropTypes.bool.isRequired,
-		modalType: PropTypes.string.isRequired,
-		statusValue: PropTypes.number.isRequired,
+		componentState: PropTypes.object.isRequired,
+		paginationPage: PropTypes.number.isRequired,
 		messages: PropTypes.shape({
 			edit: PropTypes.shape({
 				title: PropTypes.string,

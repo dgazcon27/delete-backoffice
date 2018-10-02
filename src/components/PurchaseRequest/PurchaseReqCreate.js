@@ -5,7 +5,6 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -23,13 +22,14 @@ import {
 	closeAlert,
 	setName,
 	createPurchaseReq,
+	setAccessEvent,
 } from '../../actions/PurchaseRequest/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import {
-	Banks,
 	Users,
-	Access,
-	Events,
+	AccessE,
+	Aevents,
 	Status,
 } from '../commonComponent';
 
@@ -40,11 +40,13 @@ import './styles.css';
 import { CREATE_PURCHASE_REQ } from '../../queries/purchaseRequest';
 
 let PurchaseRequestCreate = ({
+	access,
 	userId,
 	classes,
 	alertOpen,
 	alertType,
 	actionCloseAlert,
+	actionSelectEvent,
 	actionCreatePurchaseReq,
 	createPurchaseReqMutation,
 	paginationPage,
@@ -53,21 +55,18 @@ let PurchaseRequestCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Purchase Request</h3>
+		<h3 className={classes.formTitle}>Registrar Compra</h3>
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Nuevo Purchase Request</h6>
-				<div className={classes.formStyle}>
-					<Banks />
-				</div>
+				<h6 className={classes.formTitle}>Nueva Compra</h6>
 				<div className={classes.formStyle}>
 					<Users />
 				</div>
 				<div className={classes.formStyle}>
-					<Access />
+					<Aevents actionSelectEvent={actionSelectEvent} />
 				</div>
 				<div className={classes.formStyle}>
-					<Events />
+					<AccessE access={access} />
 				</div>
 				<div className={classes.formStyle}>
 					<Status />
@@ -97,9 +96,7 @@ let PurchaseRequestCreate = ({
 				>
 					Crear
 				</button>
-				<Link to='/purchase-request' href='/purchase-request' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&
@@ -141,8 +138,10 @@ PurchaseRequestCreate.propTypes = {
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
+	access: PropTypes.array.isRequired,
 	actionCreatePurchaseReq: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
+	actionSelectEvent: PropTypes.func.isRequired,
 	createPurchaseReqMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
@@ -163,13 +162,14 @@ const mapStateToProps = state => ({
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
+	access: state.ReducerPurchaseRequest.access,
 	myValues: selector(state, 'user', 'access', 'event', 'status', 'comment'),
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionSelectEvent: (event, id) => dispatch(setAccessEvent(event, id)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionSetName: e => dispatch(setName(e.target.value)),
-	// actionSetDescription: e => dispatch(setDescription(e.target.value)),
 	actionCreatePurchaseReq: (
 		myValues,
 		createdBy,

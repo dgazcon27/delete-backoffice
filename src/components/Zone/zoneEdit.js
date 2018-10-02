@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -29,6 +28,7 @@ import {
 	closeAlert,
 	editZone,
 } from '../../actions/zone/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 const validate = (values) => {
 	const errors = {};
@@ -67,7 +67,6 @@ let ZoneEdit = ({
 	myValues,
 	submitting,
 	handleSubmit,
-	initialValues,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Zonas</h3>
@@ -103,12 +102,10 @@ let ZoneEdit = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(initialValues.id, myValues.name, Number(myValues.capacity), Number(myValues.maxcapacity), userId, paginationPage, editZoneMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditZone(myValues, userId, paginationPage, editZoneMutation))} disabled={submitting} >
 					Guardar
 				</button>
-				<Link to='/Departments' href='/Departments' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&
@@ -146,11 +143,11 @@ ZoneEdit.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	initialValues: PropTypes.object.isRequired,
 };
 
 ZoneEdit = reduxForm({
 	form: 'ZoneEdit',
+	enableReinitialize: true,
 	validate,
 	warn,
 })(ZoneEdit);
@@ -163,24 +160,18 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerZone.alertType,
 	alertOpen: state.ReducerZone.alertOpen,
 	paginationPage: state.ReducerZone.paginationPage,
-	myValues: selector(state, 'name', 'maxcapacity', 'capacity'),
+	myValues: selector(state, 'id', 'name', 'maxcapacity', 'capacity'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionEditZone: (
-		id,
-		name,
-		capacity,
-		maxcapacity,
+		zone,
 		updatedBy,
 		paginationPage,
 		editZoneMutation,
 	) => dispatch(editZone(
-		id,
-		name,
-		capacity,
-		maxcapacity,
+		zone,
 		updatedBy,
 		paginationPage,
 		editZoneMutation,

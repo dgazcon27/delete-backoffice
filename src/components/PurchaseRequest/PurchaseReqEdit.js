@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -22,6 +21,7 @@ import {
 	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import { editPurchaseReq } from '../../actions/PurchaseRequest/actionsCreators';
 import {
@@ -32,7 +32,6 @@ import {
 } from '../commonComponent';
 
 let PurchaseRequestEdit = ({
-	id,
 	userId,
 	classes,
 	myValues,
@@ -42,7 +41,6 @@ let PurchaseRequestEdit = ({
 	handleSubmit,
 	paginationPage,
 	actionCloseAlert,
-	actionCleanState,
 	actionEditPurchaseReq,
 	editPurchaseReqMutation,
 }) => (
@@ -78,12 +76,7 @@ let PurchaseRequestEdit = ({
 					className={classes.createButton}
 					type='submit'
 					onClick={handleSubmit(() => actionEditPurchaseReq(
-						id,
-						parseInt(myValues.user, 10),
-						parseInt(myValues.access, 10),
-						parseInt(myValues.event, 10),
-						parseInt(myValues.status, 10),
-						myValues.comment,
+						myValues,
 						userId,
 						paginationPage,
 						editPurchaseReqMutation,
@@ -92,9 +85,7 @@ let PurchaseRequestEdit = ({
 				>
 				Confirmar
 				</button>
-				<Link to='/purchase-request' href='/purchase-request' className={classes.createButton} onClick={() => actionCleanState()}>
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -122,7 +113,6 @@ let PurchaseRequestEdit = ({
 
 PurchaseRequestEdit.propTypes = {
 	userId: PropTypes.number.isRequired,
-	id: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -130,7 +120,6 @@ PurchaseRequestEdit.propTypes = {
 	actionEditPurchaseReq: PropTypes.func.isRequired,
 	editPurchaseReqMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	actionCleanState: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	submitting: PropTypes.bool.isRequired,
@@ -138,6 +127,7 @@ PurchaseRequestEdit.propTypes = {
 
 PurchaseRequestEdit = reduxForm({
 	form: 'PurchaseRequestEdit',
+	enableReinitialize: true,
 })(PurchaseRequestEdit);
 
 const selector = formValueSelector('PurchaseRequestEdit');
@@ -146,34 +136,23 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerPurchaseRequest.alertType,
 	alertOpen: state.ReducerPurchaseRequest.alertOpen,
 	initialValues: state.ReducerPurchaseRequest,
-	id: state.ReducerPurchaseRequest.id,
 	name: state.ReducerPurchaseRequest.name,
 	currency: state.ReducerPurchaseRequest.currency,
 	paginationPage: state.ReducerPurchaseRequest.paginationPage,
 	userId: state.ReducerLogin.userId,
-	myValues: selector(state, 'user', 'access', 'event', 'status', 'comment'),
+	myValues: selector(state, 'id', 'user', 'access', 'event', 'status', 'comment'),
 });
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
 	actionEditPurchaseReq: (
-		id,
-		user,
-		access,
-		event,
-		status,
-		comment,
+		purchase,
 		paginationPage,
 		updatedBy,
 		editPurchaseReqMutation,
 	) =>
 		dispatch(editPurchaseReq(
-			id,
-			user,
-			access,
-			event,
-			status,
-			comment,
+			purchase,
 			paginationPage,
 			updatedBy,
 			editPurchaseReqMutation,

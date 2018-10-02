@@ -13,26 +13,21 @@ import {
 import styles from './userTypeCss';
 
 const ModalsOptions = ({
-	id,
-	isOpen,
-	classes,
-	modalType,
-	statusValue,
-	paginationPage,
-	messages,
+	modal,
 	actions,
+	classes,
 }) => (
 	<Modal
-		open={isOpen}
+		open={modal.componentState.isOpen}
 		className={classes.modalOpenStyle}
 		hideBackdrop
 		disableAutoFocus={false}
 	>
 		<div>
-			{ 	modalType === 'edit' &&
+			{ 	modal.componentState.modalType === 'edit' &&
 				<Paper>
 					<h1>
-						{ messages.edit.title }
+						{ modal.messages.edit.title }
 					</h1>
 					<button >
 						cerrar
@@ -40,25 +35,27 @@ const ModalsOptions = ({
 				</Paper>
 			}
 
-			{	modalType === 'block' &&
+			{	modal.componentState.modalType === 'block' &&
 				<Paper className={classes.paperOnModal}>
-					{statusValue === 1 && <h6> { messages.block.titleStatus1 } </h6>}
-					{statusValue === 2 && <h6> { messages.block.titleStatus2 } </h6>}
+					{modal.componentState.statusValue === 1 &&
+					<h6> { modal.messages.block.titleStatus1 } </h6>}
+					{modal.componentState.statusValue === 2 &&
+					<h6> { modal.messages.block.titleStatus2 } </h6>}
 					{
-						statusValue === 1 &&
+						modal.componentState.statusValue === 1 &&
 						<p>
-							{ messages.block.msgStatus1 }
+							{ modal.messages.block.msgStatus1 }
 						</p>
 					}
 					{
-						statusValue === 2 &&
+						modal.componentState.statusValue === 2 &&
 						<p>
-							{ messages.block.msgStatus2 }
+							{ modal.messages.block.msgStatus2 }
 						</p>
 					}
 
 					<span>
-						<IconButton onClick={() => actions.block(id, statusValue, actions.queryblock)}>
+						<IconButton onClick={() => actions.block(modal.componentState, actions.queryblock)}>
 						Si
 						</IconButton>
 						&nbsp;
@@ -69,18 +66,20 @@ const ModalsOptions = ({
 					</span>
 				</Paper>
 			}
-			{	modalType === 'delete' &&
+			{	modal.componentState.modalType === 'delete' &&
 				<Paper className={classes.paperOnModal}>
 					<h6>
-						{ messages.delete.title }
+						{ modal.messages.delete.title }
 					</h6>
 					<p>
-						{ messages.delete.msg }
+						{ modal.messages.delete.msg }
 					</p>
 
 					<span>
 						<IconButton
-							onClick={() => actions.delete(id, statusValue, paginationPage, actions.queryDelete)}
+							onClick={() =>
+								actions.delete(modal.componentState, modal.paginationPage, actions.queryDelete)
+							}
 						>
 							Si
 						</IconButton>
@@ -97,37 +96,13 @@ const ModalsOptions = ({
 );
 
 ModalsOptions.propTypes = {
-	id: PropTypes.number.isRequired,
-	isOpen: PropTypes.bool.isRequired,
-	modalType: PropTypes.string.isRequired,
-	statusValue: PropTypes.number.isRequired,
-	paginationPage: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	messages: PropTypes.shape({
-		edit: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-		block: PropTypes.shape({
-			titleStatus1: PropTypes.string,
-			msgStatus1: PropTypes.string,
-			titleStatus2: PropTypes.string,
-			msgStatus2: PropTypes.string,
-		}),
-		delete: PropTypes.shape({
-			title: PropTypes.string,
-			msg: PropTypes.string,
-		}),
-	}).isRequired,
+	modal: PropTypes.object.isRequired,
 	actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	id: ownProps.id,
-	isOpen: ownProps.isOpen,
-	modalType: ownProps.modalType,
-	statusValue: ownProps.statusValue,
-	paginationPage: ownProps.paginationPage,
-	messages: ownProps.messages,
+	modal: ownProps.componentState,
 	actions: ownProps.actions,
 });
 

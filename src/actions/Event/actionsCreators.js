@@ -10,7 +10,7 @@ import {
 	SET_COUNTRIES_STATES,
 } from './actionsTypes';
 
-import { GET_EVENTS } from '../../queries/event';
+import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
 import GET_STATES from '../../queries/states';
 import { client } from '../../config/configStore';
 
@@ -69,7 +69,7 @@ export const setStates = states => ({
 	},
 });
 
-export const setCountriesStates = (event, id) => (
+export const setCountriesStates = id => (
 	async (dispatch) => {
 		client
 			.query({
@@ -83,24 +83,36 @@ export const setCountriesStates = (event, id) => (
 	}
 );
 
-export const setEvent = (event, dispatch) => {
-	dispatch(setCountriesStates(null, event.state.country.id));
-	return ({
-		type: SET_EVENT,
-		payload: {
-			id: event.id,
-			name: event.name,
-			description: event.description,
-			presaleStart: event.presaleStart,
-			presaleClosure: event.presaleClosure,
-			eventStart: event.eventStart,
-			eventClosure: event.eventClosure,
-			status: event.status.id,
-			state: event.state.id,
-			country: event.state.country.id,
-		},
-	});
-};
+export const setEvent = event => ({
+	type: SET_EVENT,
+	payload: {
+		id: event.id,
+		name: event.name,
+		description: event.description,
+		presaleStart: event.presaleStart,
+		presaleClosure: event.presaleClosure,
+		eventStart: event.eventStart,
+		eventClosure: event.eventClosure,
+		status: event.status.id,
+		state: event.state.id,
+		country: event.state.country.id,
+	},
+});
+export const getEventById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_EVENT_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { event } = res.data;
+				dispatch(setEvent(event));
+				dispatch(setCountriesStates(event.state.country.id));
+			})
+			.catch(() => {});
+	}
+);
 
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
@@ -165,7 +177,7 @@ export const editEvent = (event, updatedBy, editEventMutation) => (
 		})
 			.then(() => {
 				dispatch(openAlert('edit'));
-				setTimeout(() => (window.location.assign('events')), 2000);
+				setTimeout(() => (window.location.replace('/events')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

@@ -54,3 +54,17 @@ export const EDIT_ROL = gql`
 		}
 	}
 `;
+
+export const GET_ROL_BY_ID = gql`
+	query role($id:Int!){
+		role(id:$id) {
+			name
+			id
+			description
+			status{
+				id
+			}
+		}
+	}
+`;
+

@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
@@ -15,7 +13,6 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import styles from './locationCss';
 import './styles.css';
 import {
@@ -25,17 +22,16 @@ import {
 import {
 	renderTextField,
 	renderNumberField,
-	renderSelectField,
 	renderNumberMaxField,
 } from '../RenderFields/renderFields';
-import {
-	EDIT_LOCATION,
-	GET_STATUS,
-} from '../../queries/location';
+import { EDIT_LOCATION } from '../../queries/location';
+import BackButton from '../widget/BackButton';
 import {
 	closeAlert,
 	editLocation,
 } from '../../actions/location/actionsCreators';
+
+import { Status } from '../commonComponent';
 
 const validate = (values) => {
 	const errors = {};
@@ -62,48 +58,11 @@ const warn = (values) => {
 	return warnings;
 };
 
-const Status = () => (
-	<Query query={GET_STATUS}>
-		{({ loading, error, data }) => {
-			if (loading || error) {
-				return (
-					<Field
-						name='status'
-						type='select'
-						component={renderSelectField}
-						validate={required}
-						label='Estatus'
-					>
-						<MenuItem />
-					</Field>
-				);
-			}
-			return (
-				<div>
-					<Field
-						name='status'
-						type='select'
-						label='Estatus'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						{data.statuss.map(status => (
-							<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
-						))}
-					</Field>
-				</div>
-			);
-		}}
-	</Query>
-);
-
 let LocationEdit = ({
 	userId,
 	classes,
 	alertOpen,
 	alertType,
-	initialValues,
 	actionCloseAlert,
 	actionEditLocation,
 	editLocationMutation,
@@ -159,12 +118,10 @@ let LocationEdit = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(initialValues.id, myValues.name, myValues.locationDescription, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(myValues, Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
 					Guardar
 				</button>
-				<Link to='/tables' href='/tables' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&
@@ -202,11 +159,11 @@ LocationEdit.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	initialValues: PropTypes.object.isRequired,
 };
 
 LocationEdit = reduxForm({
 	form: 'LocationEdit',
+	enableReinitialize: true,
 	validate,
 	warn,
 })(LocationEdit);
@@ -219,7 +176,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
 	paginationPage: state.ReducerLocation.paginationPage,
-	myValues: selector(state, 'name', 'locationDescription', 'fullcapacity', 'capacity', 'status'),
+	myValues: selector(state, 'id', 'name', 'locationDescription', 'fullcapacity', 'capacity', 'status'),
 	initialValues: state.ReducerLocation,
 });
 

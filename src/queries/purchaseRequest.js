@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const GET_ACCESS_BY_EVENT = gql`query accessByEvent($event:Int!){
+	accessByEvent(event:$event){
+		id
+		access{
+				name
+			}
+	}
+}
+`;
 
 export const GET_PURCHASE_REQ = gql`
 	query purchaseRequests($paginationPage:Int!){
@@ -71,4 +80,31 @@ mutation updatePurchaseRequest ($id:Int!, $user:Int!, $access:Int!, $event:Int!,
 	updatePurchaseRequest(id:$id, user:$user, access:$access, event:$event, status:$status, comment:$comment, updatedBy:$updatedBy )
 	{id}
 }
+`;
+
+export const GET_PURCHASE_BY_ID = gql`
+	query purchaseRequest($id:Int!){
+		purchaseRequest(id:$id) {
+			id
+			totalPrice
+			pendingPayment
+			totalPaid
+			user{
+				id name lastName dni
+				}
+			access{
+				id
+				name
+			 }
+			event{
+				id
+				name
+				eventStart
+			}
+			status{
+				id
+			}
+			comment
+		}
+	}
 `;
