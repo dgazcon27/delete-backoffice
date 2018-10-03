@@ -24,7 +24,7 @@ const Options = ({
 	actions,
 	rowData,
 }) => (
-	<TableCell className={classes.alignRightOption}>
+	<TableCell className={classes.alignRight}>
 		{active[0] &&
 			<Tooltip
 				enterDelay={200}

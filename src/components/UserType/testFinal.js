@@ -44,8 +44,8 @@ const TestFinal = ({
 	const objectSearch = {
 		showButton: true,
 		showSearch: true,
-		titleButton: 'Add Algo',
-		url: '/',
+		titleButton: 'agregar nuevo',
+		url: '/user-type-create',
 	};
 
 	const objectList = {
@@ -54,7 +54,7 @@ const TestFinal = ({
 			columName: 'Nombre',
 			jsonPath: 'name',
 		}],
-		arrayActive: [true, true, true, true],
+		arrayActive: [true, true, true, false],
 	};
 
 	const objectPath = {
@@ -77,9 +77,9 @@ const TestFinal = ({
 			},
 			block: {
 				titleStatus1: 'Bloquear Rol',
-				msgStatus1: '¿Estas seguro que desea bloquear el rol ?',
+				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
 				titleStatus2: 'Desbloquear Rol',
-				msgStatus2: '¿Estas seguro que desea desbloquear el rol ?',
+				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
 			},
 			delete: {
 				title: 'Eliminar Rol',

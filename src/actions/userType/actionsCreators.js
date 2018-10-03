@@ -108,19 +108,20 @@ export const getUserTypeById = id => (
 	}
 );
 
-export const blockUserType = (id, statusValue, blockRolMutation) => {
-	const status = statusValue === 1 ? 2 : 1;
+export const blockUserType = (obj, blockRolMutation) => {
+	const { id } = obj;
+	const status = obj.statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
 		await blockRolMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };
 
-export const deleteUserType = (id, statusValue, paginationPage, deleteRolMutation) => {
-	const status = statusValue;
+export const deleteUserType = (obj, paginationPage, deleteRolMutation) => {
+	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deleteRolMutation({
-			variables: { id, status },
+			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
