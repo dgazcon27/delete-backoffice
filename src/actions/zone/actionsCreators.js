@@ -102,19 +102,20 @@ export const closeAlert = () => ({
 		description: OPEN_ALERT,
 	},
 });
-export const blockZone = (id, statusValue, blockZoneMutation) => {
-	const status = statusValue === 1 ? 2 : 1;
+export const blockZone = (obj, blockZoneMutation) => {
+	const { id } = obj;
+	const status = obj.statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
 		await blockZoneMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };
 
-export const deleteZone = (id, statusValue, paginationPage, deleteZoneMutation) => {
-	const status = statusValue;
+export const deleteZone = (obj, paginationPage, deleteZoneMutation) => {
+	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deleteZoneMutation({
-			variables: { id, status },
+			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
