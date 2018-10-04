@@ -11,6 +11,9 @@ import {
 	GET_EVENTSS,
 	GET_STATUSS,
 	GET_BANK_ACCOUNTS,
+	GET_COUNTRIES,
+	GET_ROLES,
+	GET_TYPE_INVITED,
 } from './../queries/common';
 
 export const BankAccount = () => (
@@ -215,7 +218,7 @@ export const Status = () => (
 					<Field
 						name='status'
 						type='select'
-						label='Estado'
+						label='Estatus'
 						component={renderSelectField}
 						validate={required}
 						className='container'
@@ -231,7 +234,7 @@ export const Status = () => (
 				<Field
 					name='status'
 					type='select'
-					label='Estado'
+					label='Estatus'
 					component={renderSelectField}
 					validate={required}
 					className='container'
@@ -245,3 +248,116 @@ export const Status = () => (
 	</Query>
 );
 
+export const Countries = fieldName => (
+	<Query query={GET_COUNTRIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name={fieldName.name}
+						type='select'
+						label='Ciudadanía'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name={fieldName.name}
+					type='select'
+					label='Ciudadanía'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.countrys.map(country => (
+						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const Roles = fieldName => (
+	<Query query={GET_ROLES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name={fieldName.name}
+						type='select'
+						label={fieldName.label}
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name={fieldName.name}
+					type='select'
+					label={fieldName.label}
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.roless.map(role => (
+						<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const TypeInvited = () => (
+	<Query query={GET_TYPE_INVITED}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='typeInvited'
+						type='select'
+						label='Tipo de Invitado'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='typeInvited'
+					type='select'
+					label='Tipo de Invitado'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.typeInvits.map(typeinvited => (
+						<MenuItem key={typeinvited.id} value={typeinvited.id}>{typeinvited.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);

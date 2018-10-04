@@ -55,3 +55,31 @@ export const GET_STATUSS = gql`
 			}
 		}	
 `;
+
+export const GET_COUNTRIES = gql`
+	query {
+		countrys {
+			name
+			value
+			id
+		}
+	}
+`;
+
+export const GET_ROLES = gql`
+	query {
+		roless{
+			name
+			id
+		}
+	}
+`;
+
+export const GET_TYPE_INVITED = gql`
+	query {
+		typeInvits{
+			name
+			id
+		}
+	}
+`;

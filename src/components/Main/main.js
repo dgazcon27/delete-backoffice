@@ -22,6 +22,7 @@ import Payment from '../Payment/payment';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
+import InvitedCreate from '../Invited/createInvited';
 
 import {
 	Dashboard,
@@ -72,6 +73,7 @@ const Main = (props) => {
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit/:id' component={EditionComponent} />
+				<Route path='/create-invited' component={InvitedCreate} />
 			</Switch>
 		</main>
 	);
