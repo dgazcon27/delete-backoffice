@@ -88,6 +88,8 @@ const Location = ({
 					);
 				}
 
+				console.log(data);
+
 				const response = query.length > 0 ? data.search.locations.data : data.locations.data;
 				const total = query.length > 0 ? data.search.locations.total : data.locations.total;
 				return (

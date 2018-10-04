@@ -7,45 +7,33 @@ import Search from '../../components/Search/search';
 import {
 	openModal,
 	closeModal,
-	setRol,
-	blockUserType,
-	deleteUserType,
-} from '../../actions/userType/actionsCreators';
+	deleteLocation,
+} from '../../actions/location/actionsCreators';
 
 import {
-	GET_ROLES,
-	BLOCK_ROL,
-	DELETE_ROL,
-} from '../../queries/userType';
-import { SEARCH_ROLES } from '../../queries/search';
-
-/* import {
-	openModal,
-	closeModal,
-	setRol,
-} from '../../actions/userType/actionsCreators'; */
+	GET_LOCATIONS,
+	DELETE_LOCATION,
+} from '../../queries/location';
+import { SEARCH_LOCATIONS } from '../../queries/search';
 
 const TestFinal = ({
-	objectStateUserType,
+	objectStateLocation,
 	paginationPage,
-	actionSetRol,
 	actionOpenModal,
 	actionCloseModal,
-	actionBlock,
 	actionDelete,
-	blockRolMutation,
 	deleteRolMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_ROLES,
-		querySearch: SEARCH_ROLES,
+		queryComponent: GET_LOCATIONS,
+		querySearch: SEARCH_LOCATIONS,
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: true,
-		titleButton: 'agregar nuevo',
-		url: '/user-type-create',
+		titleButton: 'Crear Ubicación',
+		url: '/create-tables',
 	};
 
 	const objectList = {
@@ -54,46 +42,43 @@ const TestFinal = ({
 			columName: 'Nombre',
 			jsonPath: 'name',
 		}],
-		arrayActive: [true, true, true, false],
+		arrayActive: [true, true, false, false],
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'roles.data',
-			totalPath: 'roles.total',
+			dataPath: 'locations.data',
+			totalPath: 'locations.total',
 		},
 		searchComponent: {
-			dataPath: 'search.roles.data',
-			totalPath: 'search.roles.total',
+			dataPath: 'search.locations.data',
+			totalPath: 'search.locations.total',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateUserType),
+		componentState: Object.assign({}, objectStateLocation),
 		paginationPage,
 		messages: {
 			edit: {
-				title: 'contenido edit modal',
+				title: '',
 			},
 			block: {
-				titleStatus1: 'Bloquear Rol',
-				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
-				titleStatus2: 'Desbloquear Rol',
-				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+				titleStatus1: '',
+				msgStatus1: '',
+				titleStatus2: '',
+				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar Rol',
-				msg: '¿Estas seguro que desea eliminar el rol ?',
+				title: 'Eliminar Ubicación',
+				msg: '¿Estas seguro que desea eliminar esta ubicación?',
 			},
 		},
 	};
 
 	const actions = {
-		edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
-		block: actionBlock,
-		queryblock: blockRolMutation,
 		delete: actionDelete,
 		queryDelete: deleteRolMutation,
 	};
@@ -119,34 +104,27 @@ const TestFinal = ({
 };
 
 TestFinal.propTypes = {
-	actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionBlock: PropTypes.func.isRequired,
-	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	objectStateUserType: PropTypes.object.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateLocation: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	blockRolMutation: PropTypes.func.isRequired,
 	deleteRolMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateUserType: state.ReducerUserType,
+	objectStateLocation: state.ReducerLocation,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionBlock: (componentState, blockRolMutation) =>
-		dispatch(blockUserType(componentState, blockRolMutation)),
 	actionDelete: (componentState, paginationPage, deleteRolMutation) =>
-		dispatch(deleteUserType(componentState, paginationPage, deleteRolMutation)),
+		dispatch(deleteLocation(componentState, paginationPage, deleteRolMutation)),
 });
 
 export default compose(
-	graphql(DELETE_ROL, { name: 'deleteRolMutation' }),
-	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
+	graphql(DELETE_LOCATION, { name: 'deleteRolMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(TestFinal);

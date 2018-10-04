@@ -120,15 +120,15 @@ export const blockLocation = (id, statusValue, blockLocationMutation) => {
 	};
 };
 
-export const deleteLocation = (id, statusValue, paginationPage, deleteLocationMutation) => {
-	const status = statusValue;
+export const deleteLocation = (obj, paginationPage, deleteLocationMutation) => {
+	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deleteLocationMutation({
-			variables: { id, status },
+			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		window.location.reload();
+		// window.location.reload();
 	};
 };
 
