@@ -123,15 +123,17 @@ export const closeAlert = () => ({
 		description: CLOSE_ALERT,
 	},
 });
-export const deleteBank = (id, paginationPage, deleteBankMutation) => (
-	async (dispatch) => {
+export const deleteBank = (obj, paginationPage, deleteBankMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
 		await deleteBankMutation({
 			variables: { id },
 			refetchQueries: [{ query: GET_BANKS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		window.location.reload();
-	});
+		// window.location.reload();
+	};
+};
 export const openModal = (modalType, bank) => ({
 	type: OPEN_MODAL,
 	payload: {

@@ -21,7 +21,7 @@ import PayCreate from '../PurchaseRequest/PayCreate';
 import Payment from '../Payment/payment';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
-import TestFinal from '../Zone/testFinal';
+import TestFinal from '../Bank/testFinal';
 import EditionComponent from '../Shared/editionComponent';
 
 const Main = (props) => {
