@@ -11,6 +11,7 @@ import {
 	SET_WITH_TICKET,
 	ADD_ACCESS,
 	SET_ACCESS_EVENT,
+	SET_HOTEL,
 } from '../../../actions/Event/Access/actionsTypes';
 
 const initialState = {
@@ -31,8 +32,12 @@ const initialState = {
 	numberTickets: 0,
 	activeRooms: false,
 	activeTickets: false,
+	hotel: 0,
 	event: 0,
 	access: 0,
+	room: 0,
+	hotelE: null,
+	roomE: null,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -111,6 +116,12 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				withTickets: action.payload.withTickets,
 				activeTickets: action.payload.activeTickets,
 			});
+		case SET_HOTEL:
+			return ({
+				...state,
+				hotel: action.payload.hotel,
+				roomE: action.payload.roomE,
+			});
 		case OPEN_MODAL:
 			return ({
 				...state,
@@ -136,6 +147,10 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				activeRooms: action.payload.activeRooms,
 				activeTickets: action.payload.activeTickets,
 				price: action.payload.price,
+				hotel: action.payload.hotel,
+				room: action.payload.room,
+				hotelE: action.payload.hotelE,
+				roomE: action.payload.roomE,
 			});
 		default:
 			return state;

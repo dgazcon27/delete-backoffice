@@ -81,8 +81,7 @@ export const setCountriesStates = (event, id) => (
 				dispatch(setStates(res.data.countryStates));
 			})
 			.catch(() => {});
-	}
-);
+	});
 
 export const setEvent = (event, dispatch) => {
 	dispatch(setCountriesStates(null, event.state.country.id));

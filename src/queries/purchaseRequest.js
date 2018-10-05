@@ -96,4 +96,4 @@ export const PURCHASE_REQUEST_PAY = gql`
 			id
 	}
 }
-`; 
+`;

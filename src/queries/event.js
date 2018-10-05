@@ -91,6 +91,13 @@ export const GET_ACCESS = gql`
 				numberTickets
 				price
 				active
+				hotel{
+					id
+				}
+				room{
+					id
+					name
+				}
 				access{
 			      	id
 			      	name
@@ -120,12 +127,14 @@ export const CREATE_ACCESS_EVENT = gql`
 		$withTickets:Boolean!,
 		$numberRooms:Int!,
     	$numberTickets:Int!,
-    	$price:String!
+    	$price:Int!
 	    $event:ID!,
 	    $access:ID!,
+	    $hotelE:ID,
+	    $roomE:ID,
 		){
 		createAccessesByEvent(withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
-		numberTickets:$numberTickets, price:$price, event:$event, access:$access,
+		numberTickets:$numberTickets, price:$price, event:$event, access:$access, hotel:$hotelE, room:$roomE,
 		){
 			id
 		}
@@ -139,12 +148,14 @@ export const EDIT_ACCESS_EVENT = gql`
 		$withTickets:Boolean!,
 		$numberRooms:Int!,
     	$numberTickets:Int!,
-    	$price:String!,
+    	$price:Int!,
 	    $event:ID!,
 	    $access:ID!,
+	    $roomE:ID!,
+	    $hotelE:ID!,
 		){
 		updateAccessesByEvent(id:$id, withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
-		numberTickets:$numberTickets, price:$price, event:$event, access:$access,
+		numberTickets:$numberTickets, price:$price, event:$event, access:$access, room:$roomE, hotel:$hotelE,
 		){
 			id
 		}
@@ -158,6 +169,27 @@ export const BLOCK_ACCESS = gql`
 		){
 		blockedAccessesByEvent(id:$id, status:$status){
 			id
+		}
+	}
+`;
+
+export const GET_HOTELS = gql`
+	query providerByEvent($event:Int!) {
+		providerByEvent(event:$event) {
+			id
+			provider{
+				id
+				name
+			}
+		}
+	}
+`;
+
+export const GET_ROOMS = gql`
+	query roomByHotelQuery($hotel:Int!, $event:Int!) {
+		roomByHotelQuery(hotel:$hotel, event:$event) {
+			id
+			name
 		}
 	}
 `;

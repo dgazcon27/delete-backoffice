@@ -10,6 +10,7 @@ import {
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
 	ADD_ACCESS,
+	SET_HOTEL,
 } from './actionsTypes';
 
 import { GET_ACCESS } from '../../../queries/event';
@@ -53,6 +54,23 @@ export const openModal = (modalType, event) => {
 export const setAccess = (access) => {
 	const withRoom = access.withRoom ? 'true' : 'false';
 	const withTickets = access.withTickets ? 'true' : 'false';
+	let hotel = 0;
+	let room = 0;
+	let roomE = 0;
+	let hotelE = 0;
+
+	if (withRoom === 'false') {
+		hotel = 1;
+		room = 1;
+		hotelE = null;
+		roomE = null;
+	} else {
+		hotel = access.hotel.id;
+		hotelE = access.hotel.id;
+		room = access.room.id;
+		roomE = access.room.id;
+	}
+
 	return {
 		type: SET_ACCESS_EVENT,
 		payload: {
@@ -64,6 +82,10 @@ export const setAccess = (access) => {
 			numberTickets: access.numberTickets,
 			access: access.access.id,
 			price: access.price,
+			hotel,
+			room,
+			hotelE,
+			roomE,
 		},
 	};
 };
@@ -114,12 +136,22 @@ export const createAccessEvent = (
 	price,
 	event,
 	access,
+	hotel = null,
+	room = null,
 	paginationPage,
 	createAccessEventMutation,
 ) => {
 	const withRoom = withRoomA === 'true';
 	const withTickets = withTicketsA === 'true';
 	const events = event;
+	let hotelE = hotel;
+	let roomE = room;
+
+	if (!withRoom) {
+		hotelE = null;
+		roomE = null;
+	}
+
 	return (
 		async (dispatch) => {
 			createAccessEventMutation({
@@ -131,6 +163,8 @@ export const createAccessEvent = (
 					price,
 					event,
 					access,
+					hotelE,
+					roomE,
 				},
 				refetchQueries: [{
 					query: GET_ACCESS, variables: { events, paginationPage },
@@ -138,7 +172,7 @@ export const createAccessEvent = (
 			})
 				.then(() => {
 					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('event-access')), 2000);
+					setTimeout(() => (window.history.back()), 2000);
 				})
 				.catch((res) => {
 					const message = checkMessageError(res);
@@ -156,12 +190,22 @@ export const editAccessEvent = (
 	price,
 	event,
 	access,
+	hotel,
+	room,
 	paginationPage,
 	editAccessEventMutation,
 ) => {
 	const withRoom = withRoomA === 'true';
 	const withTickets = withTicketsA === 'true';
 	const events = event;
+	let hotelE = hotel;
+	let roomE = room;
+
+	if (!withRoom) {
+		hotelE = null;
+		roomE = null;
+	}
+
 	return (
 		async (dispatch) => {
 			editAccessEventMutation({
@@ -174,6 +218,8 @@ export const editAccessEvent = (
 					price,
 					event,
 					access,
+					roomE,
+					hotelE,
 				},
 				refetchQueries: [{
 					query: GET_ACCESS, variables: { events, paginationPage },
@@ -181,7 +227,7 @@ export const editAccessEvent = (
 			})
 				.then(() => {
 					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('event-access')), 2000);
+					setTimeout(() => (window.history.back()), 2000);
 				})
 				.catch((res) => {
 					const message = checkMessageError(res);
@@ -205,8 +251,7 @@ export const setWithTickets = withTickets => ({
 		withTickets,
 		description: SET_WITH_TICKET,
 	},
-}
-);
+});
 
 export const deleteAccess = (id, events, paginationPage, deleteAccessMutation) => (
 	async (dispatch) => {
@@ -226,4 +271,17 @@ export const blockAccess = (id, events, statusValue, paginationPage, blockAccess
 		});
 		dispatch(closeModal());
 	};
+};
+
+export const getRooms = (hotel) => {
+	const roomE = undefined;
+
+	return ({
+		type: SET_HOTEL,
+		payload: {
+			description: SET_HOTEL,
+			hotel,
+			roomE,
+		},
+	});
 };

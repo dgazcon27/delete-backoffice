@@ -18,7 +18,6 @@ import {
 	Modal,
 	Paper,
 	Table,
-	// Switch,
 	Tooltip,
 	TableRow,
 	TableBody,

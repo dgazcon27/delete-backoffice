@@ -120,7 +120,14 @@ const AccessList = ({
 													<p>Sin Habitación</p>
 												}
 											</TableCell>
-											<TableCell>{access.numberRooms}</TableCell>
+											<TableCell>
+												{access.withRoom &&
+													<p>{access.numberRooms}</p>
+												}
+												{!access.withRoom &&
+													<p>{0}</p>
+												}
+											</TableCell>
 											<TableCell className={classes.alignRight}>
 												<Tooltip
 													enterDelay={200}
