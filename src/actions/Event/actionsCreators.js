@@ -185,12 +185,14 @@ export const editEvent = (event, updatedBy, editEventMutation) => (
 			});
 	});
 
-export const deleteEvent = (id, paginationPage, deleteEventMutation) => (
-	async (dispatch) => {
+export const deleteEvent = (obj, paginationPage, deleteEventMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
 		await deleteEventMutation({
 			variables: { id },
 			refetchQueries: [{ query: GET_EVENTS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		window.location.reload();
-	});
+		// window.location.reload();
+	};
+};
