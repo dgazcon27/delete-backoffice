@@ -70,8 +70,6 @@ const BankAccount = ({
 				);
 			}
 
-			console.log('data', data);
-
 			return (
 				<div>
 					<div>
