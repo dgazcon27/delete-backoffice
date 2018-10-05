@@ -69,6 +69,9 @@ const BankAccount = ({
 					<div> Error :( </div>
 				);
 			}
+
+			console.log('data', data);
+
 			return (
 				<div>
 					<div>

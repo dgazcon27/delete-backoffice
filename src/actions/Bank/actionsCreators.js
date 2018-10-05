@@ -134,6 +134,17 @@ export const deleteBank = (obj, paginationPage, deleteBankMutation) => {
 		// window.location.reload();
 	};
 };
+export const deleteBankAccount = (obj, paginationPage, deleteBankMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
+		await deleteBankMutation({
+			variables: { id },
+			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
+		});
+		dispatch(closeModal());
+		// window.location.reload();
+	};
+};
 export const openModal = (modalType, bank) => ({
 	type: OPEN_MODAL,
 	payload: {
