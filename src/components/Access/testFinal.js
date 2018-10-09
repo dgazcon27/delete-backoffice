@@ -42,11 +42,6 @@ const TestFinal = ({
 		},
 		{
 			id: 2,
-			columName: 'Precio',
-			jsonPath: 'price',
-		},
-		{
-			id: 3,
 			columName: 'Ubicación',
 			jsonPath: 'location.name',
 		}],
