@@ -99,15 +99,15 @@ export const blockAccess = (id, statusValue, blockAccessMutation) => {
 	};
 };
 
-export const deleteAccess = (id, statusValue, paginationPage, deleteAccessMutation) => {
-	const status = statusValue;
+export const deleteAccess = (obj, paginationPage, deleteAccessMutation) => {
+	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deleteAccessMutation({
-			variables: { id, status },
+			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		window.location.reload();
+		// window.location.reload();
 	};
 };
 
