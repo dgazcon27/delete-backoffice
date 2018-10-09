@@ -14,7 +14,7 @@ import {
 } from 'redux-form';
 import Snackbar from '@material-ui/core/Snackbar';
 import Paper from '@material-ui/core/Paper';
-import styles from '../Shared/userTypeCss';
+import styles from '../Shared/sharedStyles';
 import { required, empty } from '../validations/validations';
 import { renderTextField, renderDateField, renderDateMaxField } from '../RenderFields/renderFields';
 import {

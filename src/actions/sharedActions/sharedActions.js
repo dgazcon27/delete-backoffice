@@ -21,13 +21,13 @@ export const openAlert = alertType => ({
 	},
 });
 
-export const openModal = (modalType, event) => ({
+export const openModal = (modalType, obj) => ({
 	type: OPEN_MODAL,
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		name: event.name,
-		id: event.id,
+		name: obj.name,
+		id: obj.id,
 	},
 });
 
@@ -44,3 +44,4 @@ export const closeAlert = () => ({
 		description: CLOSE_ALERT,
 	},
 });
+

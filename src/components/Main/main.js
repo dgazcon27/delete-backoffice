@@ -22,11 +22,11 @@ import Payment from '../Payment/payment';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
-import InvitedCreate from '../Invited/createInvited';
+import CreateGuest from '../Guest/createGuest';
+import ComponentGuest from '../Guest/componentGuest';
 
 import {
 	Dashboard,
-	Guests,
 	Djs,
 	Categories,
 	Staff,
@@ -48,7 +48,6 @@ const Main = (props) => {
 				<Route path='/tables' component={ComponentLocation} />
 				<Route path='/create-tables' component={LocationCreate} />
 				<Route path='/edit-tables/:id' component={EditionComponent} />
-				<Route path='/guests' component={Guests} />
 				<Route path='/events' component={Event} />
 				<Route path='/events-create' component={EventCreate} />
 				<Route path='/event-edit/:id' component={EditionComponent} />
@@ -73,7 +72,9 @@ const Main = (props) => {
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit/:id' component={EditionComponent} />
-				<Route path='/create-invited' component={InvitedCreate} />
+				<Route path='/guests' component={ComponentGuest} />
+				<Route path='/guest-create' component={CreateGuest} />
+				<Route path='/guest-edit/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);

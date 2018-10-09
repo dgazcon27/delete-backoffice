@@ -21,9 +21,9 @@ import {
 	empty,
 } from '../validations/validations';
 import { renderTextField } from '../RenderFields/renderFields';
-import { CREATE_INVITED } from '../../queries/invited';
+import { CREATE_GUEST } from '../../queries/guest';
 import { closeAlert } from '../../actions/sharedActions/sharedActions';
-import { createInvited } from '../../actions/Invited/actionsCreator';
+import { createInvited } from '../../actions/Guest/actionsCreators';
 import {
 	Events,
 	Access,
@@ -133,7 +133,7 @@ let InvitedCreate = ({
 				>
 					Crear
 				</button>
-				<Link to='/events' href='/events' className={classes.returnButton} >
+				<Link to='/guests' href='/guests' className={classes.returnButton} >
 					Regresar
 				</Link>
 			</form>
@@ -181,9 +181,9 @@ InvitedCreate = reduxForm({
 const selector = formValueSelector('InvitedCreate');
 
 const mapStateToProps = state => ({
-	alertType: state.ReducerInvited.alertType,
-	alertOpen: state.ReducerInvited.alertOpen,
-	states: state.ReducerInvited.states,
+	alertType: state.ReducerGuest.alertType,
+	alertOpen: state.ReducerGuest.alertOpen,
+	states: state.ReducerGuest.states,
 	userId: state.ReducerLogin.userId,
 	myValues: selector(
 		state,
@@ -201,17 +201,13 @@ const mapStateToProps = state => ({
 	),
 });
 
-
-	// actionSelectCountry: (event, id) => dispatch(setCountriesStates(event, id)),
-	// actionCreateEvent: (myValues, paginationPage, createdBy, updatedBy, createEventMutation) =>
-	// 	dispatch(createEvent(myValues, paginationPage, createdBy, updatedBy, createEventMutation)),
 const mapDispatchToProps = dispatch => ({
 	actionCreate: (invited, createMutation) => dispatch(createInvited(invited, createMutation)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 });
 
 export default compose(
-	graphql(CREATE_INVITED, { name: 'createMutation' }),
+	graphql(CREATE_GUEST, { name: 'createMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(InvitedCreate);

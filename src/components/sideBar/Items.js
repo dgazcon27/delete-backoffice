@@ -6,7 +6,7 @@ import People from '@material-ui/icons/People';
 // import ReportIcon from '@material-ui/icons/Report';
 import Apps from '@material-ui/icons/Apps';
 import Weekend from '@material-ui/icons/Weekend';
-// import Wc from '@material-ui/icons/Wc';
+import Wc from '@material-ui/icons/Wc';
 import Event from '@material-ui/icons/Event';
 // import Album from '@material-ui/icons/Album';
 // import Work from '@material-ui/icons/Work';
@@ -59,7 +59,6 @@ const Items = (
 				<ListItemText primary='Mesas' />
 			</ListItem>
 		</Link>
-		{/*
 		<Link to='/guests' href='/guests'>
 			<ListItem button>
 				<ListItemIcon>
@@ -68,7 +67,6 @@ const Items = (
 				<ListItemText primary='Invitados' />
 			</ListItem>
 		</Link>
-		*/}
 		<Link to='/events' href='/events'>
 			<ListItem button>
 				<ListItemIcon>
