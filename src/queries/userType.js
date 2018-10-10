@@ -7,9 +7,7 @@ export const GET_ROLES = gql`
 				name
 				id
 				description
-				status{
-					id
-				}
+				active
 			}
 			total
 		}
@@ -20,10 +18,7 @@ export const BLOCK_ROL = gql`
 		blockedRole(id:$id,status:$status) {
 			name
 			id
-			status {
-				name
-				id
-			}
+			active
 		}
 	}
 `;

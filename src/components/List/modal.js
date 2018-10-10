@@ -37,18 +37,18 @@ const ModalsOptions = ({
 
 			{	modal.componentState.modalType === 'block' &&
 				<Paper className={classes.paperOnModal}>
-					{modal.componentState.statusValue === 1 &&
+					{modal.componentState.statusValue &&
 					<h6> { modal.messages.block.titleStatus1 } </h6>}
-					{modal.componentState.statusValue === 2 &&
+					{!modal.componentState.statusValue &&
 					<h6> { modal.messages.block.titleStatus2 } </h6>}
 					{
-						modal.componentState.statusValue === 1 &&
+						modal.componentState.statusValue &&
 						<p>
 							{ modal.messages.block.msgStatus1 }
 						</p>
 					}
 					{
-						modal.componentState.statusValue === 2 &&
+						!modal.componentState.statusValue &&
 						<p>
 							{ modal.messages.block.msgStatus2 }
 						</p>

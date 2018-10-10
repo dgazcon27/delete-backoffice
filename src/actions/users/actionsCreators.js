@@ -120,23 +120,24 @@ export const closeAlert = () => ({
 	},
 });
 
-export const blockUser = (id, statusValue, blockUserMutation) => {
-	const status = statusValue === 1 ? 2 : 1;
+export const blockUser = (obj, blockUserMutation) => {
+	const { id } = obj;
+	const status = obj.statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
 		await blockUserMutation({ variables: { id, status } });
 		dispatch(closeModal());
 	};
 };
 
-export const deleteUser = (id, statusValue, paginationPage, deleteRolMutation) => {
-	const status = statusValue;
+export const deleteUser = (obj, paginationPage, deleteRolMutation) => {
+	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deleteRolMutation({
-			variables: { id, status },
+			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		window.location.reload();
+		// window.location.reload();
 	};
 };
 

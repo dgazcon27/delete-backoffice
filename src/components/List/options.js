@@ -63,7 +63,7 @@ const Options = ({
 			>
 				<Switch
 					onClick={() => actions.openModal('block', rowData)}
-					checked={rowData.status.id === 2}
+					checked={!rowData.active}
 					value='checked'
 				/>
 			</Tooltip>
