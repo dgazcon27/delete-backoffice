@@ -7,6 +7,7 @@ import {
 	PAGE_DOWN,
 	SET_EVENT,
 	SET_COUNTRIES_STATES,
+	CLEAN_STATE_COUNTRY,
 } from '../../actions/Event/actionsTypes';
 
 const initialState = {
@@ -75,6 +76,11 @@ const ReducerEvent = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				alertOpen: false,
+			});
+		case CLEAN_STATE_COUNTRY:
+			return ({
+				...state,
+				state: action.payload.state,
 			});
 		case SET_EVENT:
 			return ({
