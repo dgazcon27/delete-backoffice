@@ -12,7 +12,8 @@ import {
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
-import { GET_ZONES } from '../../queries/zone';
+import { GET_ZONES, GET_ZONE_BY_ID } from '../../queries/zone';
+import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -52,16 +53,28 @@ export const changePageSearch = (currentPage, paginationPage) => {
 	});
 };
 
-export const setZone = (id, name, maxcapacity, capacity) => ({
+export const setZone = zone => ({
 	type: SET_ZONE,
 	payload: {
+		...zone,
 		description: SET_ZONE,
-		id,
-		name,
-		maxcapacity,
-		capacity,
 	},
 });
+
+export const getZoneById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ZONE_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { zone } = res.data;
+				dispatch(setZone(zone));
+			})
+			.catch(() => {});
+	}
+);
 
 export const cleanState = () => ({
 	type: CLEAN_STATE,
@@ -162,23 +175,21 @@ export const createZone = (
 
 
 export const editZone = (
-	id,
-	name,
-	capacity,
-	maxcapacity,
+	zone,
 	updatedBy,
 	paginationPage,
 	editZoneMutation,
 ) => async (dispatch) => {
 	await editZoneMutation({
 		variables: {
-			id, name, capacity, maxcapacity, updatedBy,
+			...zone, updatedBy,
 		},
 		refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
 	})
 		.then(() => {
 			dispatch(openAlert('edit'));
-			setTimeout(() => (window.location.assign('Departments')), 2000);
+			dispatch(setZone(zone));
+			setTimeout(() => (window.location.assign('/Departments')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

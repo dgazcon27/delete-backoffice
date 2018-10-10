@@ -69,3 +69,18 @@ export const GET_STATUS = gql`
 		}
 	}
 `;
+
+export const GET_LOCATION_BY_ID = gql`
+	query location($id:Int!){
+		location(id:$id) {
+			name
+			id
+			capacity
+			fullcapacity
+			description
+			status{
+				id
+			}
+		}
+	}
+`;

@@ -8,7 +8,7 @@ import {
 
 describe('test Reducer Header', () => {
 	const initialState = {
-		openDrawer: false,
+		openDrawer: true,
 		openMenuProfile: null,
 	};
 
@@ -57,12 +57,18 @@ describe('test Reducer Header', () => {
 				openMenuProfile: event.currentTarget,
 			},
 			closeSideBar(),
-		)).toEqual(initialState);
+		)).toEqual({
+			openDrawer: false,
+			openMenuProfile: null,
+		});
 	});
 
 	it('return Method openProfile', () => {
 		const event = document.createEvent('UIEvents');
-		expect(ReducerHeader(initialState, openProfile(event)))
+		expect(ReducerHeader({
+			openDrawer: false,
+			openMenuProfile: null,
+		}, openProfile(event)))
 			.toEqual({ openDrawer: false, openMenuProfile: event.currentTarget });
 	});
 
@@ -74,6 +80,9 @@ describe('test Reducer Header', () => {
 				openMenuProfile: event.currentTarget,
 			},
 			closeProfile(),
-		)).toEqual(initialState);
+		)).toEqual({
+			openDrawer: false,
+			openMenuProfile: null,
+		});
 	});
 });

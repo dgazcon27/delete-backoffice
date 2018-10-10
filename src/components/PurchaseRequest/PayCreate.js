@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -20,6 +19,8 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
+import BackButton from '../widget/BackButton';
+
 import {
 	renderTextField,
 	renderNumberField,
@@ -113,9 +114,7 @@ let Payment = ({
 				>
 					Guardar
 				</button>
-				<Link to='/pre-sale' href='/pre-sale' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'creado' &&

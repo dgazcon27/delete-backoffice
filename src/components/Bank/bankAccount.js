@@ -32,7 +32,6 @@ import {
 	deleteBank,
 	openModal,
 	closeModal,
-	setBankAccount,
 } from '../../actions/Bank/actionsCreators';
 
 import {
@@ -49,7 +48,6 @@ const BankAccount = ({
 	classes,
 	modalType,
 	currentPage,
-	actionSetBankAccount,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
@@ -112,21 +110,8 @@ const BankAccount = ({
 														placement='top'
 														title='Editar bank.'
 													>
-														<Link to='/bank-account-edit/' href='/bank-account-edit'>
-															<IconButton
-																onClick={() => {
-																	actionSetBankAccount(
-																		bankA.id,
-																		bankA.owner.id,
-																		bankA.bank.id,
-																		bankA.type,
-																		bankA.currency,
-																		bankA.accountNumber,
-																		bankA.comment,
-																	);
-																}
-																}
-															>
+														<Link to={{ pathname: `/bank-account-edit/${bankA.id}`, state: { type: 'Account' } }}>
+															<IconButton>
 																<Edit />
 															</IconButton>
 														</Link>
@@ -218,7 +203,6 @@ BankAccount.propTypes = {
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionSetBankAccount: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
@@ -251,16 +235,6 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePageAccount(currentPage, paginationPage)),
 	actionOpenModal: (modalType, bank) => dispatch(openModal(modalType, bank)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetBankAccount: (
-		id,
-		owner,
-		bank,
-		accountNumber,
-		type,
-		currency,
-		comment,
-	) =>
-		dispatch(setBankAccount(id, owner, bank, type, currency, accountNumber, comment)),
 });
 
 export { BankAccount as BankAccountTest };

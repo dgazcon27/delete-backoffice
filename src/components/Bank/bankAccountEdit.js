@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
@@ -23,14 +22,14 @@ import {
 	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 import {
 	Banks,
 	Users,
-} from './bankAccountCreate';
+} from '../commonComponent';
 
 let BankAccountEdit = ({
-	id,
 	classes,
 	myValues,
 	alertOpen,
@@ -99,13 +98,7 @@ let BankAccountEdit = ({
 					className={classes.createButton}
 					type='submit'
 					onClick={handleSubmit(() => actionEditBankAccount(
-						id,
-						myValues.bank,
-						myValues.owner,
-						myValues.accountNumber,
-						myValues.type,
-						myValues.currency,
-						myValues.comment,
+						myValues,
 						paginationPage,
 						editBankAccountMutation,
 					))}
@@ -113,9 +106,7 @@ let BankAccountEdit = ({
 				>
 				Guardar
 				</button>
-				<Link to='/bank-account' href='/bank-account' className={classes.returnButton} >
-				Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'edit' &&
@@ -143,7 +134,6 @@ let BankAccountEdit = ({
 
 
 BankAccountEdit.propTypes = {
-	id: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -158,6 +148,7 @@ BankAccountEdit.propTypes = {
 
 BankAccountEdit = reduxForm({
 	form: 'BankAccountEdit',
+	enableReinitialize: true,
 })(BankAccountEdit);
 
 const selector = formValueSelector('BankAccountEdit');
@@ -168,35 +159,22 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerBank.alertType,
 	alertOpen: state.ReducerBank.alertOpen,
 	initialValues: state.ReducerBank,
-	id: state.ReducerBank.id,
 	accountNumber: state.ReducerBank.accountNumber,
 	currency: state.ReducerBank.currency,
 	paginationPage: state.ReducerBankAccount.paginationPageAc,
-	myValues: selector(state, 'owner', 'bank', 'type', 'accountNumber', 'currency', 'comment'),
+	myValues: selector(state, 'id', 'owner', 'bank', 'type', 'accountNumber', 'currency', 'comment'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCleanState: () => dispatch(cleanState()),
 	actionEditBankAccount: (
-		id,
-		owner,
 		bank,
-		type,
-		accountNumber,
-		currency,
-		comment,
 		paginationPage,
 		editBankAccountMutation,
 	) =>
 		dispatch(editBankAccount(
-			id,
-			owner,
 			bank,
-			type,
-			accountNumber,
-			currency,
-			comment,
 			paginationPage,
 			editBankAccountMutation,
 		)),

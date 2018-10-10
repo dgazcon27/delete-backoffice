@@ -13,6 +13,7 @@ import {
 	BLOCK_USER_TYPE,
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
+	SET_ACCESS_EVENT,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
 
@@ -27,7 +28,7 @@ const initialState = {
 	statusValue: 0,
 	accountNumber: '',
 	user: 0,
-	access: 0,
+	access: {},
 	event: 0,
 	status: 0,
 	comment: 0,
@@ -123,6 +124,11 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				name: action.payload.name,
+			});
+		case SET_ACCESS_EVENT:
+			return ({
+				...state,
+				access: action.payload.access,
 			});
 		case SET_DESCRIPTION:
 			return ({

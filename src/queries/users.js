@@ -102,3 +102,28 @@ export const GET_CURRENT_USER = gql`
 		}
 	}
 `;
+
+export const GET_USER_BY_ID = gql`
+	query user($id:Int!){
+		user(id:$id) {
+			name
+				lastName
+				phone
+				dni
+				birthDate
+				citizenship{
+					id
+					name
+				}
+				role{
+					id
+					name
+				}
+				id
+				status {
+					name
+					id
+				}
+		}
+	}
+`;

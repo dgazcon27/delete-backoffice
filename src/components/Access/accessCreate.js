@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
 	compose,
 	graphql,
-	Query,
 } from 'react-apollo';
 import {
 	Field,
@@ -15,135 +13,20 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import MenuItem from 'material-ui/Menu/MenuItem';
 import styles from './accessCss';
 import './styles.css';
 import {
 	required,
 	empty,
 } from '../validations/validations';
-import {
-	renderTextField,
-	renderSelectField,
-} from '../RenderFields/renderFields';
-import {
-	CREATE_ACCESS,
-	GET_STATUS,
-	GET_LOCATIONS,
-	GET_ZONES,
-} from '../../queries/access';
+import { renderTextField } from '../RenderFields/renderFields';
+import { CREATE_ACCESS } from '../../queries/access';
 import {
 	closeAlert,
 	createAccess,
 } from '../../actions/Access/actionsCreators';
-
-const Location = () => (
-	<Query query={GET_LOCATIONS}>
-		{({ loading, error, data }) => {
-			if (loading || error) {
-				return (
-					<div className='formStyle'>
-						<Field
-							name='location'
-							type='select'
-							component={renderSelectField}
-							validate={required}
-							label='Ubicación'
-						>
-							<MenuItem />
-						</Field>
-					</div>
-				);
-			}
-			return (
-				<Field
-					name='location'
-					type='select'
-					label='Ubicación'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.locationss.map(location => (
-						<MenuItem key={location.id} value={location.id}>{location.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-const Zone = () => (
-	<Query query={GET_ZONES}>
-		{({ loading, error, data }) => {
-			if (loading || error) {
-				return (
-					<div className='formStyle'>
-						<Field
-							name='zone'
-							type='select'
-							component={renderSelectField}
-							validate={required}
-							label='Zona'
-						>
-							<MenuItem />
-						</Field>
-					</div>
-				);
-			}
-			return (
-				<Field
-					name='zone'
-					type='select'
-					label='Zona'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.zones.map(zone => (
-						<MenuItem key={zone.id} value={zone.id}>{zone.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
-
-const Status = () => (
-	<Query query={GET_STATUS}>
-		{({ loading, error, data }) => {
-			if (loading || error) {
-				return (
-					<div className='formStyle'>
-						<Field
-							name='status'
-							type='select'
-							component={renderSelectField}
-							validate={required}
-							label='Estatus'
-						>
-							<MenuItem />
-						</Field>
-					</div>
-				);
-			}
-			return (
-				<Field
-					name='status'
-					type='select'
-					label='Estatus'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.statuss.map(status => (
-						<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
+import BackButton from '../widget/BackButton';
+import { Location, Zone, Status } from '../commonComponent';
 
 let AccessCreate = ({
 	classes,
@@ -210,9 +93,7 @@ let AccessCreate = ({
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.price, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, createAccessMutation))} disabled={submitting} >
 					Crear
 				</button>
-				<Link to='/access' href='/access' className={classes.returnButton} >
-					Regresar
-				</Link>
+				<BackButton />
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

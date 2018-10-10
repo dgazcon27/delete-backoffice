@@ -13,7 +13,8 @@ import {
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
 
-import { GET_LOCATIONS } from '../../queries/location';
+import { client } from '../../config/configStore';
+import { GET_LOCATIONS, GET_LOCATION_BY_ID } from '../../queries/location';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -54,18 +55,33 @@ export const changePageSearch = (currentPage, paginationPage) => {
 	});
 };
 
-export const setLocation = (id, name, locationDescription, fullcapacity, capacity, status) => ({
+export const setLocation = location => ({
 	type: SET_LOCATION,
 	payload: {
 		description: SET_LOCATION,
-		id,
-		name,
-		locationDescription,
-		fullcapacity,
-		capacity,
-		status,
+		id: location.id,
+		name: location.name,
+		locationDescription: location.description,
+		fullcapacity: location.fullcapacity,
+		capacity: location.capacity,
+		status: location.status.id,
 	},
 });
+
+export const getLocationById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_LOCATION_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { location } = res.data;
+				dispatch(setLocation(location));
+			})
+			.catch(() => {});
+	}
+);
 
 export const cleanState = () => ({
 	type: CLEAN_STATE,
@@ -171,25 +187,31 @@ export const createLocation = (
 };
 
 export const editLocation = (
-	id,
-	name,
-	description,
-	fullcapacity,
-	capacity,
-	status,
+	location,
 	updatedBy,
 	paginationPage,
 	editLocationMutation,
 ) => async (dispatch) => {
 	await editLocationMutation({
 		variables: {
-			id, name, description, fullcapacity, capacity, status, updatedBy,
+			id: location.id,
+			name: location.name,
+			description: location.locationDescription,
+			fullcapacity: location.fullcapacity,
+			capacity: location.capacity,
+			status: location.status,
+			updatedBy,
 		},
 		refetchQueries: [{ query: GET_LOCATIONS, variables: { paginationPage } }],
 	})
 		.then(() => {
+			dispatch(setLocation({
+				...location,
+				description: location.locationDescription,
+				status: { id: location.status },
+			}));
 			dispatch(openAlert('edit'));
-			setTimeout(() => (window.location.assign('tables')), 2000);
+			setTimeout(() => (window.location.replace('/tables')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

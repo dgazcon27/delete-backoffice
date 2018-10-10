@@ -34,6 +34,7 @@ const styles = () => ({
 		left: '28% !important',
 	},
 	returnButton: {
+		cursor: 'pointer',
 		fontSize: '1.1em',
 		borderRadius: '5%',
 		color: '#4b5f69',

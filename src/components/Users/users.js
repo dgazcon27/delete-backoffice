@@ -33,7 +33,6 @@ import {
 } from '../../queries/users';
 import { SEARCH_USERS } from '../../queries/search';
 import {
-	setUser,
 	blockUser,
 	deleteUser,
 	openModal,
@@ -58,7 +57,6 @@ const Users = ({
 	query,
 	actionChangePage,
 	actionOpenModal,
-	actionSetUser,
 	actionBlockUser,
 	actionDeleteUser,
 	actionCloseModal,
@@ -117,20 +115,8 @@ const Users = ({
 															placement='top'
 															title='Editar Usuario'
 														>
-															<Link to='/users-edit' href='/users-edit'>
-																<IconButton onClick={() => {
-																	actionSetUser(
-																		user.id,
-																		user.name,
-																		user.lastName,
-																		user.phone,
-																		user.dni,
-																		user.birthDate,
-																		user.citizenship.id,
-																		user.role.id,
-																	);
-																}}
-																>
+															<Link to={{ pathname: `/users-edit/${user.id}`, state: { type: 'User' } }}>
+																<IconButton>
 																	<Edit />
 																</IconButton>
 															</Link>
@@ -314,7 +300,6 @@ Users.propTypes = {
 	actionBlockUser: PropTypes.func.isRequired,
 	blockUserMutation: PropTypes.func.isRequired,
 	deleteUserMutation: PropTypes.func.isRequired,
-	actionSetUser: PropTypes.func.isRequired,
 	actionDeleteUser: PropTypes.func.isRequired,
 	actionChangePageSearch: PropTypes.func.isRequired,
 };
@@ -342,25 +327,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeleteUser: (id, statusValue, paginationPage, deleteUserMutation) =>
 		dispatch(deleteUser(id, statusValue, paginationPage, deleteUserMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetUser: (
-		id,
-		name,
-		lastName,
-		phone,
-		dni,
-		birthDate,
-		citizenship,
-		role,
-	) => dispatch(setUser(
-		id,
-		name,
-		lastName,
-		phone,
-		dni,
-		birthDate,
-		citizenship,
-		role,
-	)),
 });
 
 export default compose(

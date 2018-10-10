@@ -94,3 +94,27 @@ export const GET_STATUS = gql`
 		}
 	}
 `;
+
+export const GET_ACCESS_BY_ID = gql`
+	query acces($id:Int!){
+		acces(id:$id) {
+			id
+			name
+			description
+			price
+			currency
+			location{
+				id
+				name
+			}
+			zone{
+				id
+				name
+			}
+			status{
+				id
+			}
+		}
+	}
+`;
+

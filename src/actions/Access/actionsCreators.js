@@ -8,7 +8,8 @@ import {
 	PAGE_UP_ACC,
 	PAGE_DOWN_ACC,
 } from './actionsTypes';
-import { GET_ACCESS } from '../../queries/access';
+import { GET_ACCESS, GET_ACCESS_BY_ID } from '../../queries/access';
+import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -32,29 +33,36 @@ export const changePage = (currentPage, paginationPageAcc) => {
 		},
 	});
 };
-export const setAccess = (
-	id,
-	name,
-	descriptionAccess,
-	price,
-	currency,
-	location,
-	zone,
-	status,
-) => ({
+
+export const setAccess = access => ({
 	type: SET_ACCESS,
 	payload: {
 		description: SET_ACCESS,
-		id,
-		name,
-		descriptionAccess,
-		price,
-		currency,
-		location,
-		zone,
-		status,
+		id: access.id,
+		name: access.name,
+		descriptionAccess: access.description,
+		price: access.price,
+		currency: access.currency,
+		location: access.location.id,
+		zone: access.zone.id,
+		status: access.status.id,
 	},
 });
+
+export const getAccessById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ACCESS_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { acces } = res.data;
+				dispatch(setAccess(acces));
+			})
+			.catch(() => {});
+	}
+);
 
 export const cleanState = () => ({
 	type: CLEAN_STATE,
@@ -134,7 +142,7 @@ export const createAccess = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('access')), 2000);
+				setTimeout(() => (window.location.assign('/access')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -143,27 +151,24 @@ export const createAccess = (
 	};
 
 export const editAccess = (
-	id,
-	name,
-	description,
-	price,
-	currency,
-	location,
-	zone,
-	status,
+	access,
 	paginationPage,
 	editAccessMutation,
 ) =>
 	async (dispatch) => {
 		await editAccessMutation({
-			variables: {
-				id, name, description, price, currency, location, zone, status,
-			},
+			variables: { ...access, description: access.descriptionAccess },
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
 		})
 			.then(() => {
 				dispatch(openAlert('edit'));
-				setTimeout(() => (window.location.assign('access')), 2000);
+				dispatch(setAccess({
+					...access,
+					location: { id: access.location },
+					zone: { id: access.zone },
+					status: { id: access.status },
+				}));
+				setTimeout(() => (window.location.assign('/access')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

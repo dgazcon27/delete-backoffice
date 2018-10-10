@@ -28,7 +28,6 @@ import styles from './paymentCss';
 import {
 	openModal,
 	closeModal,
-	setPayment,
 	deletePayment,
 	changePage,
 } from '../../actions/Payment/actionsCreators';
@@ -47,7 +46,6 @@ const Payment = ({
 	currentPage,
 	actionOpenModal,
 	actionCloseModal,
-	actionEditPayment,
 	paginationPage,
 	actionDeletePayment,
 	actionChangePage,
@@ -103,20 +101,12 @@ const Payment = ({
 													placement='top'
 													title='Editar Pago'
 												>
-													<Link to='/pre-sale-edit' href='/pre-sale-edit'>
-														<IconButton
-															onClick={() => {
-																actionEditPayment(
-																	payment.payment.id,
-																	payment.purchaseRequest.id,
-																	payment.payment.amount,
-																	payment.payment.reference,
-																	payment.payment.comment,
-																	payment.payment.type,
-																	payment.payment.bankAccount.id,
-																);
-															}}
-														>
+													<Link to={{
+														pathname: `/pre-sale-edit/${payment.payment.id}/${payment.purchaseRequest.id}`,
+														state: { type: 'Payment' },
+													}}
+													>
+														<IconButton>
 															<Edit />
 														</IconButton>
 													</Link>
@@ -208,7 +198,6 @@ Payment.propTypes = {
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
-	actionEditPayment: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeletePayment: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
@@ -239,15 +228,6 @@ const mapDispatchToProps = dispatch => ({
 	actionDeletePayment: (id, statusValue, paginationPage, deletePaymentMutation) =>
 		dispatch(deletePayment(id, statusValue, paginationPage, deletePaymentMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditPayment: (
-		id,
-		purchaseRequest,
-		amount,
-		reference,
-		comment,
-		type,
-		bankAccount,
-	) => dispatch(setPayment(id, purchaseRequest, amount, reference, comment, type, bankAccount)),
 });
 
 export default compose(

@@ -1,10 +1,20 @@
 import gql from 'graphql-tag';
 
+export const GET_ROLESS = gql`
+	query{ 
+			roless{
+				id
+				name
+			}
+		}	
+`;
+
 export const GET_USERSS = gql`
 	query{ 
 			userss{
 				id
 				name
+				lastName
 			}
 		}	
 `;
@@ -47,6 +57,14 @@ export const GET_EVENTSS = gql`
 			}
 		}	
 `;
+export const GET_A_EVENTSS = gql`
+	query{ 
+			activeEvents{
+				id
+				name
+			}
+		}	
+`;
 export const GET_STATUSS = gql`
 	query{ 
 			statuss{
@@ -54,4 +72,39 @@ export const GET_STATUSS = gql`
 				name
 			}
 		}	
+`;
+
+export const GET_LOCATIONS = gql`
+	query locationss{
+		locationss{
+			id
+			name
+		}
+	}
+`;
+export const GET_ZONES = gql`
+	query zones{
+		zones{
+			id
+			name
+		}
+	}
+`;
+
+export const GET_COUNTRIES = gql`
+	query {
+		countrys {
+			name
+			value
+			id
+		}
+	}
+`;
+export const GET_STATUS = gql`
+	query {
+		statuss {
+			name
+			id
+		}
+	}
 `;

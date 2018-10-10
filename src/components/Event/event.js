@@ -35,7 +35,6 @@ import {
 	openModal,
 	closeModal,
 	deleteEvent,
-	setEvent,
 } from '../../actions/Event/actionsCreators';
 
 import {
@@ -58,7 +57,6 @@ const Event = ({
 	actionOpenModal,
 	isOpen,
 	modalType,
-	actionSetEvent,
 }) => (
 	<Query query={GET_EVENTS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -78,7 +76,7 @@ const Event = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-							Evento
+							Eventos
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
@@ -113,12 +111,8 @@ const Event = ({
 														placement='top'
 														title='Editar evento.'
 													>
-														<Link to='/event-edit' href='/event-edit'>
-															<IconButton
-																onClick={() => {
-																	actionSetEvent(event);
-																}}
-															>
+														<Link to={{ pathname: `/event-edit/${event.id}`, state: { type: 'Event' } }}>
+															<IconButton>
 																<Edit />
 															</IconButton>
 														</Link>
@@ -217,7 +211,6 @@ Event.propTypes = {
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
-	actionSetEvent: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	actionDeleteEvent: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
@@ -249,8 +242,6 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, event) => dispatch(openModal(modalType, event)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetEvent: event =>
-		dispatch(setEvent(event, dispatch)),
 });
 
 export { Event as EventTest };

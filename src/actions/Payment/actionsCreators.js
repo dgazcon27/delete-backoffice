@@ -8,7 +8,8 @@ import {
 	PAGE_UP_PAY,
 	PAGE_DOWN_PAY,
 } from './actionsTypes';
-import { GET_PAYMENTS } from '../../queries/payment';
+import { GET_PAYMENTS, GET_PAYMENT_BY_ID } from '../../queries/payment';
+import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -33,19 +34,29 @@ export const changePage = (currentPage, paginationPagePay) => {
 	});
 };
 
-export const setPayment = (id, purchaseRequest, amount, reference, comment, type, bankAccount) => ({
+export const setPayment = payment => ({
 	type: SET_PAYMENT,
 	payload: {
 		description: SET_PAYMENT,
-		id,
-		purchaseRequest,
-		amount,
-		reference,
-		comment,
-		type,
-		bankAccount,
+		...payment,
+		bankAccount: payment.bankAccount.id,
 	},
 });
+
+export const getPaymentById = (id, fk) => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_PAYMENT_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { payment } = res.data;
+				dispatch(setPayment({ ...payment, purchaseRequest: Number(fk) }));
+			})
+			.catch(() => {});
+	}
+);
 
 export const cleanState = () => ({
 	type: CLEAN_STATE,
@@ -135,26 +146,25 @@ export const createPayment = (
 
 
 export const editPayment = (
-	id,
-	purchaseRequest,
-	amount,
-	reference,
-	comment,
-	type,
-	bankAccount,
+	payment,
 	updatedBy,
 	paginationPage,
 	editPaymentMutation,
 ) => async (dispatch) => {
 	await editPaymentMutation({
 		variables: {
-			id, purchaseRequest, amount, reference, comment, type, bankAccount, updatedBy,
+			...payment, updatedBy,
 		},
 		refetchQueries: [{ query: GET_PAYMENTS, variables: { paginationPage } }],
 	})
 		.then(() => {
 			dispatch(openAlert('edit'));
-			setTimeout(() => (window.location.assign('pre-sale')), 2000);
+			dispatch(setPayment({
+				...payment,
+				purchaseRequest: 0,
+				bankAccount: { id: payment.bankAccount },
+			}));
+			setTimeout(() => (window.location.assign('/pre-sale')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

@@ -35,7 +35,6 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPageAcc = 0;
 	initialState.currentPageAcc = 0;
 }
-
 const ReducerAccess = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case PAGE_UP_ACC:
