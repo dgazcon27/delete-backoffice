@@ -6,8 +6,6 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -42,18 +40,6 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 
 const ReducerBank = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
 		case EDIT_USER_TYPE:
 			return ({
 				...state,

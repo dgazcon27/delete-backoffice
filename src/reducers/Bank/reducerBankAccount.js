@@ -6,8 +6,6 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -27,7 +25,6 @@ const initialState = {
 	accountNumber: '',
 };
 
-
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).bankAccount || 0;
@@ -39,18 +36,6 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 
 const ReducerBankAccount = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
 		case EDIT_USER_TYPE:
 			return ({
 				...state,

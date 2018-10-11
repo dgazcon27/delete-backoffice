@@ -6,10 +6,6 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -39,30 +35,6 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 
 const ReducerUserType = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case SEARCH_PAGE_UP:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case SEARCH_PAGE_DOWN:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
 		case EDIT_USER_TYPE:
 			return ({
 				...state,

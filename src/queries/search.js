@@ -8,9 +8,7 @@ export const SEARCH_ROLES = gql`
 					name
 					id
 					description
-					status{
-						id
-					}
+					active
 				}
 				total
 			}
