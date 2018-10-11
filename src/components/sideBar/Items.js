@@ -118,6 +118,15 @@ const Items = (
 			</ListItem>
 		</Link>
 
+		<Link to='/zonesNew' href='/zonesNew'>
+			<ListItem button>
+				<ListItemIcon>
+					<GroupWork />
+				</ListItemIcon>
+				<ListItemText primary='Zonas New' />
+			</ListItem>
+		</Link>
+
 		<Link to='/bank' href='/bank'>
 			<ListItem button>
 				<ListItemIcon>

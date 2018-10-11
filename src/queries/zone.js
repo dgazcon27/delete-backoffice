@@ -11,6 +11,7 @@ export const GET_ZONES = gql`
 				status{
 					id
 				}
+				active
 			}
 			total
 		}
@@ -42,10 +43,7 @@ export const BLOCK_ZONE = gql`
 		blockedZone(id:$id,status:$status) {
 			id
 			name
-			status{
-				name
-				id
-			}
+			active
 		}
 	}
 `;

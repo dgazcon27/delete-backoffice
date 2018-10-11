@@ -19,14 +19,14 @@ export const SEARCH_ROLES = gql`
 export const SEARCH_USER = gql`
 	query search($query:String!,$page:Int) {
 		search(query:$query,page:$page) {
-			user {
+			users {
 				data{
 					name
 					id
-					description
 					status{
 						id
 					}
+					active
 				}
 				total
 			}

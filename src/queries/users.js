@@ -22,6 +22,7 @@ export const GET_USERS = gql`
 					name
 					id
 				}
+				active
 			}
 			total
 		}

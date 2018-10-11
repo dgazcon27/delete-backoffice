@@ -19,7 +19,7 @@ import {
 } from '../../queries/zone';
 import { SEARCH_ZONES } from '../../queries/search';
 
-const TestFinal = ({
+const Zone = ({
 	objectStateZone,
 	paginationPage,
 	actionSetZone,
@@ -112,7 +112,7 @@ const TestFinal = ({
 	);
 };
 
-TestFinal.propTypes = {
+Zone.propTypes = {
 	actionSetZone: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionBlock: PropTypes.func.isRequired,
@@ -143,4 +143,4 @@ export default compose(
 	graphql(DELETE_ZONE, { name: 'deleteZoneMutation' }),
 	graphql(BLOCK_ZONE, { name: 'blockZoneMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(TestFinal);
+)(Zone);

@@ -10,6 +10,7 @@ import UserTypeCreate from '../UserType/userTypeCreate';
 import Users from '../Users/users';
 import UsersCreate from '../Users/usersCreate';
 import ComponentZone from '../Zone/componentZone';
+import Zone from '../Zone/zoneNew';
 import ZoneCreate from '../Zone/zoneCreate';
 import LocationCreate from '../Location/locationCreate';
 import ComponentLocation from '../Location/ComponentLocation';
@@ -44,6 +45,7 @@ const Main = (props) => {
 				<Route path='/events-create' component={EventCreate} />
 				<Route path='/event-edit/:id' component={EditionComponent} />
 				<Route path='/zones' component={ComponentZone} />
+				<Route path='/zonesNew' component={Zone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
 				<Route path='/Departments-edit/:id' component={EditionComponent} />
 				<Route path='/bank' component={Bank} />
