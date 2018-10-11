@@ -69,6 +69,7 @@ export const renderDateMaxField = field => (
 
 export const renderNumberField = field => (
 	<TextField
+		value={field.value ? field.value : 0}
 		fullWidth
 		multiline={false}
 		inputProps={{ min: '0', step: '1' }}
@@ -78,7 +79,9 @@ export const renderNumberField = field => (
 		{...field.input}
 		className={field.className}
 		error={(field.meta.touched && field.meta.error)}
-		helperText={(field.meta.touched && field.meta.error) && <span>Este campo es oblogatorio</span>}
+		helperText={
+			(field.meta.touched && field.meta.error) &&
+			<span>Este campo es oblogatorio</span>}
 	/>
 );
 

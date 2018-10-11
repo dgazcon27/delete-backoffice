@@ -13,18 +13,19 @@ import {
 } from 'redux-form';
 import Snackbar from '@material-ui/core/Snackbar';
 import Paper from '@material-ui/core/Paper';
-import styles from '../Shared/userTypeCss';
+import styles from '../Shared/sharedStyles';
 import { required, empty } from '../validations/validations';
 import { renderTextField, renderDateField, renderDateMaxField } from '../RenderFields/renderFields';
 import {
 	editEvent,
 	closeAlert,
 	setCountriesStates,
+	setDate,
 } from '../../actions/Event/actionsCreators';
 import { EDIT_EVENT } from '../../queries/event';
 
 import {
-	Status,
+	SelectStatus,
 	SelectCountry,
 	SelectState,
 } from '../commonComponent';
@@ -94,6 +95,7 @@ let EventEdit = ({
 	userId,
 	states,
 	actionSelectCountry,
+	actionSetDate,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Eventos</h3>
@@ -107,6 +109,8 @@ let EventEdit = ({
 						component={renderTextField}
 						validate={[required, empty]}
 						label='Nombre de Evento'
+						data-set='SET_EVENT_NAME'
+						onChange={actionSetDate}
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -117,6 +121,7 @@ let EventEdit = ({
 						validate={[required, empty]}
 						label='Descripción'
 						className='yourclass'
+						onChange={actionSetDate.bind(this, 'SET_EVENT_DESCRIPTION', 'description')}
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -126,7 +131,7 @@ let EventEdit = ({
 					<SelectState states={states} />
 				</div>
 				<div className={classes.formStyle}>
-					<Status />
+					<SelectStatus action={actionSetDate} stateDesc='SET_EVENT_STATUS' inputName='status' />
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -136,6 +141,7 @@ let EventEdit = ({
 						validate={[required, empty]}
 						label='Inicio de preventa'
 						className='yourclass container'
+						onChange={actionSetDate.bind(this, 'SET_PRESALE', 'presaleStart')}
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -146,6 +152,7 @@ let EventEdit = ({
 						validate={[required, empty]}
 						label='Fin de preventa'
 						className='yourclass container'
+						onChange={actionSetDate.bind(this, 'SET_CLOSE_PRESALE', 'presaleClosure')}
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -156,6 +163,7 @@ let EventEdit = ({
 						validate={[required, empty]}
 						label='Inicio de evento'
 						className='yourclass container'
+						onChange={actionSetDate.bind(this, 'SET_EVENT_START', 'eventStart')}
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -166,6 +174,7 @@ let EventEdit = ({
 						validate={[required, empty]}
 						label='Fin de evento'
 						className='yourclass container'
+						onChange={actionSetDate.bind(this, 'SET_EVENT_CLOSE', 'eventClosure')}
 					/>
 				</div>
 				<button
@@ -203,6 +212,7 @@ EventEdit.propTypes = {
 	editEventMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionSelectCountry: PropTypes.func.isRequired,
+	actionSetDate: PropTypes.func.isRequired,
 	states: PropTypes.array.isRequired,
 };
 
@@ -246,6 +256,7 @@ const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionEditEvent: (event, updatedBy, editEventMutation) =>
 		dispatch(editEvent(event, updatedBy, editEventMutation)),
+	actionSetDate: (desState, input, ev, value) => dispatch(setDate(desState, input, ev, value)),
 });
 
 export default compose(

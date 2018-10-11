@@ -7,6 +7,14 @@ import {
 	PAGE_DOWN_EV,
 	SET_EVENT,
 	SET_COUNTRIES_STATES,
+	CLEAN_STATE_COUNTRY,
+	SET_PRESALE,
+	SET_CLOSE_PRESALE,
+	SET_EVENT_START,
+	SET_EVENT_CLOSE,
+	SET_EVENT_NAME,
+	SET_EVENT_DESCRIPTION,
+	SET_EVENT_STATUS,
 } from '../../actions/Event/actionsTypes';
 
 const initialState = {
@@ -76,6 +84,10 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				...state,
 				alertOpen: false,
 			});
+		case CLEAN_STATE_COUNTRY:
+			return ({
+				...state,
+			});
 		case SET_EVENT:
 			return ({
 				...state,
@@ -95,6 +107,41 @@ const ReducerEvent = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				states: action.payload.states,
+			});
+		case SET_EVENT_NAME:
+			return ({
+				...state,
+				name: action.payload.name,
+			});
+		case SET_EVENT_DESCRIPTION:
+			return ({
+				...state,
+				description: action.payload.description,
+			});
+		case SET_EVENT_STATUS:
+			return ({
+				...state,
+				status: action.payload.status,
+			});
+		case SET_PRESALE:
+			return ({
+				...state,
+				presaleStart: action.payload.presaleStart,
+			});
+		case SET_CLOSE_PRESALE:
+			return ({
+				...state,
+				presaleClosure: action.payload.presaleClosure,
+			});
+		case SET_EVENT_START:
+			return ({
+				...state,
+				eventStart: action.payload.eventStart,
+			});
+		case SET_EVENT_CLOSE:
+			return ({
+				...state,
+				eventClosure: action.payload.eventClosure,
 			});
 		default:
 			return state;

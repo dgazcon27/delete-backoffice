@@ -8,6 +8,7 @@ import {
 	SET_EVENT,
 	CLEAN_STATE,
 	SET_COUNTRIES_STATES,
+	CLEAN_STATE_COUNTRY,
 } from './actionsTypes';
 
 import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
@@ -61,7 +62,7 @@ export const closeAlert = () => ({
 	},
 });
 
-export const setStates = states => ({
+export const setEstados = states => ({
 	type: SET_COUNTRIES_STATES,
 	payload: {
 		states,
@@ -69,7 +70,25 @@ export const setStates = states => ({
 	},
 });
 
-export const setCountriesStates = id => (
+
+export const cleanStateCountry = () => ({
+	type: CLEAN_STATE_COUNTRY,
+	payload: {
+		description: CLEAN_STATE_COUNTRY,
+		state: 0,
+	},
+});
+
+export const setDate = (desState, input, ev, val) => {
+	const payload = {};
+	payload[input] = val;
+	return ({
+		type: desState,
+		payload,
+	});
+};
+
+export const setCountriesStates = (ev, id, ini = false) => (
 	async (dispatch) => {
 		client
 			.query({
@@ -77,7 +96,10 @@ export const setCountriesStates = id => (
 				variables: { country: id },
 			})
 			.then((res) => {
-				dispatch(setStates(res.data.countryStates));
+				dispatch(setEstados(res.data.countryStates));
+				if (!ini) {
+					dispatch(cleanStateCountry());
+				}
 			})
 			.catch(() => {});
 	}
@@ -108,7 +130,7 @@ export const getEventById = id => (
 			.then((res) => {
 				const { event } = res.data;
 				dispatch(setEvent(event));
-				dispatch(setCountriesStates(event.state.country.id));
+				dispatch(setCountriesStates({}, event.state.country.id, true));
 			})
 			.catch(() => {});
 	}

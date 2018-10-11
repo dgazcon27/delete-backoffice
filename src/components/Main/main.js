@@ -22,6 +22,8 @@ import Payment from '../Payment/payment';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
+import CreateGuest from '../Guest/createGuest';
+import ComponentGuest from '../Guest/componentGuest';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -60,6 +62,9 @@ const Main = (props) => {
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit/:id' component={EditionComponent} />
+				<Route path='/guests' component={ComponentGuest} />
+				<Route path='/guest-create' component={CreateGuest} />
+				<Route path='/guest-edit/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);
