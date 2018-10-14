@@ -24,7 +24,7 @@ const initialState = {
 	alertType: '',
 	modalType: '',
 	rolDescription: '',
-	statusValue: 0,
+	statusValue: false,
 	paginationPage: 0,
 	currentPage: 0,
 	paginationPageSearch: 0,

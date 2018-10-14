@@ -14,12 +14,19 @@ import {
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
+	SET_USER,
+	MODAL_USER,
+	CLOSE_MODAL_USER,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
 
 const initialState = {
+	newUserModal: false,
 	id: 0,
+	idUser: '',
 	name: '',
+	nameUser: '',
+	lastName: '',
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
@@ -28,13 +35,14 @@ const initialState = {
 	statusValue: 0,
 	accountNumber: '',
 	user: 0,
-	access: {},
+	access: [],
 	event: 0,
 	status: 0,
 	comment: 0,
 	totalPrice: 0,
 	pendingPayment: 0,
 	totalPaid: 0,
+	dni: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -48,12 +56,23 @@ if (JSON.parse(localStorage.getItem('paginations'))) {
 
 const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 	switch (action.type) {
+		case MODAL_USER:
+			return ({
+				...state,
+				newUserModal: true,
+			});
+		case CLOSE_MODAL_USER:
+			return ({
+				...state,
+				newUserModal: false,
+			});
 		case PAGE_UP:
 			return ({
 				...state,
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
 			});
+
 		case PAGE_DOWN:
 			return ({
 				...state,
@@ -124,6 +143,16 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				name: action.payload.name,
+			});
+		case SET_USER:
+			return ({
+				...state,
+				idUser: action.payload.aux.id,
+				nameUser: action.payload.aux.name,
+				lastName: action.payload.aux.lastName,
+				phone: action.payload.aux.phone,
+				dni: action.payload.aux.dni,
+				email: action.payload.aux.email,
 			});
 		case SET_ACCESS_EVENT:
 			return ({

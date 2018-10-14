@@ -105,7 +105,7 @@ export const Roles = () => (
 			if (loading) {
 				return (
 					<Field
-						name='roles'
+						name='role'
 						type='select'
 						label='Roles'
 						component={renderSelectField}
@@ -121,7 +121,7 @@ export const Roles = () => (
 			}
 			return (
 				<Field
-					name='roles'
+					name='role'
 					type='select'
 					label='Roles'
 					component={renderSelectField}
@@ -243,6 +243,45 @@ export const Access = () => (
 	</Query>
 );
 
+
+export const Citizenship = () => (
+	<Query query={GET_COUNTRIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='citizenship'
+						type='select'
+						label='País'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='citizenship'
+					type='select'
+					label='País'
+					placeholder='País'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.countrys.map(citizenship => (
+						<MenuItem key={citizenship.id} value={citizenship.id}>{citizenship.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 
 export const SelectCountry = actionSelectCountry => (
 	<Query query={GET_COUNTRIES}>

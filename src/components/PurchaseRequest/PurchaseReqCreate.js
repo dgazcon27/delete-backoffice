@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import { Modal } from '@material-ui/core';
 import {
 	compose,
 	graphql,
@@ -17,17 +18,18 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField } from '../RenderFields/renderFields';
+import { renderTextField, renderNumberField } from '../RenderFields/renderFields';
 import {
 	closeAlert,
 	setName,
 	createPurchaseReq,
 	setAccessEvent,
+	getUserByDNI,
 } from '../../actions/PurchaseRequest/actionsCreators';
 import BackButton from '../widget/BackButton';
+import UsersCreate from '../Users/usersCreate';
 
 import {
-	Users,
 	AccessE,
 	Aevents,
 	Status,
@@ -45,6 +47,7 @@ let PurchaseRequestCreate = ({
 	classes,
 	alertOpen,
 	alertType,
+	newUserModal,
 	actionCloseAlert,
 	actionSelectEvent,
 	actionCreatePurchaseReq,
@@ -53,15 +56,45 @@ let PurchaseRequestCreate = ({
 	myValues,
 	submitting,
 	handleSubmit,
+	actionUserByDNI,
+	nameUser,
+	lastName,
+	idUser,
+	phone,
+	email,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Registrar Compra</h3>
 		<Paper className={classes.createContainer}>
+			<h6 className={classes.formTitle}>Nueva Compra</h6>
 			<form>
-				<h6 className={classes.formTitle}>Nueva Compra</h6>
 				<div className={classes.formStyle}>
-					<Users />
+					<Field
+						name='dni'
+						type='number'
+						component={renderNumberField}
+						validate={[required, empty]}
+						label='dni'
+					/>
+
+					<button onClick={(event) => { event.preventDefault(actionUserByDNI(myValues.dni)); }} >
+						lupita
+					</button>
 				</div>
+			</form>
+			<div className={classes.formStyle}>
+				Nombre:{nameUser}
+				<br />
+				Apellido:{lastName}
+				<br />
+				Telefono:{phone}
+				<br />
+				Correo:{email}
+				<br />
+				userId:{idUser}
+			</div>
+
+			<form>
 				<div className={classes.formStyle}>
 					<Aevents actionSelectEvent={actionSelectEvent} />
 				</div>
@@ -84,13 +117,15 @@ let PurchaseRequestCreate = ({
 				<button
 					className={classes.createButton}
 					type='submit'
-					onClick={handleSubmit(() => actionCreatePurchaseReq(
-						myValues,
-						parseInt(userId, 10),
-						parseInt(userId, 10),
-						paginationPage,
-						createPurchaseReqMutation,
-					))
+					onClick={handleSubmit(() =>
+						actionCreatePurchaseReq(
+							idUser,
+							myValues,
+							parseInt(userId, 10),
+							parseInt(userId, 10),
+							paginationPage,
+							createPurchaseReqMutation,
+						))
 					}
 					disabled={submitting}
 				>
@@ -130,21 +165,34 @@ let PurchaseRequestCreate = ({
 				message={<span id='message-id'>La peticion de pago fue generada con exito </span>}
 			/>
 		}
+		<Modal
+			open={newUserModal}
+			disableAutoFocus={false}
+		>
+			<UsersCreate />
+		</Modal>
 	</div>
 );
 
 PurchaseRequestCreate.propTypes = {
+	newUserModal: PropTypes.bool.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
+	nameUser: PropTypes.string.isRequired,
+	lastName: PropTypes.string.isRequired,
+	phone: PropTypes.string.isRequired,
+	email: PropTypes.string.isRequired,
 	access: PropTypes.array.isRequired,
 	actionCreatePurchaseReq: PropTypes.func.isRequired,
+	actionUserByDNI: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionSelectEvent: PropTypes.func.isRequired,
 	createPurchaseReqMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
+	idUser: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 };
@@ -156,6 +204,14 @@ PurchaseRequestCreate = reduxForm({
 const selector = formValueSelector('PurchaseRequestCreate');
 
 const mapStateToProps = state => ({
+	newUserModal: state.ReducerPurchaseRequest.newUserModal,
+	idUser: state.ReducerPurchaseRequest.idUser,
+	id: state.ReducerPurchaseRequest.id,
+	email: state.ReducerPurchaseRequest.email,
+	dni: state.ReducerPurchaseRequest.dni,
+	phone: state.ReducerPurchaseRequest.phone,
+	nameUser: state.ReducerPurchaseRequest.nameUser,
+	lastName: state.ReducerPurchaseRequest.lastName,
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
@@ -163,14 +219,16 @@ const mapStateToProps = state => ({
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerUserType.paginationPage,
 	access: state.ReducerPurchaseRequest.access,
-	myValues: selector(state, 'user', 'access', 'event', 'status', 'comment'),
+	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'status', 'comment'),
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionUserByDNI: (event, dni) => dispatch(getUserByDNI(event, dni)),
 	actionSelectEvent: (event, id) => dispatch(setAccessEvent(event, id)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionCreatePurchaseReq: (
+		idUser,
 		myValues,
 		createdBy,
 		updatedBy,
@@ -178,6 +236,7 @@ const mapDispatchToProps = dispatch => ({
 		createPurchaseReqMutation,
 	) =>
 		dispatch(createPurchaseReq(
+			idUser,
 			myValues,
 			createdBy,
 			updatedBy,

@@ -94,10 +94,11 @@ export const closeAlert = () => ({
 });
 
 export const blockUserType = (id, statusValue, blockRolMutation) => {
-	const status = statusValue === 1 ? 2 : 1;
+	const status = !statusValue;
 	return async (dispatch) => {
 		await blockRolMutation({ variables: { id, status } });
 		dispatch(closeModal());
+		window.location.reload();
 	};
 };
 
@@ -118,7 +119,7 @@ export const openModal = (modalType, _rol) => ({
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _rol.status.id,
+		statusValue: _rol.active,
 		name: _rol.name,
 		id: _rol.id,
 	},

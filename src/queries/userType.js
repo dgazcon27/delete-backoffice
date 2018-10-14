@@ -7,9 +7,7 @@ export const GET_ROLES = gql`
 				name
 				id
 				description
-				status{
-					id
-				}
+				active
 			}
 			total
 		}
@@ -18,12 +16,7 @@ export const GET_ROLES = gql`
 export const BLOCK_ROL = gql`
 	mutation blockRol($id:Int!, $status:Int!) {
 		blockedRole(id:$id,status:$status) {
-			name
 			id
-			status {
-				name
-				id
-			}
 		}
 	}
 `;

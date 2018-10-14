@@ -17,7 +17,7 @@ const initialState = {
 	isOpen: false,
 	modalType: '',
 	descripcion: '',
-	statusValue: 0,
+	statusValue: false,
 	paginationPage: 0,
 	currentPage: 0,
 	currentPageSearch: 0,

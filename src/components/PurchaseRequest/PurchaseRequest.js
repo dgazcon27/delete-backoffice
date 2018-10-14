@@ -196,27 +196,27 @@ const PurchaseRequest = ({
 					>
 						<div>
 							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar bank
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el bank {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeletePurchaseReq(id, paginationPage, deletePurchaseReqMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
+							<Paper className={classNames(classes.paperOnModal)}>
+								<h6>
+									Eliminar bank
+								</h6>
+								<p>
+									¿Estas seguro que desea eliminar el bank {name} ?
+								</p>
+								<span>
+									<IconButton onClick={() => {
+										actionDeletePurchaseReq(id, paginationPage, deletePurchaseReqMutation);
+									}}
+									>
+										Si
+									</IconButton>
+									&nbsp;
+									&nbsp;
+									<IconButton onClick={actionCloseModal}>
+										No
+									</IconButton>
+								</span>
+							</Paper>
 							}
 						</div>
 					</Modal>

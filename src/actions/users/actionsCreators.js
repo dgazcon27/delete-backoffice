@@ -114,10 +114,11 @@ export const closeAlert = () => ({
 });
 
 export const blockUser = (id, statusValue, blockUserMutation) => {
-	const status = statusValue === 1 ? 2 : 1;
+	const status = !statusValue;
 	return async (dispatch) => {
 		await blockUserMutation({ variables: { id, status } });
 		dispatch(closeModal());
+		window.location.reload();
 	};
 };
 
@@ -138,7 +139,7 @@ export const openModal = (modalType, _user) => ({
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _user.status.id,
+		statusValue: _user.active,
 		name: _user.name,
 		id: _user.id,
 	},
@@ -179,7 +180,7 @@ export const createUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('users')), 2000);
+				setTimeout(() => (window.history.back()), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
