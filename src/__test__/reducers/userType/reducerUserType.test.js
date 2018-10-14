@@ -18,7 +18,7 @@ describe('test Reducer UserType ', () => {
 		alertType: '',
 		modalType: '',
 		rolDescription: '',
-		statusValue: 0,
+		statusValue: false,
 		paginationPage: 0,
 		currentPage: 0,
 		paginationPageSearch: 0,
@@ -78,7 +78,7 @@ describe('test Reducer UserType ', () => {
 				...initialState,
 				modalType: 'TYPE_OF_MODAL_1',
 				isOpen: true,
-				statusValue: 1,
+				statusValue: undefined,
 				name: 'ADMIN',
 				id: 1,
 			});
