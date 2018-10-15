@@ -87,30 +87,12 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		<Link to='/bankNew' href='/bankNew'>
-			<ListItem button>
-				<ListItemIcon>
-					<AccountBalance />
-				</ListItemIcon>
-				<ListItemText primary='Bancos New' />
-			</ListItem>
-		</Link>
-
 		<Link to='/bank-account' href='/bank-account'>
 			<ListItem button>
 				<ListItemIcon>
 					<AccountBalanceWallet />
 				</ListItemIcon>
 				<ListItemText primary='Cuentas Bancarias' />
-			</ListItem>
-		</Link>
-
-		<Link to='/bank-account-new' href='/bank-account-new'>
-			<ListItem button>
-				<ListItemIcon>
-					<AccountBalanceWallet />
-				</ListItemIcon>
-				<ListItemText primary='Cuentas Bancarias NEW' />
 			</ListItem>
 		</Link>
 
