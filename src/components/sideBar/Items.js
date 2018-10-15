@@ -147,6 +147,14 @@ const Items = (
 				<ListItemText primary='Staff' />
 			</ListItem>
 		</Link>
+		<Link to='/room' href='/room'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Staff' />
+			</ListItem>
+		</Link>
 		{/*	<Link to='/staff' href='/staff'>
 		<Link to='/access' href='/access'>
 			<ListItem button>

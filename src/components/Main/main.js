@@ -31,6 +31,9 @@ import PaymentEdit from '../Payment/paymentEdit';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import AccessEdit from '../Access/accessEdit';
+import Room from '../Room/room';
+import RoomCreate from '../Room/roomCreate';
+import RoomEdit from '../Room/roomEdit';
 
 import {
 	Dashboard,
@@ -81,6 +84,9 @@ const Main = (props) => {
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit' component={AccessEdit} />
+				<Route path='/room' component={Room} />
+				<Route path='/room-create' component={RoomCreate} />
+				<Route path='/room-edit' component={RoomEdit} />
 			</Switch>
 		</main>
 	);
