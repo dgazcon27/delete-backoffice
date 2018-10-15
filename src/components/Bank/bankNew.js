@@ -3,35 +3,35 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
-import Search from '../../components/Search/search';
+import Search from '../Search/search';
 import {
+	deleteBank,
 	openModal,
 	closeModal,
-	deleteAccess,
-} from '../../actions/Access/actionsCreators';
+} from '../../actions/Bank/actionsCreators';
 
 import {
-	GET_ACCESS,
-	DELETE_ACCESS,
-} from '../../queries/access';
+	GET_BANKS,
+	DELETE_BANK,
+} from '../../queries/bank';
 
-const TestFinal = ({
-	objectStateAccess,
+const BankNew = ({
+	objectStateBank,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
-	deleteAccessMutation,
+	deleteBankMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_ACCESS,
+		queryComponent: GET_BANKS,
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: false,
-		titleButton: 'crear acceso',
-		url: '/access-create',
+		titleButton: 'agregar nuevo',
+		url: '/bank-create',
 	};
 
 	const objectList = {
@@ -42,25 +42,25 @@ const TestFinal = ({
 		},
 		{
 			id: 2,
-			columName: 'Ubicación',
-			jsonPath: 'location.name',
+			columName: 'Moneda',
+			jsonPath: 'currency',
 		}],
 		arrayActive: [true, true, false, false],
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'access.data',
-			totalPath: 'access.total',
+			dataPath: 'banks.data',
+			totalPath: 'banks.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'search.banks.data',
+			totalPath: 'search.banks.total',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateAccess),
+		componentState: Object.assign({}, objectStateBank),
 		paginationPage,
 		messages: {
 			edit: {
@@ -73,8 +73,8 @@ const TestFinal = ({
 				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar Acceso',
-				msg: '¿Estas seguro que desea eliminar el acceso?',
+				title: 'Eliminar Banco',
+				msg: '¿Estas seguro que desea eliminar este Banco?',
 			},
 		},
 	};
@@ -83,7 +83,7 @@ const TestFinal = ({
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
-		queryDelete: deleteAccessMutation,
+		queryDelete: deleteBankMutation,
 	};
 
 	return (
@@ -106,28 +106,28 @@ const TestFinal = ({
 	);
 };
 
-TestFinal.propTypes = {
+BankNew.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
-	objectStateAccess: PropTypes.object.isRequired,
+	objectStateBank: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deleteAccessMutation: PropTypes.func.isRequired,
+	deleteBankMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateAccess: state.ReducerAccess,
+	objectStateBank: state.ReducerBank,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deleteAccessMutation) =>
-		dispatch(deleteAccess(componentState, paginationPage, deleteAccessMutation)),
+	actionDelete: (componentState, paginationPage, deleteBankMutation) =>
+		dispatch(deleteBank(componentState, paginationPage, deleteBankMutation)),
 });
 
 export default compose(
-	graphql(DELETE_ACCESS, { name: 'deleteAccessMutation' }),
+	graphql(DELETE_BANK, { name: 'deleteBankMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(TestFinal);
+)(BankNew);

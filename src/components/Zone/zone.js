@@ -1,39 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-	compose,
-	graphql,
-	Query,
-} from 'react-apollo';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
-import {
-	Modal,
-	Paper,
-	Table,
-	Switch,
-	Tooltip,
-	TableRow,
-	TableBody,
-	TableHead,
-	TableCell,
-	IconButton,
-	TableFooter,
-	TablePagination,
-} from '@material-ui/core';
-import styles from './zoneCss';
+import { compose, graphql } from 'react-apollo';
+import ContainerList from '../List/containerList';
+import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
+	setZone,
 	blockZone,
 	deleteZone,
-	changePage,
-	changePageSearch,
 } from '../../actions/zone/actionsCreators';
+
 import {
 	GET_ZONES,
 	BLOCK_ZONE,
@@ -41,288 +19,128 @@ import {
 } from '../../queries/zone';
 import { SEARCH_ZONES } from '../../queries/search';
 
-import Loading from '../Loading/loading';
-
 const Zone = ({
-	id,
-	name,
-	isOpen,
-	query,
-	classes,
-	modalType,
-	statusValue,
-	currentPage,
-	currentPageSearch,
+	objectStateZone,
+	paginationPage,
+	actionSetZone,
 	actionOpenModal,
 	actionCloseModal,
-	paginationPage,
-	actionBlockZone,
-	actionDeleteZone,
-	actionChangePage,
-	actionChangePageSearch,
+	actionBlock,
+	actionDelete,
 	blockZoneMutation,
 	deleteZoneMutation,
 }) => {
-	const params = query.length > 0 ?
-		{ query: SEARCH_ZONES, variables: { query, currentPageSearch } } :
-		{ query: GET_ZONES, variables: { paginationPage } };
+	const objectQuery = {
+		queryComponent: GET_ZONES,
+		querySearch: SEARCH_ZONES,
+	};
+
+	const objectSearch = {
+		showButton: true,
+		showSearch: true,
+		titleButton: 'crear zona',
+		url: '/Departments-create',
+	};
+
+	const objectList = {
+		titlesColumns: [{
+			id: 1,
+			columName: 'Nombre',
+			jsonPath: 'name',
+		}],
+		arrayActive: [true, true, true, false],
+	};
+
+	const objectPath = {
+		currentComponent: {
+			dataPath: 'zoness.data',
+			totalPath: 'zoness.total',
+		},
+		searchComponent: {
+			dataPath: 'search.zoness.data',
+			totalPath: 'search.zones.total',
+		},
+	};
+
+	const objectModal = {
+		componentState: Object.assign({}, objectStateZone),
+		paginationPage,
+		messages: {
+			edit: {
+				title: 'contenido edit modal',
+			},
+			block: {
+				titleStatus1: 'Bloquear Rol',
+				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
+				titleStatus2: 'Desbloquear Rol',
+				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+			},
+			delete: {
+				title: 'Eliminar Rol',
+				msg: '¿Estas seguro que desea eliminar el rol ?',
+			},
+		},
+	};
+
+	const actions = {
+		edit: actionSetZone,
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		block: actionBlock,
+		queryblock: blockZoneMutation,
+		delete: actionDelete,
+		queryDelete: deleteZoneMutation,
+	};
 
 	return (
-		<Query {...params}>
-			{({ loading, error, data }) => {
-				if (loading) {
-					return (
-						<div>
-							<Loading />
-						</div>
-					);
-				}
-
-				if (error) {
-					return (
-						<div>
-								Error :(
-						</div>
-					);
-				}
-
-				const response = query.length > 0 ? data.search.zones.data : data.zoness.data;
-				const total = query.length > 0 ? data.search.zones.total : data.zoness.total;
-
-				return (
-					<div>
-						<div>
-							<Paper>
-								<Table>
-									<TableHead>
-										<TableRow>
-											<TableCell>Nombre</TableCell>
-											<TableCell className={classes.alignRightOption}>
-													Opciones
-											</TableCell>
-										</TableRow>
-									</TableHead>
-									<TableBody>
-										{response.map(zone => (
-											<TableRow key={zone.id}>
-												<TableCell>{zone.name}</TableCell>
-												<TableCell className={classes.alignRight}>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Editar Zona'
-													>
-														<Link to={{ pathname: `/Departments-edit/${zone.id}`, state: { type: 'Zone' } }}>
-															<IconButton>
-																<Edit />
-															</IconButton>
-														</Link>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Eliminar Zona'
-													>
-														<IconButton onClick={() => { actionOpenModal('delete', zone); }}>
-															<Delete />
-														</IconButton>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Bloquear / Desbloquear'
-													>
-														<Switch
-															onClick={() => { actionOpenModal('block', zone); }}
-															checked={zone.status.id === 2}
-															value='checked'
-														/>
-													</Tooltip>
-												</TableCell>
-											</TableRow>
-										))}
-									</TableBody>
-									<TableFooter>
-										<TableRow>
-											{query.length > 0 &&
-												<TablePagination
-													count={total}
-													rowsPerPage={10}
-													page={currentPageSearch}
-													rowsPerPageOptions={[10]}
-													colSpan={3}
-													onChangePage={(event, nextPage) => {
-														actionChangePageSearch(currentPageSearch, nextPage);
-													}}
-												/>
-											}
-
-											{ query.length === 0 &&
-												<TablePagination
-													count={total}
-													rowsPerPage={10}
-													page={paginationPage}
-													rowsPerPageOptions={[10]}
-													colSpan={3}
-													onChangePage={(event, nextPage) => {
-														actionChangePage(currentPage, nextPage);
-													}}
-												/>
-											}
-										</TableRow>
-									</TableFooter>
-								</Table>
-							</Paper>
-						</div>
-						<Modal
-							open={isOpen}
-							className={classNames(classes.modalOpenStyle)}
-							hideBackdrop
-							disableAutoFocus={false}
-						>
-							<div>
-								{modalType === 'edit' &&
-								<Paper>
-									<h1>
-												contenido edit modal
-									</h1>
-									<button onClick={actionCloseModal}>
-												cerrar
-									</button>
-								</Paper>
-								}
-								{modalType === 'block' &&
-									<Paper className={classNames(classes.paperOnModal)}>
-										{statusValue === 1 && <h6> Bloquear Ubicación </h6>}
-										{statusValue === 2 && <h6> Desbloquear Ubicación </h6>}
-										{
-											statusValue === 1 &&
-											<p>
-											¿Estas seguro que desea bloquear la zona {name}?
-											</p>
-										}
-										{
-											statusValue === 2 &&
-											<p>
-												¿Estas seguro que desea desbloquear la zona {name}?
-											</p>
-										}
-
-										<span>
-											<IconButton
-												onClick={() => {
-													actionBlockZone(
-														id,
-														statusValue,
-														blockZoneMutation,
-													);
-												}}
-											>
-											Si
-											</IconButton>
-											&nbsp;
-											&nbsp;
-											<IconButton onClick={actionCloseModal} >
-											No
-											</IconButton>
-										</span>
-									</Paper>
-								}
-								{modalType === 'delete' &&
-									<Paper className={classNames(classes.paperOnModal)}>
-										<h6>
-											Eliminar Ubicación
-										</h6>
-										<p>
-											¿Estas seguro que desea eliminar la zona {name} ?
-										</p>
-										<span>
-											<IconButton onClick={() => {
-												actionDeleteZone(id, statusValue, paginationPage, deleteZoneMutation);
-											}}
-											>
-												Si
-											</IconButton>
-											&nbsp;
-											&nbsp;
-											<IconButton onClick={actionCloseModal}>
-												No
-											</IconButton>
-										</span>
-									</Paper>
-								}
-							</div>
-						</Modal>
-					</div>
-				);
-			}}
-		</Query>
+		<div>
+			<Search
+				showButton={objectSearch.showButton}
+				showSearch={objectSearch.showSearch}
+				titleButton={objectSearch.titleButton}
+				url={objectSearch.url}
+			/>
+			<ContainerList
+				queries={objectQuery}
+				propsSearchComponent={objectSearch}
+				propsListComponent={objectList}
+				propsModalComponent={objectModal}
+				objectPath={objectPath}
+				actions={actions}
+			/>
+		</div>
 	);
 };
 
 Zone.propTypes = {
-	query: PropTypes.string,
-	name: PropTypes.string,
-	isOpen: PropTypes.bool,
-	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
-	id: PropTypes.number.isRequired,
-	classes: PropTypes.object.isRequired,
-	currentPage: PropTypes.number.isRequired,
-	currentPageSearch: PropTypes.number.isRequired,
-	actionBlockZone: PropTypes.func.isRequired,
+	actionSetZone: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDeleteZone: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
+	actionBlock: PropTypes.func.isRequired,
+	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	actionChangePage: PropTypes.func.isRequired,
-	actionChangePageSearch: PropTypes.func.isRequired,
+	objectStateZone: PropTypes.object.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 	blockZoneMutation: PropTypes.func.isRequired,
 	deleteZoneMutation: PropTypes.func.isRequired,
 };
 
-Zone.defaultProps = {
-	name: '',
-	isOpen: false,
-	modalType: '',
-	statusValue: 0,
-	query: '',
-};
-
-const mapStateToProps = (state, ownProps) => ({
-	id: state.ReducerZone.id,
-	name: state.ReducerZone.name,
-	isOpen: state.ReducerZone.isOpen,
-	modalType: state.ReducerZone.modalType,
-	statusValue: state.ReducerZone.statusValue,
-	currentPage: state.ReducerZone.currentPage,
-	paginationPage: state.ReducerZone.paginationPage,
-	currentPageSearch: state.ReducerUserType.currentPageSearch,
-	query: ownProps.query,
+const mapStateToProps = state => ({
+	paginationPage: state.ReducerPagination.paginationPage,
+	objectStateZone: state.ReducerZone,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
-	actionChangePageSearch: (currentPage, paginationPage) =>
-		dispatch(changePageSearch(currentPage, paginationPage)),
-	actionOpenModal: (modalType, _Zone) => dispatch(openModal(modalType, _Zone)),
-	actionBlockZone: (id, statusValue, blockZoneMutation) =>
-		dispatch(blockZone(id, statusValue, blockZoneMutation)),
-	actionDeleteZone: (id, statusValue, paginationPage, deleteZoneMutation) =>
-		dispatch(deleteZone(id, statusValue, paginationPage, deleteZoneMutation)),
+	actionSetZone: (id, descripcion, name) => dispatch(setZone(id, descripcion, name)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionBlock: (componentState, blockRolMutation) =>
+		dispatch(blockZone(componentState, blockRolMutation)),
+	actionDelete: (componentState, paginationPage, deleteRolMutation) =>
+		dispatch(deleteZone(componentState, paginationPage, deleteRolMutation)),
 });
 
 export default compose(
 	graphql(DELETE_ZONE, { name: 'deleteZoneMutation' }),
 	graphql(BLOCK_ZONE, { name: 'blockZoneMutation' }),
-	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(Zone);

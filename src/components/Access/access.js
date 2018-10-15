@@ -1,250 +1,133 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-	compose,
-	graphql,
-	Query,
-} from 'react-apollo';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
-import {
-	Modal,
-	Paper,
-	Table,
-	Tooltip,
-	TableRow,
-	TableBody,
-	TableHead,
-	TableCell,
-	IconButton,
-	TableFooter,
-	TablePagination,
-} from '@material-ui/core';
-import styles from './accessCss';
+import { compose, graphql } from 'react-apollo';
+import ContainerList from '../List/containerList';
+import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
 	deleteAccess,
-	changePage,
 } from '../../actions/Access/actionsCreators';
+
 import {
 	GET_ACCESS,
 	DELETE_ACCESS,
 } from '../../queries/access';
-import Loading from '../Loading/loading';
 
 const Access = ({
-	id,
-	name,
-	isOpen,
-	classes,
-	modalType,
-	statusValue,
-	currentPage,
+	objectStateAccess,
+	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
-	paginationPage,
-	actionDeleteAccess,
-	actionChangePage,
+	actionDelete,
 	deleteAccessMutation,
-}) => (
-	<Query query={GET_ACCESS} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div>
-							Error :(
-					</div>
-				);
-			}
+}) => {
+	const objectQuery = {
+		queryComponent: GET_ACCESS,
+	};
 
-			return (
-				<div>
-					<div>
+	const objectSearch = {
+		showButton: true,
+		showSearch: false,
+		titleButton: 'crear acceso',
+		url: '/access-create',
+	};
 
-						<h5 className={classes.title}>
-							Accesos
-						</h5>
+	const objectList = {
+		titlesColumns: [{
+			id: 1,
+			columName: 'Nombre',
+			jsonPath: 'name',
+		},
+		{
+			id: 2,
+			columName: 'Ubicación',
+			jsonPath: 'location.name',
+		}],
+		arrayActive: [true, true, false, false],
+	};
 
-						<div className={classes.search}>
-							<h5 className={classes.searchAlignRigth}>
-								<Link to='/access-create' href='/access-create' >
-									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-										<Add className={classes.marginIcon} />
-										Crear Acceso
-									</Button>
-								</Link>
-							</h5>
-						</div>
+	const objectPath = {
+		currentComponent: {
+			dataPath: 'access.data',
+			totalPath: 'access.total',
+		},
+		searchComponent: {
+			dataPath: '',
+			totalPath: '',
+		},
+	};
 
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell>Precio</TableCell>
-										<TableCell>Ubicacion</TableCell>
-										<TableCell className={classes.alignRightOption}>
-												Opciones
-										</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{data.access.data.map(access => (
-										<TableRow key={access.id}>
-											<TableCell>{access.name}</TableCell>
-											<TableCell>{access.price}</TableCell>
-											<TableCell>{access.location.name}</TableCell>
-											<TableCell className={classes.alignRight}>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Editar Acceso'
-												>
-													<Link to={{ pathname: `/access-edit/${access.id}`, state: { type: 'Access' } }}>
-														<IconButton >
-															<Edit />
-														</IconButton>
-													</Link>
-												</Tooltip>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Eliminar Acceso'
-												>
-													<IconButton onClick={() => { actionOpenModal('delete', access); }}>
-														<Delete />
-													</IconButton>
-												</Tooltip>
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.access.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={5}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
-						disableAutoFocus={false}
-					>
-						<div>
-							{modalType === 'edit' &&
-							<Paper>
-								<h1>
-											contenido edit modal
-								</h1>
-								<button onClick={actionCloseModal}>
-											cerrar
-								</button>
-							</Paper>
-							}
-							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar Acceso
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el acceso {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeleteAccess(id, statusValue, paginationPage, deleteAccessMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+	const objectModal = {
+		componentState: Object.assign({}, objectStateAccess),
+		paginationPage,
+		messages: {
+			edit: {
+				title: 'contenido edit modal',
+			},
+			block: {
+				titleStatus1: '',
+				msgStatus1: '',
+				titleStatus2: '',
+				msgStatus2: '',
+			},
+			delete: {
+				title: 'Eliminar Acceso',
+				msg: '¿Estas seguro que desea eliminar el acceso?',
+			},
+		},
+	};
+
+	const actions = {
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		delete: actionDelete,
+		queryDelete: deleteAccessMutation,
+	};
+
+	return (
+		<div>
+			<Search
+				showButton={objectSearch.showButton}
+				showSearch={objectSearch.showSearch}
+				titleButton={objectSearch.titleButton}
+				url={objectSearch.url}
+			/>
+			<ContainerList
+				queries={objectQuery}
+				propsSearchComponent={objectSearch}
+				propsListComponent={objectList}
+				propsModalComponent={objectModal}
+				objectPath={objectPath}
+				actions={actions}
+			/>
+		</div>
+	);
+};
 
 Access.propTypes = {
-	isOpen: PropTypes.bool,
-	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
-	id: PropTypes.number.isRequired,
-	name: PropTypes.string.isRequired,
-	classes: PropTypes.object.isRequired,
-	currentPage: PropTypes.number.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDeleteAccess: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	actionChangePage: PropTypes.func.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateAccess: PropTypes.object.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 	deleteAccessMutation: PropTypes.func.isRequired,
 };
 
-Access.defaultProps = {
-	isOpen: false,
-	modalType: '',
-	statusValue: 0,
-};
-
 const mapStateToProps = state => ({
-	id: state.ReducerAccess.id,
-	name: state.ReducerAccess.name,
-	isOpen: state.ReducerAccess.isOpen,
-	modalType: state.ReducerAccess.modalType,
-	statusValue: state.ReducerAccess.statusValue,
-	currentPage: state.ReducerAccess.currentPage,
-	paginationPage: state.ReducerAccess.paginationPage,
+	paginationPage: state.ReducerPagination.paginationPage,
+	objectStateAccess: state.ReducerAccess,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
-	actionOpenModal: (modalType, _access) => dispatch(openModal(modalType, _access)),
-	actionDeleteAccess: (id, statusValue, paginationPage, deleteAccessMutation) =>
-		dispatch(deleteAccess(id, statusValue, paginationPage, deleteAccessMutation)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionDelete: (componentState, paginationPage, deleteAccessMutation) =>
+		dispatch(deleteAccess(componentState, paginationPage, deleteAccessMutation)),
 });
 
 export default compose(
 	graphql(DELETE_ACCESS, { name: 'deleteAccessMutation' }),
-	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(Access);

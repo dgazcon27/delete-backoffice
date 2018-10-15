@@ -1,37 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-	compose,
-	graphql,
-	Query,
-} from 'react-apollo';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
+import { compose, graphql } from 'react-apollo';
+import ContainerList from '../List/containerList';
+import Search from '../Search/search';
 import {
-	Modal,
-	Paper,
-	Table,
-	// Switch,
-	Tooltip,
-	TableRow,
-	TableBody,
-	TableHead,
-	TableCell,
-	IconButton,
-	TableFooter,
-	TablePagination,
-} from '@material-ui/core';
-import styles from './userTypeCss';
-
-
-import {
-	changePage,
 	openModal,
 	closeModal,
 	deleteEvent,
@@ -42,212 +15,119 @@ import {
 	DELETE_EVENT,
 } from '../../queries/event';
 
-import Loading from '../Loading/loading';
-
 const Event = ({
-	id,
-	name,
+	objectStateEvent,
 	paginationPage,
-	classes,
-	currentPage,
-	actionChangePage,
-	actionCloseModal,
-	deleteEventMutation,
-	actionDeleteEvent,
 	actionOpenModal,
-	isOpen,
-	modalType,
-}) => (
-	<Query query={GET_EVENTS} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div> Error :( </div>
-				);
-			}
-			return (
-				<div>
-					<div>
-						<h5 className={classes.title}>
-							Eventos
-						</h5>
-						<div className={classes.search}>
-							<h5 className={classes.searchAlignRigth}>
-								<Link to='/events-create' href='/events-create' >
-									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-										<Add className={classes.marginIcon} />
-										Agregar Nuevo
-									</Button>
-								</Link>
-							</h5>
-						</div>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell>Ubicación</TableCell>
-										<TableCell className={classes.alignRightOption}>Opciones</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										data.events.data.map(event => (
-											<TableRow key={event.id}>
-												<TableCell >{event.name}</TableCell>
-												<TableCell >{event.state.country.name}</TableCell>
-												<TableCell className={classes.alignRight}>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Editar evento.'
-													>
-														<Link to={{ pathname: `/event-edit/${event.id}`, state: { type: 'Event' } }}>
-															<IconButton>
-																<Edit />
-															</IconButton>
-														</Link>
-													</Tooltip>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Eliminar evento'
-													>
-														<IconButton onClick={() => {
-															actionOpenModal('delete', event);
-														}}
-														>
-															<Delete />
-														</IconButton>
-													</Tooltip>
-												</TableCell>
-											</TableRow>
-										))
-									}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.events.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={3}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
-						disableAutoFocus={false}
-					>
-						<div>
-							{modalType === 'edit' &&
-								<Paper>
-									<h1>
-										Editar modal
-									</h1>
-									<button onClick={actionCloseModal}>
-										cerrar
-									</button>
-								</Paper>
-							}
-							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar evento
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el evento {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeleteEvent(id, paginationPage, deleteEventMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
+	actionCloseModal,
+	actionDelete,
+	deleteEventMutation,
+}) => {
+	const objectQuery = {
+		queryComponent: GET_EVENTS,
+	};
 
-);
+	const objectSearch = {
+		showButton: true,
+		showSearch: false,
+		titleButton: 'agregar nuevo',
+		url: '/events-create',
+	};
 
+	const objectList = {
+		titlesColumns: [{
+			id: 1,
+			columName: 'Nombre',
+			jsonPath: 'name',
+		},
+		{
+			id: 2,
+			columName: 'Ubicación',
+			jsonPath: 'state.country.name',
+		}],
+		arrayActive: [true, true, false, false],
+	};
 
-Event.propTypes = {
-	name: PropTypes.string,
-	paginationPage: PropTypes.number.isRequired,
-	isOpen: PropTypes.bool,
-	classes: PropTypes.object.isRequired,
-	modalType: PropTypes.string,
-	id: PropTypes.number.isRequired,
-	currentPage: PropTypes.number.isRequired,
-	actionChangePage: PropTypes.func.isRequired,
-	actionDeleteEvent: PropTypes.func.isRequired,
-	actionCloseModal: PropTypes.func.isRequired,
-	deleteEventMutation: PropTypes.func.isRequired,
-	actionOpenModal: PropTypes.func.isRequired,
+	const objectPath = {
+		currentComponent: {
+			dataPath: 'events.data',
+			totalPath: 'events.total',
+		},
+		searchComponent: {
+			dataPath: 'search.events.data',
+			totalPath: 'search.events.total',
+		},
+	};
+
+	const objectModal = {
+		componentState: Object.assign({}, objectStateEvent),
+		paginationPage,
+		messages: {
+			edit: {
+				title: 'contenido edit modal',
+			},
+			block: {
+				titleStatus1: '',
+				msgStatus1: '',
+				titleStatus2: '',
+				msgStatus2: '',
+			},
+			delete: {
+				title: 'Eliminar evento',
+				msg: '¿Estas seguro que desea eliminar este evento?',
+			},
+		},
+	};
+
+	const actions = {
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		delete: actionDelete,
+		queryDelete: deleteEventMutation,
+	};
+
+	return (
+		<div>
+			<Search
+				showButton={objectSearch.showButton}
+				showSearch={objectSearch.showSearch}
+				titleButton={objectSearch.titleButton}
+				url={objectSearch.url}
+			/>
+			<ContainerList
+				queries={objectQuery}
+				propsSearchComponent={objectSearch}
+				propsListComponent={objectList}
+				propsModalComponent={objectModal}
+				objectPath={objectPath}
+				actions={actions}
+			/>
+		</div>
+	);
 };
 
-
-Event.defaultProps = {
-	name: '',
-	isOpen: false,
-	modalType: '',
+Event.propTypes = {
+	actionOpenModal: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateEvent: PropTypes.object.isRequired,
+	paginationPage: PropTypes.number.isRequired,
+	deleteEventMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-	id: state.ReducerEvent.id,
-	name: state.ReducerEvent.name,
-	modalType: state.ReducerEvent.modalType,
-	paginationPage: state.ReducerEvent.paginationPage,
-	currentPage: state.ReducerEvent.currentPage,
-	isOpen: state.ReducerEvent.isOpen,
+	paginationPage: state.ReducerPagination.paginationPage,
+	objectStateEvent: state.ReducerEvent,
 });
-
 
 const mapDispatchToProps = dispatch => ({
-	actionDeleteEvent: (id, paginationPage, deleteEventMutation) =>
-		dispatch(deleteEvent(id, paginationPage, deleteEventMutation)),
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
-	actionOpenModal: (modalType, event) => dispatch(openModal(modalType, event)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionDelete: (componentState, paginationPage, deleteEventMutation) =>
+		dispatch(deleteEvent(componentState, paginationPage, deleteEventMutation)),
 });
-
-export { Event as EventTest };
 
 export default compose(
 	graphql(DELETE_EVENT, { name: 'deleteEventMutation' }),
-	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(Event);

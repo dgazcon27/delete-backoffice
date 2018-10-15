@@ -5,62 +5,67 @@ import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../../components/Search/search';
 import {
+	deleteBankAccount,
 	openModal,
 	closeModal,
-	deleteEvent,
-} from '../../actions/Event/actionsCreators';
+} from '../../actions/Bank/actionsCreators';
 
 import {
-	GET_EVENTS,
-	DELETE_EVENT,
-} from '../../queries/event';
+	GET_BANK_ACCOUNTS,
+	DELETE_BANK_ACCOUNT,
+} from '../../queries/bank';
 
-const TestFinal = ({
-	objectStateEvent,
+const BankAccountNew = ({
+	objectStateBankAccount,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
-	deleteEventMutation,
+	deleteBankAccountMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_EVENTS,
+		queryComponent: GET_BANK_ACCOUNTS,
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
-		url: '/events-create',
+		url: '/bank-account-create',
 	};
 
 	const objectList = {
 		titlesColumns: [{
 			id: 1,
-			columName: 'Nombre',
-			jsonPath: 'name',
+			columName: 'Propietario',
+			jsonPath: 'owner.lastName',
 		},
 		{
 			id: 2,
-			columName: 'Ubicación',
-			jsonPath: 'state.country.name',
+			columName: 'Numero de cuenta',
+			jsonPath: 'accountNumber',
+		},
+		{
+			id: 3,
+			columName: 'Moneda',
+			jsonPath: 'currency',
 		}],
 		arrayActive: [true, true, false, false],
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'events.data',
-			totalPath: 'events.total',
+			dataPath: 'bankAccounts.data',
+			totalPath: 'bankAccounts.total',
 		},
 		searchComponent: {
-			dataPath: 'search.events.data',
-			totalPath: 'search.events.total',
+			dataPath: 'search.bankAccounts.data',
+			totalPath: 'search.bankAccounts.total',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateEvent),
+		componentState: Object.assign({}, objectStateBankAccount),
 		paginationPage,
 		messages: {
 			edit: {
@@ -73,8 +78,8 @@ const TestFinal = ({
 				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar evento',
-				msg: '¿Estas seguro que desea eliminar este evento?',
+				title: 'Eliminar cuenta de banco',
+				msg: '¿Estas seguro que desea eliminar esta cuenta de banco?',
 			},
 		},
 	};
@@ -83,7 +88,7 @@ const TestFinal = ({
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
-		queryDelete: deleteEventMutation,
+		queryDelete: deleteBankAccountMutation,
 	};
 
 	return (
@@ -106,28 +111,28 @@ const TestFinal = ({
 	);
 };
 
-TestFinal.propTypes = {
+BankAccountNew.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
-	objectStateEvent: PropTypes.object.isRequired,
+	objectStateBankAccount: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deleteEventMutation: PropTypes.func.isRequired,
+	deleteBankAccountMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateEvent: state.ReducerEvent,
+	objectStateBankAccount: state.ReducerBankAccount,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deleteEventMutation) =>
-		dispatch(deleteEvent(componentState, paginationPage, deleteEventMutation)),
+	actionDelete: (componentState, paginationPage, deleteBankAccountMutation) =>
+		dispatch(deleteBankAccount(componentState, paginationPage, deleteBankAccountMutation)),
 });
 
 export default compose(
-	graphql(DELETE_EVENT, { name: 'deleteEventMutation' }),
+	graphql(DELETE_BANK_ACCOUNT, { name: 'deleteBankAccountMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(TestFinal);
+)(BankAccountNew);

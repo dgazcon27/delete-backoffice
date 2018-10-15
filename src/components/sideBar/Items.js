@@ -42,17 +42,6 @@ const Items = (
 			</ListItem>
 		</Link>
 
-
-		{/* <Link to='/' href='/'>
-			<ListItem button>
-				<ListItemIcon>
-					<Apps />
-				</ListItemIcon>
-				<ListItemText primary='Dashboard' />
-			</ListItem>
-		</Link>
-		*/}
-
 		<Link to='/tables' href='/tables'>
 			<ListItem button>
 				<ListItemIcon>
@@ -70,16 +59,7 @@ const Items = (
 				<ListItemText primary='Accesos' />
 			</ListItem>
 		</Link>
-		{/*
-		<Link to='/guests' href='/guests'>
-			<ListItem button>
-				<ListItemIcon>
-					<Wc />
-				</ListItemIcon>
-				<ListItemText primary='Invitados' />
-			</ListItem>
-		</Link>
-		*/}
+
 		<Link to='/events' href='/events'>
 			<ListItem button>
 				<ListItemIcon>
@@ -89,41 +69,12 @@ const Items = (
 			</ListItem>
 		</Link>
 
-		{/*
-		<Link to='/djs' href='/djs'>
-			<ListItem button>
-				<ListItemIcon>
-					<Album />
-				</ListItemIcon>
-				<ListItemText primary='DJS' />
-			</ListItem>
-		</Link>
-
-		<Link to='/categories' href='/categories'>
-			<ListItem button>
-				<ListItemIcon>
-					<Work />
-				</ListItemIcon>
-				<ListItemText primary='Categorías' />
-			</ListItem>
-		</Link>
-		*/}
-
 		<Link to='/zones' href='/zones'>
 			<ListItem button>
 				<ListItemIcon>
 					<GroupWork />
 				</ListItemIcon>
 				<ListItemText primary='Zonas' />
-			</ListItem>
-		</Link>
-
-		<Link to='/zonesNew' href='/zonesNew'>
-			<ListItem button>
-				<ListItemIcon>
-					<GroupWork />
-				</ListItemIcon>
-				<ListItemText primary='Zonas New' />
 			</ListItem>
 		</Link>
 
@@ -136,6 +87,15 @@ const Items = (
 			</ListItem>
 		</Link>
 
+		<Link to='/bankNew' href='/bankNew'>
+			<ListItem button>
+				<ListItemIcon>
+					<AccountBalance />
+				</ListItemIcon>
+				<ListItemText primary='Bancos New' />
+			</ListItem>
+		</Link>
+
 		<Link to='/bank-account' href='/bank-account'>
 			<ListItem button>
 				<ListItemIcon>
@@ -144,6 +104,16 @@ const Items = (
 				<ListItemText primary='Cuentas Bancarias' />
 			</ListItem>
 		</Link>
+
+		<Link to='/bank-account-new' href='/bank-account-new'>
+			<ListItem button>
+				<ListItemIcon>
+					<AccountBalanceWallet />
+				</ListItemIcon>
+				<ListItemText primary='Cuentas Bancarias NEW' />
+			</ListItem>
+		</Link>
+
 		<Link to='/users' href='/users'>
 			<ListItem button>
 				<ListItemIcon>
@@ -158,42 +128,6 @@ const Items = (
 					<Security />
 				</ListItemIcon>
 				<ListItemText primary='Tipos de Usuario' />
-			</ListItem>
-		</Link>
-
-
-		{/*	<Link to='/staff' href='/staff'>
-		<Link to='/access' href='/access'>
-			<ListItem button>
-				<ListItemIcon>
-					<ContactPhone />
-				</ListItemIcon>
-				<ListItemText primary='Staff' />
-			</ListItem>
-		</Link>
-		{/*
-		<Divider />
-
-		<ListItem button>
-			<ListItemIcon>
-				<DeleteIcon />
-			</ListItemIcon>
-			<ListItemText primary='Trash' />
-		</ListItem>
-
-		<ListItem button>
-			<ListItemIcon>
-				<ReportIcon />
-			</ListItemIcon>
-			<ListItemText primary='Spam' />
-		</ListItem> */}
-
-		<Link to='/testComponentList' href='/testComponentList'>
-			<ListItem button>
-				<ListItemIcon>
-					<ContactPhone />
-				</ListItemIcon>
-				<ListItemText primary='TEST' />
 			</ListItem>
 		</Link>
 	</div>

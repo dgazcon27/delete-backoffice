@@ -69,7 +69,7 @@ export const setStates = states => ({
 	},
 });
 
-export const setCountriesStates = id => (
+export const setCountriesStates = (e, id) => (
 	async (dispatch) => {
 		client
 			.query({
