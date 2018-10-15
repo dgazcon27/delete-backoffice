@@ -101,7 +101,7 @@ let BankAccountCreate = ({
 					type='submit'
 					onClick={handleSubmit(() => actionCreateBankAccount(
 						myValues.bank,
-						myValues.user,
+						myValues.owner,
 						myValues.accountNumber,
 						myValues.type,
 						myValues.comment,

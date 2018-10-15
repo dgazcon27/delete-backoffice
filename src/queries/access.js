@@ -7,7 +7,6 @@ export const GET_ACCESS = gql`
 				id
 				name
 				description
-				price
 				currency
 				location{
 					id
@@ -101,7 +100,6 @@ export const GET_ACCESS_BY_ID = gql`
 			id
 			name
 			description
-			price
 			currency
 			location{
 				id

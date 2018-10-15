@@ -101,6 +101,44 @@ export const Banks = () => (
 	</Query>
 );
 
+export const SelectRoles = fieldName => (
+	<Query query={GET_ROLESS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name={fieldName.name}
+						type='select'
+						label={fieldName.label}
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name={fieldName.name}
+					type='select'
+					label={fieldName.label}
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.roless.map(role => (
+						<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
 export const Roles = () => (
 	<Query query={GET_ROLESS}>
 		{({ loading, error, data }) => {
@@ -139,43 +177,49 @@ export const Roles = () => (
 	</Query>
 );
 
-export const Users = () => (
-	<Query query={GET_USERSS}>
-		{({ loading, error, data }) => {
-			if (loading) {
+export const Users = (props) => {
+	Users.propTypes = {
+		name: PropTypes.string.isRequired,
+	};
+	const inputName = props.name ? props.name : 'owner';
+	return (
+		<Query query={GET_USERSS}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<Field
+							name={inputName}
+							type='select'
+							label='Usuarios'
+							component={renderSelectField}
+							validate={required}
+							className='container'
+						>
+							<MenuItem />
+						</Field>
+					);
+				}
+				if (error) {
+					return ('Error!');
+				}
 				return (
 					<Field
-						name='user'
+						name={inputName}
 						type='select'
 						label='Usuarios'
 						component={renderSelectField}
 						validate={required}
 						className='container'
 					>
-						<MenuItem />
+						{data.userss.map(user => (
+							<MenuItem key={user.id} value={user.id}>{`${user.name} ${user.lastName}`}</MenuItem>
+						))}
 					</Field>
 				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='user'
-					type='select'
-					label='Usuarios'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.userss.map(user => (
-						<MenuItem key={user.id} value={user.id}>{`${user.name} ${user.lastName}`}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
+			}}
+		</Query>
+	);
+};
 
 export const AccessE = (access) => {
 	if (access !== {} && access.access.length > 0) {

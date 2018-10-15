@@ -29,7 +29,7 @@ import {
 	Access,
 	Status,
 	Countries,
-	Roles,
+	SelectRoles,
 	TypeInvited,
 } from '../commonComponent';
 
@@ -95,7 +95,9 @@ let InvitedCreate = ({
 						label='dni'
 					/>
 				</div>
-
+				<div className={classes.formStyle}>
+					<Countries name='citizenship' />
+				</div>
 				<div className={classes.formStyle}>
 					<Events />
 				</div>
@@ -106,10 +108,7 @@ let InvitedCreate = ({
 					<Access />
 				</div>
 				<div className={classes.formStyle}>
-					<Countries name='citizenship' />
-				</div>
-				<div className={classes.formStyle}>
-					<Roles name='role' label='Roles' />
+					<SelectRoles name='role' label='Roles' />
 				</div>
 				<div className={classes.formStyle}>
 					<TypeInvited />

@@ -111,8 +111,8 @@ export const GET_TYPE_INVITED = gql`
 	query {
 		typeInvits{
 			name
-		}
 			id
+		}
 	}
 `;
 export const GET_STATUS = gql`

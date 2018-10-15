@@ -29,7 +29,7 @@ import {
 	Access,
 	Status,
 	Countries,
-	Roles,
+	SelectRoles,
 	TypeInvited,
 } from '../commonComponent';
 
@@ -100,7 +100,7 @@ let UpdateGuest = ({
 					<Access />
 				</div>
 				<div className={classes.formStyle}>
-					<Roles name='role' label='Roles' />
+					<SelectRoles name='role' label='Roles' />
 				</div>
 				<div className={classes.formStyle}>
 					<TypeInvited />

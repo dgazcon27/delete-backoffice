@@ -28,7 +28,7 @@ const initialState = {
 	statusValue: 0,
 	accountNumber: '',
 	user: 0,
-	access: {},
+	access: [],
 	event: 0,
 	status: 0,
 	comment: 0,
