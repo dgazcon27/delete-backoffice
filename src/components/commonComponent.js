@@ -139,43 +139,49 @@ export const SelectRoles = fieldName => (
 	</Query>
 );
 
-export const Roles = () => (
-	<Query query={GET_ROLESS}>
-		{({ loading, error, data }) => {
-			if (loading) {
+export const Roles = (props) => {
+	Roles.propTypes = {
+		name: PropTypes.string.isRequired,
+	};
+	const inputName = props.name ? props.name : 'roles';
+	return (
+		<Query query={GET_ROLESS}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<Field
+							name={inputName}
+							type='select'
+							label='Roles'
+							component={renderSelectField}
+							validate={required}
+							className='container'
+						>
+							<MenuItem />
+						</Field>
+					);
+				}
+				if (error) {
+					return ('Error!');
+				}
 				return (
 					<Field
-						name='roles'
+						name={inputName}
 						type='select'
 						label='Roles'
 						component={renderSelectField}
 						validate={required}
 						className='container'
 					>
-						<MenuItem />
+						{data.roless.map(role => (
+							<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+						))}
 					</Field>
 				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='roles'
-					type='select'
-					label='Roles'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.roless.map(role => (
-						<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
+			}}
+		</Query>
+	);
+};
 
 export const Users = (props) => {
 	Users.propTypes = {
@@ -289,6 +295,45 @@ export const Access = () => (
 	</Query>
 );
 
+
+export const Citizenship = () => (
+	<Query query={GET_COUNTRIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='citizenship'
+						type='select'
+						label='País'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='citizenship'
+					type='select'
+					label='País'
+					placeholder='País'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.countrys.map(citizenship => (
+						<MenuItem key={citizenship.id} value={citizenship.id}>{citizenship.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 
 export const SelectCountry = actionSelectCountry => (
 	<Query query={GET_COUNTRIES}>

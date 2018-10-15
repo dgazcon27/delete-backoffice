@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const GET_USER_BY_DNI = gql`query purchaseRequestAutocomplete($dni:Int!){
+	purchaseRequestAutocomplete(dni:$dni){
+		id
+		name 
+		lastName
+		email
+		phone
+	}
+}
+`;
+
 export const GET_ACCESS_BY_EVENT = gql`query accessByEvent($event:Int!){
 	accessByEvent(event:$event){
 		id

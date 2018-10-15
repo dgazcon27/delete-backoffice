@@ -139,7 +139,7 @@ const UserType = ({
 														>
 															<Switch
 																onClick={() => { actionOpenModal('block', rol); }}
-																checked={rol.status.id === 2}
+																checked={!rol.active}
 																value='checked'
 															/>
 														</Tooltip>
@@ -200,16 +200,16 @@ const UserType = ({
 
 								{	modalType === 'block' &&
 									<Paper className={classNames(classes.paperOnModal)}>
-										{statusValue === 1 && <h6> Bloquear Rol </h6>}
-										{statusValue === 2 && <h6> Desbloquear Rol </h6>}
+										{statusValue && <h6> Bloquear Rol </h6>}
+										{!statusValue && <h6> Desbloquear Rol </h6>}
 										{
-											statusValue === 1 &&
+											statusValue &&
 											<p>
 												¿Estas seguro que desea bloquear el rol {name}?
 											</p>
 										}
 										{
-											statusValue === 2 &&
+											!statusValue &&
 											<p>
 											¿Estas seguro que desea desbloquear el rol {name}?
 											</p>
@@ -266,7 +266,7 @@ UserType.propTypes = {
 	isOpen: PropTypes.bool,
 	name: PropTypes.string,
 	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
+	statusValue: PropTypes.bool,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
@@ -286,7 +286,7 @@ UserType.defaultProps = {
 	name: '',
 	isOpen: false,
 	modalType: '',
-	statusValue: 0,
+	statusValue: false,
 	query: '',
 };
 

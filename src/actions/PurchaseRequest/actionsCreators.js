@@ -1,6 +1,8 @@
 import {
+	SET_USER,
 	SET_NAME,
 	OPEN_MODAL,
+	MODAL_USER,
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
@@ -10,9 +12,15 @@ import {
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
+	CLOSE_MODAL_USER,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
-import { GET_PURCHASE_REQ, GET_ACCESS_BY_EVENT, GET_PURCHASE_BY_ID } from '../../queries/purchaseRequest';
+import {
+	GET_PURCHASE_REQ,
+	GET_ACCESS_BY_EVENT,
+	GET_PURCHASE_BY_ID,
+	GET_USER_BY_DNI,
+} from '../../queries/purchaseRequest';
 import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
@@ -64,6 +72,19 @@ export const getPurchaseById = id => (
 			.catch(() => {});
 	}
 );
+
+export const closeUserModal = () => ({
+	type: CLOSE_MODAL_USER,
+	payload: {
+		description: CLOSE_MODAL_USER,
+	},
+});
+export const userModal = () => ({
+	type: MODAL_USER,
+	payload: {
+		description: MODAL_USER,
+	},
+});
 
 export const setToPay = id => ({
 	type: SET_TO_PAY,
@@ -145,7 +166,38 @@ export const setAccessEvent = (event, id) => (
 			.catch(() => {});
 	}
 );
+
+export const setUser = aux => ({
+	type: SET_USER,
+	payload: {
+		aux,
+		description: SET_USER,
+	},
+});
+
+export const getUserByDNI = dni => (
+	async (dispatch) => {
+		if (dni) {
+			client
+				.query({
+					query: GET_USER_BY_DNI,
+					variables: { dni },
+				})
+				.then((res) => {
+					const aux = res.data.purchaseRequestAutocomplete;
+					dispatch(setUser(aux));
+				})
+				.catch(() => {
+					dispatch(userModal());
+					dispatch(setUser({
+						name: '', lastName: '', idUser: 0, dni: '', phone: '', email: '',
+					}));
+				});
+		}
+	}
+);
 export const createPurchaseReq = (
+	idUser,
 	myValues,
 	createdBy,
 	updatedBy,
@@ -153,12 +205,13 @@ export const createPurchaseReq = (
 	createPurchaseReqMutation,
 ) =>
 	async (dispatch) => {
+		const user = idUser;
 		createPurchaseReqMutation({
 			variables:
 			{
 				createdBy,
 				updatedBy,
-				user: myValues.user,
+				user,
 				access: myValues.access,
 				event: myValues.event,
 				status: myValues.status,

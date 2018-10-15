@@ -142,7 +142,7 @@ const Users = ({
 														>
 															<Switch
 																onClick={() => { actionOpenModal('block', user); }}
-																checked={user.status.id === 2}
+																checked={!user.active}
 																value='checked'
 															/>
 														</Tooltip>
@@ -213,16 +213,16 @@ const Users = ({
 								}
 								{modalType === 'block' &&
 									<Paper className={classes.paperOnModal}>
-										{statusValue === 1 && <h6> Bloquear usuario </h6>}
-										{statusValue === 2 && <h6> Desbloquear usuario </h6>}
+										{statusValue && <h6> Bloquear usuario </h6>}
+										{!statusValue && <h6> Desbloquear usuario </h6>}
 										{
-											statusValue === 1 &&
+											statusValue &&
 											<p>
 											¿Estas seguro que desea bloquear el Usuario {name}?
 											</p>
 										}
 										{
-											statusValue === 2 &&
+											!statusValue &&
 											<p>
 												¿Estas seguro que desea desbloquear el Usuario {name}?
 											</p>
@@ -289,7 +289,7 @@ Users.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	name: PropTypes.string.isRequired,
 	modalType: PropTypes.string.isRequired,
-	statusValue: PropTypes.number.isRequired,
+	statusValue: PropTypes.bool.isRequired,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,

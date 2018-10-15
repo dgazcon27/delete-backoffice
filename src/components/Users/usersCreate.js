@@ -24,6 +24,7 @@ import {
 	renderTextField,
 	renderDateField,
 	renderPasswordField,
+	renderNumberField,
 } from '../RenderFields/renderFields';
 import { CREATE_USER } from '../../queries/users';
 import {
@@ -34,7 +35,7 @@ import {
 import BackButton from '../widget/BackButton';
 import {
 	Roles,
-	SelectCountry,
+	Citizenship,
 } from '../commonComponent';
 
 let UsersCreate = ({
@@ -58,8 +59,8 @@ let UsersCreate = ({
 					<div className='input-field col s6'>
 						<Field
 							name='dni'
-							type='text'
-							component={renderTextField}
+							type='number'
+							component={renderNumberField}
 							validate={[required, empty]}
 							label='CI/Pasaporte'
 							className='yourclass'
@@ -113,10 +114,10 @@ let UsersCreate = ({
 						/>
 					</div>
 					<div className='input-field col s6'>
-						<Roles />
+						<Roles name='role' />
 					</div>
 					<div className='input-field col s6'>
-						<SelectCountry />
+						<Citizenship />
 					</div>
 					<div className='input-field col s6'>
 						<Field

@@ -94,7 +94,6 @@ const Access = ({
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
-										<TableCell>Precio</TableCell>
 										<TableCell>Ubicacion</TableCell>
 										<TableCell className={classes.alignRightOption}>
 												Opciones
@@ -105,7 +104,6 @@ const Access = ({
 									{data.access.data.map(access => (
 										<TableRow key={access.id}>
 											<TableCell>{access.name}</TableCell>
-											<TableCell>{access.price}</TableCell>
 											<TableCell>{access.location.name}</TableCell>
 											<TableCell className={classes.alignRight}>
 												<Tooltip
