@@ -189,7 +189,6 @@ const Users = ({
 													}}
 												/>
 											}
-
 											{ query.length === 0 &&
 												<TablePagination
 													count={total}

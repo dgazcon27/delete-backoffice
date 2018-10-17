@@ -9,6 +9,8 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import Search from '@material-ui/icons/Search';
 import { Modal } from '@material-ui/core';
 import {
 	compose,
@@ -76,10 +78,9 @@ let PurchaseRequestCreate = ({
 						validate={[required, empty]}
 						label='dni'
 					/>
-
-					<button onClick={(event) => { event.preventDefault(actionUserByDNI(myValues.dni)); }} >
-						lupita
-					</button>
+					<IconButton className={classes.formStyle3}>
+						<Search onClick={(event) => { event.preventDefault(actionUserByDNI(myValues.dni)); }} />
+					</IconButton>
 				</div>
 			</form>
 			<div className={classes.formStyle}>
@@ -90,8 +91,6 @@ let PurchaseRequestCreate = ({
 				Telefono:{phone}
 				<br />
 				Correo:{email}
-				<br />
-				userId:{idUser}
 			</div>
 
 			<form>

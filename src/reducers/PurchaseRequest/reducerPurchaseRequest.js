@@ -14,7 +14,7 @@ import {
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
-	SET_USER,
+	PR_SET_USER,
 	MODAL_USER,
 	CLOSE_MODAL_USER,
 } from '../../actions/PurchaseRequest/actionsTypes';
@@ -23,7 +23,7 @@ import {
 const initialState = {
 	newUserModal: false,
 	id: 0,
-	idUser: '',
+	idUser: 0,
 	name: '',
 	nameUser: '',
 	lastName: '',
@@ -43,6 +43,8 @@ const initialState = {
 	pendingPayment: 0,
 	totalPaid: 0,
 	dni: 0,
+	phone: '',
+	email: '',
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -72,7 +74,6 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				paginationPage: action.payload.paginationPage,
 				currentPage: action.payload.currentPage,
 			});
-
 		case PAGE_DOWN:
 			return ({
 				...state,
@@ -144,10 +145,10 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				...state,
 				name: action.payload.name,
 			});
-		case SET_USER:
+		case PR_SET_USER:
 			return ({
 				...state,
-				idUser: action.payload.aux.id,
+				idUser: action.payload.aux.idUser,
 				nameUser: action.payload.aux.name,
 				lastName: action.payload.aux.lastName,
 				phone: action.payload.aux.phone,

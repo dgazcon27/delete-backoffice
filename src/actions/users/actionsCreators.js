@@ -10,6 +10,7 @@ import {
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
+import { closeUserModal } from '../PurchaseRequest/actionsCreators';
 import { GET_USERS } from '../../queries/users';
 
 const checkMessageError = (res) => {
@@ -180,6 +181,7 @@ export const createUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
+				dispatch(closeUserModal());
 				setTimeout(() => (window.history.back()), 2000);
 			})
 			.catch((res) => {

@@ -62,6 +62,16 @@ const styles = () => ({
 	},
 	formStyle: {
 		padding: '3%',
+		display: 'flex',
+	},
+	formStyle3: {
+		margin: '15px 5px 5px 5px',
+	},
+
+	formStyle2: {
+		marginRight: '0',
+		padding: '3%',
+		width: '60%',
 	},
 	formTitle: {
 		fontSize: '1.25em',

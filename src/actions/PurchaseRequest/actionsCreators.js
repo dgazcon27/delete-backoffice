@@ -1,5 +1,5 @@
 import {
-	SET_USER,
+	PR_SET_USER,
 	SET_NAME,
 	OPEN_MODAL,
 	MODAL_USER,
@@ -170,32 +170,35 @@ export const setAccessEvent = (event, id) => (
 );
 
 export const setUser = aux => ({
-	type: SET_USER,
+	type: PR_SET_USER,
 	payload: {
 		aux,
-		description: SET_USER,
+		description: PR_SET_USER,
 	},
 });
+
 export const getUserByDNI = dni => (
 	async (dispatch) => {
-		client
-			.query({
-				query: GET_USER_BY_DNI,
-				variables: { dni },
-			})
-			.then((res) => {
-				const aux = res.data.purchaseRequestAutocomplete;
-				dispatch(setUser(aux));
-			})
-			.catch((res) => {
-				const message = checkMessageError2(res);
-				if (message.toString() === 'id') {
-					dispatch(userModal());
-					dispatch(setUser({
-						name: '', lastName: '', idUser: '', dni: '', phone: '', email: '',
-					}));
-				}
-			});
+		if (dni) {
+			client
+				.query({
+					query: GET_USER_BY_DNI,
+					variables: { dni },
+				})
+				.then((res) => {
+					const aux = res.data.purchaseRequestAutocomplete;
+					dispatch(setUser(aux));
+				})
+				.catch((res) => {
+					const message = checkMessageError2(res);
+					if (message.toString() === 'id') {
+						dispatch(userModal());
+						dispatch(setUser({
+							name: '', lastName: '', idUser: '', dni: '', phone: '', email: '',
+						}));
+					}
+				});
+		}
 	}
 );
 export const createPurchaseReq = (
