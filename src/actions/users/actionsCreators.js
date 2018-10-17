@@ -122,7 +122,8 @@ export const closeAlert = () => ({
 
 export const blockUser = (obj, blockUserMutation) => {
 	const { id } = obj;
-	const status = obj.statusValue === 1 ? 2 : 1;
+	const status = obj.statusValue ? 0 : 1;
+
 	return async (dispatch) => {
 		await blockUserMutation({ variables: { id, status } });
 		dispatch(closeModal());
@@ -146,7 +147,7 @@ export const openModal = (modalType, _user) => ({
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _user.status.id,
+		statusValue: _user.active,
 		name: _user.name,
 		id: _user.id,
 	},

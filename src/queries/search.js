@@ -72,10 +72,7 @@ export const SEARCH_USERS = gql`
 						name
 					}
 					id
-					status {
-						name
-						id
-					}
+					active
 				}
 				total
 			}

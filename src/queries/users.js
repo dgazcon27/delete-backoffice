@@ -34,10 +34,7 @@ export const BLOCK_USER = gql`
 		blockedUser(id:$id,status:$status) {
 			name
 			id
-			status {
-				name
-				id
-			}
+			active
 		}
 	}
 `;

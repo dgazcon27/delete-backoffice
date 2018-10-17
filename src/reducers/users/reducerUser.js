@@ -3,6 +3,7 @@ import {
 	BLOCK_USER,
 	DELETE_USER,
 	SET_USER,
+	OPEN_MODAL,
 } from '../../actions/users/actionsTypes';
 
 const initialState = {
@@ -17,7 +18,7 @@ const initialState = {
 	isOpen: false,
 	modalType: '',
 	descripcion: '',
-	statusValue: 0,
+	statusValue: false,
 	paginationPage: 0,
 	currentPage: 0,
 	currentPageSearch: 0,
@@ -41,6 +42,8 @@ const ReducerUser = (state = initialState, action = {}) => {
 		case BLOCK_USER:
 			return ({
 				...state,
+				id: action.payload.id,
+				statusValue: action.payload.statusValue,
 			});
 		case DELETE_USER:
 			return ({
@@ -57,6 +60,15 @@ const ReducerUser = (state = initialState, action = {}) => {
 				birthDate: action.payload.birthDate,
 				citizenship: action.payload.citizenship,
 				role: action.payload.role,
+			});
+		case OPEN_MODAL:
+			return ({
+				...state,
+				isOpen: true,
+				id: action.payload.id,
+				name: action.payload.name,
+				modalType: action.payload.modalType,
+				statusValue: action.payload.statusValue,
 			});
 		default:
 			return state;
