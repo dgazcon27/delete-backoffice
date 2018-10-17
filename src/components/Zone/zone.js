@@ -57,7 +57,7 @@ const Zone = ({
 			totalPath: 'zoness.total',
 		},
 		searchComponent: {
-			dataPath: 'search.zoness.data',
+			dataPath: 'search.zones.data',
 			totalPath: 'search.zones.total',
 		},
 	};

@@ -90,7 +90,7 @@ let AccessCreate = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.price, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, createAccessMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, createAccessMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<BackButton />
@@ -150,7 +150,6 @@ const mapDispatchToProps = dispatch => ({
 	actionCreateAccess: (
 		name,
 		descripcion,
-		price,
 		currency,
 		location,
 		zone,
@@ -160,7 +159,6 @@ const mapDispatchToProps = dispatch => ({
 	) => dispatch(createAccess(
 		name,
 		descripcion,
-		price,
 		currency,
 		location,
 		zone,

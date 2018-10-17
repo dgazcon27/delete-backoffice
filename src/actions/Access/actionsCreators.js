@@ -125,7 +125,6 @@ export const openModal = (modalType, _access) => ({
 export const createAccess = (
 	name,
 	description,
-	price,
 	currency,
 	location,
 	zone,
@@ -136,7 +135,7 @@ export const createAccess = (
 	async (dispatch) => {
 		createAccessMutation({
 			variables: {
-				name, description, price, currency, location, zone, status,
+				name, description, currency, location, zone, status,
 			},
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
 		})

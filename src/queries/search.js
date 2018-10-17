@@ -92,9 +92,7 @@ export const SEARCH_ZONES = gql`
 					id
 					capacity
 					maxcapacity
-					status{
-						id
-					}
+					active
 				}
 				total
 			}
