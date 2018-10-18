@@ -16,6 +16,7 @@ export const renderTextField = field => (
 		error={(field.meta.touched && field.meta.error)}
 		helperText={(field.meta.touched && field.meta.error) && <span>Este campo es oblogatorio</span>}
 		className={field.className}
+		disabled={field.disabled}
 	/>
 );
 
@@ -124,6 +125,21 @@ export const renderConfirmationField = field => (
 		className={field.className}
 		error={(field.meta.touched && field.meta.error)}
 		helperText={(field.meta.touched && field.meta.error) && <span>{field.meta.warning}</span>}
+	/>
+);
+
+export const renderTextDefaultValueField = field => (
+	<TextField
+		fullWidth
+		multiline
+		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		{...field.input}
+		error={(field.meta.touched && field.meta.error)}
+		helperText={(field.meta.touched && field.meta.error) && <span>Este campo es oblogatorio</span>}
+		className={field.className}
+		value={field.valor}
+		disabled={field.disabled}
 	/>
 );
 
