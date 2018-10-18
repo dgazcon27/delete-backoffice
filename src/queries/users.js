@@ -18,10 +18,6 @@ export const GET_USERS = gql`
 					name
 				}
 				id
-				status {
-					name
-					id
-				}
 				active
 			}
 			total
