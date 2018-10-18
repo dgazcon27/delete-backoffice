@@ -45,7 +45,7 @@ export const DELETE_USER = gql`
 `;
 
 export const CREATE_USER = gql`
-	mutation createUser($name:String!, $email:String!, $password:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!, $createdBy:Int!, $updatedBy:Int!){
+	mutation createUser($name:String!, $email:String!, $password:String!, $lastName:String!, $phone:String!, $dni:Int!, $birthDate:String!, $role:Int!, $citizenship:Int!, $createdBy:Int!, $updatedBy:Int!){
 		createUser(name:$name, email:$email, password:$password, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship, createdBy:$createdBy, updatedBy:$updatedBy) {
 			name
 		}

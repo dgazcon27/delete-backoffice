@@ -34,7 +34,7 @@ import {
 import BackButton from '../widget/BackButton';
 import {
 	Roles,
-	SelectCountry,
+	Citizenship,
 } from '../commonComponent';
 
 let UsersCreate = ({
@@ -116,7 +116,7 @@ let UsersCreate = ({
 						<Roles />
 					</div>
 					<div className='input-field col s6'>
-						<SelectCountry />
+						<Citizenship />
 					</div>
 					<div className='input-field col s6'>
 						<Field
@@ -130,7 +130,7 @@ let UsersCreate = ({
 					</div>
 
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(userId), Number(userId), createUserMutation, paginationPage))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateUser(myValues, myValues.name, myValues.email, myValues.password, myValues.lastName, myValues.phone, Number(myValues.dni), myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(userId), Number(userId), createUserMutation, paginationPage))} disabled={submitting} >
 					Crear
 				</button>
 				<BackButton />
