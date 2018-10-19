@@ -12,6 +12,8 @@ import {
 	ADD_ACCESS,
 	SET_ACCESS_EVENT,
 	SET_HOTEL,
+	AE_SET_NUMBER_ROOM,
+	AE_SET_NUMBER_TICKET,
 } from '../../../actions/Event/Access/actionsTypes';
 
 const initialState = {
@@ -109,6 +111,16 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				...state,
 				withRoom: action.payload.withRoom,
 				activeRooms: action.payload.activeRooms,
+			});
+		case AE_SET_NUMBER_TICKET:
+			return ({
+				...state,
+				numberTickets: action.payload.numberTickets,
+			});
+		case AE_SET_NUMBER_ROOM:
+			return ({
+				...state,
+				numberRooms: action.payload.numberRooms,
 			});
 		case SET_WITH_TICKET:
 			return ({

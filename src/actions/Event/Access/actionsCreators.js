@@ -11,9 +11,12 @@ import {
 	SET_WITH_TICKET,
 	ADD_ACCESS,
 	SET_HOTEL,
+	AE_SET_NUMBER_ROOM,
+	AE_SET_NUMBER_TICKET,
 } from './actionsTypes';
 
-import { GET_ACCESS } from '../../../queries/event';
+import { GET_ACCESS, GET_ACCESS_BY_ID } from '../../../queries/event';
+import { client } from '../../../config/configStore';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -22,12 +25,6 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-
-export const testCreateFunc = () => (
-	async (dispatch) => {
-		console.log('dispaching creationg')
-	}
-)
 
 export const openAlert = alertType => ({
 	type: OPEN_ALERT,
@@ -96,6 +93,23 @@ export const setAccess = (access) => {
 	};
 };
 
+export const getEventAccessById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ACCESS_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				dispatch(setAccess(res.data.accessByEvents));
+			})
+			.catch((err) => {
+				const message = checkMessageError(err);
+				dispatch(openAlert(message));
+			});
+	}
+);
+
 export const closeModal = () => ({
 	type: CLOSE_MODAL,
 	payload: {
@@ -137,9 +151,9 @@ export const changePage = (currentPage, paginationPage) => {
 export const createAccessEvent = (data, paginationPage, create) => {
 	let hotelE = data.hotel;
 	let roomE = data.room;
-	let events = data.event;
-	let numberRooms = data.numberRooms || 0;
-	let numberTickets = data.numberTickets || 0;
+	const events = data.event;
+	const numberRooms = data.numberRooms || 0;
+	const numberTickets = data.numberTickets || 0;
 
 	if (!data.withRoom) {
 		hotelE = null;
@@ -153,7 +167,7 @@ export const createAccessEvent = (data, paginationPage, create) => {
 					hotelE,
 					roomE,
 					numberRooms,
-					numberTickets
+					numberTickets,
 				},
 				refetchQueries: [{
 					query: GET_ACCESS, variables: { events, paginationPage },
@@ -170,48 +184,23 @@ export const createAccessEvent = (data, paginationPage, create) => {
 		});
 };
 
-export const editAccessEvent = (
-	id,
-	withRoomA,
-	withTicketsA,
-	numberRooms = 0,
-	numberTickets = 0,
-	price,
-	event,
-	access,
-	hotel,
-	room,
-	paginationPage,
-	editAccessEventMutation,
-) => {
-	const withRoom = withRoomA === 'true';
-	const withTickets = withTicketsA === 'true';
-	const events = event;
-	let hotelE = hotel;
-	let roomE = room;
+export const editAccessEvent = (data, event, paginationPage, editAccessEventMutation) => {
+	const action = { ...data };
+	action.withRoom = data.withRoom === 'true';
+	action.withTickets = data.withTickets === 'true';
+	action.event = event;
 
-	if (!withRoom) {
-		hotelE = null;
-		roomE = null;
+	if (!data.withRoom) {
+		action.hotel = null;
+		action.room = null;
 	}
 
 	return (
 		async (dispatch) => {
 			editAccessEventMutation({
-				variables: {
-					id,
-					withRoom,
-					withTickets,
-					numberRooms,
-					numberTickets,
-					price,
-					event,
-					access,
-					roomE,
-					hotelE,
-				},
+				variables: action,
 				refetchQueries: [{
-					query: GET_ACCESS, variables: { events, paginationPage },
+					query: GET_ACCESS, variables: { events: event, paginationPage },
 				}],
 			})
 				.then(() => {
@@ -225,22 +214,47 @@ export const editAccessEvent = (
 		});
 };
 
-export const setWithRooms = withRoom => ({
-	type: SET_WITH_ROOM,
+export const setNumberRooms = (numberRooms = 0) => ({
+	type: AE_SET_NUMBER_ROOM,
 	payload: {
-		withRoom,
-		description: SET_WITH_ROOM,
-	},
-}
-);
-
-export const setWithTickets = withTickets => ({
-	type: SET_WITH_TICKET,
-	payload: {
-		withTickets,
-		description: SET_WITH_TICKET,
+		numberRooms,
+		description: AE_SET_NUMBER_ROOM,
 	},
 });
+
+export const setWithRooms = (withRoom, dispatch) => {
+	if (withRoom === 'false') {
+		dispatch(setNumberRooms());
+	}
+	return ({
+		type: SET_WITH_ROOM,
+		payload: {
+			withRoom,
+			description: SET_WITH_ROOM,
+		},
+	});
+};
+
+export const setNumberTickets = (numberTickets = 0) => ({
+	type: AE_SET_NUMBER_TICKET,
+	payload: {
+		numberTickets,
+		description: AE_SET_NUMBER_TICKET,
+	},
+});
+
+export const setWithTickets = (withTickets, dispatch) => {
+	if (withTickets === 'false') {
+		dispatch(setNumberTickets());
+	}
+	return ({
+		type: SET_WITH_TICKET,
+		payload: {
+			withTickets,
+			description: SET_WITH_TICKET,
+		},
+	});
+};
 
 export const deleteAccess = (id, events, paginationPage, deleteAccessMutation) => (
 	async (dispatch) => {

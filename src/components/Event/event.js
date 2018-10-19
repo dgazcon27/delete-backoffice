@@ -34,8 +34,6 @@ import {
 	openModal,
 	closeModal,
 	deleteEvent,
-	setEvent,
-	addAccess,
 } from '../../actions/Event/actionsCreators';
 
 import {
@@ -58,8 +56,6 @@ const Event = ({
 	actionOpenModal,
 	isOpen,
 	modalType,
-	actionSetEvent,
-	actionAddAccess,
 }) => (
 	<Query query={GET_EVENTS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -227,8 +223,6 @@ Event.propTypes = {
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
-	actionSetEvent: PropTypes.func.isRequired,
-	actionAddAccess: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	actionDeleteEvent: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
@@ -260,10 +254,6 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, event) => dispatch(openModal(modalType, event)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionSetEvent: event =>
-		dispatch(setEvent(event, dispatch)),
-	actionAddAccess: event =>
-		dispatch(addAccess(event)),
 });
 
 export { Event as EventTest };

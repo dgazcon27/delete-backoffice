@@ -26,7 +26,7 @@ import CreateGuest from '../Guest/createGuest';
 import ComponentGuest from '../Guest/componentGuest';
 // import AccessList from '../Event/accessList';
 import AccessEventCreate from '../Event/accessEventCreate';
-import AccessEventEdit from '../Event/accessEventEdit';
+import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
 
 const Main = (props) => {
@@ -71,7 +71,7 @@ const Main = (props) => {
 				<Route path='/guest-edit/:id' component={EditionComponent} />
 				<Route path='/event-access/:id' component={PreAccessList} />
 				<Route path='/event-access-create/:id' component={AccessEventCreate} />
-				<Route path='/event-access-edit' component={AccessEventEdit} />
+				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
 			</Switch>
 		</main>
 	);

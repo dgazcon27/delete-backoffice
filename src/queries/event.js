@@ -138,6 +138,36 @@ export const GET_ACCESS = gql`
 	}
 `;
 
+export const GET_ACCESS_BY_ID = gql`
+	query accessByEvents($id:Int!) {
+		accessByEvents(id:$id) {
+				id
+				withRoom
+				withTickets
+				numberRooms
+				numberTickets
+				price
+				active
+				hotel{
+					id
+				}
+				room{
+					id
+					name
+				}
+				access{
+					id
+					name
+					description
+					location{
+						id
+						name
+					}
+				}
+		}
+	}
+`;
+
 export const DELETE_ACCESS = gql`
 	mutation deleteAccessesByEvent($id:Int!) {
 		deleteAccessesByEvent(id:$id){
@@ -176,11 +206,11 @@ export const EDIT_ACCESS_EVENT = gql`
     	$price:Int!,
 	    $event:ID!,
 	    $access:ID!,
-	    $roomE:ID!,
-	    $hotelE:ID!,
+	    $room:ID,
+	    $hotel:ID,
 		){
 		updateAccessesByEvent(id:$id, withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
-		numberTickets:$numberTickets, price:$price, event:$event, access:$access, room:$roomE, hotel:$hotelE,
+		numberTickets:$numberTickets, price:$price, event:$event, access:$access, room:$room, hotel:$hotel,
 		){
 			id
 		}

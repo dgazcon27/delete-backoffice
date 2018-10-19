@@ -33,7 +33,6 @@ import {
 	closeModal,
 	changePage,
 	deleteAccess,
-	setAccess,
 	blockAccess,
 } from '../../actions/Event/Access/actionsCreators';
 import {
@@ -53,7 +52,6 @@ const AccessList = ({
 	actionOpenModal,
 	actionCloseModal,
 	paginationPage,
-	actionSetAccess,
 	actionChangePage,
 	actionDeleteAccess,
 	deleteAccessMutation,
@@ -136,8 +134,8 @@ const AccessList = ({
 													placement='top'
 													title='Editar Acceso'
 												>
-													<Link to='/event-access-edit'>
-														<IconButton onClick={() => { actionSetAccess(access); }}>
+													<Link to={{ pathname: `/event-access-edit/${events}/${access.id}` }}>
+														<IconButton>
 															<Edit />
 														</IconButton>
 													</Link>
@@ -273,7 +271,6 @@ AccessList.propTypes = {
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionSetAccess: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionDeleteAccess: PropTypes.func.isRequired,
 	deleteAccessMutation: PropTypes.func.isRequired,
@@ -310,7 +307,6 @@ const mapDispatchToProps = dispatch => ({
 		paginationPage,
 		deleteAccessMutation,
 	) => dispatch(deleteAccess(id, event, paginationPage, deleteAccessMutation)),
-	actionSetAccess: access => dispatch(setAccess(access)),
 	actionBlockAccess: (
 		id,
 		event,

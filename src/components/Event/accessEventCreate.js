@@ -42,12 +42,11 @@ import {
 	setWithRooms,
 	setWithTickets,
 	createAccessEvent,
-	testCreateFunc,
 } from '../../actions/Event/Access/actionsCreators';
 
 import { Access } from '../commonComponent';
 
-const Hotels = ({
+export const Hotels = ({
 	event,
 	actionGetRoom,
 }) => (
@@ -94,7 +93,7 @@ Hotels.propTypes = {
 	actionGetRoom: PropTypes.func.isRequired,
 };
 
-const Rooms = ({
+export const Rooms = ({
 	hotel,
 	event,
 }) => (
@@ -140,20 +139,45 @@ Rooms.propTypes = {
 	event: PropTypes.number.isRequired,
 };
 
-let Add = (props) => {
-	return (
-		<button
-			className={props.classes.createButton}
-			type='submit'
-			onClick={props.handleSubmit(() =>
-				props.action(props.parameters, props.paginationPage, props.mutation))
-			}
-			disabled={props.submitting}
-		>
+const Add = props => (
+	<button
+		className={props.classes.createButton}
+		type='submit'
+		onClick={props.handleSubmit(() =>
+			props.action(props.parameters, props.paginationPage, props.mutation))
+		}
+		disabled={props.submitting}
+	>
 			Agregar
-		</button>
-	)
-}
+	</button>
+);
+
+Add.propTypes = {
+	submitting: PropTypes.bool.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
+	mutation: PropTypes.func.isRequired,
+	action: PropTypes.func.isRequired,
+	paginationPage: PropTypes.number.isRequired,
+	parameters: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
+};
+
+export const AlertModal = props => (
+	<Snackbar
+		anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+		open={props.open}
+		autoHideDuration={1000}
+		onClose={props.close}
+		ContentProps={{ 'aria-describedby': 'message-id' }}
+		message={<span id='message-id'>{props.message}</span>}
+	/>
+);
+
+AlertModal.propTypes = {
+	message: PropTypes.string.isRequired,
+	open: PropTypes.bool.isRequired,
+	close: PropTypes.func.isRequired,
+};
 
 let a = class AccessEventCreate extends React.Component {
 	render() {
@@ -169,18 +193,12 @@ let a = class AccessEventCreate extends React.Component {
 		const { alertType } = this.props;
 		const { alertOpen } = this.props;
 		const { actionCloseAlert } = this.props;
-		const { create } = this.props;
 		const { myValues } = this.props;
 		const { submitting } = this.props;
 		const { handleSubmit } = this.props;
 		const { paginationPage } = this.props;
 		const { actionCreateAccessEvent } = this.props;
-		const { testCreateFunc } = this.props;
 		const { createMutation } = this.props;
-
-		function closeAlert() {
-			return (setTimeout(actionCloseAlert, 100)); 
-		}
 
 		return (
 			<div>
@@ -283,8 +301,8 @@ let a = class AccessEventCreate extends React.Component {
 								<Rooms hotel={hotel} event={event} />
 							</div>
 						}
-						<Add 
-							classes={classes} 
+						<Add
+							classes={classes}
 							submitting={submitting}
 							handleSubmit={handleSubmit}
 							paginationPage={paginationPage}
@@ -298,30 +316,24 @@ let a = class AccessEventCreate extends React.Component {
 							mutation={createMutation}
 
 						/>
-						<Link to='/event-access' href='/event-access' className={classes.returnButton}>
+						<Link to={`/event-access/${event}`} className={classes.returnButton}>
 							Regresar
 						</Link>
 					</form>
 				</Paper>
 				{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={closeAlert}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>El Acceso que intenta agregar ya existe verifique el nombre he intente de nuevo.</span>}
-				/>
+					<AlertModal
+						message='El Acceso que intenta agregar ya existe verifique el nombre he intente de nuevo.'
+						open={alertOpen}
+						close={actionCloseAlert}
+					/>
 				}
 				{alertType === 'creado' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={closeAlert}
-					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>El Acceso fue agredado con éxito.</span>}
-				/>
+					<AlertModal
+						message='El Acceso fue agregado con éxito.'
+						open={alertOpen}
+						close={actionCloseAlert}
+					/>
 				}
 			</div>
 		);
@@ -374,7 +386,7 @@ const mapDispatchToProps = dispatch => ({
 	actionGetRoom: value => dispatch(getRooms(value.target.value)),
 	actionChangeRoom: value => dispatch(setWithRooms(value.target.value)),
 	actionChangeTicket: value => dispatch(setWithTickets(value.target.value)),
-	actionCreateAccessEvent: (data, paginationPage, create) => 
+	actionCreateAccessEvent: (data, paginationPage, create) =>
 		dispatch(createAccessEvent(data, paginationPage, create)),
 });
 
