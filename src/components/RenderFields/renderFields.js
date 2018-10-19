@@ -76,12 +76,27 @@ export const renderNumberField = field => (
 		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
 		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
 		type='number'
+		disabled={field.disabled}
 		{...field.input}
 		className={field.className}
 		error={(field.meta.touched && field.meta.error)}
 		helperText={
 			(field.meta.touched && field.meta.error) &&
 			<span>Este campo es oblogatorio</span>}
+	/>
+);
+
+export const renderNumbValDefaultField = field => (
+	<TextField
+		fullWidth
+		multiline={false}
+		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
+		defaultValue={field.valor}
+		disabled={field.disabled}
+		className={field.className}
+		error={(field.meta.touched && field.meta.error)}
+		helperText={(field.meta.touched && field.meta.error) && <span>Este campo es oblogatorio</span>}
 	/>
 );
 

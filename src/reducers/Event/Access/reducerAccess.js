@@ -3,25 +3,16 @@ import {
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
-	PAGE_UP_EV,
-	PAGE_DOWN_EV,
+	PAGE_UP,
+	PAGE_DOWN,
 	SET_EVENT,
 	SET_COUNTRIES_STATES,
-	CLEAN_STATE_COUNTRY,
-	SET_PRESALE,
-	SET_CLOSE_PRESALE,
-	SET_EVENT_START,
-	SET_EVENT_CLOSE,
-	SET_EVENT_NAME,
-	SET_EVENT_DESCRIPTION,
-	SET_EVENT_STATUS,
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
-	OPEN_MODAL_ACCESS,
 	ADD_ACCESS,
 	SET_ACCESS_EVENT,
-	ID_ACCESS_EVENT,
-} from '../../actions/Event/actionsTypes';
+	SET_HOTEL,
+} from '../../../actions/Event/Access/actionsTypes';
 
 const initialState = {
 	id: 0,
@@ -33,7 +24,7 @@ const initialState = {
 	modalType: '',
 	rolDescription: '',
 	statusValue: 0,
-	paginationPageEv: 0,
+	paginationPage: 0,
 	states: [],
 	withRoom: 'true',
 	withTickets: 'true',
@@ -41,43 +32,38 @@ const initialState = {
 	numberTickets: 0,
 	activeRooms: false,
 	activeTickets: false,
+	hotel: 0,
 	event: 0,
 	access: 0,
+	room: 0,
+	hotelE: null,
+	roomE: null,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 
 
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPageEv = JSON.parse(localStorage.getItem('paginations')).events || 0;
-	initialState.currentPageEv = JSON.parse(localStorage.getItem('paginations')).events || 0;
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
 } else {
-	initialState.paginationPageEv = 0;
-	initialState.currentPageEv = 0;
+	initialState.paginationPage = 0;
+	initialState.currentPage = 0;
 }
 
-const ReducerEvent = (state = initialState, action = {}) => {
+const ReducerEventAccess = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP_EV:
+		case PAGE_UP:
 			return ({
 				...state,
-				paginationPageEv: action.payload.paginationPageEv,
-				currentPageEv: action.payload.currentPageEv,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
 			});
-		case PAGE_DOWN_EV:
+		case PAGE_DOWN:
 			return ({
 				...state,
-				paginationPageEv: action.payload.paginationPageEv,
-				currentPageEv: action.payload.currentPageEv,
-			});
-		case OPEN_MODAL:
-			return ({
-				...state,
-				isOpen: true,
-				id: action.payload.id,
-				name: action.payload.name,
-				modalType: action.payload.modalType,
-				statusValue: action.payload.statusValue,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
 			});
 		case CLOSE_MODAL:
 			return ({
@@ -97,10 +83,6 @@ const ReducerEvent = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				alertOpen: false,
-			});
-		case CLEAN_STATE_COUNTRY:
-			return ({
-				...state,
 			});
 		case SET_EVENT:
 			return ({
@@ -122,41 +104,6 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				...state,
 				states: action.payload.states,
 			});
-		case SET_EVENT_NAME:
-			return ({
-				...state,
-				name: action.payload.name,
-			});
-		case SET_EVENT_DESCRIPTION:
-			return ({
-				...state,
-				description: action.payload.description,
-			});
-		case SET_EVENT_STATUS:
-			return ({
-				...state,
-				status: action.payload.status,
-			});
-		case SET_PRESALE:
-			return ({
-				...state,
-				presaleStart: action.payload.presaleStart,
-			});
-		case SET_CLOSE_PRESALE:
-			return ({
-				...state,
-				presaleClosure: action.payload.presaleClosure,
-			});
-		case SET_EVENT_START:
-			return ({
-				...state,
-				eventStart: action.payload.eventStart,
-			});
-		case SET_EVENT_CLOSE:
-			return ({
-				...state,
-				eventClosure: action.payload.eventClosure,
-			});
 		case SET_WITH_ROOM:
 			return ({
 				...state,
@@ -169,7 +116,13 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				withTickets: action.payload.withTickets,
 				activeTickets: action.payload.activeTickets,
 			});
-		case OPEN_MODAL_ACCESS:
+		case SET_HOTEL:
+			return ({
+				...state,
+				hotel: action.payload.hotel,
+				roomE: action.payload.roomE,
+			});
+		case OPEN_MODAL:
 			return ({
 				...state,
 				isOpen: true,
@@ -181,11 +134,6 @@ const ReducerEvent = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				event: action.payload.event,
-			});
-		case ID_ACCESS_EVENT:
-			return ({
-				...state,
-				idAccessEvent: action.payload.idAccessEvent,
 			});
 		case SET_ACCESS_EVENT:
 			return ({
@@ -199,10 +147,14 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				activeRooms: action.payload.activeRooms,
 				activeTickets: action.payload.activeTickets,
 				price: action.payload.price,
+				hotel: action.payload.hotel,
+				room: action.payload.room,
+				hotelE: action.payload.hotelE,
+				roomE: action.payload.roomE,
 			});
 		default:
 			return state;
 	}
 };
 
-export default ReducerEvent;
+export default ReducerEventAccess;

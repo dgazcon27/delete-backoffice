@@ -119,3 +119,28 @@ export const GET_PURCHASE_BY_ID = gql`
 		}
 	}
 `;
+
+export const PURCHASE_REQUEST_PAY = gql`
+	query purchaseRequestPayment($id:Int!){
+		purchaseRequestPayment(id:$id){
+			payment{
+				id
+				amount
+				reference
+				comment
+				type
+				created_at
+				bankAccount{
+					id
+					type
+					currency
+					bank{
+						id
+						name
+					}
+				}
+			}
+			id
+	}
+}
+`;

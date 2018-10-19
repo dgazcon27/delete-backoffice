@@ -7,7 +7,7 @@ import People from '@material-ui/icons/People';
 // import Apps from '@material-ui/icons/Apps';
 import Weekend from '@material-ui/icons/Weekend';
 import Wc from '@material-ui/icons/Wc';
-// import Album from '@material-ui/icons/Album';
+import Event from '@material-ui/icons/Album';
 // import Work from '@material-ui/icons/Work';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
@@ -77,7 +77,6 @@ const Items = (
 				<ListItemText primary='Invitados' />
 			</ListItem>
 		</Link>
-		{/*
 		<Link to='/events' href='/events'>
 			<ListItem button>
 				<ListItemIcon>

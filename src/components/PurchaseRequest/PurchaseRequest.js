@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Payment from '@material-ui/icons/Payment';
+import List from '@material-ui/icons/List';
 import {
 	Modal,
 	Paper,
@@ -36,6 +37,8 @@ import {
 	deletePurchaseReq,
 	setToPay,
 } from '../../actions/PurchaseRequest/actionsCreators';
+
+import PurchaseRequestPay from './PurchaseRequestPay';
 
 import {
 	DELETE_PURCHASE_REQ,
@@ -115,6 +118,17 @@ const PurchaseRequest = ({
 														id='tooltip-controlled'
 														leaveDelay={100}
 														placement='top'
+														title='Lista de Pagos'
+													>
+														<IconButton onClick={() => { actionOpenModal('pagos', purchaseReq); }}>
+															<List />
+														</IconButton>
+													</Tooltip>
+													<Tooltip
+														enterDelay={200}
+														id='tooltip-controlled'
+														leaveDelay={100}
+														placement='top'
 														title='Realizar pago'
 													>
 														<Link to='/Pay' href='/Pay'>
@@ -159,7 +173,7 @@ const PurchaseRequest = ({
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
-											colSpan={3}
+											colSpan={6}
 											onChangePage={(event, changuedPage) => {
 												actionChangePage(currentPage, changuedPage);
 											}}
@@ -172,7 +186,7 @@ const PurchaseRequest = ({
 					<Modal
 						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
+						onBackdropClick={() => actionCloseModal()}
 						disableAutoFocus={false}
 					>
 						<div>
@@ -198,6 +212,11 @@ const PurchaseRequest = ({
 									</IconButton>
 								</span>
 							</Paper>
+							}
+							{modalType === 'pagos' &&
+								<Paper className={classNames(classes.paperOnModal)}>
+									<PurchaseRequestPay />
+								</Paper>
 							}
 						</div>
 					</Modal>

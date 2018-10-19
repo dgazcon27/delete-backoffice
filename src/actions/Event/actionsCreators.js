@@ -9,6 +9,8 @@ import {
 	CLEAN_STATE,
 	SET_COUNTRIES_STATES,
 	CLEAN_STATE_COUNTRY,
+	ADD_ACCESS,
+	ID_ACCESS_EVENT,
 } from './actionsTypes';
 
 import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
@@ -102,8 +104,7 @@ export const setCountriesStates = (ev, id, ini = false) => (
 				}
 			})
 			.catch(() => {});
-	}
-);
+	});
 
 export const setEvent = event => ({
 	type: SET_EVENT,
@@ -135,6 +136,22 @@ export const getEventById = id => (
 			.catch(() => {});
 	}
 );
+
+export const addAccess = event => ({
+	type: ADD_ACCESS,
+	payload: {
+		description: ADD_ACCESS,
+		event,
+	},
+});
+
+export const setIdAccessEventCreate = idAccessEvent => ({
+	type: ID_ACCESS_EVENT,
+	payload: {
+		description: ID_ACCESS_EVENT,
+		idAccessEvent,
+	},
+});
 
 export const changePage = (currentPage, paginationPageEv) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).events;
