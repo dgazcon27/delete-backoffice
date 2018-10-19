@@ -155,7 +155,9 @@ let PurchaseRequestCreate = ({
 				message={<span id='message-id'>La peticion de pago que intenta crear ya existe verifique he intente de nuevo.</span>}
 			/>
 		}
-		{alertType === 'creado' &&
+		{
+
+			(alertType === 'creado' && newUserModal) &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				open={alertOpen}
@@ -168,7 +170,9 @@ let PurchaseRequestCreate = ({
 			open={newUserModal}
 			disableAutoFocus={false}
 		>
-			<UsersCreate />
+			<div>
+				<UsersCreate />
+			</div>
 		</Modal>
 	</div>
 );

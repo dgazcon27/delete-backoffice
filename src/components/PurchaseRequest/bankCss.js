@@ -63,6 +63,7 @@ const styles = () => ({
 	formStyle: {
 		padding: '3%',
 		display: 'flex',
+		color: '#949494',
 	},
 	formStyle3: {
 		margin: '15px 5px 5px 5px',
