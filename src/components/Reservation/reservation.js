@@ -132,6 +132,23 @@ const Reservation = ({
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
+													title='Realizar Pago'
+												>
+													<Link to='/reservation-payment' href='/reservation-payment'>
+														<IconButton
+															onClick={() => {
+																actionEditReservation(reservation);
+															}}
+														>
+															<Edit />
+														</IconButton>
+													</Link>
+												</Tooltip>
+												<Tooltip
+													enterDelay={200}
+													id='tooltip-controlled'
+													leaveDelay={100}
+													placement='top'
 													title='Eliminar Reservación'
 												>
 													<IconButton onClick={() => { actionOpenModal('delete', reservation); }}>

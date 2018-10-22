@@ -138,3 +138,29 @@ export const GET_HOTELS = gql`
 		}
 	}
 `;
+
+export const CREATE_RESERVATION_PAY = gql`
+	mutation createPaymentReservation(
+		$reservation:Int!, 
+		$amount:Int!,
+		$reference:String!,
+    	$comment:String!,
+    	$type:String!,
+	    $bankAccount:Int!,
+	    $createdBy:Int!,
+	    $updatedBy:Int!,
+		){
+		createPaymentReservation(
+			reservation:$reservation, 
+			amount:$amount,
+			reference:$reference,
+	    	comment:$comment,
+	    	type:$type,
+		    bankAccount:$bankAccount,
+		    createdBy:$createdBy,
+	    	updatedBy:$updatedBy,
+		){
+			id
+		}
+	}
+`;

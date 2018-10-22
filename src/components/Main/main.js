@@ -34,7 +34,7 @@ import AccessEdit from '../Access/accessEdit';
 import Reservation from '../Reservation/reservation';
 import ReservationCreate from '../Reservation/reservationCreate';
 import ReservationEdit from '../Reservation/reservationEdit';
-
+import ReservationPayment from '../Reservation/reservationPayment';
 import {
 	Dashboard,
 	Guests,
@@ -87,6 +87,7 @@ const Main = (props) => {
 				<Route path='/reservation' component={Reservation} />
 				<Route path='/reservation-create' component={ReservationCreate} />
 				<Route path='/reservation-edit' component={ReservationEdit} />
+				<Route path='/reservation-payment' component={ReservationPayment} />
 			</Switch>
 		</main>
 	);

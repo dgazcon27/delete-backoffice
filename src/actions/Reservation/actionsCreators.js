@@ -217,3 +217,37 @@ export const getRooms = hotel => ({
 	},
 });
 
+export const createPaymentReservation = (
+	reservation,
+	amount,
+	reference,
+	comment,
+	type,
+	bankAccount,
+	createdBy,
+	updatedBy,
+	paginationPage,
+	createReservationPayMutation,
+) => async (dispatch) => {
+	createReservationPayMutation({
+		variables: {
+			reservation,
+			amount,
+			reference,
+			comment,
+			type,
+			bankAccount,
+			createdBy,
+			updatedBy,
+		},
+		refetchQueries: [{ query: GET_RESERVATIONS, variables: { paginationPage } }],
+	})
+		.then(() => {
+			dispatch(openAlert('creado'));
+			setTimeout(() => (window.location.assign('reservation')), 2000);
+		})
+		.catch((res) => {
+			const message = checkMessageError(res);
+			dispatch(openAlert(message));
+		});
+};
