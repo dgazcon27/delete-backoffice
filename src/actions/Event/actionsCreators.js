@@ -132,6 +132,9 @@ export const changePage = (currentPage, paginationPage) => {
 
 export const createEvent = (event, paginationPage, createdBy, updatedBy, createEventMutation) => (
 	async (dispatch) => {
+
+		console.log(event);
+
 		createEventMutation({
 			variables: {
 				name: event.name,

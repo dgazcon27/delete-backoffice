@@ -42,9 +42,6 @@ export const SEARCH_LOCATIONS = gql`
 					name
 					id
 					description
-					status{
-						id
-					}
 				}
 				total
 			}

@@ -137,7 +137,7 @@ export const openModal = (modalType, _location) => ({
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _location.status.id,
+		statusValue: _location.id,
 		name: _location.name,
 		id: _location.id,
 	},

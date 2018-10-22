@@ -9,9 +9,6 @@ export const GET_LOCATIONS = gql`
 				capacity
 				fullcapacity
 				description
-				status{
-					id
-				}
 			}
 			total
 		}
@@ -19,8 +16,8 @@ export const GET_LOCATIONS = gql`
 `;
 
 export const CREATE_LOCATION = gql`
-	mutation createLocation($name:String!, $description:String!, $fullcapacity:Int!, $capacity:Int!, $status:Int!, $createdBy:Int!, $updatedBy:Int!) {
-		createLocation(name:$name,description:$description,fullcapacity:$fullcapacity,capacity:$capacity, status:$status, createdBy:$createdBy, updatedBy:$updatedBy) {
+	mutation createLocation($name:String!, $description:String!, $fullcapacity:Int!, $capacity:Int!, $createdBy:Int!, $updatedBy:Int!) {
+		createLocation(name:$name,description:$description,fullcapacity:$fullcapacity,capacity:$capacity, createdBy:$createdBy, updatedBy:$updatedBy) {
 			name
 			description
 			fullcapacity

@@ -8,9 +8,6 @@ export const GET_ZONES = gql`
 				id
 				capacity
 				maxcapacity
-				status{
-					id
-				}
 				active
 			}
 			total
