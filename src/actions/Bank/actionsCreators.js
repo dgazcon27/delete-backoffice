@@ -7,8 +7,6 @@ import {
 	SET_DESCRIPTION,
 	CLEAN_STATE,
 	SET_BANK,
-	PAGE_UP,
-	PAGE_DOWN,
 	SET_BANK_ACCOUNT,
 } from './actionsTypes';
 import {
@@ -25,21 +23,6 @@ const checkMessageError = (res) => {
 	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
-};
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
 };
 
 export const setBank = bank => ({

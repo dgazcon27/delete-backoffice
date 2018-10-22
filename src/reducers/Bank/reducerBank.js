@@ -30,13 +30,13 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
+/* if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).bank || 0;
 	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).bank || 0;
 } else {
 	initialState.paginationPage = 0;
 	initialState.currentPage = 0;
-}
+} */
 
 const ReducerBank = (state = initialState, action = {}) => {
 	switch (action.type) {

@@ -5,8 +5,6 @@ import {
 	CLOSE_MODAL,
 	CLEAN_STATE,
 	SET_ACCESS,
-	PAGE_UP,
-	PAGE_DOWN,
 } from './actionsTypes';
 import { GET_ACCESS, GET_ACCESS_BY_ID } from '../../queries/access';
 import { client } from '../../config/configStore';
@@ -17,21 +15,6 @@ const checkMessageError = (res) => {
 	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
-};
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
 };
 
 export const setAccess = access => ({

@@ -6,11 +6,7 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
 	EDIT_LOCATION,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
 	SET_DESCRIPTION,
 	BLOCK_LOCATION,
 	DELETE_LOCATION,
@@ -33,28 +29,16 @@ const initialState = {
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
+/* if (JSON.parse(localStorage.getItem('paginations'))) {
 	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
 	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
 } else {
 	initialState.paginationPage = 0;
 	initialState.currentPage = 0;
-}
+} */
 
 const ReducerLocation = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
 		case EDIT_LOCATION:
 			return ({
 				...state,
@@ -68,18 +52,6 @@ const ReducerLocation = (state = initialState, action = {}) => {
 				fullcapacity: action.payload.fullcapacity,
 				capacity: action.payload.capacity,
 				status: action.payload.status,
-			});
-		case SEARCH_PAGE_UP:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case SEARCH_PAGE_DOWN:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
 			});
 		case BLOCK_LOCATION:
 			return ({

@@ -3,8 +3,6 @@ import {
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
-	PAGE_UP,
-	PAGE_DOWN,
 	SET_EVENT,
 	CLEAN_STATE,
 	SET_COUNTRIES_STATES,
@@ -113,22 +111,6 @@ export const getEventById = id => (
 			.catch(() => {});
 	}
 );
-
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
 
 export const createEvent = (event, paginationPage, createdBy, updatedBy, createEventMutation) => (
 	async (dispatch) => {

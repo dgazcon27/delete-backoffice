@@ -5,10 +5,6 @@ import {
 	CLOSE_ALERT,
 	CLOSE_MODAL,
 	SET_USER,
-	PAGE_UP,
-	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
 } from './actionsTypes';
 import { GET_USERS, GET_USER_BY_ID } from '../../queries/users';
 import { client } from '../../config/configStore';
@@ -19,37 +15,6 @@ const checkMessageError = (res) => {
 	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
-};
-
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
-	paginations.users = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
-
-export const changePageSearch = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
-	paginations.users = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-			paginationPageSearch: paginationPage,
-			currentPageSearch: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
 };
 
 export const closeModal = () => ({

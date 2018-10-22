@@ -3,6 +3,7 @@ import {
 	PAGE_DOWN,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
+	RESET_PAGINATION,
 } from './actionsTypes';
 
 export const changePage = (currentPage, paginationPage) => {
@@ -35,3 +36,18 @@ export const changePageSearch = (currentPage, paginationPage) => {
 		},
 	});
 };
+
+export const resetPagination = () => {
+	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	paginations.zoneSearch = 0;
+	paginations.userType = 0;
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+
+	return ({
+		type: RESET_PAGINATION,
+		paginationPage: 0,
+		currentPage: 0,
+		paginationPageSearch: 0,
+		currentPageSearch: 0,
+	});
+}
