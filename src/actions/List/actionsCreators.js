@@ -45,9 +45,11 @@ export const resetPagination = () => {
 
 	return ({
 		type: RESET_PAGINATION,
-		paginationPage: 0,
-		currentPage: 0,
-		paginationPageSearch: 0,
-		currentPageSearch: 0,
+		payload: {
+			paginationPage: 0,
+			currentPage: 0,
+			paginationPageSearch: 0,
+			currentPageSearch: 0,
+		},
 	});
-}
+};

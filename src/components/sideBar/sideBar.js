@@ -24,7 +24,9 @@ const SideBar = ({ openDrawer, actionCloseSideBar, classes }) => (
 				</IconButton>
 			</div>
 			<Divider />
-			<List>{ Items }</List>
+			<List>
+				<Items />
+			</List>
 		</Drawer>
 	</div>
 );

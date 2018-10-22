@@ -3,6 +3,7 @@ import {
 	PAGE_DOWN,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
+	RESET_PAGINATION,
 } from '../../actions/List/actionsTypes';
 
 const initialState = {
@@ -35,6 +36,14 @@ const ReducerPagination = (state = initialState, action = {}) => {
 		case SEARCH_PAGE_DOWN:
 			return ({
 				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
+			});
+		case RESET_PAGINATION:
+			return ({
+				...state,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
 				paginationPageSearch: action.payload.paginationPageSearch,
 				currentPageSearch: action.payload.currentPageSearch,
 			});
