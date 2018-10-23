@@ -1,10 +1,9 @@
 import {
 	SET_ACCESS,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	EDIT_ACCESS,
+	OPEN_MODAL_ACCESS,
+	CLOSE_MODAL_ACCESS,
+	OPEN_ALERT_ACCESS,
+	CLOSE_ALERT_ACCESS,
 	DELETE_ACCESS,
 } from '../../actions/Access/actionsTypes';
 
@@ -25,21 +24,8 @@ const initialState = {
 	currentPageSearch: 0,
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-/* if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-} */
-
 const ReducerAccess = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case EDIT_ACCESS:
-			return ({
-				...state,
-			});
 		case SET_ACCESS:
 			return ({
 				...state,
@@ -57,7 +43,7 @@ const ReducerAccess = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_ACCESS:
 			return ({
 				...state,
 				isOpen: true,
@@ -65,19 +51,19 @@ const ReducerAccess = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_ACCESS:
 			return ({
 				...state,
 				isOpen: false,
 				id: 0,
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_ACCESS:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_ACCESS:
 			return ({
 				...state,
 				alertOpen: false,

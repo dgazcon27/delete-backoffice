@@ -1,9 +1,8 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
-	CLEAN_STATE,
+	OPEN_MODAL_ACCESS,
+	CLOSE_MODAL_ACCESS,
+	OPEN_ALERT_ACCESS,
+	CLOSE_ALERT_ACCESS,
 	SET_ACCESS,
 } from './actionsTypes';
 import { GET_ACCESS, GET_ACCESS_BY_ID } from '../../queries/access';
@@ -47,30 +46,36 @@ export const getAccessById = id => (
 	}
 );
 
-export const cleanState = () => ({
-	type: CLEAN_STATE,
+export const openModal = (modalType, _access) => ({
+	type: OPEN_MODAL_ACCESS,
 	payload: {
-		description: CLEAN_STATE,
+		modalType,
+		description: OPEN_MODAL_ACCESS,
+		statusValue: _access.status.id,
+		name: _access.name,
+		id: _access.id,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_ACCESS,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_ACCESS,
 	},
 });
+
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_ACCESS,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_ACCESS,
 	},
 });
+
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_ACCESS,
 	payload: {
-		description: CLOSE_ALERT,
+		description: CLOSE_ALERT_ACCESS,
 	},
 });
 
@@ -93,17 +98,6 @@ export const deleteAccess = (obj, paginationPage, deleteAccessMutation) => {
 		// window.location.reload();
 	};
 };
-
-export const openModal = (modalType, _access) => ({
-	type: OPEN_MODAL,
-	payload: {
-		modalType,
-		description: OPEN_MODAL,
-		statusValue: _access.status.id,
-		name: _access.name,
-		id: _access.id,
-	},
-});
 
 export const createAccess = (
 	name,

@@ -1,11 +1,10 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
+	OPEN_MODAL_EVENT,
+	CLOSE_MODAL_EVENT,
+	OPEN_ALERT_EVENT,
+	CLOSE_ALERT_EVENT,
 	SET_EVENT,
-	CLEAN_STATE,
-	SET_COUNTRIES_STATES,
+	SET_COUNTRIES_STATES_EVENT,
 } from './actionsTypes';
 
 import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
@@ -20,50 +19,43 @@ const checkMessageError = (res) => {
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
 
-export const openAlert = alertType => ({
-	type: OPEN_ALERT,
-	payload: {
-		alertType,
-		description: OPEN_ALERT,
-	},
-});
-
-export const cleanState = () => ({
-	type: CLEAN_STATE,
-	payload: {
-		description: CLEAN_STATE,
-	},
-});
-
 export const openModal = (modalType, event) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_EVENT,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_EVENT,
 		name: event.name,
 		id: event.id,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_EVENT,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_EVENT,
+	},
+});
+
+export const openAlert = alertType => ({
+	type: OPEN_ALERT_EVENT,
+	payload: {
+		alertType,
+		description: OPEN_ALERT_EVENT,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_EVENT,
 	payload: {
-		description: CLOSE_ALERT,
+		description: CLOSE_ALERT_EVENT,
 	},
 });
 
 export const setStates = states => ({
-	type: SET_COUNTRIES_STATES,
+	type: SET_COUNTRIES_STATES_EVENT,
 	payload: {
 		states,
-		description: SET_COUNTRIES_STATES,
+		description: SET_COUNTRIES_STATES_EVENT,
 	},
 });
 

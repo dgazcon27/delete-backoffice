@@ -1,10 +1,10 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
+	OPEN_MODAL_EVENT,
+	CLOSE_MODAL_EVENT,
+	OPEN_ALERT_EVENT,
+	CLOSE_ALERT_EVENT,
 	SET_EVENT,
-	SET_COUNTRIES_STATES,
+	SET_COUNTRIES_STATES_EVENT,
 } from '../../actions/Event/actionsTypes';
 
 const initialState = {
@@ -21,20 +21,9 @@ const initialState = {
 	states: [],
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-
-
-/* if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-} */
-
 const ReducerEvent = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case OPEN_MODAL:
+		case OPEN_MODAL_EVENT:
 			return ({
 				...state,
 				isOpen: true,
@@ -43,7 +32,7 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_EVENT:
 			return ({
 				...state,
 				isOpen: false,
@@ -51,13 +40,13 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_EVENT:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_EVENT:
 			return ({
 				...state,
 				alertOpen: false,
@@ -77,7 +66,7 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				country: action.payload.country,
 				createdBy: action.payload.createdBy,
 			});
-		case SET_COUNTRIES_STATES:
+		case SET_COUNTRIES_STATES_EVENT:
 			return ({
 				...state,
 				states: action.payload.states,
