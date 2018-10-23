@@ -1,13 +1,12 @@
 import {
 	SET_LOCATION,
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	CLEAN_STATE,
-	EDIT_LOCATION,
-	SET_DESCRIPTION,
+	SET_NAME_LOCATION,
+	OPEN_MODAL_LOCATION,
+	CLOSE_MODAL_LOCATION,
+	OPEN_ALERT_LOCATION,
+	CLOSE_ALERT_LOCATION,
+	CLEAN_STATE_LOCATION,
+	SET_DESCRIPTION_LOCATION,
 	BLOCK_LOCATION,
 	DELETE_LOCATION,
 } from '../../actions/location/actionsTypes';
@@ -28,21 +27,8 @@ const initialState = {
 	currentPageSearch: 0,
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-/* if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-} */
-
 const ReducerLocation = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case EDIT_LOCATION:
-			return ({
-				...state,
-			});
 		case SET_LOCATION:
 			return ({
 				...state,
@@ -64,7 +50,7 @@ const ReducerLocation = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_LOCATION:
 			return ({
 				...state,
 				isOpen: true,
@@ -73,7 +59,7 @@ const ReducerLocation = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_LOCATION:
 			return ({
 				...state,
 				isOpen: false,
@@ -81,28 +67,28 @@ const ReducerLocation = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_LOCATION:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_LOCATION:
 			return ({
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
+		case SET_NAME_LOCATION:
 			return ({
 				...state,
 				name: action.payload.name,
 			});
-		case SET_DESCRIPTION:
+		case SET_DESCRIPTION_LOCATION:
 			return ({
 				...state,
 				rolDescription: action.payload.rolDescription,
 			});
-		case CLEAN_STATE:
+		case CLEAN_STATE_LOCATION:
 			return ({
 				...state,
 				id: 0,

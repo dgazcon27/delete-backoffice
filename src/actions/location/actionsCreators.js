@@ -1,11 +1,11 @@
 import {
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
-	SET_DESCRIPTION,
-	CLEAN_STATE,
+	SET_NAME_LOCATION,
+	OPEN_ALERT_LOCATION,
+	CLOSE_ALERT_LOCATION,
+	OPEN_MODAL_LOCATION,
+	CLOSE_MODAL_LOCATION,
+	SET_DESCRIPTION_LOCATION,
+	CLEAN_STATE_LOCATION,
 	SET_LOCATION,
 } from './actionsTypes';
 
@@ -49,31 +49,31 @@ export const getLocationById = id => (
 );
 
 export const cleanState = () => ({
-	type: CLEAN_STATE,
+	type: CLEAN_STATE_LOCATION,
 	payload: {
-		description: CLEAN_STATE,
+		description: CLEAN_STATE_LOCATION,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_LOCATION,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_LOCATION,
 	},
 });
 
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_LOCATION,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_LOCATION,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_LOCATION,
 	payload: {
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_LOCATION,
 	},
 });
 
@@ -98,10 +98,10 @@ export const deleteLocation = (obj, paginationPage, deleteLocationMutation) => {
 };
 
 export const openModal = (modalType, _location) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_LOCATION,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_LOCATION,
 		statusValue: _location.id,
 		name: _location.name,
 		id: _location.id,
@@ -109,17 +109,17 @@ export const openModal = (modalType, _location) => ({
 });
 
 export const setName = name => ({
-	type: SET_NAME,
+	type: SET_NAME_LOCATION,
 	payload: {
-		description: SET_NAME,
+		description: SET_NAME_LOCATION,
 		name,
 	},
 });
 
 export const setDescription = rolDescription => ({
-	type: SET_DESCRIPTION,
+	type: SET_DESCRIPTION_LOCATION,
 	payload: {
-		description: SET_DESCRIPTION,
+		description: SET_DESCRIPTION_LOCATION,
 		rolDescription,
 	},
 });
