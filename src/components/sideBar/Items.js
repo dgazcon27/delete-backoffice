@@ -12,13 +12,13 @@ import AttachMoney from '@material-ui/icons/AttachMoney';
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 
-import { resetPagination } from '../../actions/List/actionsCreators';
-
 import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
 } from '@material-ui/core/';
+
+import { resetPagination } from '../../actions/List/actionsCreators';
 
 const Items = ({ actionResetPagination }) => (
 	<div>
