@@ -1,4 +1,4 @@
-import { SET_SEARCH } from '../../actions/Search/actionsTypesSearchRoles';
+import SET_SEARCH from '../../actions/Search/actionsTypes';
 
 const initialState = {
 	query: '',

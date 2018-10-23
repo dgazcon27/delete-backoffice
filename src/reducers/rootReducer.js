@@ -8,7 +8,6 @@ import ReducerBank from './Bank/reducerBank';
 import ReducerBankAccount from './Bank/reducerBankAccount';
 import ReducerZone from './zone/reducerZone';
 import ReducerLocation from './location/reducerLocation';
-import ReducerSearchUsers from './users/reducerSearchUsers';
 import ReducerPurchaseRequest from './PurchaseRequest/reducerPurchaseRequest';
 import ReducerEvent from './Event/reducerEvent';
 import ReducerPayment from './Payment/reducerPayment';
@@ -27,7 +26,6 @@ const rootReducer = combineReducers({
 	ReducerBankAccount,
 	ReducerZone,
 	ReducerLocation,
-	ReducerSearchUsers,
 	ReducerEvent,
 	ReducerPayment,
 	ReducerAccess,
