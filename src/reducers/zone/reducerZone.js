@@ -1,13 +1,13 @@
 import {
 	SET_ZONE,
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	CLEAN_STATE,
+	SET_NAME_ZONE,
+	OPEN_MODAL_ZONE,
+	OPEN_ALERT_ZONE,
+	CLOSE_MODAL_ZONE,
+	CLOSE_ALERT_ZONE,
+	CLEAN_STATE_ZONE,
 	EDIT_ZONE,
-	SET_DESCRIPTION,
+	SET_DESCRIPTION_ZONE,
 	BLOCK_ZONE,
 	DELETE_ZONE,
 } from '../../actions/zone/actionsTypes';
@@ -25,15 +25,6 @@ const initialState = {
 	paginationPage: 0,
 	currentPageSearch: 0,
 };
-
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-/* if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-} */
 
 const ReducerZone = (state = initialState, action = {}) => {
 	switch (action.type) {
@@ -60,7 +51,7 @@ const ReducerZone = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_ZONE:
 			return ({
 				...state,
 				isOpen: true,
@@ -69,7 +60,7 @@ const ReducerZone = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_ZONE:
 			return ({
 				...state,
 				isOpen: false,
@@ -77,28 +68,28 @@ const ReducerZone = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_ZONE:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_ZONE:
 			return ({
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
+		case SET_NAME_ZONE:
 			return ({
 				...state,
 				name: action.payload.name,
 			});
-		case SET_DESCRIPTION:
+		case SET_DESCRIPTION_ZONE:
 			return ({
 				...state,
 				rolDescription: action.payload.rolDescription,
 			});
-		case CLEAN_STATE:
+		case CLEAN_STATE_ZONE:
 			return ({
 				...state,
 				id: 0,

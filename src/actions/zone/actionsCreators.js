@@ -1,11 +1,11 @@
 import {
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
-	SET_DESCRIPTION,
-	CLEAN_STATE,
+	SET_NAME_ZONE,
+	OPEN_MODAL_ZONE,
+	OPEN_ALERT_ZONE,
+	CLOSE_ALERT_ZONE,
+	CLOSE_MODAL_ZONE,
+	SET_DESCRIPTION_ZONE,
+	CLEAN_STATE_ZONE,
 	SET_ZONE,
 } from './actionsTypes';
 import { GET_ZONES, GET_ZONE_BY_ID } from '../../queries/zone';
@@ -43,29 +43,29 @@ export const getZoneById = id => (
 );
 
 export const cleanState = () => ({
-	type: CLEAN_STATE,
+	type: CLEAN_STATE_ZONE,
 	payload: {
-		description: CLEAN_STATE,
+		description: CLEAN_STATE_ZONE,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_ZONE,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_ZONE,
 	},
 });
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_ZONE,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_ZONE,
 	},
 });
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_ZONE,
 	payload: {
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_ZONE,
 	},
 });
 export const blockZone = (obj, blockZoneMutation) => {
@@ -90,27 +90,27 @@ export const deleteZone = (obj, paginationPage, deleteZoneMutation) => {
 };
 
 export const openModal = (modalType, _zone) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_ZONE,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_ZONE,
 		statusValue: _zone.active,
 		name: _zone.name,
 		id: _zone.id,
 	},
 });
 export const setName = name => ({
-	type: SET_NAME,
+	type: SET_NAME_ZONE,
 	payload: {
-		description: SET_NAME,
+		description: SET_NAME_ZONE,
 		name,
 	},
 });
 
 export const setDescription = rolDescription => ({
-	type: SET_DESCRIPTION,
+	type: SET_DESCRIPTION_ZONE,
 	payload: {
-		description: SET_DESCRIPTION,
+		description: SET_DESCRIPTION_ZONE,
 		rolDescription,
 	},
 });
