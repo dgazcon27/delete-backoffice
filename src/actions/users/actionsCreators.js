@@ -1,9 +1,9 @@
 import {
 	EDIT_USER,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
+	OPEN_MODAL_USER,
+	OPEN_ALERT_USER,
+	CLOSE_ALERT_USER,
+	CLOSE_MODAL_USER,
 	SET_USER,
 } from './actionsTypes';
 import { GET_USERS, GET_USER_BY_ID } from '../../queries/users';
@@ -18,9 +18,9 @@ const checkMessageError = (res) => {
 };
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_USER,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_USER,
 	},
 });
 
@@ -71,17 +71,17 @@ export const setPassword = (
 	};
 
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_USER,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_USER,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_USER,
 	payload: {
-		description: OPEN_ALERT,
+		description: CLOSE_ALERT_USER,
 	},
 });
 
@@ -108,10 +108,10 @@ export const deleteUser = (obj, paginationPage, deleteRolMutation) => {
 };
 
 export const openModal = (modalType, _user) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_USER,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_USER,
 		statusValue: _user.active,
 		name: _user.name,
 		id: _user.id,
@@ -154,7 +154,7 @@ export const createUser = (
 			.then(() => {
 				dispatch(openAlert('creado'));
 				setTimeout(() => (window.location.assign('users')), 2000);
-			})
+			}) 
 			.catch((res) => {
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));

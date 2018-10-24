@@ -204,9 +204,9 @@ const selector = formValueSelector('UsersCreate');
 
 const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
-	alertType: state.ReducerUserType.alertType,
-	alertOpen: state.ReducerUserType.alertOpen,
-	paginationPage: state.ReducerUserType.paginationPage,
+	alertType: state.ReducerUser.alertType,
+	alertOpen: state.ReducerUser.alertOpen,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'name', 'email', 'password', 'lastName', 'phone', 'dni', 'birthDate', 'role', 'citizenship'),
 });
 

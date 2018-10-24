@@ -3,7 +3,10 @@ import {
 	BLOCK_USER,
 	DELETE_USER,
 	SET_USER,
-	OPEN_MODAL,
+	OPEN_MODAL_USER,
+	CLOSE_MODAL_USER,
+	OPEN_ALERT_USER,
+	CLOSE_ALERT_USER,
 } from '../../actions/users/actionsTypes';
 
 const initialState = {
@@ -16,6 +19,8 @@ const initialState = {
 	citizenship: 0,
 	role: 0,
 	isOpen: false,
+	alertOpen: false,
+	alertType: '',
 	modalType: '',
 	descripcion: '',
 	statusValue: false,
@@ -23,15 +28,6 @@ const initialState = {
 	currentPage: 0,
 	currentPageSearch: 0,
 };
-
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-/* if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-} */
 
 const ReducerUser = (state = initialState, action = {}) => {
 	switch (action.type) {
@@ -61,7 +57,7 @@ const ReducerUser = (state = initialState, action = {}) => {
 				citizenship: action.payload.citizenship,
 				role: action.payload.role,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_USER:
 			return ({
 				...state,
 				isOpen: true,
@@ -69,6 +65,26 @@ const ReducerUser = (state = initialState, action = {}) => {
 				name: action.payload.name,
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
+			});
+		case CLOSE_MODAL_USER:
+			return ({
+				...state,
+				isOpen: false,
+				id: 0,
+				name: '',
+				modalType: '',
+				statusValue: '',
+			});
+		case OPEN_ALERT_USER:
+			return ({
+				...state,
+				alertOpen: true,
+				alertType: action.payload.alertType,
+			});
+		case CLOSE_ALERT_USER:
+			return ({
+				...state,
+				alertOpen: false,
 			});
 		default:
 			return state;

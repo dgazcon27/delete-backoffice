@@ -128,7 +128,7 @@ Users.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateAccess: state.ReducerUserType,
+	objectStateAccess: state.ReducerUser,
 });
 
 const mapDispatchToProps = dispatch => ({
