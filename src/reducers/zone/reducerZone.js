@@ -25,7 +25,7 @@ const initialState = {
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
-	statusValue: 0,
+	statusValue: false,
 	paginationPageZone: 0,
 	currentPageSearch: 0,
 };

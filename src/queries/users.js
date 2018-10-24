@@ -30,10 +30,6 @@ export const BLOCK_USER = gql`
 		blockedUser(id:$id,status:$status) {
 			name
 			id
-			status {
-				name
-				id
-			}
 		}
 	}
 `;
@@ -56,7 +52,7 @@ export const CREATE_USER = gql`
 `;
 
 export const EDIT_USER = gql`
-	mutation updateUser($id:Int!, $name:String!, $lastName:String!, $phone:String!, $dni:String!, $birthDate:String!, $role:Int!, $citizenship:Int!, $updatedBy:Int!){
+	mutation updateUser($id:Int!, $name:String!, $lastName:String!, $phone:String!, $dni:Int!, $birthDate:String!, $role:Int!, $citizenship:Int!, $updatedBy:Int!){
 		updateUser(id:$id, name:$name, lastName:$lastName, phone:$phone, dni:$dni, birthDate:$birthDate, role:$role, citizenship:$citizenship, updatedBy:$updatedBy) {
 			name
 		}
@@ -117,10 +113,6 @@ export const GET_USER_BY_ID = gql`
 					name
 				}
 				id
-				status {
-					name
-					id
-				}
 		}
 	}
 `;

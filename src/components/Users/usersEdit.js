@@ -31,7 +31,7 @@ import {
 import BackButton from '../widget/BackButton';
 import {
 	Roles,
-	SelectCountry,
+	Citizenship,
 } from '../commonComponent';
 
 let UsersEdit = ({
@@ -57,13 +57,14 @@ let UsersEdit = ({
 					<div className='input-field col s6'>
 						<Field
 							name='dni'
-							type='text'
+							type='number'
 							component={renderTextField}
 							validate={[required, empty]}
 							label='CI/Pasaporte'
 							className='yourclass'
 						/>
 					</div>
+
 					<div className='input-field col s6'>
 						<Field
 							name='name'
@@ -94,7 +95,7 @@ let UsersEdit = ({
 						/>
 					</div>
 					<div className='input-field col s6'>
-						<Roles />
+						<Roles name='role' />
 					</div>
 					<div className='input-field col s6'>
 						<Field
@@ -106,7 +107,7 @@ let UsersEdit = ({
 						/>
 					</div>
 					<div className='input-field col s6'>
-						<SelectCountry />
+						<Citizenship />
 					</div>
 					<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditUser(myValues, initialValues.id, myValues.name, myValues.lastName, myValues.phone, myValues.dni, myValues.birthDate, Number(myValues.role), Number(myValues.citizenship), Number(userId), editUserMutation, paginationPage))} disabled={submitting} >
 						Guardar
@@ -155,7 +156,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerUserType.alertOpen,
 	paginationPage: state.ReducerUser.paginationPageUsers,
 	initialValues: state.ReducerUser,
-	myValues: selector(state, 'name', 'email', 'password', 'lastName', 'phone', 'dni', 'birthDate', 'role', 'citizenship'),
+	myValues: selector(state, 'name', 'password', 'lastName', 'phone', 'dni', 'birthDate', 'role', 'citizenship'),
 });
 
 const mapDispatchToProps = dispatch => ({

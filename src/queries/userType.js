@@ -54,9 +54,6 @@ export const GET_ROL_BY_ID = gql`
 			name
 			id
 			description
-			status{
-				id
-			}
 		}
 	}
 `;

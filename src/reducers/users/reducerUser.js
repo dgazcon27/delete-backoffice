@@ -5,6 +5,8 @@ import {
 	SET_USER,
 	PAGE_UP_USER,
 	PAGE_DOWN_USER,
+	US_OPEN_MODAL,
+	CLOSE_MODAL,
 } from '../../actions/users/actionsTypes';
 
 const initialState = {
@@ -19,7 +21,7 @@ const initialState = {
 	isOpen: false,
 	modalType: '',
 	descripcion: '',
-	statusValue: 0,
+	statusValue: false,
 	paginationPageUsers: 0,
 	currentPageUsers: 0,
 	currentPageSearch: 0,
@@ -58,6 +60,23 @@ const ReducerUser = (state = initialState, action = {}) => {
 		case DELETE_USER:
 			return ({
 				...state,
+			});
+		case CLOSE_MODAL:
+			return ({
+				...state,
+				isOpen: false,
+				id: 0,
+				name: '',
+				descripcion: '',
+			});
+		case US_OPEN_MODAL:
+			return ({
+				...state,
+				isOpen: true,
+				id: action.payload.id,
+				name: action.payload.name,
+				modalType: action.payload.modalType,
+				statusValue: action.payload.statusValue,
 			});
 		case SET_USER:
 			return ({

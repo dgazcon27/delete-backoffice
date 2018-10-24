@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import {
 	Modal,
 	Paper,
@@ -176,7 +177,6 @@ const Users = ({
 													}}
 												/>
 											}
-
 											{ query.length === 0 &&
 												<TablePagination
 													count={total}
@@ -270,6 +270,22 @@ const Users = ({
 										<ModalPassword />
 									</Paper>
 								}
+								{modalType === 'foreign_key' &&
+									<Paper className={classNames(classes.paperOnModal)}>
+										<h6>
+											Eliminar Usuario
+										</h6>
+										<p>
+											Él siguiente usuario no puede ser
+											eliminado ya que existen elementos que dependen de él.
+										</p>
+										<span>
+											<IconButton onClick={actionCloseModal}>
+												Ok
+											</IconButton>
+										</span>
+									</Paper>
+								}
 							</div>
 						</Modal>
 					</div>
@@ -305,11 +321,11 @@ Users.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	id: state.ReducerUserType.id,
-	name: state.ReducerUserType.name,
-	isOpen: state.ReducerUserType.isOpen,
-	modalType: state.ReducerUserType.modalType,
-	statusValue: state.ReducerUserType.statusValue,
+	id: state.ReducerUser.id,
+	name: state.ReducerUser.name,
+	isOpen: state.ReducerUser.isOpen,
+	modalType: state.ReducerUser.modalType,
+	statusValue: state.ReducerUser.statusValue,
 	paginationPage: state.ReducerUser.paginationPageUsers,
 	currentPage: state.ReducerUser.currentPageUsers,
 	currentPageSearch: state.ReducerUserType.currentPageSearch,

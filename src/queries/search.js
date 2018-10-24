@@ -8,9 +8,7 @@ export const SEARCH_ROLES = gql`
 					name
 					id
 					description
-					status{
-						id
-					}
+					active
 				}
 				total
 			}
@@ -26,9 +24,6 @@ export const SEARCH_USER = gql`
 					name
 					id
 					description
-					status{
-						id
-					}
 				}
 				total
 			}
@@ -74,10 +69,7 @@ export const SEARCH_USERS = gql`
 						name
 					}
 					id
-					status {
-						name
-						id
-					}
+					active
 				}
 				total
 			}
@@ -94,9 +86,7 @@ export const SEARCH_ZONES = gql`
 					id
 					capacity
 					maxcapacity
-					status{
-						id
-					}
+					active
 				}
 				total
 			}

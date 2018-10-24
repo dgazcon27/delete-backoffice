@@ -1,7 +1,7 @@
 import {
 	SET_ROL,
 	SET_NAME,
-	OPEN_MODAL,
+	UST_OPEN_MODAL,
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
@@ -24,7 +24,7 @@ const initialState = {
 	alertType: '',
 	modalType: '',
 	rolDescription: '',
-	statusValue: 0,
+	statusValue: false,
 	paginationPageUtype: 0,
 	currentPageUtype: 0,
 	paginationPageSearch: 0,
@@ -87,7 +87,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case UST_OPEN_MODAL:
 			return ({
 				...state,
 				isOpen: true,

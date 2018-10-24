@@ -384,8 +384,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionGetRoom: value => dispatch(getRooms(value.target.value)),
-	actionChangeRoom: value => dispatch(setWithRooms(value.target.value)),
-	actionChangeTicket: value => dispatch(setWithTickets(value.target.value)),
+	actionChangeRoom: value => dispatch(setWithRooms(value.target.value, dispatch)),
+	actionChangeTicket: value => dispatch(setWithTickets(value.target.value, dispatch)),
 	actionCreateAccessEvent: (data, paginationPage, create) =>
 		dispatch(createAccessEvent(data, paginationPage, create)),
 });

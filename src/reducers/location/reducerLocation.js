@@ -67,7 +67,6 @@ const ReducerLocation = (state = initialState, action = {}) => {
 				locationDescription: action.payload.locationDescription,
 				fullcapacity: action.payload.fullcapacity,
 				capacity: action.payload.capacity,
-				status: action.payload.status,
 			});
 		case SEARCH_PAGE_UP:
 			return ({
@@ -99,7 +98,6 @@ const ReducerLocation = (state = initialState, action = {}) => {
 				id: action.payload.id,
 				name: action.payload.name,
 				modalType: action.payload.modalType,
-				statusValue: action.payload.statusValue,
 			});
 		case CLOSE_MODAL:
 			return ({

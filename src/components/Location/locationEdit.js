@@ -31,8 +31,6 @@ import {
 	editLocation,
 } from '../../actions/location/actionsCreators';
 
-import { Status } from '../commonComponent';
-
 const validate = (values) => {
 	const errors = {};
 
@@ -114,9 +112,6 @@ let LocationEdit = ({
 						label='Capacidad'
 						className='yourclass'
 					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Status />
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(myValues, Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
 					Guardar

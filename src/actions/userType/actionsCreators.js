@@ -1,6 +1,6 @@
 import {
 	SET_NAME,
-	OPEN_MODAL,
+	UST_OPEN_MODAL,
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
@@ -130,10 +130,10 @@ export const deleteUserType = (id, statusValue, paginationPage, deleteRolMutatio
 };
 
 export const openModal = (modalType, _rol) => ({
-	type: OPEN_MODAL,
+	type: UST_OPEN_MODAL,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: UST_OPEN_MODAL,
 		statusValue: _rol.active,
 		name: _rol.name,
 		id: _rol.id,

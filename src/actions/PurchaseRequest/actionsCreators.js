@@ -1,5 +1,5 @@
 import {
-	SET_USER,
+	PR_SET_USER,
 	SET_NAME,
 	OPEN_MODAL,
 	MODAL_USER,
@@ -168,10 +168,10 @@ export const setAccessEvent = (event, id) => (
 );
 
 export const setUser = aux => ({
-	type: SET_USER,
+	type: PR_SET_USER,
 	payload: {
 		aux,
-		description: SET_USER,
+		description: PR_SET_USER,
 	},
 });
 
@@ -190,7 +190,7 @@ export const getUserByDNI = dni => (
 				.catch(() => {
 					dispatch(userModal());
 					dispatch(setUser({
-						name: '', lastName: '', idUser: 0, dni: '', phone: '', email: '',
+						name: '', lastName: '', idUser: '', dni: '', phone: '', email: '',
 					}));
 				});
 		}

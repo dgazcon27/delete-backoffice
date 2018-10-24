@@ -14,7 +14,7 @@ import {
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
-	SET_USER,
+	PR_SET_USER,
 	MODAL_USER,
 	CLOSE_MODAL_USER,
 } from '../../actions/PurchaseRequest/actionsTypes';
@@ -145,7 +145,7 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				...state,
 				name: action.payload.name,
 			});
-		case SET_USER:
+		case PR_SET_USER:
 			return ({
 				...state,
 				idUser: action.payload.aux.idUser,

@@ -9,9 +9,12 @@ import {
 	PAGE_DOWN_USER,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
+	US_OPEN_MODAL,
 } from './actionsTypes';
+
 import { GET_USERS, GET_USER_BY_ID } from '../../queries/users';
 import { client } from '../../config/configStore';
+import { closeUserModal } from '../PurchaseRequest/actionsCreators';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -52,6 +55,17 @@ export const changePageSearch = (currentPage, paginationPage) => {
 	});
 };
 
+export const openModal = (modalType, _user) => ({
+	type: US_OPEN_MODAL,
+	payload: {
+		modalType,
+		description: OPEN_MODAL,
+		statusValue: _user.active,
+		name: _user.name,
+		id: _user.id,
+	},
+});
+
 export const closeModal = () => ({
 	type: CLOSE_MODAL,
 	payload: {
@@ -84,8 +98,7 @@ export const getUserById = id => (
 			.then((res) => {
 				const { user } = res.data;
 				dispatch(setUser(user));
-			})
-			.catch(() => {});
+			});
 	}
 );
 
@@ -135,22 +148,18 @@ export const deleteUser = (id, statusValue, paginationPage, deleteRolMutation) =
 		await deleteRolMutation({
 			variables: { id, status },
 			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		window.location.reload();
+		})
+			.then(() => {
+				dispatch(closeModal());
+				window.location.reload();
+			})
+			.catch((err) => {
+				if (err.graphQLErrors[0].message.indexOf('FOREIGN KEY') > 0) {
+					dispatch(openModal('foreign_key', { id, active: false, name: '' }));
+				}
+			});
 	};
 };
-
-export const openModal = (modalType, _user) => ({
-	type: OPEN_MODAL,
-	payload: {
-		modalType,
-		description: OPEN_MODAL,
-		statusValue: _user.active,
-		name: _user.name,
-		id: _user.id,
-	},
-});
 
 export const createUser = (
 	myValues,
@@ -187,6 +196,7 @@ export const createUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
+				dispatch(closeUserModal());
 				setTimeout(() => (window.history.back()), 2000);
 			})
 			.catch((res) => {

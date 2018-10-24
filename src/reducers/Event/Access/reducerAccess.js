@@ -46,8 +46,8 @@ const initialState = {
 
 
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).accessEvent || 0;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).accessEvent || 0;
 } else {
 	initialState.paginationPage = 0;
 	initialState.currentPage = 0;

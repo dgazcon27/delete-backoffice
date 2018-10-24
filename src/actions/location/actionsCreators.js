@@ -64,7 +64,6 @@ export const setLocation = location => ({
 		locationDescription: location.description,
 		fullcapacity: location.fullcapacity,
 		capacity: location.capacity,
-		status: location.status.id,
 	},
 });
 
@@ -137,7 +136,6 @@ export const openModal = (modalType, _location) => ({
 	payload: {
 		modalType,
 		description: OPEN_MODAL,
-		statusValue: _location.status.id,
 		name: _location.name,
 		id: _location.id,
 	},

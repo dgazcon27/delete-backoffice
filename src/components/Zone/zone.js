@@ -140,7 +140,7 @@ const Zone = ({
 													>
 														<Switch
 															onClick={() => { actionOpenModal('block', zone); }}
-															checked={zone.status.id === 2}
+															checked={zone.active === false}
 															value='checked'
 														/>
 													</Tooltip>
@@ -199,16 +199,16 @@ const Zone = ({
 								}
 								{modalType === 'block' &&
 									<Paper className={classNames(classes.paperOnModal)}>
-										{statusValue === 1 && <h6> Bloquear Ubicación </h6>}
-										{statusValue === 2 && <h6> Desbloquear Ubicación </h6>}
+										{statusValue && <h6> Bloquear Ubicación </h6>}
+										{!statusValue && <h6> Desbloquear Ubicación </h6>}
 										{
-											statusValue === 1 &&
+											statusValue &&
 											<p>
 											¿Estas seguro que desea bloquear la zona {name}?
 											</p>
 										}
 										{
-											statusValue === 2 &&
+											!statusValue &&
 											<p>
 												¿Estas seguro que desea desbloquear la zona {name}?
 											</p>
@@ -257,6 +257,22 @@ const Zone = ({
 										</span>
 									</Paper>
 								}
+								{modalType === 'foreign_key' &&
+									<Paper className={classNames(classes.paperOnModal)}>
+										<h6>
+											Eliminar Ubicación
+										</h6>
+										<p>
+											La siguiente ubicación no puede ser
+											eliminada ya que existen elementos que dependen de ella.
+										</p>
+										<span>
+											<IconButton onClick={actionCloseModal}>
+												Ok
+											</IconButton>
+										</span>
+									</Paper>
+								}
 							</div>
 						</Modal>
 					</div>
@@ -271,7 +287,7 @@ Zone.propTypes = {
 	name: PropTypes.string,
 	isOpen: PropTypes.bool,
 	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
+	statusValue: PropTypes.bool,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
@@ -291,7 +307,7 @@ Zone.defaultProps = {
 	name: '',
 	isOpen: false,
 	modalType: '',
-	statusValue: 0,
+	statusValue: false,
 	query: '',
 };
 

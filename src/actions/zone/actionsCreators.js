@@ -103,12 +103,25 @@ export const closeAlert = () => ({
 	},
 });
 export const blockZone = (id, statusValue, blockZoneMutation) => {
-	const status = statusValue === 1 ? 2 : 1;
+	const status = statusValue ? 0 : 1;
 	return async (dispatch) => {
 		await blockZoneMutation({ variables: { id, status } });
 		dispatch(closeModal());
+		window.location.reload();
 	};
 };
+
+
+export const openModal = (modalType, _zone) => ({
+	type: OPEN_MODAL,
+	payload: {
+		modalType,
+		description: OPEN_MODAL,
+		statusValue: _zone.active,
+		name: _zone.name,
+		id: _zone.id,
+	},
+});
 
 export const deleteZone = (id, statusValue, paginationPage, deleteZoneMutation) => {
 	const status = statusValue;
@@ -116,22 +129,19 @@ export const deleteZone = (id, statusValue, paginationPage, deleteZoneMutation) 
 		await deleteZoneMutation({
 			variables: { id, status },
 			refetchQueries: [{ query: GET_ZONES, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		window.location.reload();
+		})
+			.then(() => {
+				dispatch(closeModal());
+				window.location.reload();
+			})
+			.catch((err) => {
+				if (err.graphQLErrors[0].message.indexOf('FOREIGN KEY') > 0) {
+					dispatch(openModal('foreign_key', { id, active: 1 }));
+				}
+			});
 	};
 };
 
-export const openModal = (modalType, _zone) => ({
-	type: OPEN_MODAL,
-	payload: {
-		modalType,
-		description: OPEN_MODAL,
-		statusValue: _zone.status.id,
-		name: _zone.name,
-		id: _zone.id,
-	},
-});
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {
@@ -165,7 +175,7 @@ export const createZone = (
 	})
 		.then(() => {
 			dispatch(openAlert('creado'));
-			setTimeout(() => (window.location.assign('Departments')), 2000);
+			setTimeout(() => (window.location.assign('/zones')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);
@@ -189,7 +199,7 @@ export const editZone = (
 		.then(() => {
 			dispatch(openAlert('edit'));
 			dispatch(setZone(zone));
-			setTimeout(() => (window.location.assign('/Departments')), 2000);
+			setTimeout(() => (window.location.assign('/zones')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

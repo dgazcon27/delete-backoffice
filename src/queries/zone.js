@@ -8,9 +8,7 @@ export const GET_ZONES = gql`
 				id
 				capacity
 				maxcapacity
-				status{
-					id
-				}
+				active
 			}
 			total
 		}
@@ -42,10 +40,6 @@ export const BLOCK_ZONE = gql`
 		blockedZone(id:$id,status:$status) {
 			id
 			name
-			status{
-				name
-				id
-			}
 		}
 	}
 `;
@@ -75,9 +69,6 @@ export const GET_ZONE_BY_ID = gql`
 			id
 			capacity
 			maxcapacity
-			status{
-				id
-			}
 		}
 	}
 `;
