@@ -24,7 +24,6 @@ import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
 import CreateGuest from '../Guest/createGuest';
 import ComponentGuest from '../Guest/componentGuest';
-// import AccessList from '../Event/accessList';
 import AccessEventCreate from '../Event/accessEventCreate';
 import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
@@ -32,6 +31,10 @@ import Reservation from '../Reservation/reservation';
 import ReservationCreate from '../Reservation/reservationCreate';
 import ReservationEdit from '../Reservation/reservationEdit';
 import ReservationPayment from '../Reservation/reservationPayment';
+import Room from '../Room/room';
+import RoomCreate from '../Room/roomCreate';
+import RoomEdit from '../Room/roomEdit';
+
 
 const Main = (props) => {
 	const classes = props.class;
@@ -80,6 +83,9 @@ const Main = (props) => {
 				<Route path='/reservation-create' component={ReservationCreate} />
 				<Route path='/reservation-edit' component={ReservationEdit} />
 				<Route path='/reservation-payment' component={ReservationPayment} />
+				<Route path='/room' component={Room} />
+				<Route path='/room-create' component={RoomCreate} />
+				<Route path='/room-edit' component={RoomEdit} />
 			</Switch>
 		</main>
 	);

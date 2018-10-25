@@ -166,7 +166,7 @@ export const createReservation = (
 	})
 		.then(() => {
 			dispatch(openAlert('creado'));
-			setTimeout(() => (window.location.assign('reservation')), 2000);
+			setTimeout(() => (window.location.reload('/reservation')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);
@@ -199,7 +199,7 @@ export const editReservation = (
 	})
 		.then(() => {
 			dispatch(openAlert('edit'));
-			setTimeout(() => (window.location.assign('reservation')), 2000);
+			setTimeout(() => (window.location.reload('/reservation')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

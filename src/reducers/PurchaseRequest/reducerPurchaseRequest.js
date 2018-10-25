@@ -95,8 +95,12 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				id: action.payload.id,
+				name: action.payload.name,
+				lastName: action.payload.lastName,
+				phone: action.payload.phone,
+				email: action.payload.email,
 				user: action.payload.user,
-				access: action.payload.access,
+				accessName: action.payload.access,
 				event: action.payload.event,
 				status: action.payload.status,
 				comment: action.payload.comment,

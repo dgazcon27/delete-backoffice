@@ -157,33 +157,14 @@ const Items = (
 				<ListItemText primary='Reservas' />
 			</ListItem>
 		</Link>
-
-
-		{/*	<Link to='/staff' href='/staff'>
-		<Link to='/access' href='/access'>
+		<Link to='/room' href='/room'>
 			<ListItem button>
 				<ListItemIcon>
 					<ContactPhone />
 				</ListItemIcon>
-				<ListItemText primary='Staff' />
+				<ListItemText primary='Habitaciones' />
 			</ListItem>
 		</Link>
-		{/*
-		<Divider />
-
-		<ListItem button>
-			<ListItemIcon>
-				<DeleteIcon />
-			</ListItemIcon>
-			<ListItemText primary='Trash' />
-		</ListItem>
-
-		<ListItem button>
-			<ListItemIcon>
-				<ReportIcon />
-			</ListItemIcon>
-			<ListItemText primary='Spam' />
-		</ListItem> */}
 	</div>
 );
 

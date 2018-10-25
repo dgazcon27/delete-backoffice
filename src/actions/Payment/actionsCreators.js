@@ -136,7 +136,7 @@ export const createPayment = (
 	})
 		.then(() => {
 			dispatch(openAlert('creado'));
-			setTimeout(() => (window.location.assign('purchase-request')), 2000);
+			setTimeout(() => (window.location.assign('/')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

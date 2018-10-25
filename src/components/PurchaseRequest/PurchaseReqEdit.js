@@ -24,25 +24,12 @@ import {
 import BackButton from '../widget/BackButton';
 
 import { editPurchaseReq } from '../../actions/PurchaseRequest/actionsCreators';
-import {
-	Users,
-	Access,
-	Events,
-	Status,
-} from '../commonComponent';
 
 let PurchaseRequestEdit = ({
-	userId,
 	classes,
-	myValues,
 	alertOpen,
 	alertType,
-	submitting,
-	handleSubmit,
-	paginationPage,
 	actionCloseAlert,
-	actionEditPurchaseReq,
-	editPurchaseReqMutation,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Solicitud de Compra</h3>
@@ -51,16 +38,74 @@ let PurchaseRequestEdit = ({
 				<h6 className={classes.formTitle}>Editar Solicitud de Compra</h6>
 
 				<div className={classes.formStyle}>
-					<Users />
+					<Field
+						name='name'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Nombre'
+						disabled
+					/>
 				</div>
 				<div className={classes.formStyle}>
-					<Access />
+					<Field
+						name='lastName'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Apellido'
+						disabled
+					/>
 				</div>
 				<div className={classes.formStyle}>
-					<Events />
+					<Field
+						name='phone'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Teléfono'
+						disabled
+					/>
 				</div>
 				<div className={classes.formStyle}>
-					<Status />
+					<Field
+						name='email'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Correo'
+						disabled
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='accessName'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Accesos'
+						disabled
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='event'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Eventos'
+						disabled
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
+						name='status'
+						type='text'
+						component={renderTextField}
+						validate={[required, empty]}
+						label='Estatus'
+						disabled
+					/>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -69,22 +114,9 @@ let PurchaseRequestEdit = ({
 						component={renderTextField}
 						validate={[required, empty]}
 						label='comment'
+						disabled
 					/>
 				</div>
-
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={handleSubmit(() => actionEditPurchaseReq(
-						myValues,
-						userId,
-						paginationPage,
-						editPurchaseReqMutation,
-					))}
-					disabled={submitting}
-				>
-				Confirmar
-				</button>
 				<BackButton />
 			</form>
 		</Paper>
@@ -112,17 +144,10 @@ let PurchaseRequestEdit = ({
 );
 
 PurchaseRequestEdit.propTypes = {
-	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
-	myValues: PropTypes.object.isRequired,
-	actionEditPurchaseReq: PropTypes.func.isRequired,
-	editPurchaseReqMutation: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
-	handleSubmit: PropTypes.func.isRequired,
-	submitting: PropTypes.bool.isRequired,
 };
 
 PurchaseRequestEdit = reduxForm({

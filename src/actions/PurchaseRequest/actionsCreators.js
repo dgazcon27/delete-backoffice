@@ -50,10 +50,15 @@ export const setPurchaseReq = purchase => ({
 	type: SET_PURCHASE_REQ,
 	payload: {
 		...purchase,
+		id: purchase.user.id,
+		name: purchase.user.name,
+		lastName: purchase.user.lastName,
+		phone: purchase.user.phone,
+		email: purchase.user.email,
 		user: Number(purchase.user.id),
-		access: Number(purchase.access.id),
-		event: Number(purchase.event.id),
-		status: Number(purchase.status.id),
+		access: purchase.access.name,
+		event: purchase.event.name,
+		status: purchase.status.name,
 		description: SET_PURCHASE_REQ,
 	},
 });
@@ -221,7 +226,7 @@ export const createPurchaseReq = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('/')), 2000);
+				setTimeout(() => (window.location.reload('/')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -252,7 +257,7 @@ export const editPurchaseReq = (
 					status: { id: purchase.status },
 					comment: purchase.comment,
 				}));
-				setTimeout(() => (window.location.assign('/purchase-request')), 2000);
+				setTimeout(() => (window.location.reload('/')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -280,7 +285,7 @@ export const editBankAccount = (
 
 			.then(() => {
 				dispatch(openAlert('edit'));
-				setTimeout(() => (window.location.assign('/bank-account')), 2000);
+				setTimeout(() => (window.location.reload('/bank-account')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

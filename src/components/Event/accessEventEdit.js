@@ -154,6 +154,19 @@ let AccessEventEdit = class ClassAccessEventEdit extends React.Component {
 								/>
 							</div>
 						}
+						{ withRoom === 'true' &&
+							<div className={classes.formStyle}>
+								<Field
+									name='days'
+									type='text'
+									component={renderNumberField}
+									validate={[required]}
+									label='Días'
+									className='yourclass'
+									disabled={false}
+								/>
+							</div>
+						}
 						{ withRoom === 'false' &&
 							<div className={classes.formStyle}>
 								<Field
@@ -161,6 +174,19 @@ let AccessEventEdit = class ClassAccessEventEdit extends React.Component {
 									type='text'
 									component={renderNumbValDefaultField}
 									label='Número de Habitaciones'
+									className='yourclass'
+									disabled
+									valor={0}
+								/>
+							</div>
+						}
+						{ withRoom === 'false' &&
+							<div className={classes.formStyle}>
+								<Field
+									name='days'
+									type='text'
+									component={renderNumbValDefaultField}
+									label='Días'
 									className='yourclass'
 									disabled
 									valor={0}
@@ -253,7 +279,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerEventAccess.alertOpen,
 	withTickets: state.ReducerEventAccess.withTickets,
 	paginationPage: state.ReducerEventAccess.paginationPage,
-	myValues: selector(state, 'id', 'withRoom', 'withTickets', 'numberRooms', 'numberTickets', 'price', 'access', 'hotel', 'room'),
+	myValues: selector(state, 'id', 'withRoom', 'withTickets', 'days', 'numberRooms', 'numberTickets', 'price', 'access', 'hotel', 'room'),
 });
 
 const mapDispatchToProps = dispatch => ({

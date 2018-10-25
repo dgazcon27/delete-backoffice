@@ -53,7 +53,7 @@ const PurchaseRequestPay = ({
 			return (
 				<div>
 					<div>
-						<h5>Purchase Request</h5>
+						<h5>Abonos del Cliente</h5>
 						<Table>
 							<TableHead>
 								<TableRow>

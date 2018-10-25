@@ -302,7 +302,6 @@ export const Access = () => (
 	</Query>
 );
 
-
 export const Citizenship = () => (
 	<Query query={GET_COUNTRIES}>
 		{({ loading, error, data }) => {

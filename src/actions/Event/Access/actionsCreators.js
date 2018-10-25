@@ -6,7 +6,7 @@ import {
 	PAGE_UP,
 	PAGE_DOWN,
 	CLEAN_STATE,
-	SET_ACCESS_EVENT,
+	AE_SET_ACCESS_EVENT,
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
 	ADD_ACCESS,
@@ -75,9 +75,9 @@ export const setAccess = (access) => {
 	}
 
 	return {
-		type: SET_ACCESS_EVENT,
+		type: AE_SET_ACCESS_EVENT,
 		payload: {
-			description: SET_ACCESS_EVENT,
+			description: AE_SET_ACCESS_EVENT,
 			id: access.id,
 			withRoom,
 			withTickets,
@@ -85,6 +85,7 @@ export const setAccess = (access) => {
 			numberTickets: access.numberTickets,
 			access: access.access.id,
 			price: access.price,
+			days: access.days,
 			hotel,
 			room,
 			hotelE,
@@ -153,8 +154,8 @@ export const createAccessEvent = (data, paginationPage, create) => {
 	let roomE = data.room;
 	const events = data.event;
 	const numberRooms = data.numberRooms || 0;
+	const days = data.days || 0;
 	const numberTickets = data.numberTickets || 0;
-
 	if (!data.withRoom) {
 		hotelE = null;
 		roomE = null;
@@ -167,6 +168,7 @@ export const createAccessEvent = (data, paginationPage, create) => {
 					hotelE,
 					roomE,
 					numberRooms,
+					days,
 					numberTickets,
 				},
 				refetchQueries: [{
@@ -218,6 +220,7 @@ export const setNumberRooms = (numberRooms = 0) => ({
 	type: AE_SET_NUMBER_ROOM,
 	payload: {
 		numberRooms,
+		days: 0,
 		description: AE_SET_NUMBER_ROOM,
 	},
 });

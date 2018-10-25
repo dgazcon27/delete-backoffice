@@ -147,6 +147,7 @@ export const GET_ACCESS_BY_ID = gql`
 				numberRooms
 				numberTickets
 				price
+				days
 				active
 				hotel{
 					id
@@ -181,15 +182,17 @@ export const CREATE_ACCESS_EVENT = gql`
 		$withRoom:Boolean!, 
 		$withTickets:Boolean!,
 		$numberRooms:Int!,
-    	$numberTickets:Int!,
-    	$price:Int!
-	    $event:ID!,
-	    $access:ID!,
-	    $hotelE:ID,
-	    $roomE:ID,
+		$numberTickets:Int!,
+		$price:Int!
+		$event:ID!,
+		$access:ID!,
+		$hotelE:ID,
+		$roomE:ID,
+		$days: Int!,
 		){
 		createAccessesByEvent(withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
 		numberTickets:$numberTickets, price:$price, event:$event, access:$access, hotel:$hotelE, room:$roomE,
+		days:$days
 		){
 			id
 		}
@@ -208,9 +211,11 @@ export const EDIT_ACCESS_EVENT = gql`
 	    $access:ID!,
 	    $room:ID,
 	    $hotel:ID,
+	    $days:Int!,
 		){
 		updateAccessesByEvent(id:$id, withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
 		numberTickets:$numberTickets, price:$price, event:$event, access:$access, room:$room, hotel:$hotel,
+		days: $days
 		){
 			id
 		}

@@ -101,7 +101,7 @@ export const GET_PURCHASE_BY_ID = gql`
 			pendingPayment
 			totalPaid
 			user{
-				id name lastName dni
+				id name lastName dni phone email
 				}
 			access{
 				id
@@ -114,6 +114,7 @@ export const GET_PURCHASE_BY_ID = gql`
 			}
 			status{
 				id
+				name
 			}
 			comment
 		}

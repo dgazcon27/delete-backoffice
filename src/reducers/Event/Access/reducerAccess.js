@@ -10,10 +10,10 @@ import {
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
 	ADD_ACCESS,
-	SET_ACCESS_EVENT,
 	SET_HOTEL,
 	AE_SET_NUMBER_ROOM,
 	AE_SET_NUMBER_TICKET,
+	AE_SET_ACCESS_EVENT,
 } from '../../../actions/Event/Access/actionsTypes';
 
 const initialState = {
@@ -121,6 +121,7 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				numberRooms: action.payload.numberRooms,
+				days: action.payload.numberRooms,
 			});
 		case SET_WITH_TICKET:
 			return ({
@@ -147,7 +148,7 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				...state,
 				event: action.payload.event,
 			});
-		case SET_ACCESS_EVENT:
+		case AE_SET_ACCESS_EVENT:
 			return ({
 				...state,
 				id: action.payload.id,
@@ -159,6 +160,7 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				activeRooms: action.payload.activeRooms,
 				activeTickets: action.payload.activeTickets,
 				price: action.payload.price,
+				days: action.payload.days,
 				hotel: action.payload.hotel,
 				room: action.payload.room,
 				hotelE: action.payload.hotelE,

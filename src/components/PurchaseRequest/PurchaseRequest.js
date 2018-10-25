@@ -112,17 +112,20 @@ const PurchaseRequest = ({
 												<TableCell >{purchaseReq.pendingPayment}</TableCell>
 												<TableCell >{purchaseReq.event.name}</TableCell>
 												<TableCell className={classes.alignRight}>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Lista de Pagos'
-													>
-														<IconButton onClick={() => { actionOpenModal('pagos', purchaseReq); }}>
-															<List />
-														</IconButton>
-													</Tooltip>
+													{
+														parseFloat(purchaseReq.totalPaid) > 0 &&
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Lista de Pagos'
+														>
+															<IconButton onClick={() => { actionOpenModal('pagos', purchaseReq); }}>
+																<List />
+															</IconButton>
+														</Tooltip>
+													}
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
