@@ -154,7 +154,7 @@ export const createUser = (
 			.then(() => {
 				dispatch(openAlert('creado'));
 				setTimeout(() => (window.location.assign('users')), 2000);
-			}) 
+			})
 			.catch((res) => {
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
