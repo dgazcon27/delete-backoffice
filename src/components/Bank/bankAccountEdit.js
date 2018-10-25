@@ -21,7 +21,7 @@ import {
 	editBankAccount,
 	cleanState,
 	closeAlert,
-} from '../../actions/Bank/actionsCreators';
+} from '../../actions/BankAccount/actionsCreators';
 import BackButton from '../widget/BackButton';
 
 import {
@@ -154,14 +154,14 @@ BankAccountEdit = reduxForm({
 const selector = formValueSelector('BankAccountEdit');
 
 const mapStateToProps = state => ({
-	owner: state.ReducerBank.owner,
-	bank: state.ReducerBank.bank,
-	alertType: state.ReducerBank.alertType,
-	alertOpen: state.ReducerBank.alertOpen,
-	initialValues: state.ReducerBank,
-	accountNumber: state.ReducerBank.accountNumber,
-	currency: state.ReducerBank.currency,
-	paginationPage: state.ReducerBank.paginationPage,
+	owner: state.ReducerBankAccount.owner,
+	bank: state.ReducerBankAccount.bank,
+	alertType: state.ReducerBankAccount.alertType,
+	alertOpen: state.ReducerBankAccount.alertOpen,
+	initialValues: state.ReducerBankAccount,
+	accountNumber: state.ReducerBankAccount.accountNumber,
+	currency: state.ReducerBankAccount.currency,
+	paginationPage: state.ReducerBankAccount.paginationPage,
 	myValues: selector(state, 'id', 'owner', 'bank', 'type', 'accountNumber', 'currency', 'comment'),
 });
 

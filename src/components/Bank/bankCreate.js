@@ -125,11 +125,11 @@ BankCreate = reduxForm({
 const selector = formValueSelector('BankCreate');
 
 const mapStateToProps = state => ({
-	alertType: state.ReducerUserType.alertType,
-	alertOpen: state.ReducerUserType.alertOpen,
-	name: state.ReducerUserType.name,
-	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerUserType.paginationPage,
+	alertType: state.ReducerBank.alertType,
+	alertOpen: state.ReducerBank.alertOpen,
+	name: state.ReducerBank.name,
+	descripcion: state.ReducerBank.descripcion,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'name', 'currency'),
 });
 

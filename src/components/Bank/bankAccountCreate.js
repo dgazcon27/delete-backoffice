@@ -24,7 +24,7 @@ import { CREATE_BANK_ACCOUNT } from '../../queries/bank';
 import {
 	closeAlert,
 	createBankAccount,
-} from '../../actions/Bank/actionsCreators';
+} from '../../actions/BankAccount/actionsCreators';
 
 import BackButton from '../widget/BackButton';
 import { Banks, Users } from '../commonComponent';

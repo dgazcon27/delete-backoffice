@@ -7,7 +7,7 @@ import { getEventById } from '../../actions/Event/actionsCreators';
 import { getUserById } from '../../actions/users/actionsCreators';
 import { getUserTypeById } from '../../actions/userType/actionsCreators';
 import { getLocationById } from '../../actions/location/actionsCreators';
-import { getBankById, getAccountById } from '../../actions/Bank/actionsCreators';
+import { getBankById, getAccountById } from '../../actions/BankAccount/actionsCreators';
 import { getAccessById } from '../../actions/Access/actionsCreators';
 import { getPurchaseById } from '../../actions/PurchaseRequest/actionsCreators';
 import { getPaymentById } from '../../actions/Payment/actionsCreators';

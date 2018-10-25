@@ -1,17 +1,18 @@
 import {
-	SET_NAME_BANK,
-	OPEN_MODAL_BANK,
-	OPEN_ALERT_BANK,
-	CLOSE_ALERT_BANK,
-	CLOSE_MODAL_BANK,
-	SET_DESCRIPTION_BANK,
-	CLEAN_STATE_BANK,
-	SET_BANK,
+	SET_NAME_BANK_ACCOUNT,
+	OPEN_MODAL_BANK_ACCOUNT,
+	OPEN_ALERT_BANK_ACCOUNT,
+	CLOSE_ALERT_BANK_ACCOUNT,
+	CLOSE_MODAL_BANK_ACCOUNT,
+	SET_DESCRIPTION_BANK_ACCOUNT,
+	CLEAN_STATE_BANK_ACCOUNT,
+	SET_BANK_ACCOUNT,
 } from './actionsTypes';
 import {
 	GET_BANKS,
 	GET_BANK_ACCOUNTS,
 	GET_BANK_BY_ID,
+	GET_ACCOUNT_BY_ID,
 } from '../../queries/bank';
 import { client } from '../../config/configStore';
 
@@ -24,9 +25,9 @@ const checkMessageError = (res) => {
 };
 
 export const setBank = bank => ({
-	type: SET_BANK,
+	type: SET_BANK_ACCOUNT,
 	payload: {
-		description: SET_BANK,
+		description: SET_BANK_ACCOUNT,
 		id: bank.id,
 		name: bank.name,
 		currency: bank.currency,
@@ -48,30 +49,60 @@ export const getBankById = id => (
 	}
 );
 
-export const cleanState = () => ({
-	type: CLEAN_STATE_BANK,
+
+export const setBankAccount = account => ({
+	type: SET_BANK_ACCOUNT,
 	payload: {
-		description: CLEAN_STATE_BANK,
+		description: SET_BANK_ACCOUNT,
+		id: account.id,
+		owner: account.owner.id,
+		bank: account.bank.id,
+		currency: account.currency,
+		accountNumber: account.accountNumber,
+		type: account.type,
+		comment: account.comment,
+	},
+});
+
+export const getAccountById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ACCOUNT_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { bankAccount } = res.data;
+				dispatch(setBankAccount(bankAccount));
+			})
+			.catch(() => {});
+	}
+);
+
+export const cleanState = () => ({
+	type: CLEAN_STATE_BANK_ACCOUNT,
+	payload: {
+		description: CLEAN_STATE_BANK_ACCOUNT,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL_BANK,
+	type: CLOSE_MODAL_BANK_ACCOUNT,
 	payload: {
-		description: CLOSE_MODAL_BANK,
+		description: CLOSE_MODAL_BANK_ACCOUNT,
 	},
 });
 export const openAlert = alertType => ({
-	type: OPEN_ALERT_BANK,
+	type: OPEN_ALERT_BANK_ACCOUNT,
 	payload: {
 		alertType,
-		description: OPEN_ALERT_BANK,
+		description: OPEN_ALERT_BANK_ACCOUNT,
 	},
 });
 export const closeAlert = () => ({
-	type: CLOSE_ALERT_BANK,
+	type: CLOSE_ALERT_BANK_ACCOUNT,
 	payload: {
-		description: CLOSE_ALERT_BANK,
+		description: CLOSE_ALERT_BANK_ACCOUNT,
 	},
 });
 export const deleteBank = (obj, paginationPage, deleteBankMutation) => {
@@ -97,26 +128,26 @@ export const deleteBankAccount = (obj, paginationPage, deleteBankMutation) => {
 	};
 };
 export const openModal = (modalType, bank) => ({
-	type: OPEN_MODAL_BANK,
+	type: OPEN_MODAL_BANK_ACCOUNT,
 	payload: {
 		modalType,
-		description: OPEN_MODAL_BANK,
+		description: OPEN_MODAL_BANK_ACCOUNT,
 		name: bank.name,
 		id: bank.id,
 	},
 });
 export const setName = name => ({
-	type: SET_NAME_BANK,
+	type: SET_NAME_BANK_ACCOUNT,
 	payload: {
-		description: SET_NAME_BANK,
+		description: SET_NAME_BANK_ACCOUNT,
 		name,
 	},
 });
 
 export const setDescription = rolDescription => ({
-	type: SET_DESCRIPTION_BANK,
+	type: SET_DESCRIPTION_BANK_ACCOUNT,
 	payload: {
-		description: SET_DESCRIPTION_BANK,
+		description: SET_DESCRIPTION_BANK_ACCOUNT,
 		rolDescription,
 	},
 });
@@ -176,6 +207,31 @@ export const editBank = (bank, paginationPage, editBankMutation) =>
 				dispatch(setBank(bank));
 				dispatch(openAlert('edit'));
 				setTimeout(() => (window.location.replace('/bank')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	};
+export const editBankAccount = (
+	account,
+	paginationPage,
+	editBankAccountMutation,
+) =>
+	async (dispatch) => {
+		await editBankAccountMutation({
+			variables: account,
+			refetchQueries: [{ query: GET_BANK_ACCOUNTS, variables: { paginationPage } }],
+		})
+
+			.then(() => {
+				dispatch(openAlert('edit'));
+				dispatch(setBankAccount({
+					...account,
+					owner: { id: account.owner },
+					bank: { id: account.bank },
+				}));
+				setTimeout(() => (window.location.assign('/bank-account')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

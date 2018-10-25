@@ -8,7 +8,7 @@ import {
 	deleteBankAccount,
 	openModal,
 	closeModal,
-} from '../../actions/Bank/actionsCreators';
+} from '../../actions/BankAccount/actionsCreators';
 
 import {
 	GET_BANK_ACCOUNTS,

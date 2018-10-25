@@ -1,17 +1,17 @@
 import {
-	SET_ROL,
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	CLEAN_STATE,
-	EDIT_USER_TYPE,
-	SET_DESCRIPTION,
-	BLOCK_USER_TYPE,
-	DELETE_USER_TYPE,
+	SET_NAME_BANK_ACCOUNT,
+	SET_ROL_BANK_ACCOUNT,
+	OPEN_MODAL_BANK_ACCOUNT,
+	OPEN_ALERT_BANK_ACCOUNT,
+	CLOSE_MODAL_BANK_ACCOUNT,
+	CLOSE_ALERT_BANK_ACCOUNT,
+	CLEAN_STATE_BANK_ACCOUNT,
+	EDIT_BANK_ACCOUNT,
+	SET_DESCRIPTION_BANK_ACCOUNT,
+	BLOCK_BANK_ACCOUNT,
+	DELETE_BANK_ACCOUNT,
 	SET_BANK_ACCOUNT,
-} from '../../actions/Bank/actionsTypes';
+} from '../../actions/BankAccount/actionsTypes';
 
 const initialState = {
 	id: 0,
@@ -25,22 +25,13 @@ const initialState = {
 	accountNumber: '',
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-/* if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).bankAccount || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).bankAccount || 0;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-} */
-
 const ReducerBankAccount = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case EDIT_USER_TYPE:
+		case EDIT_BANK_ACCOUNT:
 			return ({
 				...state,
 			});
-		case SET_ROL:
+		case SET_ROL_BANK_ACCOUNT:
 			return ({
 				...state,
 				id: action.payload.id,
@@ -58,18 +49,18 @@ const ReducerBankAccount = (state = initialState, action = {}) => {
 				type: action.payload.type,
 				comment: action.payload.comment,
 			});
-		case BLOCK_USER_TYPE:
+		case BLOCK_BANK_ACCOUNT:
 			return ({
 				...state,
 				id: action.payload.id,
 				statusValue: action.payload.status,
 			});
-		case DELETE_USER_TYPE:
+		case DELETE_BANK_ACCOUNT:
 			return ({
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_BANK_ACCOUNT:
 			return ({
 				...state,
 				isOpen: true,
@@ -78,7 +69,7 @@ const ReducerBankAccount = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_BANK_ACCOUNT:
 			return ({
 				...state,
 				isOpen: false,
@@ -86,28 +77,28 @@ const ReducerBankAccount = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_BANK_ACCOUNT:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_BANK_ACCOUNT:
 			return ({
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
+		case SET_NAME_BANK_ACCOUNT:
 			return ({
 				...state,
 				name: action.payload.name,
 			});
-		case SET_DESCRIPTION:
+		case SET_DESCRIPTION_BANK_ACCOUNT:
 			return ({
 				...state,
 				rolDescription: action.payload.rolDescription,
 			});
-		case CLEAN_STATE:
+		case CLEAN_STATE_BANK_ACCOUNT:
 			return ({
 				...state,
 				id: 0,
