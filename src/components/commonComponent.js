@@ -140,8 +140,11 @@ export const SelectRoles = fieldName => (
 );
 
 export const Roles = (props) => {
+	Roles.defaultProps = {
+		name: '',
+	};
 	Roles.propTypes = {
-		name: PropTypes.string.isRequired,
+		name: PropTypes.string,
 	};
 	const inputName = props.name ? props.name : 'roles';
 	return (
@@ -184,8 +187,12 @@ export const Roles = (props) => {
 };
 
 export const Users = (props) => {
+	Users.defaultProps = {
+		name: '',
+	};
+
 	Users.propTypes = {
-		name: PropTypes.string.isRequired,
+		name: PropTypes.string,
 	};
 	const inputName = props.name ? props.name : 'owner';
 	return (

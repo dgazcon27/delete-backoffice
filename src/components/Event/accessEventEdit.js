@@ -123,7 +123,7 @@ let AccessEventEdit = class ClassAccessEventEdit extends React.Component {
 									name='numberTickets'
 									type='text'
 									component={renderNumbValDefaultField}
-									label='Número de Tickets'
+									label='Número de Entradas'
 									className='yourclass'
 									disabled
 									valor={0}
@@ -147,7 +147,7 @@ let AccessEventEdit = class ClassAccessEventEdit extends React.Component {
 									type='text'
 									component={renderNumberField}
 									validate={[required]}
-									label='Número de Tickets'
+									label='Número de Habitaciones'
 									className='yourclass'
 									disabled={false}
 									onChange={actionSetNumberRoom}

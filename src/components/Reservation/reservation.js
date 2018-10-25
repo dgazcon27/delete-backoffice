@@ -9,10 +9,10 @@ import {
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 import {
 	Modal,
 	Paper,
@@ -26,22 +26,22 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-import styles from './accessCss';
+import styles from './reservationCss';
 import {
 	openModal,
 	closeModal,
-	deleteAccess,
+	setReservation,
+	deleteReservation,
 	changePage,
-} from '../../actions/Access/actionsCreators';
+} from '../../actions/Reservation/actionsCreators';
 import {
-	GET_ACCESS,
-	DELETE_ACCESS,
-} from '../../queries/access';
+	GET_RESERVATIONS,
+	DELETE_RESERVATION,
+} from '../../queries/reservation';
 import Loading from '../Loading/loading';
 
-const Access = ({
+const Reservation = ({
 	id,
-	name,
 	isOpen,
 	classes,
 	modalType,
@@ -49,12 +49,13 @@ const Access = ({
 	currentPage,
 	actionOpenModal,
 	actionCloseModal,
+	actionEditReservation,
 	paginationPage,
-	actionDeleteAccess,
+	actionDeleteReservation,
 	actionChangePage,
-	deleteAccessMutation,
+	deleteReservationMutation,
 }) => (
-	<Query query={GET_ACCESS} variables={{ paginationPage }}>
+	<Query query={GET_RESERVATIONS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
@@ -66,55 +67,62 @@ const Access = ({
 			if (error) {
 				return (
 					<div>
-							Error :(
+						Error :(
 					</div>
 				);
 			}
 			return (
 				<div>
 					<div>
-
-						<h5 className={classes.title}>
-							Accesos
+						<h5>
+							Reservaciones
 						</h5>
-
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
-								<Link to='/access-create' href='/access-create' >
+								<Link to='/reservation-create' href='/reservation-create' >
 									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 										<Add className={classes.marginIcon} />
-										Crear Acceso
+										Agregar Nuevo
 									</Button>
 								</Link>
 							</h5>
 						</div>
-
 						<Paper>
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell>Ubicacion</TableCell>
+										<TableCell>Cliente</TableCell>
+										<TableCell>Compra</TableCell>
+										<TableCell>Habitación</TableCell>
+										<TableCell>Días</TableCell>
+										<TableCell>Cantidad</TableCell>
 										<TableCell className={classes.alignRightOption}>
 												Opciones
 										</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{data.access.data.map(access => (
-										<TableRow key={access.id}>
-											<TableCell>{access.name}</TableCell>
-											<TableCell>{access.location.name}</TableCell>
+									{data.reservations.data.map(reservation => (
+										<TableRow key={reservation.id}>
+											<TableCell>{reservation.client.name}</TableCell>
+											<TableCell>{reservation.purchaseRequest.id}</TableCell>
+											<TableCell>{reservation.room.name}</TableCell>
+											<TableCell>{reservation.days}</TableCell>
+											<TableCell>{reservation.quantity}</TableCell>
 											<TableCell className={classes.alignRight}>
 												<Tooltip
 													enterDelay={200}
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
-													title='Editar Acceso'
+													title='Editar Pago'
 												>
-													<Link to={{ pathname: `/access-edit/${access.id}`, state: { type: 'Access' } }}>
-														<IconButton >
+													<Link to='/reservation-edit' href='/reservation-edit'>
+														<IconButton
+															onClick={() => {
+																actionEditReservation(reservation);
+															}}
+														>
 															<Edit />
 														</IconButton>
 													</Link>
@@ -124,9 +132,26 @@ const Access = ({
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
-													title='Eliminar Acceso'
+													title='Realizar Pago'
 												>
-													<IconButton onClick={() => { actionOpenModal('delete', access); }}>
+													<Link to='/reservation-payment' href='/reservation-payment'>
+														<IconButton
+															onClick={() => {
+																actionEditReservation(reservation);
+															}}
+														>
+															<Edit />
+														</IconButton>
+													</Link>
+												</Tooltip>
+												<Tooltip
+													enterDelay={200}
+													id='tooltip-controlled'
+													leaveDelay={100}
+													placement='top'
+													title='Eliminar Reservación'
+												>
+													<IconButton onClick={() => { actionOpenModal('delete', reservation); }}>
 														<Delete />
 													</IconButton>
 												</Tooltip>
@@ -137,11 +162,11 @@ const Access = ({
 								<TableFooter>
 									<TableRow>
 										<TablePagination
-											count={data.access.total}
+											count={data.reservations.total}
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
-											colSpan={5}
+											colSpan={6}
 											onChangePage={(event, changuedPage) => {
 												actionChangePage(currentPage, changuedPage);
 											}}
@@ -154,14 +179,14 @@ const Access = ({
 					<Modal
 						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
 						disableAutoFocus={false}
+						onBackdropClick={() => actionCloseModal()}
 					>
 						<div>
 							{modalType === 'edit' &&
 							<Paper>
 								<h1>
-											contenido edit modal
+									contenido edit modal
 								</h1>
 								<button onClick={actionCloseModal}>
 											cerrar
@@ -171,15 +196,21 @@ const Access = ({
 							{modalType === 'delete' &&
 								<Paper className={classNames(classes.paperOnModal)}>
 									<h6>
-										Eliminar Acceso
+										Eliminar Reservación
 									</h6>
 									<p>
-										¿Estas seguro que desea eliminar el acceso {name} ?
+										¿Estas seguro que desea eliminar la reservación {id} ?
 									</p>
 									<span>
-										<IconButton onClick={() => {
-											actionDeleteAccess(id, statusValue, paginationPage, deleteAccessMutation);
-										}}
+										<IconButton
+											onClick={() => {
+												actionDeleteReservation(
+													id,
+													statusValue,
+													paginationPage,
+													deleteReservationMutation,
+												);
+											}}
 										>
 											Si
 										</IconButton>
@@ -191,22 +222,6 @@ const Access = ({
 									</span>
 								</Paper>
 							}
-							{modalType === 'foreign_key' &&
-							<Paper className={classNames(classes.paperOnModal)}>
-								<h6>
-											Eliminar Acceso
-								</h6>
-								<p>
-											La siguiente acceso no puede ser
-											eliminado ya que existen elementos que dependen de él.
-								</p>
-								<span>
-									<IconButton onClick={actionCloseModal}>
-												Ok
-									</IconButton>
-								</span>
-							</Paper>
-							}
 						</div>
 					</Modal>
 				</div>
@@ -215,49 +230,49 @@ const Access = ({
 	</Query>
 );
 
-Access.propTypes = {
+Reservation.propTypes = {
 	isOpen: PropTypes.bool,
 	modalType: PropTypes.string,
 	statusValue: PropTypes.number,
 	id: PropTypes.number.isRequired,
-	name: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
 	currentPage: PropTypes.number.isRequired,
+	actionEditReservation: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDeleteAccess: PropTypes.func.isRequired,
+	actionDeleteReservation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	deleteAccessMutation: PropTypes.func.isRequired,
+	deleteReservationMutation: PropTypes.func.isRequired,
 };
 
-Access.defaultProps = {
+Reservation.defaultProps = {
 	isOpen: false,
 	modalType: '',
 	statusValue: 0,
 };
 
 const mapStateToProps = state => ({
-	id: state.ReducerAccess.id,
-	name: state.ReducerAccess.name,
-	isOpen: state.ReducerAccess.isOpen,
-	modalType: state.ReducerAccess.modalType,
-	statusValue: state.ReducerAccess.statusValue,
-	currentPage: state.ReducerAccess.currentPageAcc,
-	paginationPage: state.ReducerAccess.paginationPageAcc,
+	id: state.ReducerReservation.id,
+	isOpen: state.ReducerReservation.isOpen,
+	modalType: state.ReducerReservation.modalType,
+	statusValue: state.ReducerReservation.statusValue,
+	currentPage: state.ReducerReservation.currentPage,
+	paginationPage: state.ReducerReservation.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionChangePage: (currentPage, paginationPage) =>
 		dispatch(changePage(currentPage, paginationPage)),
-	actionOpenModal: (modalType, _access) => dispatch(openModal(modalType, _access)),
-	actionDeleteAccess: (id, statusValue, paginationPage, deleteAccessMutation) =>
-		dispatch(deleteAccess(id, statusValue, paginationPage, deleteAccessMutation)),
+	actionOpenModal: (modalType, _reservation) => dispatch(openModal(modalType, _reservation)),
+	actionDeleteReservation: (id, statusValue, paginationPage, deleteReservationMutation) =>
+		dispatch(deleteReservation(id, statusValue, paginationPage, deleteReservationMutation)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionEditReservation: reservation => dispatch(setReservation(reservation)),
 });
 
 export default compose(
-	graphql(DELETE_ACCESS, { name: 'deleteAccessMutation' }),
+	graphql(DELETE_RESERVATION, { name: 'deleteReservationMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Access);
+)(Reservation);

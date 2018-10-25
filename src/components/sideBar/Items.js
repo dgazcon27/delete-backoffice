@@ -14,6 +14,7 @@ import GroupWork from '@material-ui/icons/GroupWork';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
+import RoomService from '@material-ui/icons/RoomService';
 
 import {
 	ListItem,
@@ -146,6 +147,14 @@ const Items = (
 					<Security />
 				</ListItemIcon>
 				<ListItemText primary='Tipos de Usuario' />
+			</ListItem>
+		</Link>
+		<Link to='/reservation' href='/reservation'>
+			<ListItem button>
+				<ListItemIcon>
+					<RoomService />
+				</ListItemIcon>
+				<ListItemText primary='Reservas' />
 			</ListItem>
 		</Link>
 

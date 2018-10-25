@@ -28,6 +28,10 @@ import ComponentGuest from '../Guest/componentGuest';
 import AccessEventCreate from '../Event/accessEventCreate';
 import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
+import Reservation from '../Reservation/reservation';
+import ReservationCreate from '../Reservation/reservationCreate';
+import ReservationEdit from '../Reservation/reservationEdit';
+import ReservationPayment from '../Reservation/reservationPayment';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -72,6 +76,10 @@ const Main = (props) => {
 				<Route path='/event-access/:id' component={PreAccessList} />
 				<Route path='/event-access-create/:id' component={AccessEventCreate} />
 				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
+				<Route path='/reservation' component={Reservation} />
+				<Route path='/reservation-create' component={ReservationCreate} />
+				<Route path='/reservation-edit' component={ReservationEdit} />
+				<Route path='/reservation-payment' component={ReservationPayment} />
 			</Switch>
 		</main>
 	);

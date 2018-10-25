@@ -49,7 +49,6 @@ import Loading from '../Loading/loading';
 
 const PurchaseRequest = ({
 	id,
-	name,
 	isOpen,
 	userId,
 	classes,
@@ -193,10 +192,10 @@ const PurchaseRequest = ({
 							{modalType === 'delete' &&
 							<Paper className={classNames(classes.paperOnModal)}>
 								<h6>
-									Eliminar bank
+									Eliminar Compra
 								</h6>
 								<p>
-									¿Estas seguro que desea eliminar el bank {name} ?
+									¿Estas seguro que desea eliminar esta compra?
 								</p>
 								<span>
 									<IconButton onClick={() => {
@@ -228,7 +227,6 @@ const PurchaseRequest = ({
 
 PurchaseRequest.propTypes = {
 	isOpen: PropTypes.bool,
-	name: PropTypes.string,
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
@@ -244,7 +242,6 @@ PurchaseRequest.propTypes = {
 };
 
 PurchaseRequest.defaultProps = {
-	name: '',
 	isOpen: false,
 	modalType: '',
 };
@@ -252,7 +249,6 @@ PurchaseRequest.defaultProps = {
 const mapStateToProps = state => ({
 	currency: state.ReducerPurchaseRequest.currency,
 	id: state.ReducerPurchaseRequest.id,
-	name: state.ReducerPurchaseRequest.name,
 	isOpen: state.ReducerPurchaseRequest.isOpen,
 	modalType: state.ReducerPurchaseRequest.modalType,
 	currentPage: state.ReducerPurchaseRequest.currentPagePreq,

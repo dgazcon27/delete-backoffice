@@ -41,7 +41,6 @@ export const setAccess = access => ({
 		id: access.id,
 		name: access.name,
 		descriptionAccess: access.description,
-		price: access.price,
 		currency: access.currency,
 		location: access.location.id,
 		zone: access.zone.id,
@@ -91,6 +90,17 @@ export const closeAlert = () => ({
 	},
 });
 
+export const openModal = (modalType, _access) => ({
+	type: OPEN_MODAL,
+	payload: {
+		modalType,
+		description: OPEN_MODAL,
+		statusValue: _access.status.id,
+		name: _access.name,
+		id: _access.id,
+	},
+});
+
 export const blockAccess = (id, statusValue, blockAccessMutation) => {
 	const status = statusValue === 1 ? 2 : 1;
 	return async (dispatch) => {
@@ -105,27 +115,21 @@ export const deleteAccess = (id, statusValue, paginationPage, deleteAccessMutati
 		await deleteAccessMutation({
 			variables: { id, status },
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		window.location.reload();
+		}).then(() => {
+			dispatch(closeModal());
+			window.location.reload();
+		})
+			.catch((err) => {
+				if (err.graphQLErrors[0].message.indexOf('FOREIGN KEY') > 0) {
+					dispatch(openModal('foreign_key', { id, status: { active: 1 }, name: '' }));
+				}
+			});
 	};
 };
-
-export const openModal = (modalType, _access) => ({
-	type: OPEN_MODAL,
-	payload: {
-		modalType,
-		description: OPEN_MODAL,
-		statusValue: _access.status.id,
-		name: _access.name,
-		id: _access.id,
-	},
-});
 
 export const createAccess = (
 	name,
 	description,
-	price,
 	currency,
 	location,
 	zone,
@@ -136,7 +140,7 @@ export const createAccess = (
 	async (dispatch) => {
 		createAccessMutation({
 			variables: {
-				name, description, price, currency, location, zone, status,
+				name, description, currency, location, zone, status,
 			},
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
 		})

@@ -148,7 +148,7 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 		case PR_SET_USER:
 			return ({
 				...state,
-				idUser: action.payload.aux.idUser,
+				idUser: action.payload.aux.id,
 				nameUser: action.payload.aux.name,
 				lastName: action.payload.aux.lastName,
 				phone: action.payload.aux.phone,

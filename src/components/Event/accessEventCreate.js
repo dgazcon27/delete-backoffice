@@ -247,7 +247,7 @@ let a = class AccessEventCreate extends React.Component {
 								<Field
 									name='numberTickets'
 									component={renderNumbValDefaultField}
-									label='Número de Entradas'
+									label='Número de Habitaciones'
 									className='yourclass'
 									disabled
 									valor={0}
@@ -271,7 +271,7 @@ let a = class AccessEventCreate extends React.Component {
 									type='text'
 									component={renderNumberField}
 									validate={[required]}
-									label='Número de Entradas'
+									label='Número de Habitaciones'
 									className='yourclass'
 									disabled={false}
 								/>

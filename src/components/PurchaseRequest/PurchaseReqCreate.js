@@ -208,8 +208,8 @@ const selector = formValueSelector('PurchaseRequestCreate');
 
 const mapStateToProps = state => ({
 	newUserModal: state.ReducerPurchaseRequest.newUserModal,
-	idUser: state.ReducerPurchaseRequest.idUser,
 	id: state.ReducerPurchaseRequest.id,
+	idUser: state.ReducerPurchaseRequest.idUser,
 	email: state.ReducerPurchaseRequest.email,
 	dni: state.ReducerPurchaseRequest.dni,
 	phone: state.ReducerPurchaseRequest.phone,

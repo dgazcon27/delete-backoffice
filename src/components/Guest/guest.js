@@ -231,7 +231,7 @@ const mapStateToProps = (state, ownProps) => ({
 	currentPageSearch: state.ReducerUserType.currentPageSearch,
 	currentPage: state.ReducerGuest.currentPage,
 	name: state.ReducerGuest.name,
-	modalType: state.ReducerUserType.modalType,
+	modalType: state.ReducerGuest.modalType,
 	isOpen: state.ReducerGuest.isOpen,
 	query: ownProps.query,
 });

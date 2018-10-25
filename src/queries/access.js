@@ -27,20 +27,18 @@ export const GET_ACCESS = gql`
 `;
 
 export const CREATE_ACCESS = gql`
-	mutation createAccess($name:String!, $description:String!, $price:String!, $currency:String!, $location:ID!, $zone:ID!, $status:Int!) {
-		createAccess(name:$name, description:$description, price:$price, currency:$currency, location:$location, zone:$zone, status:$status) {
+	mutation createAccess($name:String!, $description:String!, $currency:String!, $location:ID!, $zone:ID!, $status:Int!) {
+		createAccess(name:$name, description:$description, currency:$currency, location:$location, zone:$zone, status:$status) {
 			name
 			description
-			price
 		}
 	}
 `;
 export const EDIT_ACCESS = gql`
-	mutation updateAccess($id:Int!, $name:String!, $description:String!, $price:String!, $currency:String!, $location:ID!, $zone:ID!, $status:ID!) {
-		updateAccess(id:$id, name:$name, description:$description, price:$price, currency:$currency, location:$location, zone:$zone, status:$status) {
+	mutation updateAccess($id:Int!, $name:String!, $description:String!, $currency:String!, $location:ID!, $zone:ID!, $status:ID!) {
+		updateAccess(id:$id, name:$name, description:$description, currency:$currency, location:$location, zone:$zone, status:$status) {
 			name
 			description
-			price	
 		}
 	}
 `;

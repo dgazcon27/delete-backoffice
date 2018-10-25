@@ -70,15 +70,6 @@ let AccessEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='price'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Precio'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
 						name='currency'
 						type='text'
 						component={renderTextField}
@@ -150,7 +141,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
 	paginationPage: state.ReducerAccess.paginationPageAcc,
-	myValues: selector(state, 'id', 'name', 'descriptionAccess', 'price', 'currency', 'location', 'zone', 'status'),
+	myValues: selector(state, 'id', 'name', 'descriptionAccess', 'currency', 'location', 'zone', 'status'),
 });
 
 const mapDispatchToProps = dispatch => ({

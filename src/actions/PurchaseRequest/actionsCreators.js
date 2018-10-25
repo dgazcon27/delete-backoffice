@@ -190,7 +190,7 @@ export const getUserByDNI = dni => (
 				.catch(() => {
 					dispatch(userModal());
 					dispatch(setUser({
-						name: '', lastName: '', idUser: '', dni: '', phone: '', email: '',
+						name: '', lastName: '', id: 0, dni: 0, phone: '', email: '',
 					}));
 				});
 		}

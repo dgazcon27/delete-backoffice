@@ -28,7 +28,6 @@ import {
 	TablePagination,
 } from '@material-ui/core';
 import styles from './userTypeCss';
-
 import {
 	changePage,
 	openModal,
