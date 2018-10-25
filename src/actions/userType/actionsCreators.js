@@ -1,12 +1,12 @@
 import {
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
+	SET_NAME_USER_TYPE,
+	OPEN_MODAL_USER_TYPER,
+	OPEN_ALERT_USER_TYPE,
+	CLOSE_ALERT_USER_TYPE,
+	CLOSE_MODAL_USER_TYPE,
 	SET_DESCRIPTION,
-	CLEAN_STATE,
-	SET_ROL,
+	CLEAN_STATE_USER_TYPE,
+	SET_ROL_USER_TYPE,
 } from './actionsTypes';
 import { client } from '../../config/configStore';
 import { GET_ROLES, GET_ROL_BY_ID } from '../../queries/userType';
@@ -20,9 +20,9 @@ const checkMessageError = (res) => {
 };
 
 export const setRol = role => ({
-	type: SET_ROL,
+	type: SET_ROL_USER_TYPE,
 	payload: {
-		description: SET_ROL,
+		description: SET_ROL_USER_TYPE,
 		id: role.id,
 		name: role.name,
 		rolDescription: role.description,
@@ -30,31 +30,31 @@ export const setRol = role => ({
 });
 
 export const cleanState = () => ({
-	type: CLEAN_STATE,
+	type: CLEAN_STATE_USER_TYPE,
 	payload: {
-		description: CLEAN_STATE,
+		description: CLEAN_STATE_USER_TYPE,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_USER_TYPE,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_USER_TYPE,
 	},
 });
 
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_USER_TYPE,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_USER_TYPE,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_USER_TYPE,
 	payload: {
-		description: OPEN_ALERT,
+		description: CLOSE_ALERT_USER_TYPE,
 	},
 });
 
@@ -96,19 +96,19 @@ export const deleteUserType = (obj, paginationPage, deleteRolMutation) => {
 };
 
 export const openModal = (modalType, _rol) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_USER_TYPER,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_USER_TYPER,
 		statusValue: _rol.active,
 		name: _rol.name,
 		id: _rol.id,
 	},
 });
 export const setName = name => ({
-	type: SET_NAME,
+	type: SET_NAME_USER_TYPE,
 	payload: {
-		description: SET_NAME,
+		description: SET_NAME_USER_TYPE,
 		name,
 	},
 });

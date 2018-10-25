@@ -10,9 +10,6 @@ import {
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
 	DELETE_USER_TYPE,
-} from '../../actions/userType/actionsTypes';
-
-import {
 	SET_BANK,
 	SET_BANK_ACCOUNT,
 } from '../../actions/Bank/actionsTypes';

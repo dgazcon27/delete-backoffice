@@ -1,11 +1,11 @@
 import {
-	SET_ROL,
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	CLEAN_STATE,
+	SET_ROL_USER_TYPE,
+	SET_NAME_USER_TYPE,
+	OPEN_MODAL_USER_TYPER,
+	OPEN_ALERT_USER_TYPE,
+	CLOSE_MODAL_USER_TYPE,
+	CLOSE_ALERT_USER_TYPE,
+	CLEAN_STATE_USER_TYPE,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -33,7 +33,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 			return ({
 				...state,
 			});
-		case SET_ROL:
+		case SET_ROL_USER_TYPE:
 			return ({
 				...state,
 				id: action.payload.id,
@@ -51,7 +51,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_USER_TYPER:
 			return ({
 				...state,
 				isOpen: true,
@@ -60,7 +60,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_USER_TYPE:
 			return ({
 				...state,
 				isOpen: false,
@@ -68,18 +68,18 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_USER_TYPE:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_USER_TYPE:
 			return ({
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
+		case SET_NAME_USER_TYPE:
 			return ({
 				...state,
 				name: action.payload.name,
@@ -89,7 +89,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				rolDescription: action.payload.rolDescription,
 			});
-		case CLEAN_STATE:
+		case CLEAN_STATE_USER_TYPE:
 			return ({
 				...state,
 				id: 0,

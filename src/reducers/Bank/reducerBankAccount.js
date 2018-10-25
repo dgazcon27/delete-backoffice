@@ -11,7 +11,7 @@ import {
 	BLOCK_USER_TYPE,
 	DELETE_USER_TYPE,
 	SET_BANK_ACCOUNT,
-} from '../../actions/userType/actionsTypes';
+} from '../../actions/Bank/actionsTypes';
 
 const initialState = {
 	id: 0,
