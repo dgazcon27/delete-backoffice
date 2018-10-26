@@ -68,7 +68,7 @@ describe('Test Actions Creator UserType', () => {
 		expect(actions.length).toBe(1);
 
 		// Se verifica que la accion ejecutada sea la correcta
-		expect(actions[0].type).toEqual('OPEN_MODAL');
+		expect(actions[0].type).toEqual('UST_OPEN_MODAL');
 	});
 
 	it('Close Modal', () => {

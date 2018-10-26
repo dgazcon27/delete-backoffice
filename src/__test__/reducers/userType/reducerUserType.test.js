@@ -19,8 +19,8 @@ describe('test Reducer UserType ', () => {
 		modalType: '',
 		rolDescription: '',
 		statusValue: false,
-		paginationPage: 0,
-		currentPage: 0,
+		paginationPageUtype: 0,
+		currentPageUtype: 0,
 		paginationPageSearch: 0,
 		currentPageSearch: 0,
 	};
