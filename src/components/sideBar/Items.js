@@ -25,6 +25,14 @@ import {
 
 const Items = (
 	<div>
+		<Link to='/hotel' href='/hotel'>
+			<ListItem button>
+				<ListItemIcon>
+					<AttachMoney />
+				</ListItemIcon>
+				<ListItemText primary='Hotel' />
+			</ListItem>
+		</Link>
 		<Link to='/' href='/'>
 			<ListItem button>
 				<ListItemIcon>

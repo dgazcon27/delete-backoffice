@@ -13,6 +13,7 @@ import ReducerSearchLocation from './location/reducerSearchLocation';
 import ReducerSearchUsers from './users/reducerSearchUsers';
 import ReducerSearchZone from './zone/reducerSearchZone';
 import ReducerPurchaseRequest from './PurchaseRequest/reducerPurchaseRequest';
+import ReducerHotel from './Hotel/reducerHotel';
 import ReducerEvent from './Event/reducerEvent';
 import ReducerPayment from './Payment/reducerPayment';
 import ReducerAccess from './Access/reducerAccess';
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
 	ReducerEventAccess,
 	ReducerReservation,
 	ReducerRoom,
+	ReducerHotel,
 	form: reduxFormReducer,
 });
 
