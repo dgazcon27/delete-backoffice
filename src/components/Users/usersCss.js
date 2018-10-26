@@ -98,6 +98,9 @@ const styles = () => ({
 	marginIcon: {
 		'margin-right': '10px',
 	},
+	backgroundModal: {
+		background: 'white',
+	},
 });
 
 export default styles;

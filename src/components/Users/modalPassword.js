@@ -62,7 +62,7 @@ let ModalPassword = ({
 	actionSetPassword,
 	resetPasswordIdUserMutation,
 }) => (
-	<div><h4>Cambiar Contraseña</h4>
+	<div className={classes.backgroundModal}><h4>Cambiar Contraseña</h4>
 		<form>
 			<Field
 				name='password'
@@ -112,8 +112,8 @@ ModalPassword = reduxForm({
 const selector = formValueSelector('ModalPassword');
 
 const mapStateToProps = state => ({
-	id: state.ReducerUserType.id,
-	paginationPage: state.ReducerUserType.paginationPage,
+	id: state.ReducerUser.id,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'password', 'confirmation'),
 });
 

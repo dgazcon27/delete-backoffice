@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'react-apollo';
-
 import {
 	Modal,
 	Paper,
 	IconButton,
 } from '@material-ui/core';
 
+import ModalPassword from '../Users/modalPassword';
 import styles from './userTypeCss';
 
 const ModalsOptions = ({
@@ -90,6 +90,9 @@ const ModalsOptions = ({
 						</IconButton>
 					</span>
 				</Paper>
+			}
+			{modal.componentState.modalType === 'password' &&
+				<ModalPassword />
 			}
 		</div>
 	</Modal>
