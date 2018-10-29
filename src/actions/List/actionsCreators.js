@@ -55,7 +55,7 @@ export const resetPagination = () => {
 			}
 		});
 
-		promise().then(() => ({
+		promise().then(() => dispatch({
 			type: RESET_PAGINATION,
 			payload: {
 				paginationPage: 0,
