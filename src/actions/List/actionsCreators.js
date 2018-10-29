@@ -6,6 +6,9 @@ import {
 	RESET_PAGINATION,
 } from './actionsTypes';
 
+import setSearch from '../Search/actionsCreators';
+
+
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
 	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
@@ -43,13 +46,23 @@ export const resetPagination = () => {
 	paginations.userType = 0;
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
-	return ({
-		type: RESET_PAGINATION,
-		payload: {
-			paginationPage: 0,
-			currentPage: 0,
-			paginationPageSearch: 0,
-			currentPageSearch: 0,
-		},
-	});
+	return async (dispatch) => {
+		const promise = () => new Promise((resolve, reject) => {
+			try {
+				resolve(dispatch(setSearch('')));
+			} catch (e) {
+				reject(e);
+			}
+		});
+
+		promise().then(() => ({
+			type: RESET_PAGINATION,
+			payload: {
+				paginationPage: 0,
+				currentPage: 0,
+				paginationPageSearch: 0,
+				currentPageSearch: 0,
+			},
+		}));
+	};
 };
