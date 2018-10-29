@@ -226,7 +226,7 @@ export const createPurchaseReq = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.reload('/')), 2000);
+				setTimeout(() => (window.location.assign('/')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -257,7 +257,7 @@ export const editPurchaseReq = (
 					status: { id: purchase.status },
 					comment: purchase.comment,
 				}));
-				setTimeout(() => (window.location.reload('/')), 2000);
+				setTimeout(() => (window.location.assign('/')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

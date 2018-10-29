@@ -8,7 +8,7 @@ import People from '@material-ui/icons/People';
 import Weekend from '@material-ui/icons/Weekend';
 import Wc from '@material-ui/icons/Wc';
 import Event from '@material-ui/icons/Album';
-// import Work from '@material-ui/icons/Work';
+import Hotel from '@material-ui/icons/Hotel';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
 import AttachMoney from '@material-ui/icons/AttachMoney';
@@ -28,7 +28,7 @@ const Items = (
 		<Link to='/hotel' href='/hotel'>
 			<ListItem button>
 				<ListItemIcon>
-					<AttachMoney />
+					<Hotel />
 				</ListItemIcon>
 				<ListItemText primary='Hotel' />
 			</ListItem>
@@ -162,7 +162,7 @@ const Items = (
 				<ListItemIcon>
 					<RoomService />
 				</ListItemIcon>
-				<ListItemText primary='Reservas' />
+				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
 		<Link to='/room' href='/room'>

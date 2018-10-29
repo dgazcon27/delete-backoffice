@@ -229,7 +229,7 @@ export const editUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('editado'));
-				setTimeout(() => (window.location.reload('/users')), 2000);
+				setTimeout(() => (window.location.assign('/users')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

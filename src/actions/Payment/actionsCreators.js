@@ -34,6 +34,15 @@ export const changePage = (currentPage, paginationPagePay) => {
 	});
 };
 
+export const setPaymentData = data => ({
+	type: SET_PAYMENT,
+	payload: {
+		description: SET_PAYMENT,
+		...data,
+		bankAccount: data.bankAccount.id,
+	},
+});
+
 export const setPayment = payment => ({
 	type: SET_PAYMENT,
 	payload: {

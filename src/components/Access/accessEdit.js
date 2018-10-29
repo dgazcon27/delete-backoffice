@@ -109,7 +109,7 @@ let AccessEdit = ({
 			open={alertOpen}
 			onClose={() => { setTimeout(actionCloseAlert, 100); }}
 			ContentProps={{ 'aria-describedby': 'message-id' }}
-			message={<span id='message-id'>El Acceso {myValues.name} fue creado con éxito.</span>}
+			message={<span id='message-id'>El Acceso {myValues.name} fue editado con éxito.</span>}
 		/>
 		}
 	</div>

@@ -44,8 +44,8 @@ const Main = (props) => {
 			<div className={classes.toolbar} />
 			<Switch>
 
-				<Route path='/hotel' component={Hotel} />
 				<Route exact path='/' component={PurchaseRequest} />
+				<Route path='/hotel' component={Hotel} />
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={ComponentUsers} />
 				<Route path='/users-create' component={UsersCreate} />

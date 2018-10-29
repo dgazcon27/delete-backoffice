@@ -22,7 +22,6 @@ import styles from './userTypeCss';
 import {
 	openModal,
 	closeModal,
-	setPayment,
 	changePage,
 } from '../../actions/Payment/actionsCreators';
 
@@ -32,7 +31,6 @@ import Loading from '../Loading/loading';
 const PurchaseRequestPay = ({
 	id,
 	classes,
-	actionEditPayment,
 }) => (
 	<Query query={PURCHASE_REQUEST_PAY} variables={{ id }}>
 		{({ loading, error, data }) => {
@@ -79,20 +77,8 @@ const PurchaseRequestPay = ({
 												placement='top'
 												title='Editar Pago'
 											>
-												<Link to='/pre-sale-edit' href='/pre-sale-edit'>
-													<IconButton
-														onClick={() => {
-															actionEditPayment(
-																payment.payment.id,
-																payment.id,
-																payment.payment.amount,
-																payment.payment.reference,
-																payment.payment.comment,
-																payment.payment.type,
-																payment.payment.bankAccount.id,
-															);
-														}}
-													>
+												<Link to={{ pathname: `/pre-sale-edit/${payment.id}/${payment.payment.id}` }}>
+													<IconButton >
 														<Edit />
 													</IconButton>
 												</Link>
@@ -114,7 +100,6 @@ const PurchaseRequestPay = ({
 PurchaseRequestPay.propTypes = {
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionEditPayment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -128,15 +113,6 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _payment) => dispatch(openModal(modalType, _payment)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditPayment: (
-		id,
-		purchaseRequest,
-		amount,
-		reference,
-		comment,
-		type,
-		bankAccount,
-	) => dispatch(setPayment(id, purchaseRequest, amount, reference, comment, type, bankAccount)),
 });
 
 export default compose(
