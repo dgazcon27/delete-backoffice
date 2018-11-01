@@ -142,7 +142,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerUserType.alertOpen,
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerUserType.paginationPage,
+	paginationPage: state.ReducerUserType.paginationPageUtype,
 	myValues: selector(state, 'name', 'rolDescription'),
 });
 

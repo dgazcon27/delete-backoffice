@@ -4,8 +4,8 @@ import {
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_PAY,
+	PAGE_DOWN_PAY,
 	EDIT_PAYMENT,
 	DELETE_PAYMENT,
 } from '../../actions/Payment/actionsTypes';
@@ -23,32 +23,32 @@ const initialState = {
 	alertType: '',
 	modalType: '',
 	statusValue: 0,
-	paginationPage: 0,
+	paginationPagePay: 0,
 	currentPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).payment || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).payment || 0;
+	initialState.paginationPagePay = JSON.parse(localStorage.getItem('paginations')).payment || 0;
+	initialState.currentPagePay = JSON.parse(localStorage.getItem('paginations')).payment || 0;
 } else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
+	initialState.paginationPagePay = 0;
+	initialState.currentPagePay = 0;
 }
 
 const ReducerPayment = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case PAGE_UP_PAY:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPagePay: action.payload.paginationPagePay,
+				currentPagePay: action.payload.currentPagePay,
 			});
-		case PAGE_DOWN:
+		case PAGE_DOWN_PAY:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				paginationPagePay: action.payload.paginationPagePay,
+				currentPagePay: action.payload.currentPagePay,
 			});
 		case EDIT_PAYMENT:
 			return ({

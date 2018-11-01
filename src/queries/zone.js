@@ -70,9 +70,6 @@ export const GET_ZONE_BY_ID = gql`
 			id
 			capacity
 			maxcapacity
-			status{
-				id
-			}
 		}
 	}
 `;

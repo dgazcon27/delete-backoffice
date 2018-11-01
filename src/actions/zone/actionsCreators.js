@@ -89,6 +89,7 @@ export const deleteZone = (obj, paginationPage, deleteZoneMutation) => {
 	};
 };
 
+
 export const openModal = (modalType, _zone) => ({
 	type: OPEN_MODAL_ZONE,
 	payload: {
@@ -99,6 +100,7 @@ export const openModal = (modalType, _zone) => ({
 		id: _zone.id,
 	},
 });
+
 export const setName = name => ({
 	type: SET_NAME_ZONE,
 	payload: {
@@ -132,7 +134,7 @@ export const createZone = (
 	})
 		.then(() => {
 			dispatch(openAlert('creado'));
-			setTimeout(() => (window.location.assign('Departments')), 2000);
+			setTimeout(() => (window.location.assign('/zones')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);
@@ -156,7 +158,7 @@ export const editZone = (
 		.then(() => {
 			dispatch(openAlert('edit'));
 			dispatch(setZone(zone));
-			setTimeout(() => (window.location.assign('/Departments')), 2000);
+			setTimeout(() => (window.location.assign('/zones')), 2000);
 		})
 		.catch((res) => {
 			const message = checkMessageError(res);

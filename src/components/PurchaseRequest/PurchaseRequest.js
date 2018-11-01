@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Payment from '@material-ui/icons/Payment';
+import List from '@material-ui/icons/List';
 import {
 	Modal,
 	Paper,
@@ -37,6 +38,8 @@ import {
 	setToPay,
 } from '../../actions/PurchaseRequest/actionsCreators';
 
+import PurchaseRequestPay from './PurchaseRequestPay';
+
 import {
 	DELETE_PURCHASE_REQ,
 	GET_PURCHASE_REQ,
@@ -46,7 +49,6 @@ import Loading from '../Loading/loading';
 
 const PurchaseRequest = ({
 	id,
-	name,
 	isOpen,
 	userId,
 	classes,
@@ -110,6 +112,20 @@ const PurchaseRequest = ({
 												<TableCell >{purchaseReq.pendingPayment}</TableCell>
 												<TableCell >{purchaseReq.event.name}</TableCell>
 												<TableCell className={classes.alignRight}>
+													{
+														parseFloat(purchaseReq.totalPaid) > 0 &&
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Lista de Pagos'
+														>
+															<IconButton onClick={() => { actionOpenModal('pagos', purchaseReq); }}>
+																<List />
+															</IconButton>
+														</Tooltip>
+													}
 													<Tooltip
 														enterDelay={200}
 														id='tooltip-controlled'
@@ -159,7 +175,7 @@ const PurchaseRequest = ({
 											rowsPerPage={10}
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
-											colSpan={3}
+											colSpan={6}
 											onChangePage={(event, changuedPage) => {
 												actionChangePage(currentPage, changuedPage);
 											}}
@@ -172,31 +188,36 @@ const PurchaseRequest = ({
 					<Modal
 						open={isOpen}
 						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
+						onBackdropClick={() => actionCloseModal()}
 						disableAutoFocus={false}
 					>
 						<div>
 							{modalType === 'delete' &&
+							<Paper className={classNames(classes.paperOnModal)}>
+								<h6>
+									Eliminar Compra
+								</h6>
+								<p>
+									¿Estas seguro que desea eliminar esta compra?
+								</p>
+								<span>
+									<IconButton onClick={() => {
+										actionDeletePurchaseReq(id, paginationPage, deletePurchaseReqMutation);
+									}}
+									>
+										Si
+									</IconButton>
+									&nbsp;
+									&nbsp;
+									<IconButton onClick={actionCloseModal}>
+										No
+									</IconButton>
+								</span>
+							</Paper>
+							}
+							{modalType === 'pagos' &&
 								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar bank
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el bank {name} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeletePurchaseReq(id, paginationPage, deletePurchaseReqMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
+									<PurchaseRequestPay />
 								</Paper>
 							}
 						</div>
@@ -209,7 +230,6 @@ const PurchaseRequest = ({
 
 PurchaseRequest.propTypes = {
 	isOpen: PropTypes.bool,
-	name: PropTypes.string,
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
@@ -225,7 +245,6 @@ PurchaseRequest.propTypes = {
 };
 
 PurchaseRequest.defaultProps = {
-	name: '',
 	isOpen: false,
 	modalType: '',
 };
@@ -233,11 +252,10 @@ PurchaseRequest.defaultProps = {
 const mapStateToProps = state => ({
 	currency: state.ReducerPurchaseRequest.currency,
 	id: state.ReducerPurchaseRequest.id,
-	name: state.ReducerPurchaseRequest.name,
 	isOpen: state.ReducerPurchaseRequest.isOpen,
 	modalType: state.ReducerPurchaseRequest.modalType,
-	currentPage: state.ReducerPurchaseRequest.currentPage,
-	paginationPage: state.ReducerPurchaseRequest.paginationPage,
+	currentPage: state.ReducerPurchaseRequest.currentPagePreq,
+	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
 	initialValues: state.ReducerPurchaseRequest,
 	userId: state.ReducerLogin.userId,
 });

@@ -1,7 +1,7 @@
 import {
 	SET_ROL_USER_TYPE,
 	SET_NAME_USER_TYPE,
-	OPEN_MODAL_USER_TYPER,
+	OPEN_MODAL_USER_TYPE,
 	OPEN_ALERT_USER_TYPE,
 	CLOSE_MODAL_USER_TYPE,
 	CLOSE_ALERT_USER_TYPE,
@@ -51,7 +51,7 @@ const ReducerUserType = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL_USER_TYPER:
+		case OPEN_MODAL_USER_TYPE:
 			return ({
 				...state,
 				isOpen: true,

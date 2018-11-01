@@ -4,7 +4,10 @@ import {
 	OPEN_ALERT_EVENT,
 	CLOSE_ALERT_EVENT,
 	SET_EVENT,
-	SET_COUNTRIES_STATES_EVENT,
+	SET_COUNTRIES_STATES,
+	CLEAN_STATE_COUNTRY,
+	ADD_ACCESS,
+	ID_ACCESS_EVENT,
 } from './actionsTypes';
 
 import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
@@ -51,15 +54,33 @@ export const closeAlert = () => ({
 	},
 });
 
-export const setStates = states => ({
-	type: SET_COUNTRIES_STATES_EVENT,
+export const setEstados = states => ({
+	type: SET_COUNTRIES_STATES,
 	payload: {
 		states,
-		description: SET_COUNTRIES_STATES_EVENT,
+		description: SET_COUNTRIES_STATES,
 	},
 });
 
-export const setCountriesStates = (e, id) => (
+
+export const cleanStateCountry = () => ({
+	type: CLEAN_STATE_COUNTRY,
+	payload: {
+		description: CLEAN_STATE_COUNTRY,
+		state: 0,
+	},
+});
+
+export const setDate = (desState, input, ev, val) => {
+	const payload = {};
+	payload[input] = val;
+	return ({
+		type: desState,
+		payload,
+	});
+};
+
+export const setCountriesStates = (ev, id, ini = false) => (
 	async (dispatch) => {
 		client
 			.query({
@@ -67,11 +88,13 @@ export const setCountriesStates = (e, id) => (
 				variables: { country: id },
 			})
 			.then((res) => {
-				dispatch(setStates(res.data.countryStates));
+				dispatch(setEstados(res.data.countryStates));
+				if (!ini) {
+					dispatch(cleanStateCountry());
+				}
 			})
 			.catch(() => {});
-	}
-);
+	});
 
 export const setEvent = event => ({
 	type: SET_EVENT,
@@ -98,11 +121,27 @@ export const getEventById = id => (
 			.then((res) => {
 				const { event } = res.data;
 				dispatch(setEvent(event));
-				dispatch(setCountriesStates(event.state.country.id));
+				dispatch(setCountriesStates({}, event.state.country.id, true));
 			})
 			.catch(() => {});
 	}
 );
+
+export const addAccess = event => ({
+	type: ADD_ACCESS,
+	payload: {
+		description: ADD_ACCESS,
+		event,
+	},
+});
+
+export const setIdAccessEventCreate = idAccessEvent => ({
+	type: ID_ACCESS_EVENT,
+	payload: {
+		description: ID_ACCESS_EVENT,
+		idAccessEvent,
+	},
+});
 
 export const createEvent = (event, paginationPage, createdBy, updatedBy, createEventMutation) => (
 	async (dispatch) => {

@@ -74,6 +74,15 @@ export const GET_STATUSS = gql`
 		}	
 `;
 
+export const GET_COUNTRIES = gql`
+	query {
+		countrys {
+			name
+			value
+			id
+		}
+	}
+`;
 export const GET_LOCATIONS = gql`
 	query locationss{
 		locationss{
@@ -82,20 +91,26 @@ export const GET_LOCATIONS = gql`
 		}
 	}
 `;
+export const GET_ROLES = gql`
+	query {
+		roless{
+			id
+			name
+		}
+	}
+`;
 export const GET_ZONES = gql`
-	query zones{
+	query {
 		zones{
 			id
 			name
 		}
 	}
 `;
-
-export const GET_COUNTRIES = gql`
+export const GET_TYPE_INVITED = gql`
 	query {
-		countrys {
+		typeInvits{
 			name
-			value
 			id
 		}
 	}

@@ -245,7 +245,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerEvent.alertType,
 	alertOpen: state.ReducerEvent.alertOpen,
 	states: state.ReducerEvent.states,
-	paginationPage: state.ReducerEvent.paginationPage,
+	paginationPage: state.ReducerEvent.paginationPageEv,
 	userId: state.ReducerLogin.userId,
 	myValues: selector(
 		state,

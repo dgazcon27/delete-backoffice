@@ -1,5 +1,6 @@
 import React from 'react';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { Field } from 'redux-form';
 import { required } from './validations/validations';
@@ -16,8 +17,8 @@ import {
 	GET_LOCATIONS,
 	GET_ZONES,
 	GET_COUNTRIES,
+	GET_TYPE_INVITED,
 } from './../queries/common';
-
 
 export const BankAccount = () => (
 	<Query query={GET_BANK_ACCOUNTS}>
@@ -99,15 +100,15 @@ export const Banks = () => (
 	</Query>
 );
 
-export const Roles = () => (
+export const SelectRoles = fieldName => (
 	<Query query={GET_ROLESS}>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return (
 					<Field
-						name='role'
+						name={fieldName.name}
 						type='select'
-						label='Roles'
+						label={fieldName.label}
 						component={renderSelectField}
 						validate={required}
 						className='container'
@@ -121,9 +122,9 @@ export const Roles = () => (
 			}
 			return (
 				<Field
-					name='role'
+					name={fieldName.name}
 					type='select'
-					label='Roles'
+					label={fieldName.label}
 					component={renderSelectField}
 					validate={required}
 					className='container'
@@ -137,43 +138,100 @@ export const Roles = () => (
 	</Query>
 );
 
-export const Users = () => (
-	<Query query={GET_USERSS}>
-		{({ loading, error, data }) => {
-			if (loading) {
+export const Roles = (props) => {
+	Roles.defaultProps = {
+		name: '',
+	};
+	Roles.propTypes = {
+		name: PropTypes.string,
+	};
+	const inputName = props.name ? props.name : 'roles';
+	return (
+		<Query query={GET_ROLESS}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<Field
+							name={inputName}
+							type='select'
+							label='Roles'
+							component={renderSelectField}
+							validate={required}
+							className='container'
+						>
+							<MenuItem />
+						</Field>
+					);
+				}
+				if (error) {
+					return ('Error!');
+				}
 				return (
 					<Field
-						name='user'
+						name={inputName}
+						type='select'
+						label='Roles'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						{data.roless.map(role => (
+							<MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>
+						))}
+					</Field>
+				);
+			}}
+		</Query>
+	);
+};
+
+export const Users = (props) => {
+	Users.defaultProps = {
+		name: '',
+	};
+
+	Users.propTypes = {
+		name: PropTypes.string,
+	};
+	const inputName = props.name ? props.name : 'owner';
+	return (
+		<Query query={GET_USERSS}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<Field
+							name={inputName}
+							type='select'
+							label='Usuarios'
+							component={renderSelectField}
+							validate={required}
+							className='container'
+						>
+							<MenuItem />
+						</Field>
+					);
+				}
+				if (error) {
+					return ('Error!');
+				}
+				return (
+					<Field
+						name={inputName}
 						type='select'
 						label='Usuarios'
 						component={renderSelectField}
 						validate={required}
 						className='container'
 					>
-						<MenuItem />
+						{data.userss.map(user => (
+							<MenuItem key={user.id} value={user.id}>{`${user.name} ${user.lastName}`}</MenuItem>
+						))}
 					</Field>
 				);
-			}
-			if (error) {
-				return ('Error!');
-			}
-			return (
-				<Field
-					name='user'
-					type='select'
-					label='Usuarios'
-					component={renderSelectField}
-					validate={required}
-					className='container'
-				>
-					{data.userss.map(user => (
-						<MenuItem key={user.id} value={user.id}>{`${user.name} ${user.lastName}`}</MenuItem>
-					))}
-				</Field>
-			);
-		}}
-	</Query>
-);
+			}}
+		</Query>
+	);
+};
 
 export const AccessE = (access) => {
 	if (access !== {} && access.access.length > 0) {
@@ -407,7 +465,7 @@ export const Status = () => (
 					<Field
 						name='status'
 						type='select'
-						label='Estado'
+						label='Estatus'
 						component={renderSelectField}
 						validate={required}
 						className='container'
@@ -423,7 +481,7 @@ export const Status = () => (
 				<Field
 					name='status'
 					type='select'
-					label='Estado'
+					label='Estatus'
 					component={renderSelectField}
 					validate={required}
 					className='container'
@@ -436,6 +494,53 @@ export const Status = () => (
 		}}
 	</Query>
 );
+
+export const SelectStatus = (props) => {
+	SelectStatus.propTypes = {
+		stateDesc: PropTypes.string.isRequired,
+		inputName: PropTypes.string.isRequired,
+		action: PropTypes.func.isRequired,
+	};
+
+	return (
+		<Query query={GET_STATUSS}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<Field
+							name='status'
+							type='select'
+							label='Estatus'
+							component={renderSelectField}
+							validate={required}
+							className='container'
+						>
+							<MenuItem />
+						</Field>
+					);
+				}
+				if (error) {
+					return ('Error!');
+				}
+				return (
+					<Field
+						name='status'
+						type='select'
+						label='Estatus'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+						onChange={props.action.bind(this, props.stateDesc, props.inputName)}
+
+					>
+						{data.statuss.map(status => (
+							<MenuItem key={status.id} value={status.id}>{status.name}</MenuItem>
+						))}
+					</Field>
+				);
+			}}
+		</Query>);
+};
 
 export const Location = () => (
 	<Query query={GET_LOCATIONS}>
@@ -466,6 +571,43 @@ export const Location = () => (
 				>
 					{data.locationss.map(location => (
 						<MenuItem key={location.id} value={location.id}>{location.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+export const Countries = fieldName => (
+	<Query query={GET_COUNTRIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name={fieldName.name}
+						type='select'
+						label='Ciudadanía'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name={fieldName.name}
+					type='select'
+					label='Ciudadanía'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.countrys.map(country => (
+						<MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
 					))}
 				</Field>
 			);
@@ -523,4 +665,43 @@ export const SelectState = states => (
 			<MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
 		))}
 	</Field>
+);
+
+
+export const TypeInvited = () => (
+	<Query query={GET_TYPE_INVITED}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='typeInvited'
+						type='select'
+						label='Tipo de Invitado'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='typeInvited'
+					type='select'
+					label='Tipo de Invitado'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.typeInvits.map(typeinvited => (
+						<MenuItem key={typeinvited.id} value={typeinvited.id}>{typeinvited.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
 );

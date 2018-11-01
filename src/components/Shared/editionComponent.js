@@ -12,6 +12,7 @@ import { getAccessById } from '../../actions/Access/actionsCreators';
 import { getPurchaseById } from '../../actions/PurchaseRequest/actionsCreators';
 import { getPaymentById } from '../../actions/Payment/actionsCreators';
 import { getZoneById } from '../../actions/zone/actionsCreators';
+import { getGuestById } from '../../actions/Guest/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -23,6 +24,7 @@ import AccessEdit from '../Access/accessEdit';
 import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
 import PaymentEdit from '../Payment/paymentEdit';
 import ZoneEdit from '../Zone/zoneEdit';
+import UpdateGuest from '../Guest/editGuest';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -32,51 +34,55 @@ class EditionComponent extends React.Component {
 
 	componentDidMount() {
 		const { id } = this.props.match.params;
-		this.initialize(id);
+		const type = this.props.match.url.split('/')[1];
+		this.initialize(id, type);
 	}
 
-	initialize(id) {
-		const { type } = this.props.location.state;
+	initialize(id, type) {
 		let fk = {};
 		switch (type) {
-			case 'Event':
-				this.props.dispatch(getEventById(id));
-				this.setState({ tag: <EventEdit /> });
-				break;
-			case 'User':
+			case 'users-edit':
 				this.props.dispatch(getUserById(id));
 				this.setState({ tag: <UsersEdit /> });
 				break;
-			case 'UserType':
+			case 'user-type-edit':
 				this.props.dispatch(getUserTypeById(id));
 				this.setState({ tag: <UserTypeEdit /> });
 				break;
-			case 'Location':
+			case 'edit-tables':
 				this.props.dispatch(getLocationById(id));
 				this.setState({ tag: <LocationEdit /> });
 				break;
-			case 'Bank':
+			case 'guest-edit':
+				this.props.dispatch(getGuestById(id));
+				this.setState({ tag: <UpdateGuest /> });
+				break;
+			case 'event-edit':
+				this.props.dispatch(getEventById(id));
+				this.setState({ tag: <EventEdit /> });
+				break;
+			case 'bank-edit':
 				this.props.dispatch(getBankById(id));
 				this.setState({ tag: <BankEdit /> });
 				break;
-			case 'Account':
+			case 'bank-account-edit':
 				this.props.dispatch(getAccountById(id));
 				this.setState({ tag: <BankAccountEdit /> });
 				break;
-			case 'Access':
+			case 'access-edit':
 				this.props.dispatch(getAccessById(id));
 				this.setState({ tag: <AccessEdit /> });
 				break;
-			case 'Purchase':
+			case 'purchase-request-edit':
 				this.props.dispatch(getPurchaseById(id));
 				this.setState({ tag: <PurchaseRequestEdit /> });
 				break;
-			case 'Payment':
+			case 'pre-sale-edit':
 				({ fk } = this.props.match.params);
 				this.props.dispatch(getPaymentById(id, fk));
 				this.setState({ tag: <PaymentEdit /> });
 				break;
-			case 'Zone':
+			case 'Departments-edit':
 				this.props.dispatch(getZoneById(id));
 				this.setState({ tag: <ZoneEdit /> });
 				break;
@@ -92,7 +98,6 @@ class EditionComponent extends React.Component {
 
 EditionComponent.propTypes = {
 	dispatch: PropTypes.func.isRequired,
-	location: PropTypes.object.isRequired,
 	match: PropTypes.object.isRequired,
 };
 

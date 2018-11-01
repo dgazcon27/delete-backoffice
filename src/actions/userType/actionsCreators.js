@@ -1,6 +1,6 @@
 import {
 	SET_NAME_USER_TYPE,
-	OPEN_MODAL_USER_TYPER,
+	OPEN_MODAL_USER_TYPE,
 	OPEN_ALERT_USER_TYPE,
 	CLOSE_ALERT_USER_TYPE,
 	CLOSE_MODAL_USER_TYPE,
@@ -80,6 +80,7 @@ export const blockUserType = (obj, blockRolMutation) => {
 	return async (dispatch) => {
 		await blockRolMutation({ variables: { id, status } });
 		dispatch(closeModal());
+		window.location.reload();
 	};
 };
 
@@ -96,10 +97,10 @@ export const deleteUserType = (obj, paginationPage, deleteRolMutation) => {
 };
 
 export const openModal = (modalType, _rol) => ({
-	type: OPEN_MODAL_USER_TYPER,
+	type: OPEN_MODAL_USER_TYPE,
 	payload: {
 		modalType,
-		description: OPEN_MODAL_USER_TYPER,
+		description: OPEN_MODAL_USER_TYPE,
 		statusValue: _rol.active,
 		name: _rol.name,
 		id: _rol.id,

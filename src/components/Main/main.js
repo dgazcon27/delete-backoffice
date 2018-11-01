@@ -16,12 +16,26 @@ import Location from '../Location/location';
 import Event from '../Event/event';
 import EventCreate from '../Event/eventCreate';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
+import Hotel from '../Hotel/Hotel';
 import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import PayCreate from '../PurchaseRequest/PayCreate';
 import Payment from '../Payment/payment';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
+import CreateGuest from '../Guest/createGuest';
+import ComponentGuest from '../Guest/componentGuest';
+import AccessEventCreate from '../Event/accessEventCreate';
+import ClassAccessEventEdit from '../Event/accessEventEdit';
+import PreAccessList from '../Event/preAccessList';
+import Reservation from '../Reservation/reservation';
+import ReservationCreate from '../Reservation/reservationCreate';
+import ReservationEdit from '../Reservation/reservationEdit';
+import ReservationPayment from '../Reservation/reservationPayment';
+import Room from '../Room/room';
+import RoomCreate from '../Room/roomCreate';
+import RoomEdit from '../Room/roomEdit';
+
 
 const Main = (props) => {
 	const classes = props.class;
@@ -29,7 +43,9 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
+
 				<Route exact path='/' component={PurchaseRequest} />
+				<Route path='/hotel' component={Hotel} />
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={Users} />
 				<Route path='/users-create' component={UsersCreate} />
@@ -60,6 +76,19 @@ const Main = (props) => {
 				<Route path='/access' component={Access} />
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit/:id' component={EditionComponent} />
+				<Route path='/guests' component={ComponentGuest} />
+				<Route path='/guest-create' component={CreateGuest} />
+				<Route path='/guest-edit/:id' component={EditionComponent} />
+				<Route path='/event-access/:id' component={PreAccessList} />
+				<Route path='/event-access-create/:id' component={AccessEventCreate} />
+				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
+				<Route path='/reservation' component={Reservation} />
+				<Route path='/reservation-create' component={ReservationCreate} />
+				<Route path='/reservation-edit' component={ReservationEdit} />
+				<Route path='/reservation-payment' component={ReservationPayment} />
+				<Route path='/room' component={Room} />
+				<Route path='/room-create' component={RoomCreate} />
+				<Route path='/room-edit' component={RoomEdit} />
 			</Switch>
 		</main>
 	);

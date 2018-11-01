@@ -30,6 +30,8 @@ const ReducerBankAccount = (state = initialState, action = {}) => {
 		case EDIT_BANK_ACCOUNT:
 			return ({
 				...state,
+				paginationPageAc: action.payload.paginationPageAc,
+				currentPageAc: action.payload.currentPageAc,
 			});
 		case SET_ROL_BANK_ACCOUNT:
 			return ({

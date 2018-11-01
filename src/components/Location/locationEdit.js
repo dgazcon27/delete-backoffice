@@ -31,8 +31,6 @@ import {
 	editLocation,
 } from '../../actions/location/actionsCreators';
 
-import { Status } from '../commonComponent';
-
 const validate = (values) => {
 	const errors = {};
 
@@ -115,9 +113,6 @@ let LocationEdit = ({
 						className='yourclass'
 					/>
 				</div>
-				<div className={classes.formStyle}>
-					<Status />
-				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditLocation(myValues, Number(userId), paginationPage, editLocationMutation))} disabled={submitting} >
 					Guardar
 				</button>
@@ -175,7 +170,7 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerLocation.alertType,
 	alertOpen: state.ReducerLocation.alertOpen,
-	paginationPage: state.ReducerLocation.paginationPage,
+	paginationPage: state.ReducerLocation.paginationPageLoc,
 	myValues: selector(state, 'id', 'name', 'locationDescription', 'fullcapacity', 'capacity', 'status'),
 	initialValues: state.ReducerLocation,
 });

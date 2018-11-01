@@ -24,7 +24,7 @@ const styles = () => ({
 	},
 	createContainer: {
 		borderRadius: '1%',
-		marginTop: '10%',
+		marginTop: '2%',
 		margin: '2%',
 		padding: '1% 1%',
 		height: '40%',

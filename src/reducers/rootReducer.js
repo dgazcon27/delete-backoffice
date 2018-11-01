@@ -9,12 +9,17 @@ import ReducerBankAccount from './Bank/reducerBankAccount';
 import ReducerZone from './zone/reducerZone';
 import ReducerLocation from './location/reducerLocation';
 import ReducerPurchaseRequest from './PurchaseRequest/reducerPurchaseRequest';
+import ReducerHotel from './Hotel/reducerHotel';
 import ReducerEvent from './Event/reducerEvent';
 import ReducerPayment from './Payment/reducerPayment';
 import ReducerAccess from './Access/reducerAccess';
 import ReducerSearch from './Search/reducerSearch';
 
 import ReducerPagination from './List/reducerPagination';
+import ReducerGuest from './Guest/reducerGuest';
+import ReducerEventAccess from './Event/Access/reducerAccess';
+import ReducerReservation from './Reservation/reducerReservation';
+import ReducerRoom from './Room/reducerRoom';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -31,6 +36,11 @@ const rootReducer = combineReducers({
 	ReducerAccess,
 	ReducerPurchaseRequest,
 	ReducerPagination,
+	ReducerGuest,
+	ReducerEventAccess,
+	ReducerReservation,
+	ReducerRoom,
+	ReducerHotel,
 	form: reduxFormReducer,
 });
 

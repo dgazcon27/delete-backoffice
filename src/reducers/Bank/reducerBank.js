@@ -30,6 +30,8 @@ const ReducerBank = (state = initialState, action = {}) => {
 		case EDIT_BANK:
 			return ({
 				...state,
+				paginationPageBank: action.payload.paginationPageBank,
+				currentPageBank: action.payload.currentPageBank,
 			});
 		case SET_ROL_BANK:
 			return ({

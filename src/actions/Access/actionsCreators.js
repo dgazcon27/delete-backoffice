@@ -23,7 +23,6 @@ export const setAccess = access => ({
 		id: access.id,
 		name: access.name,
 		descriptionAccess: access.description,
-		price: access.price,
 		currency: access.currency,
 		location: access.location.id,
 		zone: access.zone.id,
@@ -93,9 +92,15 @@ export const deleteAccess = (obj, paginationPage, deleteAccessMutation) => {
 		await deleteAccessMutation({
 			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		// window.location.reload();
+		}).then(() => {
+			dispatch(closeModal());
+			window.location.reload();
+		})
+			.catch((err) => {
+				if (err.graphQLErrors[0].message.indexOf('FOREIGN KEY') > 0) {
+					dispatch(openModal('foreign_key', { id, status: { active: 1 }, name: '' }));
+				}
+			});
 	};
 };
 

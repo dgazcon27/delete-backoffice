@@ -29,7 +29,6 @@ export const setLocation = location => ({
 		locationDescription: location.description,
 		fullcapacity: location.fullcapacity,
 		capacity: location.capacity,
-		status: location.status.id,
 	},
 });
 

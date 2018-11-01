@@ -23,9 +23,7 @@ export const SEARCH_USER = gql`
 				data{
 					name
 					id
-					status{
-						id
-					}
+					description
 					active
 				}
 				total

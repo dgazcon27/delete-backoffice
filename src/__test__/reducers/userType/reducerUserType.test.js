@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'jest-localstorage-mock';
 import ReducerUserType from '../../../reducers/userType/reducerUserType';
 
@@ -85,3 +86,5 @@ describe('test Reducer UserType ', () => {
 			});
 	});
 });
+=======
+>>>>>>> feature/integration-10/10/2018

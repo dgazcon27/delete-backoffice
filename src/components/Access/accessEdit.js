@@ -70,15 +70,6 @@ let AccessEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='price'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Precio'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
 						name='currency'
 						type='text'
 						component={renderTextField}
@@ -118,7 +109,7 @@ let AccessEdit = ({
 			open={alertOpen}
 			onClose={() => { setTimeout(actionCloseAlert, 100); }}
 			ContentProps={{ 'aria-describedby': 'message-id' }}
-			message={<span id='message-id'>El Acceso {myValues.name} fue creado con éxito.</span>}
+			message={<span id='message-id'>El Acceso {myValues.name} fue editado con éxito.</span>}
 		/>
 		}
 	</div>
@@ -149,8 +140,8 @@ const mapStateToProps = state => ({
 	initialValues: state.ReducerAccess,
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
-	paginationPage: state.ReducerAccess.paginationPage,
-	myValues: selector(state, 'id', 'name', 'descriptionAccess', 'price', 'currency', 'location', 'zone', 'status'),
+	paginationPage: state.ReducerAccess.paginationPageAcc,
+	myValues: selector(state, 'id', 'name', 'descriptionAccess', 'currency', 'location', 'zone', 'status'),
 });
 
 const mapDispatchToProps = dispatch => ({

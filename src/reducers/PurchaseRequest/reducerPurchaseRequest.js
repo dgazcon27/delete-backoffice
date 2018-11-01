@@ -6,20 +6,27 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_PREQ,
+	PAGE_DOWN_PREQ,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
+	PR_SET_USER,
+	MODAL_USER,
+	CLOSE_MODAL_USER,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
 
 const initialState = {
+	newUserModal: false,
 	id: 0,
+	idUser: 0,
 	name: '',
+	nameUser: '',
+	lastName: '',
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
@@ -28,37 +35,50 @@ const initialState = {
 	statusValue: 0,
 	accountNumber: '',
 	user: 0,
-	access: {},
+	access: [],
 	event: 0,
 	status: 0,
 	comment: 0,
 	totalPrice: 0,
 	pendingPayment: 0,
 	totalPaid: 0,
+	dni: 0,
+	phone: '',
+	email: '',
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
+	initialState.paginationPagePreq = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
+	initialState.currentPagePreq = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
 } else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
+	initialState.paginationPagePreq = 0;
+	initialState.currentPagePreq = 0;
 }
 
 const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
+		case MODAL_USER:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				newUserModal: true,
 			});
-		case PAGE_DOWN:
+		case CLOSE_MODAL_USER:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
+				newUserModal: false,
+			});
+		case PAGE_UP_PREQ:
+			return ({
+				...state,
+				paginationPagePreq: action.payload.paginationPagePreq,
+				currentPagePreq: action.payload.currentPagePreq,
+			});
+		case PAGE_DOWN_PREQ:
+			return ({
+				...state,
+				paginationPagePreq: action.payload.paginationPagePreq,
+				currentPagePreq: action.payload.currentPagePreq,
 			});
 		case EDIT_USER_TYPE:
 			return ({
@@ -75,8 +95,12 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				id: action.payload.id,
+				name: action.payload.name,
+				lastName: action.payload.lastName,
+				phone: action.payload.phone,
+				email: action.payload.email,
 				user: action.payload.user,
-				access: action.payload.access,
+				accessName: action.payload.access,
 				event: action.payload.event,
 				status: action.payload.status,
 				comment: action.payload.comment,
@@ -124,6 +148,16 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				name: action.payload.name,
+			});
+		case PR_SET_USER:
+			return ({
+				...state,
+				idUser: action.payload.aux.id,
+				nameUser: action.payload.aux.name,
+				lastName: action.payload.aux.lastName,
+				phone: action.payload.aux.phone,
+				dni: action.payload.aux.dni,
+				email: action.payload.aux.email,
 			});
 		case SET_ACCESS_EVENT:
 			return ({

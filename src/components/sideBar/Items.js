@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom';
 import Security from '@material-ui/icons/Security';
 import People from '@material-ui/icons/People';
 import Weekend from '@material-ui/icons/Weekend';
-import Event from '@material-ui/icons/Event';
+import Wc from '@material-ui/icons/Wc';
+import Event from '@material-ui/icons/Album';
+import Hotel from '@material-ui/icons/Hotel';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
+import RoomService from '@material-ui/icons/RoomService';
 
 import {
 	ListItem,
@@ -22,6 +25,14 @@ import { resetPagination } from '../../actions/List/actionsCreators';
 
 const Items = ({ actionResetPagination }) => (
 	<div>
+		<Link to='/hotel' href='/hotel'>
+			<ListItem button>
+				<ListItemIcon>
+					<Hotel />
+				</ListItemIcon>
+				<ListItemText primary='Hotel' />
+			</ListItem>
+		</Link>
 		<Link to='/' href='/'>
 			<ListItem button onClick={() => actionResetPagination()} >
 				<ListItemIcon>
@@ -56,8 +67,15 @@ const Items = ({ actionResetPagination }) => (
 				<ListItemText primary='Accesos' />
 			</ListItem>
 		</Link>
-
-		<Link to='/events' href='/events' >
+		<Link to='/guests' href='/guests'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<Wc />
+				</ListItemIcon>
+				<ListItemText primary='Invitados' />
+			</ListItem>
+		</Link>
+		<Link to='/events' href='/events'>
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
 					<Event />
@@ -109,6 +127,24 @@ const Items = ({ actionResetPagination }) => (
 				<ListItemText primary='Tipos de Usuario' />
 			</ListItem>
 		</Link>
+
+		<Link to='/reservation' href='/reservation'>
+			<ListItem button>
+				<ListItemIcon>
+					<RoomService />
+				</ListItemIcon>
+				<ListItemText primary='Paquetes' />
+			</ListItem>
+		</Link>
+
+		<Link to='/room' href='/room'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Habitaciones' />
+			</ListItem>
+		</Link>	
 	</div>
 );
 
@@ -121,4 +157,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(null, mapDispatchToProps)(Items);
-

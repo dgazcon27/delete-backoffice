@@ -6,8 +6,10 @@ import {
 	CLOSE_MODAL_USER,
 	SET_USER,
 } from './actionsTypes';
+
 import { GET_USERS, GET_USER_BY_ID } from '../../queries/users';
 import { client } from '../../config/configStore';
+import { closeUserModal } from '../PurchaseRequest/actionsCreators';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -49,8 +51,7 @@ export const getUserById = id => (
 			.then((res) => {
 				const { user } = res.data;
 				dispatch(setUser(user));
-			})
-			.catch(() => {});
+			});
 	}
 );
 
@@ -92,18 +93,7 @@ export const blockUser = (obj, blockUserMutation) => {
 	return async (dispatch) => {
 		await blockUserMutation({ variables: { id, status } });
 		dispatch(closeModal());
-	};
-};
-
-export const deleteUser = (obj, paginationPage, deleteRolMutation) => {
-	const { id, statusValue } = obj;
-	return async (dispatch) => {
-		await deleteRolMutation({
-			variables: { id, statusValue },
-			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		// window.location.reload();
+		window.location.reload();
 	};
 };
 
@@ -117,6 +107,25 @@ export const openModal = (modalType, _user) => ({
 		id: _user.id,
 	},
 });
+
+export const deleteUser = (obj, paginationPage, deleteRolMutation) => {
+	const { id, statusValue } = obj;
+	return async (dispatch) => {
+		await deleteRolMutation({
+			variables: { id, statusValue },
+			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(closeModal());
+				window.location.reload();
+			})
+			.catch((err) => {
+				if (err.graphQLErrors[0].message.indexOf('FOREIGN KEY') > 0) {
+					dispatch(openModal('foreign_key', { id, active: false, name: '' }));
+				}
+			});
+	};
+};
 
 export const createUser = (
 	myValues,
@@ -153,7 +162,8 @@ export const createUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('users')), 2000);
+				dispatch(closeUserModal());
+				setTimeout(() => (window.history.back()), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -185,7 +195,7 @@ export const editUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('editado'));
-				setTimeout(() => (window.location.replace('/users')), 2000);
+				setTimeout(() => (window.location.assign('/users')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

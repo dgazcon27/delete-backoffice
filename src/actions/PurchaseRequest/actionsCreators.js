@@ -1,18 +1,26 @@
 import {
+	PR_SET_USER,
 	SET_NAME,
 	OPEN_MODAL,
+	MODAL_USER,
 	OPEN_ALERT,
 	CLOSE_ALERT,
 	CLOSE_MODAL,
 	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	PAGE_UP_PREQ,
+	PAGE_DOWN_PREQ,
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
+	CLOSE_MODAL_USER,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
-import { GET_PURCHASE_REQ, GET_ACCESS_BY_EVENT, GET_PURCHASE_BY_ID } from '../../queries/purchaseRequest';
+import {
+	GET_PURCHASE_REQ,
+	GET_ACCESS_BY_EVENT,
+	GET_PURCHASE_BY_ID,
+	GET_USER_BY_DNI,
+} from '../../queries/purchaseRequest';
 import { client } from '../../config/configStore';
 
 const checkMessageError = (res) => {
@@ -22,18 +30,18 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.bank = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const changePage = (currentPage, paginationPagePreq) => {
+	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).purchaseReq;
+	paginations.purchaseReq = currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
+		type: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
+			paginationPagePreq,
+			currentPagePreq: currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };
@@ -42,10 +50,15 @@ export const setPurchaseReq = purchase => ({
 	type: SET_PURCHASE_REQ,
 	payload: {
 		...purchase,
+		id: purchase.user.id,
+		name: purchase.user.name,
+		lastName: purchase.user.lastName,
+		phone: purchase.user.phone,
+		email: purchase.user.email,
 		user: Number(purchase.user.id),
-		access: Number(purchase.access.id),
-		event: Number(purchase.event.id),
-		status: Number(purchase.status.id),
+		access: purchase.access.name,
+		event: purchase.event.name,
+		status: purchase.status.name,
 		description: SET_PURCHASE_REQ,
 	},
 });
@@ -64,6 +77,19 @@ export const getPurchaseById = id => (
 			.catch(() => {});
 	}
 );
+
+export const closeUserModal = () => ({
+	type: CLOSE_MODAL_USER,
+	payload: {
+		description: CLOSE_MODAL_USER,
+	},
+});
+export const userModal = () => ({
+	type: MODAL_USER,
+	payload: {
+		description: MODAL_USER,
+	},
+});
 
 export const setToPay = id => ({
 	type: SET_TO_PAY,
@@ -145,7 +171,38 @@ export const setAccessEvent = (event, id) => (
 			.catch(() => {});
 	}
 );
+
+export const setUser = aux => ({
+	type: PR_SET_USER,
+	payload: {
+		aux,
+		description: PR_SET_USER,
+	},
+});
+
+export const getUserByDNI = dni => (
+	async (dispatch) => {
+		if (dni) {
+			client
+				.query({
+					query: GET_USER_BY_DNI,
+					variables: { dni },
+				})
+				.then((res) => {
+					const aux = res.data.purchaseRequestAutocomplete;
+					dispatch(setUser(aux));
+				})
+				.catch(() => {
+					dispatch(userModal());
+					dispatch(setUser({
+						name: '', lastName: '', id: 0, dni: 0, phone: '', email: '',
+					}));
+				});
+		}
+	}
+);
 export const createPurchaseReq = (
+	idUser,
 	myValues,
 	createdBy,
 	updatedBy,
@@ -153,12 +210,13 @@ export const createPurchaseReq = (
 	createPurchaseReqMutation,
 ) =>
 	async (dispatch) => {
+		const user = idUser;
 		createPurchaseReqMutation({
 			variables:
 			{
 				createdBy,
 				updatedBy,
-				user: myValues.user,
+				user,
 				access: myValues.access,
 				event: myValues.event,
 				status: myValues.status,
@@ -199,7 +257,7 @@ export const editPurchaseReq = (
 					status: { id: purchase.status },
 					comment: purchase.comment,
 				}));
-				setTimeout(() => (window.location.assign('/purchase-request')), 2000);
+				setTimeout(() => (window.location.assign('/')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
@@ -227,7 +285,7 @@ export const editBankAccount = (
 
 			.then(() => {
 				dispatch(openAlert('edit'));
-				setTimeout(() => (window.location.assign('/bank-account')), 2000);
+				setTimeout(() => (window.location.reload('/bank-account')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

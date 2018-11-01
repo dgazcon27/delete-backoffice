@@ -65,15 +65,6 @@ let AccessCreate = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='price'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Precio'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
 						name='currency'
 						type='text'
 						component={renderTextField}
@@ -141,8 +132,8 @@ const selector = formValueSelector('AccessCreate');
 const mapStateToProps = state => ({
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
-	paginationPage: state.ReducerAccess.paginationPage,
-	myValues: selector(state, 'name', 'description', 'price', 'currency', 'location', 'zone', 'status'),
+	paginationPage: state.ReducerAccess.paginationPageAcc,
+	myValues: selector(state, 'name', 'description', 'currency', 'location', 'zone', 'status'),
 });
 
 const mapDispatchToProps = dispatch => ({

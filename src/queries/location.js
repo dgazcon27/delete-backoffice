@@ -26,8 +26,8 @@ export const CREATE_LOCATION = gql`
 	}
 `;
 export const EDIT_LOCATION = gql`
-	mutation updateLocation($id:Int!, $name:String!, $description:String!, $fullcapacity:Int!, $capacity:Int!, $status:Int!, $updatedBy:Int!) {
-		updateLocation(id:$id, name:$name, description:$description, fullcapacity:$fullcapacity, capacity:$capacity, status:$status, updatedBy:$updatedBy) {
+	mutation updateLocation($id:Int!, $name:String!, $description:String!, $fullcapacity:Int!, $capacity:Int!, $updatedBy:Int!) {
+		updateLocation(id:$id, name:$name, description:$description, fullcapacity:$fullcapacity, capacity:$capacity, updatedBy:$updatedBy) {
 			name
 			description
 			fullcapacity
@@ -41,10 +41,6 @@ export const BLOCK_LOCATION = gql`
 		blockedLocation(id:$id,status:$status) {
 			name
 			id
-			status{
-				name
-				id
-			}
 		}
 	}
 `;
@@ -75,9 +71,6 @@ export const GET_LOCATION_BY_ID = gql`
 			capacity
 			fullcapacity
 			description
-			status{
-				id
-			}
 		}
 	}
 `;

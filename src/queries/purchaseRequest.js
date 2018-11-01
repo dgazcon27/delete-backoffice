@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const GET_USER_BY_DNI = gql`query purchaseRequestAutocomplete($dni:Int!){
+	purchaseRequestAutocomplete(dni:$dni){
+		id
+		name 
+		lastName
+		email
+		phone
+	}
+}
+`;
+
 export const GET_ACCESS_BY_EVENT = gql`query accessByEvent($event:Int!){
 	accessByEvent(event:$event){
 		id
@@ -90,7 +101,7 @@ export const GET_PURCHASE_BY_ID = gql`
 			pendingPayment
 			totalPaid
 			user{
-				id name lastName dni
+				id name lastName dni phone email
 				}
 			access{
 				id
@@ -103,8 +114,34 @@ export const GET_PURCHASE_BY_ID = gql`
 			}
 			status{
 				id
+				name
 			}
 			comment
 		}
 	}
+`;
+
+export const PURCHASE_REQUEST_PAY = gql`
+	query purchaseRequestPayment($id:Int!){
+		purchaseRequestPayment(id:$id){
+			payment{
+				id
+				amount
+				reference
+				comment
+				type
+				created_at
+				bankAccount{
+					id
+					type
+					currency
+					bank{
+						id
+						name
+					}
+				}
+			}
+			id
+	}
+}
 `;

@@ -139,7 +139,7 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerPayment.alertType,
 	alertOpen: state.ReducerPayment.alertOpen,
-	paginationPage: state.ReducerPayment.paginationPage,
+	paginationPage: state.ReducerPayment.paginationPagePay,
 	myValues: selector(state, 'id', 'purchaseRequest', 'amount', 'reference', 'comment', 'type', 'bankAccount'),
 });
 
