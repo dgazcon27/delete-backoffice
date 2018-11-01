@@ -6,8 +6,8 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP_PREQ,
-	PAGE_DOWN_PREQ,
+	PAGE_UP_HOTEL,
+	PAGE_DOWN_HOTEL,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
 	EDIT_USER_TYPE,
@@ -17,40 +17,56 @@ import {
 } from '../../actions/Hotel/actionsTypes';
 
 const initialState = {
+	statusValue: false,
+	paginationPage: 0,
+	paginationPageHotel: 0,
+	currentPage: 0,
+	currentPagePreq: 0,
+	paginationPageSearch: 0,
+	currentPageSearch: 0,
+	newUserModal: false,
 	id: 0,
+	idUser: 0,
 	name: '',
+	nameUser: '',
+	lastName: '',
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
 	rolDescription: '',
-	statusValue: false,
-	paginationPage: 0,
-	paginationPagePreq: 0,
-	currentPage: 0,
-	currentPagePreq: 0,
-	paginationPageSearch: 0,
-	currentPageSearch: 0,
+	accountNumber: '',
+	user: 0,
+	access: [],
+	event: 0,
+	status: 0,
+	comment: 0,
+	totalPrice: 0,
+	pendingPayment: 0,
+	totalPaid: 0,
+	dni: 0,
+	phone: '',
+	email: '',
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).hotel;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).hotel;
 }
 
 const ReducerHotel = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP_PREQ:
+		case PAGE_UP_HOTEL:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
+				paginationPageHotel: action.payload.paginationPageHotel,
 				currentPage: action.payload.currentPage,
 			});
-		case PAGE_DOWN_PREQ:
+		case PAGE_DOWN_HOTEL:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
+				paginationPageHotel: action.payload.paginationPageHotel,
 				currentPage: action.payload.currentPage,
 			});
 		case SEARCH_PAGE_UP:

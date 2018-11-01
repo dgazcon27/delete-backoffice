@@ -270,7 +270,7 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerHotel.isOpen,
 	modalType: state.ReducerHotel.modalType,
 	currentPage: state.ReducerHotel.currentPagePreq,
-	paginationPage: state.ReducerHotel.paginationPagePreq,
+	paginationPage: state.ReducerHotel.paginationPageHotel,
 	initialValues: state.ReducerHotel,
 	userId: state.ReducerLogin.userId,
 });

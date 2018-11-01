@@ -4,8 +4,8 @@ import {
 	CLOSE_ALERT,
 	CLOSE_MODAL,
 	CLEAN_STATE,
-	PAGE_UP_PREQ,
-	PAGE_DOWN_PREQ,
+	PAGE_UP_HOTEL,
+	PAGE_DOWN_HOTEL,
 } from './actionsTypes';
 import { GET_HOTELS } from '../../queries/hotels';
 
@@ -31,7 +31,7 @@ export const createHotel = (
 	provider,
 	createdBy,
 	updatedBy,
-	paginationPage,
+	paginationPageHotel,
 	createHotelMutation,
 ) =>
 	async (dispatch) => {
@@ -45,7 +45,7 @@ export const createHotel = (
 				updatedBy,
 				user,
 			},
-			refetchQueries: [{ query: GET_HOTELS, variables: { paginationPage } }],
+			refetchQueries: [{ query: GET_HOTELS, variables: { paginationPageHotel } }],
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
@@ -58,18 +58,18 @@ export const createHotel = (
 	};
 
 
-export const changePage = (currentPage, paginationPagePreq) => {
+export const changePage = (currentPage, paginationPageHotel) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).purchaseReq;
-	paginations.purchaseReq = currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1;
+	paginations.purchaseReq = currentPage < paginationPageHotel ? currentPage + 1 : currentPage - 1;
 
 	localStorage.setItem('paginations', JSON.stringify(paginations));
 
 	return ({
-		type: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
+		type: currentPage < paginationPageHotel ? PAGE_UP_HOTEL : PAGE_DOWN_HOTEL,
 		payload: {
-			description: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
-			paginationPagePreq,
-			currentPagePreq: currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1,
+			description: currentPage < paginationPageHotel ? PAGE_UP_HOTEL : PAGE_DOWN_HOTEL,
+			paginationPageHotel,
+			currentPagePreq: currentPage < paginationPageHotel ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

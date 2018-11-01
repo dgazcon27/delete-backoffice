@@ -131,15 +131,15 @@ HotelCreate = reduxForm({
 const selector = formValueSelector('HotelCreate');
 
 const mapStateToProps = state => ({
-	newUserModal: state.ReducerPurchaseRequest.newUserModal,
-	id: state.ReducerPurchaseRequest.id,
-	idUser: state.ReducerPurchaseRequest.idUser,
+	newUserModal: state.ReducerHotel.newUserModal,
+	id: state.ReducerHotel.id,
+	idUser: state.ReducerHotel.idUser,
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerUserType.alertType,
 	alertOpen: state.ReducerUserType.alertOpen,
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
+	paginationPage: state.ReducerHotel.paginationPagePreq,
 	myValues: selector(state, 'event', 'provider'),
 });
 
