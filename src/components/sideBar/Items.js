@@ -144,7 +144,7 @@ const Items = ({ actionResetPagination }) => (
 				</ListItemIcon>
 				<ListItemText primary='Habitaciones' />
 			</ListItem>
-		</Link>	
+		</Link>
 	</div>
 );
 
