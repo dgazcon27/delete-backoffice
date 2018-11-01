@@ -17,6 +17,7 @@ import Event from '../Event/event';
 import EventCreate from '../Event/eventCreate';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Hotel from '../Hotel/Hotel';
+import HotelCreate from '../Hotel/HotelCreate';
 import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import PayCreate from '../PurchaseRequest/PayCreate';
 import Payment from '../Payment/payment';
@@ -45,6 +46,7 @@ const Main = (props) => {
 			<Switch>
 
 				<Route path='/hotel' component={Hotel} />
+				<Route path='/hotel-create' component={HotelCreate} />
 				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={ComponentUsers} />

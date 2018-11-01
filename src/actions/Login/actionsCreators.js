@@ -99,7 +99,7 @@ export const requestLogin = (email, password) => {
 };
 
 export const requestLogout = (token) => {
-	const query = `http://192.168.1.109:8000/graphql/logout?token=${token}`;
+	const query = `'http://127.0.0.1:8000/graphql/logout?token=${token}`;
 	const options = {
 		headers: {
 			'Content-Type': 'application/json',

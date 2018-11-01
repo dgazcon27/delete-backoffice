@@ -1,18 +1,5 @@
 import gql from 'graphql-tag';
 
-export const GET_ROLES = gql`
-	query roles($paginationPage:Int!) {
-		roles(page:$paginationPage) {
-			data{
-				name
-				id
-				description
-				active
-			}
-			total
-		}
-	}
-`;
 export const GET_HOTELS = gql`
 	query hotelss($paginationPage:Int!) {
 		hotelss(page:$paginationPage) {
@@ -49,11 +36,10 @@ export const DELETE_HOTEL = gql`
 	}
 `;
 
-export const CREATE_ROL = gql`
-	mutation createRol($name:String!, $rolDescription:String!){
-		createRole(name:$name, description:$rolDescription){
+export const CREATE_HOTEL = gql`
+	mutation createHotel($provider:ID!, $event:ID!, $createdBy:Int!, $updatedBy:Int!){
+		createHotel(provider:$provider, event:$event, createdBy:$createdBy, updatedBy:$updatedBy){
 			id
-			name
 		}
 	}
 `;

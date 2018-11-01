@@ -84,7 +84,7 @@ const Hotel = ({
 						Hotel
 						</h5>
 						<h5 className={classes.searchAlignRigth}>
-							<Link to='/purchase-request-create' href='/purchase-request-create' >
+							<Link to='/hotel-create' href='/hotel-create' >
 								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 									<Add className={classes.marginIcon} />
 									Agregar Nuevo
@@ -95,8 +95,8 @@ const Hotel = ({
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Cliente</TableCell>
-										<TableCell>Documento de Identidad</TableCell>
+										<TableCell>Proveedor </TableCell>
+										<TableCell>Evento</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
