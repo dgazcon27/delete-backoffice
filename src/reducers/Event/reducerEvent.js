@@ -4,7 +4,7 @@ import {
 	OPEN_ALERT_EVENT,
 	CLOSE_ALERT_EVENT,
 	SET_EVENT,
-	SET_COUNTRIES_STATES_EVENT,
+	SET_COUNTRIES_STATES,
 	CLEAN_STATE_COUNTRY,
 	SET_PRESALE,
 	SET_CLOSE_PRESALE,
@@ -92,7 +92,7 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				country: action.payload.country,
 				createdBy: action.payload.createdBy,
 			});
-		case SET_COUNTRIES_STATES_EVENT:
+		case SET_COUNTRIES_STATES:
 			return ({
 				...state,
 				states: action.payload.states,

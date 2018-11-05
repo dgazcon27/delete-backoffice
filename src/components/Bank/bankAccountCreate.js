@@ -174,7 +174,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerBankAccount.alertOpen,
 	name: state.ReducerBankAccount.name,
 	descripcion: state.ReducerBankAccount.descripcion,
-	paginationPage: state.ReducerBankAccount.paginationPageAc,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'bank', 'owner', 'accountNumber', 'type', 'comment', 'currency'),
 });
 

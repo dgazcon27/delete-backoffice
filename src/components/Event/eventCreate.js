@@ -100,122 +100,127 @@ let EventCreate = ({
 	userId,
 	actionSelectCountry,
 	states,
-}) => (
-	<div>
-		<h3 className={classes.formTitle}>Eventos</h3>
-		<Paper className={classes.createContainer}>
-			<form>
-				<h6 className={classes.formTitle}>Nuevo Evento</h6>
-				<div className={classes.formStyle}>
-					<Field
-						name='name'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Nombre de Evento'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='description'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Descripción'
-						className='yourclass'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<SelectCountry actionSelectCountry={actionSelectCountry} />
-				</div>
-				<div className={classes.formStyle}>
-					<SelectState states={states} />
-				</div>
-				<div className={classes.formStyle}>
-					<Status />
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='presaleStart'
-						type='text'
-						component={renderDateField}
-						validate={[required, empty]}
-						label='Inicio de preventa'
-						className='yourclass date-label container'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='presaleClosure'
-						type='text'
-						component={renderDateMaxField}
-						validate={[required, empty]}
-						label='Fin de preventa'
-						className='yourclass date-label container'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='eventStart'
-						type='text'
-						component={renderDateField}
-						validate={[required, empty]}
-						label='Inicio de evento'
-						className='yourclass date-label container'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='eventClosure'
-						type='text'
-						component={renderDateMaxField}
-						validate={[required, empty]}
-						label='Fin de evento'
-						className='yourclass date-label container'
-					/>
-				</div>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={
-						handleSubmit(() => actionCreateEvent(
-							myValues,
-							paginationPage,
-							userId,
-							userId,
-							createEventMutation,
-						))
+}) => {
+	
+	console.log(states);
 
-					}
-					disabled={submitting}
-				>
-					Crear
-				</button>
-				<BackButton />
-			</form>
-		</Paper>
-		{alertType === 'validation' &&
-			<Snackbar
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				open={alertOpen}
-				onClose={() => { setTimeout(actionCloseAlert, 100); }}
-				ContentProps={{
-					'aria-describedby': 'message-id',
-				}}
-				message={<span id='message-id'>El evento que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-			/>
-		}
-		{alertType === 'creado' &&
-			<Snackbar
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				open={alertOpen}
-				onClose={() => { setTimeout(actionCloseAlert, 100); }}
-				ContentProps={{ 'aria-describedby': 'message-id' }}
-				message={<span id='message-id'>El evento {myValues.name} fue creado con exito.</span>}
-			/>
-		}
-	</div>
-);
+	return(
+		<div>
+			<h3 className={classes.formTitle}>Eventos</h3>
+			<Paper className={classes.createContainer}>
+				<form>
+					<h6 className={classes.formTitle}>Nuevo Evento</h6>
+					<div className={classes.formStyle}>
+						<Field
+							name='name'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='Nombre de Evento'
+						/>
+					</div>
+					<div className={classes.formStyle}>
+						<Field
+							name='description'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='Descripción'
+							className='yourclass'
+						/>
+					</div>
+					<div className={classes.formStyle}>
+						<SelectCountry actionSelectCountry={actionSelectCountry} />
+					</div>
+					<div className={classes.formStyle}>
+						<SelectState states={states} />
+					</div>
+					<div className={classes.formStyle}>
+						<Status />
+					</div>
+					<div className={classes.formStyle}>
+						<Field
+							name='presaleStart'
+							type='text'
+							component={renderDateField}
+							validate={[required, empty]}
+							label='Inicio de preventa'
+							className='yourclass date-label container'
+						/>
+					</div>
+					<div className={classes.formStyle}>
+						<Field
+							name='presaleClosure'
+							type='text'
+							component={renderDateMaxField}
+							validate={[required, empty]}
+							label='Fin de preventa'
+							className='yourclass date-label container'
+						/>
+					</div>
+					<div className={classes.formStyle}>
+						<Field
+							name='eventStart'
+							type='text'
+							component={renderDateField}
+							validate={[required, empty]}
+							label='Inicio de evento'
+							className='yourclass date-label container'
+						/>
+					</div>
+					<div className={classes.formStyle}>
+						<Field
+							name='eventClosure'
+							type='text'
+							component={renderDateMaxField}
+							validate={[required, empty]}
+							label='Fin de evento'
+							className='yourclass date-label container'
+						/>
+					</div>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={
+							handleSubmit(() => actionCreateEvent(
+								myValues,
+								paginationPage,
+								userId,
+								userId,
+								createEventMutation,
+							))
+
+						}
+						disabled={submitting}
+					>
+						Crear
+					</button>
+					<BackButton />
+				</form>
+			</Paper>
+			{alertType === 'validation' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{
+						'aria-describedby': 'message-id',
+					}}
+					message={<span id='message-id'>El evento que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+				/>
+			}
+			{alertType === 'creado' &&
+				<Snackbar
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					open={alertOpen}
+					onClose={() => { setTimeout(actionCloseAlert, 100); }}
+					ContentProps={{ 'aria-describedby': 'message-id' }}
+					message={<span id='message-id'>El evento {myValues.name} fue creado con exito.</span>}
+				/>
+			}
+		</div>
+	)
+};
 
 EventCreate.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,

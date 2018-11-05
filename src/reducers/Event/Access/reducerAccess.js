@@ -6,7 +6,6 @@ import {
 	PAGE_UP,
 	PAGE_DOWN,
 	SET_EVENT,
-	SET_COUNTRIES_STATES,
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
 	ADD_ACCESS,
@@ -100,11 +99,6 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				state: action.payload.state,
 				country: action.payload.country,
 				createdBy: action.payload.createdBy,
-			});
-		case SET_COUNTRIES_STATES:
-			return ({
-				...state,
-				states: action.payload.states,
 			});
 		case SET_WITH_ROOM:
 			return ({
