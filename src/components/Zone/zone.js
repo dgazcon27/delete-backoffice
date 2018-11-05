@@ -70,14 +70,14 @@ const Zone = ({
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: 'Bloquear Rol',
-				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
-				titleStatus2: 'Desbloquear Rol',
-				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+				titleStatus1: 'Bloquear Zona',
+				msgStatus1: '¿Estas seguro que desea bloquear esta zona?',
+				titleStatus2: 'Desbloquear zona',
+				msgStatus2: '¿Estas seguro que desea desbloquear esta zona?',
 			},
 			delete: {
-				title: 'Eliminar Rol',
-				msg: '¿Estas seguro que desea eliminar el rol ?',
+				title: 'Eliminar zona',
+				msg: '¿Estas seguro que desea eliminar esta zona ?',
 			},
 		},
 	};
