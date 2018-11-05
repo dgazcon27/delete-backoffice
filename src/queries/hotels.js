@@ -1,18 +1,5 @@
 import gql from 'graphql-tag';
 
-export const GET_ROLES = gql`
-	query roles($paginationPage:Int!) {
-		roles(page:$paginationPage) {
-			data{
-				name
-				id
-				description
-				active
-			}
-			total
-		}
-	}
-`;
 export const GET_HOTELS = gql`
 	query hotelss($paginationPage:Int!) {
 		hotelss(page:$paginationPage) {
@@ -49,20 +36,33 @@ export const DELETE_HOTEL = gql`
 	}
 `;
 
-export const CREATE_ROL = gql`
-	mutation createRol($name:String!, $rolDescription:String!){
-		createRole(name:$name, description:$rolDescription){
+export const CREATE_HOTEL = gql`
+	mutation createHotel($provider:ID!, $event:ID!, $createdBy:Int!, $updatedBy:Int!){
+		createHotel(provider:$provider, event:$event, createdBy:$createdBy, updatedBy:$updatedBy){
 			id
-			name
 		}
 	}
 `;
 
-export const EDIT_ROL = gql`
-	mutation updateRoleRol($id:Int!,$name:String, $rolDescription:String){
-		updateRole(id:$id, name:$name, description:$rolDescription){
+export const UPDATE_HOTEL = gql`
+	mutation updateHotel($id:Int!, $provider:Int!, $event:Int!, $createdBy:Int!, $updatedBy:Int!){
+		updateHotel(id:$id, provider:$provider, event:$event, createdBy:$createdBy, updatedBy:$updatedBy){
 			id
-			name
+		}
+	}
+
+`;
+
+export const GET_HOTEL_BY_ID = gql`
+	query hotelById($id: Int!){
+		hotelById(id:$id){
+			id
+			provider{
+				id
+			}
+			event{
+				id
+			}
 		}
 	}
 `;
