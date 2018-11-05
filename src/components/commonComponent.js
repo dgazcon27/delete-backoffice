@@ -6,6 +6,7 @@ import { Field } from 'redux-form';
 import { required } from './validations/validations';
 import { renderSelectField } from './RenderFields/renderFields';
 import {
+	GET_PROVIDERS,
 	GET_ROLESS,
 	GET_BANKSS,
 	GET_USERSS,
@@ -380,6 +381,44 @@ export const SelectCountry = actionSelectCountry => (
 	</Query>
 );
 
+export const Providers = actionSelectEvent => (
+	<Query query={GET_PROVIDERS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='provider'
+						type='select'
+						label='Provider'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='provider'
+					type='select'
+					label='Provider'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+					onChange={actionSelectEvent.actionSelectEvent}
+				>
+					{data.providers.map(provider => (
+						<MenuItem key={provider.id} value={provider.id}>{provider.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 export const Aevents = actionSelectEvent => (
 	<Query query={GET_A_EVENTSS}>
 		{({ loading, error, data }) => {

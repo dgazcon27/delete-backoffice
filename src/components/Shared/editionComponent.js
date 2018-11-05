@@ -13,6 +13,7 @@ import { getPurchaseById } from '../../actions/PurchaseRequest/actionsCreators';
 import { getPaymentById } from '../../actions/Payment/actionsCreators';
 import { getZoneById } from '../../actions/zone/actionsCreators';
 import { getGuestById } from '../../actions/Guest/actionsCreators';
+import { getHotelById } from '../../actions/Hotel/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -25,6 +26,7 @@ import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
 import PaymentEdit from '../Payment/paymentEdit';
 import ZoneEdit from '../Zone/zoneEdit';
 import UpdateGuest from '../Guest/editGuest';
+import EditHotel from '../Hotel/HotelEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -85,6 +87,10 @@ class EditionComponent extends React.Component {
 			case 'Departments-edit':
 				this.props.dispatch(getZoneById(id));
 				this.setState({ tag: <ZoneEdit /> });
+				break;
+			case 'hotel-edit':
+				this.props.dispatch(getHotelById(id));
+				this.setState({ tag: <EditHotel /> });
 				break;
 			default:
 				break;

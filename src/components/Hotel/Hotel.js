@@ -37,8 +37,6 @@ import {
 	deleteHotel,
 } from '../../actions/Hotel/actionsCreators';
 
-import PurchaseRequestPay from './PurchaseRequestPay';
-
 import {
 	GET_HOTELS,
 	BLOCK_HOTEL,
@@ -84,7 +82,7 @@ const Hotel = ({
 						Hotel
 						</h5>
 						<h5 className={classes.searchAlignRigth}>
-							<Link to='/purchase-request-create' href='/purchase-request-create' >
+							<Link to='/hotel-create' href='/hotel-create' >
 								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 									<Add className={classes.marginIcon} />
 									Agregar Nuevo
@@ -95,8 +93,8 @@ const Hotel = ({
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Cliente</TableCell>
-										<TableCell>Documento de Identidad</TableCell>
+										<TableCell>Proveedor </TableCell>
+										<TableCell>Evento</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>
 								</TableHead>
@@ -121,7 +119,7 @@ const Hotel = ({
 															value='checked'
 														/>
 													</Tooltip>
-													<Link to={{ pathname: `/purchase-request-edit/${hotel.id}`, state: { type: 'Purchase' } }}>
+													<Link to={{ pathname: `/hotel-edit/${hotel.id}` }}>
 														<IconButton>
 															<Edit />
 														</IconButton>
@@ -227,11 +225,6 @@ const Hotel = ({
 								</span>
 							</Paper>
 							}
-							{modalType === 'pagos' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<PurchaseRequestPay />
-								</Paper>
-							}
 						</div>
 					</Modal>
 				</div>
@@ -270,7 +263,7 @@ const mapStateToProps = state => ({
 	isOpen: state.ReducerHotel.isOpen,
 	modalType: state.ReducerHotel.modalType,
 	currentPage: state.ReducerHotel.currentPagePreq,
-	paginationPage: state.ReducerHotel.paginationPagePreq,
+	paginationPage: state.ReducerHotel.paginationPage,
 	initialValues: state.ReducerHotel,
 	userId: state.ReducerLogin.userId,
 });

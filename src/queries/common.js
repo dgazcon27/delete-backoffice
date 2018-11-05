@@ -18,6 +18,14 @@ export const GET_USERSS = gql`
 			}
 		}	
 `;
+export const GET_PROVIDERS = gql`
+	query{ 
+			providers{
+				id	
+				name
+			}
+		}	
+`;
 
 export const GET_BANKSS = gql`
 	query{ 

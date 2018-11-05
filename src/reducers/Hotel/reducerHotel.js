@@ -1,56 +1,53 @@
 import {
-	SET_ROL,
 	SET_NAME,
 	OPEN_MODAL,
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
-	CLEAN_STATE,
-	PAGE_UP_PREQ,
-	PAGE_DOWN_PREQ,
+	PAGE_UP_HOTEL,
+	PAGE_DOWN_HOTEL,
 	SEARCH_PAGE_UP,
 	SEARCH_PAGE_DOWN,
-	EDIT_USER_TYPE,
-	SET_DESCRIPTION,
-	BLOCK_USER_TYPE,
-	DELETE_USER_TYPE,
+	HT_SET_HOTEL,
 } from '../../actions/Hotel/actionsTypes';
 
 const initialState = {
+	statusValue: false,
+	paginationPage: 0,
+	paginationPageHotel: 0,
+	currentPage: 0,
+	currentPagePreq: 0,
+	paginationPageSearch: 0,
+	currentPageSearch: 0,
 	id: 0,
 	name: '',
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
-	rolDescription: '',
-	statusValue: false,
-	paginationPage: 0,
-	paginationPagePreq: 0,
-	currentPage: 0,
-	currentPagePreq: 0,
-	paginationPageSearch: 0,
-	currentPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).userType;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).userType;
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
+} else {
+	initialState.paginationPage = 0;
+	initialState.currentPage = 0;
 }
 
 const ReducerHotel = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP_PREQ:
+		case PAGE_UP_HOTEL:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
+				paginationPageHotel: action.payload.paginationPageHotel,
 				currentPage: action.payload.currentPage,
 			});
-		case PAGE_DOWN_PREQ:
+		case PAGE_DOWN_HOTEL:
 			return ({
 				...state,
-				paginationPage: action.payload.paginationPage,
+				paginationPageHotel: action.payload.paginationPageHotel,
 				currentPage: action.payload.currentPage,
 			});
 		case SEARCH_PAGE_UP:
@@ -64,28 +61,6 @@ const ReducerHotel = (state = initialState, action = {}) => {
 				...state,
 				paginationPageSearch: action.payload.paginationPageSearch,
 				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case EDIT_USER_TYPE:
-			return ({
-				...state,
-			});
-		case SET_ROL:
-			return ({
-				...state,
-				id: action.payload.id,
-				name: action.payload.name,
-				rolDescription: action.payload.rolDescription,
-			});
-		case BLOCK_USER_TYPE:
-			return ({
-				...state,
-				id: action.payload.id,
-				statusValue: action.payload.status,
-			});
-		case DELETE_USER_TYPE:
-			return ({
-				...state,
-				isOpen: true,
 			});
 		case OPEN_MODAL:
 			return ({
@@ -120,17 +95,12 @@ const ReducerHotel = (state = initialState, action = {}) => {
 				...state,
 				name: action.payload.name,
 			});
-		case SET_DESCRIPTION:
+		case HT_SET_HOTEL:
 			return ({
 				...state,
-				rolDescription: action.payload.rolDescription,
-			});
-		case CLEAN_STATE:
-			return ({
-				...state,
-				id: 0,
-				name: '',
-				rolDescription: '',
+				id: action.payload.id,
+				event: action.payload.event,
+				provider: action.payload.provider,
 			});
 		default:
 			return state;
