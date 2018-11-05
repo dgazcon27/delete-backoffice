@@ -140,7 +140,7 @@ export const updateHotel = (hotel, mutation) => (
 					event: { id: hotel.event },
 					provider: { id: hotel.provider },
 				}));
-				// setTimeout(() => (window.location.assign('/hotel')), 2000);
+				setTimeout(() => (window.location.assign('/hotel')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
