@@ -76,10 +76,6 @@ const AccessList = ({
 				);
 			}
 
-			console.log(data);
-			console.log(events);
-			console.log(events);
-
 			return (
 				<div>
 					<div>
