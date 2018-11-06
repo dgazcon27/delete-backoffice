@@ -75,7 +75,7 @@ const Reservation = ({
 				<div>
 					<div>
 						<h5>
-							Reservaciones
+							Paquetes
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
