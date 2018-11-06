@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import VpnKey from '@material-ui/icons/VpnKey';
+import List from '@material-ui/icons/List';
 import { compose } from 'react-apollo';
 
 import {
@@ -31,6 +32,22 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
+				title='Lista de Accesos'
+			>
+				<Link to={{ pathname: `/event-access/${rowData.id}` }}>
+					<IconButton>
+						<List />
+					</IconButton>
+				</Link>
+			</Tooltip>
+		}
+
+		{active[1] &&
+			<Tooltip
+				enterDelay={200}
+				id='tooltip-controlled'
+				leaveDelay={100}
+				placement='top'
 				title='Editar Rol.'
 			>
 				<Link to='/user-type-edit' href='/user-type-edit'>
@@ -40,7 +57,7 @@ const Options = ({
 				</Link>
 			</Tooltip>
 		}
-		{active[1] &&
+		{active[2] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -53,7 +70,7 @@ const Options = ({
 				</IconButton>
 			</Tooltip>
 		}
-		{active[2] &&
+		{active[3] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -68,7 +85,7 @@ const Options = ({
 				/>
 			</Tooltip>
 		}
-		{active[3] &&
+		{active[4] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'

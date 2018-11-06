@@ -45,7 +45,7 @@ const Event = ({
 			columName: 'Ubicación',
 			jsonPath: 'state.country.name',
 		}],
-		arrayActive: [true, true, false, false],
+		arrayActive: [true, true, true, false, false],
 	};
 
 	const objectPath = {

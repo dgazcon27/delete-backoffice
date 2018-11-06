@@ -45,7 +45,7 @@ const Bank = ({
 			columName: 'Moneda',
 			jsonPath: 'currency',
 		}],
-		arrayActive: [true, true, false, false],
+		arrayActive: [false, true, true, false, false],
 	};
 
 	const objectPath = {

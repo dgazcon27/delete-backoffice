@@ -45,7 +45,7 @@ const Access = ({
 			columName: 'Ubicación',
 			jsonPath: 'location.name',
 		}],
-		arrayActive: [true, true, false, false],
+		arrayActive: [false, true, true, false, false],
 	};
 
 	const objectPath = {

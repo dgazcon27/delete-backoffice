@@ -7,89 +7,99 @@ import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	setRol,
-	blockUserType,
-	deleteUserType,
-} from '../../actions/userType/actionsCreators';
+	deleteAccess,
+	blockAccess,
+} from '../../actions/Event/Access/actionsCreators';
 
 import {
-	GET_ROLES,
-	BLOCK_ROL,
-	DELETE_ROL,
-} from '../../queries/userType';
-import { SEARCH_ROLES } from '../../queries/search';
+	GET_ACCESS,
+	DELETE_ACCESS,
+	BLOCK_ACCESS,
+} from '../../queries/event';
 
-const UserType = ({
-	objectStateUserType,
+const AccessList2 = ({
+	objectStateAccessList,
 	paginationPage,
-	actionSetRol,
 	actionOpenModal,
 	actionCloseModal,
 	actionBlock,
 	actionDelete,
-	blockRolMutation,
-	deleteRolMutation,
+	deleteAccessMutation,
+	blockAccessMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_ROLES,
-		querySearch: SEARCH_ROLES,
+		queryComponent: GET_ACCESS,
 	};
 
 	const objectSearch = {
 		showButton: true,
-		showSearch: true,
-		titleButton: 'agregar nuevo',
-		url: '/user-type-create',
+		showSearch: false,
+		titleButton: 'crear acceso',
+		url: '/',
 	};
 
 	const objectList = {
 		titlesColumns: [{
 			id: 1,
 			columName: 'Nombre',
-			jsonPath: 'name',
+			jsonPath: 'access.name',
+		},
+		{
+			id: 2,
+			columName: 'Ubicación',
+			jsonPath: 'access.location.name',
+		},
+		{
+			id: 3,
+			columName: 'Habitación',
+			jsonPath: 'access.withRoom',
+		},
+		{
+			id: 4,
+			columName: 'Cantidad',
+			jsonPath: 'access.numberRooms',
 		}],
 		arrayActive: [false, true, true, true, false],
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'roles.data',
-			totalPath: 'roles.total',
+			dataPath: 'accessesByEvent[0].data',
+			totalPath: 'accessesByEvent[0].total',
 		},
 		searchComponent: {
-			dataPath: 'search.roles.data',
-			totalPath: 'search.roles.total',
+			dataPath: '',
+			totalPath: '',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateUserType),
+		componentState: Object.assign({}, objectStateAccessList),
 		paginationPage,
 		messages: {
 			edit: {
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: 'Bloquear Rol',
-				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
-				titleStatus2: 'Desbloquear Rol',
-				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+				titleStatus1: 'Bloquear Acceso',
+				msgStatus1: '¿Estas seguro que desea bloquear el Acceso?',
+				titleStatus2: 'Desbloquear Acceso',
+				msgStatus2: '¿Estas seguro que desea desbloquear el Acceso?',
 			},
 			delete: {
-				title: 'Eliminar Rol',
-				msg: '¿Estas seguro que desea eliminar el rol ?',
+				title: 'Eliminar Acceso',
+				msg: '¿Estas seguro que desea eliminar el Acceso?',
 			},
 		},
 	};
 
 	const actions = {
-		edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		block: actionBlock,
-		queryblock: blockRolMutation,
+		queryblock: blockAccessMutation,
 		delete: actionDelete,
-		queryDelete: deleteRolMutation,
+		queryDelete: deleteAccessMutation,
 	};
 
 	return (
@@ -112,35 +122,33 @@ const UserType = ({
 	);
 };
 
-UserType.propTypes = {
-	actionSetRol: PropTypes.func.isRequired,
+AccessList2.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
 	actionBlock: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
-	actionCloseModal: PropTypes.func.isRequired,
-	objectStateUserType: PropTypes.object.isRequired,
+	objectStateAccessList: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	blockRolMutation: PropTypes.func.isRequired,
-	deleteRolMutation: PropTypes.func.isRequired,
+	blockAccessMutation: PropTypes.func.isRequired,
+	deleteAccessMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateUserType: state.ReducerUserType,
+	objectStateAccessList: state.ReducerEventAccess,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionBlock: (componentState, blockRolMutation) =>
-		dispatch(blockUserType(componentState, blockRolMutation)),
-	actionDelete: (componentState, paginationPage, deleteRolMutation) =>
-		dispatch(deleteUserType(componentState, paginationPage, deleteRolMutation)),
+	actionBlock: (componentState, blockAccessMutation) =>
+		dispatch(blockAccess(componentState, blockAccessMutation)),
+	actionDelete: (componentState, paginationPage, deleteAccessMutation) =>
+		dispatch(deleteAccess(componentState, paginationPage, deleteAccessMutation)),
 });
 
 export default compose(
-	graphql(DELETE_ROL, { name: 'deleteRolMutation' }),
-	graphql(BLOCK_ROL, { name: 'blockRolMutation' }),
+	graphql(DELETE_ACCESS, { name: 'deleteAccessMutation' }),
+	graphql(BLOCK_ACCESS, { name: 'blockAccessMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(UserType);
+)(AccessList2);

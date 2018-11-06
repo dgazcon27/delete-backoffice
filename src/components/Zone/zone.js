@@ -48,7 +48,7 @@ const Zone = ({
 			columName: 'Nombre',
 			jsonPath: 'name',
 		}],
-		arrayActive: [true, true, true, false],
+		arrayActive: [false, true, true, true, false],
 	};
 
 	const objectPath = {
