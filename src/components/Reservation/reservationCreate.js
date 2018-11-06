@@ -159,10 +159,10 @@ let ReservationCreate = ({
 	createReservationMutation,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nueva Reservación</h3>
+		<h3 className={classes.formTitle}>Nueva Paquete</h3>
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Nueva Reservación</h6>
+				<h6 className={classes.formTitle}>Nueva Paquete</h6>
 				<div className={classes.formStyle}>
 					<Field
 						name='client'

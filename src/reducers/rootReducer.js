@@ -20,6 +20,7 @@ import ReducerGuest from './Guest/reducerGuest';
 import ReducerEventAccess from './Event/Access/reducerAccess';
 import ReducerReservation from './Reservation/reducerReservation';
 import ReducerRoom from './Room/reducerRoom';
+import ReducerSideBar from './SideBar/reducerSideBar';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
 	ReducerReservation,
 	ReducerRoom,
 	ReducerHotel,
+	ReducerSideBar,
 	form: reduxFormReducer,
 });
 

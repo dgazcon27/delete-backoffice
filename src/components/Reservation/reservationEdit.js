@@ -157,10 +157,10 @@ let ReservationEdit = ({
 	editReservationMutation,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Editar Reservación</h3>
+		<h3 className={classes.formTitle}>Editar Paquete</h3>
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Editar Reservación</h6>
+				<h6 className={classes.formTitle}>Editar Paquete</h6>
 				<div className={classes.formStyle}>
 					<Field
 						name='client'

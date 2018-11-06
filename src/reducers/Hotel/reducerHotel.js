@@ -29,10 +29,10 @@ const initialState = {
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
+	initialState.paginationPageHotel = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
 	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
 } else {
-	initialState.paginationPage = 0;
+	initialState.paginationPageHotel = 0;
 	initialState.currentPage = 0;
 }
 

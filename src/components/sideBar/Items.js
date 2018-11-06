@@ -4,26 +4,36 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Security from '@material-ui/icons/Security';
 import People from '@material-ui/icons/People';
+import { compose } from 'react-apollo';
+import {
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Divider,
+} from '@material-ui/core/';
 import Weekend from '@material-ui/icons/Weekend';
 import Wc from '@material-ui/icons/Wc';
 import Event from '@material-ui/icons/Album';
 import Hotel from '@material-ui/icons/Hotel';
 import ContactPhone from '@material-ui/icons/ContactPhone';
 import GroupWork from '@material-ui/icons/GroupWork';
+import List from '@material-ui/core/List';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import RoomService from '@material-ui/icons/RoomService';
-
-import {
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-} from '@material-ui/core/';
-
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import Collapse from '@material-ui/core/Collapse';
+import collapseItem from '../../actions/SideBar/actionsCreators';
 import { resetPagination } from '../../actions/List/actionsCreators';
 
-const Items = ({ actionResetPagination }) => (
+const Items = ({
+	open,
+	actionCollapse,
+	actionResetPagination,
+}) => (
 	<div>
 		<Link to='/hotel' href='/hotel'>
 			<ListItem button>
@@ -50,23 +60,6 @@ const Items = ({ actionResetPagination }) => (
 			</ListItem>
 		</Link>
 
-		<Link to='/tables' href='/tables' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<Weekend />
-				</ListItemIcon>
-				<ListItemText primary='Mesas' />
-			</ListItem>
-		</Link>
-
-		<Link to='/access' href='/access' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<ContactPhone />
-				</ListItemIcon>
-				<ListItemText primary='Accesos' />
-			</ListItem>
-		</Link>
 		<Link to='/guests' href='/guests'>
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
@@ -84,52 +77,76 @@ const Items = ({ actionResetPagination }) => (
 			</ListItem>
 		</Link>
 
-		<Link to='/zones' href='/zones' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<GroupWork />
-				</ListItemIcon>
-				<ListItemText primary='Zonas' />
-			</ListItem>
-		</Link>
-
-		<Link to='/bank' href='/bank' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<AccountBalance />
-				</ListItemIcon>
-				<ListItemText primary='Bancos' />
-			</ListItem>
-		</Link>
-
-		<Link to='/bank-account' href='/bank-account' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<AccountBalanceWallet />
-				</ListItemIcon>
-				<ListItemText primary='Cuentas Bancarias' />
-			</ListItem>
-		</Link>
-
-		<Link to='/users' href='/users' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<People />
-				</ListItemIcon>
-				<ListItemText primary='Usuarios' />
-			</ListItem>
-		</Link>
-		<Link to='/user-type' href='/user-type' >
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<Security />
-				</ListItemIcon>
-				<ListItemText primary='Tipos de Usuario' />
-			</ListItem>
-		</Link>
-
+		<ListItem button onClick={() => { actionCollapse(!open); }}>
+			<ListItemIcon >
+				<InboxIcon />
+			</ListItemIcon>
+			<ListItemText inset primary='Configuración' />
+			{open ? <ExpandMore /> : <ChevronLeft />}
+		</ListItem>
+		<Collapse in={open} timeout='auto' unmountOnExit>
+			<List component='div' disablePadding>
+				<Link to='/access' href='/access'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<ContactPhone />
+						</ListItemIcon>
+						<ListItemText primary='Accesos' />
+					</ListItem>
+				</Link>
+				<Link to='/tables' href='/tables'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<Weekend />
+						</ListItemIcon>
+						<ListItemText primary='Areas' />
+					</ListItem>
+				</Link>
+				<Link to='/bank' href='/bank'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<AccountBalance />
+						</ListItemIcon>
+						<ListItemText primary='Bancos' />
+					</ListItem>
+				</Link>
+				<Link to='/bank-account' href='/bank-account'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<AccountBalanceWallet />
+						</ListItemIcon>
+						<ListItemText primary='Cuentas Bancarias' />
+					</ListItem>
+				</Link>
+				<Link to='/user-type' href='/user-type'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<Security />
+						</ListItemIcon>
+						<ListItemText primary='Tipos de Usuario' />
+					</ListItem>
+				</Link>
+				<Link to='/zones' href='/zones'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<GroupWork />
+						</ListItemIcon>
+						<ListItemText primary='Ubicación' />
+					</ListItem>
+				</Link>
+				<Link to='/users' href='/users'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Usuarios' />
+					</ListItem>
+				</Link>
+				<Divider />
+			</List>
+		</Collapse>
 		<Link to='/reservation' href='/reservation'>
-			<ListItem button>
+			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
 					<RoomService />
 				</ListItemIcon>
@@ -138,7 +155,7 @@ const Items = ({ actionResetPagination }) => (
 		</Link>
 
 		<Link to='/room' href='/room'>
-			<ListItem button>
+			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
 					<ContactPhone />
 				</ListItemIcon>
@@ -150,10 +167,17 @@ const Items = ({ actionResetPagination }) => (
 
 Items.propTypes = {
 	actionResetPagination: PropTypes.func.isRequired,
+	open: PropTypes.bool.isRequired,
+	actionCollapse: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+	open: state.ReducerSideBar.open,
+});
 
 const mapDispatchToProps = dispatch => ({
 	actionResetPagination: () => dispatch(resetPagination()),
+	actionCollapse: open =>	dispatch(collapseItem(open)),
 });
 
-export default connect(null, mapDispatchToProps)(Items);
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Items);
