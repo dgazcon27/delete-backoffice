@@ -41,7 +41,7 @@ export const DELETE_ROOM = gql`
 `;
 
 export const CREATE_ROOM = gql`
-	mutation createRoom($name:String!, $type:String!, $capacity:Int!, $quantityAvailableSell:Int!, $stockReserve:Int!, $costPurchaseNight:Int!, $costNight:Int!, $startNumbering:Int!, $endNumbering:Int!, $hotel:ID!, $event:ID!){
+	mutation createRoom($name:String!, $type:String!, $capacity:Int!, $quantityAvailableSell:Int!, $stockReserve:Int!, $costPurchaseNight:Int!, $costNight:Int!, $startNumbering:String!, $endNumbering:String!, $hotel:ID!, $event:ID!){
 		createRoom(name:$name, type:$type, capacity:$capacity, quantityAvailableSell:$quantityAvailableSell, stockReserve:$stockReserve, costPurchaseNight:$costPurchaseNight, costNight:$costNight, startNumbering:$startNumbering, endNumbering:$endNumbering, hotel:$hotel, event:$event){
 			id
 		}
@@ -49,7 +49,7 @@ export const CREATE_ROOM = gql`
 `;
 
 export const EDIT_ROOM = gql`
-	mutation updateRoom($id:Int!, $name:String!, $type:String!, $capacity:Int!, $quantityAvailableSell:Int!, $stockReserve:Int!, $costPurchaseNight:Int!, $costNight:Int!, $startNumbering:Int!, $endNumbering:Int!, $hotel:Int!, $event:Int!){
+	mutation updateRoom($id:Int!, $name:String!, $type:String!, $capacity:Int!, $quantityAvailableSell:Int!, $stockReserve:Int!, $costPurchaseNight:Int!, $costNight:Int!, $startNumbering:String!, $endNumbering:String!, $hotel:Int!, $event:Int!){
 		updateRoom(id:$id, name:$name, type:$type, capacity:$capacity, quantityAvailableSell:$quantityAvailableSell, stockReserve:$stockReserve, costPurchaseNight:$costPurchaseNight, costNight:$costNight, startNumbering:$startNumbering, endNumbering:$endNumbering, hotel:$hotel, event:$event){
 			id
 		}

@@ -24,8 +24,10 @@ import {
 } from '../validations/validations';
 import {
 	renderTextField,
+	renderDateField,
 	renderNumberField,
 	renderSelectField,
+	renderDateMaxField,
 } from '../RenderFields/renderFields';
 import { EDIT_ROOM } from '../../queries/room';
 import { GET_HOTELS } from '../../queries/event';
@@ -35,6 +37,35 @@ import {
 	editRoom,
 	getHotels,
 } from '../../actions/Room/actionsCreators';
+
+const validate = (values) => {
+	const errors = {};
+	const startNumbering = new Date(values.startNumbering);
+	const endNumbering = new Date(values.endNumbering);
+
+	if (startNumbering.getTime() <= endNumbering.getTime()) {
+		errors.endNumbering = false;
+	} else {
+		errors.endNumbering = true;
+	}
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+	const startNumbering = new Date(values.startNumbering);
+	const endNumbering = new Date(values.endNumbering);
+
+	if ((startNumbering.getTime() <= endNumbering.getTime()) ||
+		((values.endNumbering === undefined) && values.startNumbering === undefined)) {
+		warnings.endNumbering = 'Este campo es obligatorio';
+	} else if (values.endNumbering === undefined) {
+		warnings.endNumbering = 'Este campo es obligatorio';
+	} else {
+		warnings.endNumbering = 'La fecha deber mayor a la fecha de Inicio';
+	}
+	return warnings;
+};
 
 const Events = ({
 	actionGetHotels,
@@ -171,16 +202,6 @@ let RoomEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='capacity'
-						type='number'
-						component={renderNumberField}
-						validate={[required]}
-						label='Capacidad'
-						className='yourclass'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
 						name='quantityAvailableSell'
 						type='number'
 						component={renderNumberField}
@@ -222,21 +243,21 @@ let RoomEdit = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='startNumbering'
-						type='date'
-						component={renderNumberField}
+						type='text'
+						component={renderDateField}
 						validate={[required]}
-						label='Inicio de la estancia'
-						className='yourclass'
+						label='Inicio Estadía'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
 						name='endNumbering'
-						type='date'
-						component={renderNumberField}
+						type='text'
+						component={renderDateMaxField}
 						validate={[required]}
-						label='Fin de la estancia'
-						className='yourclass'
+						label='Fin Estadía'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -253,7 +274,6 @@ let RoomEdit = ({
 							id,
 							myValues.name,
 							myValues.type,
-							myValues.capacity,
 							myValues.quantityAvailableSell,
 							myValues.stockReserve,
 							myValues.costPurchaseNight,
@@ -318,6 +338,8 @@ RoomEdit.propTypes = {
 
 RoomEdit = reduxForm({
 	form: 'RoomEdit',
+	validate,
+	warn,
 })(RoomEdit);
 
 const selector = formValueSelector('RoomEdit');
@@ -333,7 +355,6 @@ const mapStateToProps = state => ({
 		state,
 		'name',
 		'type',
-		'capacity',
 		'quantityAvailableSell',
 		'stockReserve',
 		'costPurchaseNight',
@@ -352,7 +373,6 @@ const mapDispatchToProps = dispatch => ({
 		id,
 		name,
 		type,
-		capacity,
 		quantityAvailableSell,
 		stockReserve,
 		costPurchaseNight,
@@ -367,7 +387,6 @@ const mapDispatchToProps = dispatch => ({
 		id,
 		name,
 		type,
-		capacity,
 		quantityAvailableSell,
 		stockReserve,
 		costPurchaseNight,

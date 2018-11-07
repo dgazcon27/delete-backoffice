@@ -102,7 +102,6 @@ export const changePage = (currentPage, paginationPage) => {
 export const createRoom = (
 	name,
 	type,
-	capacity,
 	quantityAvailableSell,
 	stockReserve,
 	costPurchaseNight,
@@ -113,8 +112,25 @@ export const createRoom = (
 	event,
 	paginationPage,
 	createRoomMutation,
-) => (
-	async (dispatch) => {
+) => {
+	let capacity;
+	switch (type) {
+		case 'Individual':
+			capacity = 1;
+			break;
+		case 'Double':
+			capacity = 2;
+			break;
+		case 'Triple':
+			capacity = 3;
+			break;
+		case 'Quadruple':
+			capacity = 4;
+			break;
+		default:
+			break;
+	}
+	return async (dispatch) => {
 		createRoomMutation({
 			variables: {
 				name,
@@ -141,13 +157,13 @@ export const createRoom = (
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
 			});
-	});
+	};
+};
 
 export const editRoom = (
 	id,
 	name,
 	type,
-	capacity,
 	quantityAvailableSell,
 	stockReserve,
 	costPurchaseNight,
@@ -158,8 +174,25 @@ export const editRoom = (
 	event,
 	paginationPage,
 	editRoomMutation,
-) => (
-	async (dispatch) => {
+) => {
+	let capacity;
+	switch (type) {
+		case 'Individual':
+			capacity = 1;
+			break;
+		case 'Double':
+			capacity = 2;
+			break;
+		case 'Triple':
+			capacity = 3;
+			break;
+		case 'Quadruple':
+			capacity = 4;
+			break;
+		default:
+			break;
+	}
+	return async (dispatch) => {
 		editRoomMutation({
 			variables: {
 				id,
@@ -187,8 +220,8 @@ export const editRoom = (
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
 			});
-	});
-
+	};
+};
 export const deleteRoom = (id, events, paginationPage, deleteRoomMutation) => (
 	async (dispatch) => {
 		await deleteRoomMutation({
