@@ -13,6 +13,8 @@ import {
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
 	CLOSE_MODAL_USER,
+	PR_SEARCH_PAGE_UP,
+	PR_SEARCH_PAGE_DOWN,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
 import {
@@ -42,6 +44,21 @@ export const changePage = (currentPage, paginationPagePreq) => {
 			description: currentPage < paginationPagePreq ? PAGE_UP_PREQ : PAGE_DOWN_PREQ,
 			paginationPagePreq,
 			currentPagePreq: currentPage < paginationPagePreq ? currentPage + 1 : currentPage - 1,
+		},
+	});
+};
+
+export const changePageSearch = (currentPage, paginationPage) => {
+	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	paginations.purchaseSearch = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+
+	return ({
+		type: currentPage < paginationPage ? PR_SEARCH_PAGE_UP : PR_SEARCH_PAGE_DOWN,
+		payload: {
+			description: currentPage < paginationPage ? PR_SEARCH_PAGE_UP : PR_SEARCH_PAGE_DOWN,
+			paginationPageSearch: paginationPage,
+			currentPageSearch: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

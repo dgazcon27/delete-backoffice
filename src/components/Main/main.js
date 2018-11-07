@@ -15,7 +15,6 @@ import LocationCreate from '../Location/locationCreate';
 import ComponentLocation from '../Location/ComponentLocation';
 import Event from '../Event/event';
 import EventCreate from '../Event/eventCreate';
-import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Hotel from '../Hotel/Hotel';
 import HotelCreate from '../Hotel/HotelCreate';
 import EditHotel from '../Hotel/HotelEdit';
@@ -37,6 +36,7 @@ import ReservationPayment from '../Reservation/reservationPayment';
 import Room from '../Room/room';
 import RoomCreate from '../Room/roomCreate';
 import RoomEdit from '../Room/roomEdit';
+import ComponentPurchase from '../PurchaseRequest/componentPurchase';
 
 
 const Main = (props) => {
@@ -46,10 +46,10 @@ const Main = (props) => {
 			<div className={classes.toolbar} />
 			<Switch>
 
+				<Route exact path='/' component={ComponentPurchase} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />
-				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={ComponentUsers} />

@@ -6,26 +6,27 @@ import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'react-apollo';
 import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
-import Location from './location';
-import { setSearch } from '../../actions/Search/actionCreatorSearchRoles';
-import styles from './locationCss';
+import { setSearchPurchase } from '../../actions/Search/actionCreatorSearchRoles';
+import PurchaseRequest from './PurchaseRequest';
+import styles from '../Shared/sharedStyles';
 
-const ComponentLocation = ({
+
+const ComponentInvited = ({
 	query,
-	actionSetSearch,
+	actionSearchInvited,
 	classes,
 }) => (
 	<div>
 		<h5 className={classes.title}>
-			Áreas
+			Ventas
 		</h5>
 
 		<div className={classes.search}>
 			<h5 className={classes.searchAlignRigth}>
-				<Link to='/create-tables' href='/create-tables' >
+				<Link to='/purchase-request-create'>
 					<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 						<Add className={classes.marginIcon} />
-						Crear Área
+						Agregar Nuevo
 					</Button>
 				</Link>
 			</h5>
@@ -33,30 +34,30 @@ const ComponentLocation = ({
 				id='search'
 				className={classes.searchSize}
 				type='search'
-				onChange={actionSetSearch}
+				onChange={actionSearchInvited}
 				placeholder='Buscar'
 				value={query}
 			/>
 		</div>
-		<Location query={query} />
+		<PurchaseRequest query={query} />
 	</div>
 );
 
-ComponentLocation.propTypes = {
+ComponentInvited.propTypes = {
 	query: PropTypes.string.isRequired,
-	actionSetSearch: PropTypes.func.isRequired,
+	actionSearchInvited: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-	query: state.ReducerSearchLocation.query,
+	query: state.ReducerPurchaseRequest.query,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionSetSearch: e => dispatch(setSearch(e.target.value)),
+	actionSearchInvited: e => dispatch(setSearchPurchase(e.target.value)),
 });
 
 export default compose(
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(ComponentLocation);
+)(ComponentInvited);

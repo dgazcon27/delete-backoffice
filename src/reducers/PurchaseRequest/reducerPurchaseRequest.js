@@ -17,8 +17,11 @@ import {
 	PR_SET_USER,
 	MODAL_USER,
 	CLOSE_MODAL_USER,
+	PR_SEARCH_PAGE_UP,
+	PR_SEARCH_PAGE_DOWN,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
+import { SET_SEARCH_PURCHASE } from '../../actions/Search/actionsTypesSearchRoles';
 
 const initialState = {
 	newUserModal: false,
@@ -45,6 +48,9 @@ const initialState = {
 	dni: 0,
 	phone: '',
 	email: '',
+	query: '',
+	currentPageSearch: 0,
+	paginationPageSearch: 0,
 };
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
@@ -80,6 +86,18 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				paginationPagePreq: action.payload.paginationPagePreq,
 				currentPagePreq: action.payload.currentPagePreq,
 			});
+		case PR_SEARCH_PAGE_UP:
+			return ({
+				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
+			});
+		case PR_SEARCH_PAGE_DOWN:
+			return ({
+				...state,
+				paginationPageSearch: action.payload.paginationPageSearch,
+				currentPageSearch: action.payload.currentPageSearch,
+			});
 		case EDIT_USER_TYPE:
 			return ({
 				...state,
@@ -90,6 +108,11 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				id: action.payload.id,
 				name: action.payload.name,
 				rolDescription: action.payload.rolDescription,
+			});
+		case SET_SEARCH_PURCHASE:
+			return ({
+				...state,
+				query: action.payload.search,
 			});
 		case SET_PURCHASE_REQ:
 			return ({

@@ -8,13 +8,13 @@ import {
 	Query,
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Payment from '@material-ui/icons/Payment';
 import List from '@material-ui/icons/List';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import ThumbUp from '@material-ui/icons/ThumbUp';
 import {
 	Modal,
 	Paper,
@@ -36,6 +36,7 @@ import {
 	closeModal,
 	deletePurchaseReq,
 	setToPay,
+	changePageSearch,
 } from '../../actions/PurchaseRequest/actionsCreators';
 
 import PurchaseRequestPay from './PurchaseRequestPay';
@@ -43,12 +44,14 @@ import PurchaseRequestPay from './PurchaseRequestPay';
 import {
 	DELETE_PURCHASE_REQ,
 	GET_PURCHASE_REQ,
+	SEARCH_PURCHASE_REQUEST,
 } from '../../queries/purchaseRequest';
 
 import Loading from '../Loading/loading';
 
 const PurchaseRequest = ({
 	id,
+	query,
 	isOpen,
 	userId,
 	classes,
@@ -59,197 +62,226 @@ const PurchaseRequest = ({
 	actionOpenModal,
 	actionCloseModal,
 	actionChangePage,
+	currentPageSearch,
 	actionDeletePurchaseReq,
+	actionChangePageSearch,
 	deletePurchaseReqMutation,
-}) => (
-	<Query query={GET_PURCHASE_REQ} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
+}) => {
+	const params = query.length > 0 ?
+		{ query: SEARCH_PURCHASE_REQUEST, variables: { query, page: currentPageSearch } } :
+		{ query: GET_PURCHASE_REQ, variables: { paginationPage } };
+
+	return (
+		<Query {...params}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<div>
+							<Loading />
+						</div>
+					);
+				}
+				if (error) {
+					return (
+						<div> Error :( </div>
+					);
+				}
+				const response = query.length > 0 ? data.search.purchases.data : data.purchaseRequests.data;
+				const total = query.length > 0 ? data.search.purchases.total : data.purchaseRequests.total;
 				return (
 					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div> Error :( </div>
-				);
-			}
-			return (
-				<div>
-					<div>
-						<h5 className={classes.title}>
-						Taquilla
-						</h5>
-						<h5 className={classes.searchAlignRigth}>
-							<Link to='/purchase-request-create' href='/purchase-request-create' >
-								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-									<Add className={classes.marginIcon} />
-									Agregar Nuevo
-								</Button>
-							</Link>
-						</h5>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Cliente</TableCell>
-										<TableCell>Documento de Identidad</TableCell>
-										<TableCell>Acceso</TableCell>
-										<TableCell>Pendiente por pagar</TableCell>
-										<TableCell>Evento</TableCell>
-										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										data.purchaseRequests.data.map(purchaseReq => (
-											<TableRow key={purchaseReq.id}>
-												<TableCell >{`${purchaseReq.user.name}  ${purchaseReq.user.lastName}`}</TableCell>
-												<TableCell >{purchaseReq.user.dni}</TableCell>
-												<TableCell >{purchaseReq.access.name}</TableCell>
-												<TableCell >{purchaseReq.pendingPayment}</TableCell>
-												<TableCell >{purchaseReq.event.name}</TableCell>
-												<TableCell className={classes.alignRight}>
-													{
-														parseFloat(purchaseReq.totalPaid) > 0 &&
+						<div>
+							<Paper>
+								<Table>
+									<TableHead>
+										<TableRow>
+											<TableCell className={classes.center}>Cliente</TableCell>
+											<TableCell className={classes.center}>Documento de Identidad</TableCell>
+											<TableCell className={classes.center}>Acceso</TableCell>
+											<TableCell className={classes.center}>Pendiente por pagar</TableCell>
+											<TableCell className={classes.center}>Evento</TableCell>
+											<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+										{
+											response.map(purchaseReq => (
+												<TableRow key={purchaseReq.id}>
+													<TableCell className={classes.center}>{`${purchaseReq.user.name}  ${purchaseReq.user.lastName}`}</TableCell>
+													<TableCell className={classes.center}>{purchaseReq.user.dni}</TableCell>
+													<TableCell className={classes.center}>
+														{purchaseReq.access.name}
+													</TableCell>
+													<TableCell className={classes.center}>{`${purchaseReq.pendingPayment} `}
+														{
+															purchaseReq.pendingPayment > 0 &&
+															<ThumbDown className={classes.iconPayment} />
+														}
+														{
+															purchaseReq.pendingPayment <= 0 &&
+															<ThumbUp className={classes.iconPayment} />
+														}
+													</TableCell>
+													<TableCell className={classes.center}>{purchaseReq.event.name}</TableCell>
+													<TableCell className={classes.alignRight}>
+														{
+															parseFloat(purchaseReq.totalPaid) > 0 &&
+															<Tooltip
+																enterDelay={200}
+																id='tooltip-controlled'
+																leaveDelay={100}
+																placement='top'
+																title='Lista de Pagos'
+															>
+																<IconButton onClick={() => { actionOpenModal('pagos', purchaseReq); }}>
+																	<List />
+																</IconButton>
+															</Tooltip>
+														}
 														<Tooltip
 															enterDelay={200}
 															id='tooltip-controlled'
 															leaveDelay={100}
 															placement='top'
-															title='Lista de Pagos'
+															title='Realizar pago'
 														>
-															<IconButton onClick={() => { actionOpenModal('pagos', purchaseReq); }}>
-																<List />
-															</IconButton>
+															<Link to='/Pay' href='/Pay'>
+																<IconButton
+																	onClick={() => {
+																		actionSetToPay(
+																			purchaseReq.id,
+																			userId,
+																		);
+																	}
+																	}
+																>
+																	<Payment />
+																</IconButton>
+															</Link>
 														</Tooltip>
-													}
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Realizar pago'
-													>
-														<Link to='/Pay' href='/Pay'>
-															<IconButton
-																onClick={() => {
-																	actionSetToPay(
-																		purchaseReq.id,
-																		userId,
-																	);
-																}
-																}
-															>
-																<Payment />
+														<Link to={{ pathname: `/purchase-request-edit/${purchaseReq.id}`, state: { type: 'Purchase' } }}>
+															<IconButton>
+																<Edit />
 															</IconButton>
 														</Link>
-													</Tooltip>
-													<Link to={{ pathname: `/purchase-request-edit/${purchaseReq.id}`, state: { type: 'Purchase' } }}>
-														<IconButton>
-															<Edit />
-														</IconButton>
-													</Link>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Eliminar purchaseReq'
-													>
-														<IconButton onClick={() => { actionOpenModal('delete', purchaseReq); }}>
-															<Delete />
-														</IconButton>
-													</Tooltip>
-												</TableCell>
-											</TableRow>
-										))
-									}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.purchaseRequests.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={6}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						onBackdropClick={() => actionCloseModal()}
-						disableAutoFocus={false}
-					>
-						<div>
-							{modalType === 'delete' &&
-							<Paper className={classNames(classes.paperOnModal)}>
-								<h6>
-									Eliminar Compra
-								</h6>
-								<p>
-									¿Estas seguro que desea eliminar esta compra?
-								</p>
-								<span>
-									<IconButton onClick={() => {
-										actionDeletePurchaseReq(id, paginationPage, deletePurchaseReqMutation);
-									}}
-									>
-										Si
-									</IconButton>
-									&nbsp;
-									&nbsp;
-									<IconButton onClick={actionCloseModal}>
-										No
-									</IconButton>
-								</span>
+														<Tooltip
+															enterDelay={200}
+															id='tooltip-controlled'
+															leaveDelay={100}
+															placement='top'
+															title='Eliminar purchaseReq'
+														>
+															<IconButton onClick={() => { actionOpenModal('delete', purchaseReq); }}>
+																<Delete />
+															</IconButton>
+														</Tooltip>
+													</TableCell>
+												</TableRow>
+											))
+										}
+									</TableBody>
+									<TableFooter>
+										<TableRow>
+											{ query.length === 0 &&
+												<TablePagination
+													count={data.purchaseRequests.total}
+													rowsPerPage={10}
+													page={paginationPage}
+													rowsPerPageOptions={[10]}
+													colSpan={6}
+													onChangePage={(event, changuedPage) => {
+														actionChangePage(currentPage, changuedPage);
+													}}
+												/>
+											}
+											{ query.length > 0 &&
+												<TablePagination
+													count={total}
+													rowsPerPage={10}
+													page={currentPageSearch}
+													rowsPerPageOptions={[10]}
+													colSpan={6}
+													onChangePage={(event, nextPage) => {
+														actionChangePageSearch(currentPageSearch, nextPage);
+													}}
+												/>
+											}
+										</TableRow>
+									</TableFooter>
+								</Table>
 							</Paper>
-							}
-							{modalType === 'pagos' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<PurchaseRequestPay />
-								</Paper>
-							}
 						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+						<Modal
+							open={isOpen}
+							className={classNames(classes.modalOpenStyle)}
+							onBackdropClick={() => actionCloseModal()}
+							disableAutoFocus={false}
+						>
+							<div>
+								{modalType === 'delete' &&
+								<Paper className={classNames(classes.paperOnModal)}>
+									<h6>
+										Eliminar Compra
+									</h6>
+									<p>
+										¿Estas seguro que desea eliminar esta compra?
+									</p>
+									<span>
+										<IconButton onClick={() => {
+											actionDeletePurchaseReq(id, paginationPage, deletePurchaseReqMutation);
+										}}
+										>
+											Si
+										</IconButton>
+										&nbsp;
+										&nbsp;
+										<IconButton onClick={actionCloseModal}>
+											No
+										</IconButton>
+									</span>
+								</Paper>
+								}
+								{modalType === 'pagos' &&
+									<Paper className={classNames(classes.paperOnModal)}>
+										<PurchaseRequestPay />
+									</Paper>
+								}
+							</div>
+						</Modal>
+					</div>
+				);
+			}}
+		</Query>
+	);
+};
 
 PurchaseRequest.propTypes = {
 	isOpen: PropTypes.bool,
 	modalType: PropTypes.string,
 	id: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
+	query: PropTypes.string,
 	classes: PropTypes.object.isRequired,
 	actionSetToPay: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	deletePurchaseReqMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPage: PropTypes.number.isRequired,
+	paginationPageSearch: PropTypes.number.isRequired,
+	currentPageSearch: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
+	actionChangePageSearch: PropTypes.func.isRequired,
 	actionDeletePurchaseReq: PropTypes.func.isRequired,
 };
 
 PurchaseRequest.defaultProps = {
 	isOpen: false,
 	modalType: '',
+	query: '',
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
 	currency: state.ReducerPurchaseRequest.currency,
 	id: state.ReducerPurchaseRequest.id,
 	isOpen: state.ReducerPurchaseRequest.isOpen,
@@ -257,7 +289,10 @@ const mapStateToProps = state => ({
 	currentPage: state.ReducerPurchaseRequest.currentPagePreq,
 	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
 	initialValues: state.ReducerPurchaseRequest,
+	paginationPageSearch: state.ReducerPurchaseRequest.paginationPageSearch,
+	currentPageSearch: state.ReducerPurchaseRequest.currentPageSearch,
 	userId: state.ReducerLogin.userId,
+	query: ownProps.query,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -265,6 +300,8 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, bank) => dispatch(openModal(modalType, bank)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionChangePageSearch: (currentPage, paginationPageSearch) =>
+		dispatch(changePageSearch(currentPage, paginationPageSearch)),
 	actionDeletePurchaseReq: (id, paginationPage, deletePurchaseReqMutation) =>
 		dispatch(deletePurchaseReq(id, paginationPage, deletePurchaseReqMutation)),
 	actionSetToPay: (

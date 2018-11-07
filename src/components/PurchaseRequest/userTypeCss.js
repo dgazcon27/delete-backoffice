@@ -103,6 +103,13 @@ const styles = () => ({
 	marginIcon: {
 		'margin-right': '10px',
 	},
+	iconPayment: {
+		height: '12px !important',
+	},
+	center: {
+		'text-align': 'center',
+	},
+
 });
 
 export default styles;

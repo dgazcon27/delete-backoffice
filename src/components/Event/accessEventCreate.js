@@ -202,10 +202,10 @@ let a = class AccessEventCreate extends React.Component {
 
 		return (
 			<div>
-				<h3 className={classes.formTitle}>Evento/Acceso</h3>
+				<h3 className={classes.formTitle}>Acceso por Evento</h3>
 				<Paper className={classes.createContainer}>
 					<form>
-						<h6 className={classes.formTitle}>Nuevo Evento/Acceso</h6>
+						<h6 className={classes.formTitle}>Nuevo Acceso por Evento</h6>
 						<div className={classes.formStyle}>
 							<Access />
 						</div>

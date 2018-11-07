@@ -104,6 +104,13 @@ export const GET_GUESTS = gql`
 				user{
 					name
 					lastName
+					dni
+				}
+				access{
+					name
+				}
+				typeInvited{
+					name
 				}
 			}
 			total

@@ -25,28 +25,28 @@ export const GET_PURCHASE_REQ = gql`
 	query purchaseRequests($paginationPage:Int!){
 		purchaseRequests(page:$paginationPage){
 		data{
-		id
-		totalPrice
-		pendingPayment
-		totalPaid
-		user{
-			id name lastName dni
+			id
+			totalPrice
+			pendingPayment
+			totalPaid
+			user{
+				id name lastName dni
+				}
+			access{
+				id
+				name
+			 }
+			event{
+				id
+				name
+				eventStart
 			}
-		access{
-			id
-			name
-		 }
-		event{
-			id
-			name
-			eventStart
+			status{
+				id
+			}
+			comment
 		}
-		status{
-			id
-		}
-		comment
-	}
-	total
+		total
 	}
 }
 `;
@@ -143,5 +143,36 @@ export const PURCHASE_REQUEST_PAY = gql`
 			}
 			id
 	}
-}
+}`;
+
+export const SEARCH_PURCHASE_REQUEST = gql`
+	query search($query: String!,$page: Int!){
+		search(query: $query, page:$page) {
+			purchases {
+				data{
+				id
+				totalPrice
+				pendingPayment
+				totalPaid
+				user{
+					id name lastName dni
+					}
+				access{
+					id
+					name
+				 }
+				event{
+					id
+					name
+					eventStart
+				}
+				status{
+					id
+				}
+				comment
+			}
+			total
+			}
+		}
+	}
 `;

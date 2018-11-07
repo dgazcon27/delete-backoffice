@@ -98,6 +98,12 @@ const styles = () => ({
 	marginIcon: {
 		'margin-right': '10px',
 	},
+	options: {
+		width: '170px',
+	},
+	center: {
+		'text-align': 'center',
+	},
 });
 
 export default styles;

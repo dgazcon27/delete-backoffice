@@ -16,6 +16,8 @@ import {
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import Search from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
 import styles from './reservationCss';
 import './styles.css';
 import {
@@ -170,12 +172,15 @@ let ReservationCreate = ({
 						component={renderTextField}
 						validate={[required, empty]}
 						label='Cliente'
-						className='yourclass'
+						className={classes.inputSearch}
 					/>
+					<IconButton className={classes.formStyle3}>
+						<Search onClick={(event) => {
+							event.preventDefault(actionUserByDNI(myValues.client));
+						}}
+						/>
+					</IconButton>
 				</div>
-				<button onClick={(event) => { event.preventDefault(actionUserByDNI(myValues.client)); }} >
-					lupita
-				</button>
 				<div className={classes.formStyle}>
 					<Field
 						name='name'
@@ -192,7 +197,7 @@ let ReservationCreate = ({
 						name='purchaseRequest'
 						type='text'
 						component={renderTextDefaultValueField}
-						label='Compra'
+						label='Acceso comprado para el evento'
 						className='yourclass'
 						valor={purchaseRequest}
 						disabled
@@ -223,7 +228,7 @@ let ReservationCreate = ({
 						type='text'
 						component={renderNumberField}
 						validate={[required, empty]}
-						label='Cantidad'
+						label='Cantidad de Habitaciones'
 						className='yourclass'
 						valor
 					/>

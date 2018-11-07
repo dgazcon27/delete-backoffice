@@ -86,9 +86,11 @@ const Invited = ({
 								<Table>
 									<TableHead>
 										<TableRow>
-											<TableCell>Nombre</TableCell>
-											<TableCell>Apellido</TableCell>
-											<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+											<TableCell className={classes.center}>Nombre y Apellido</TableCell>
+											<TableCell className={classes.center}>DNI</TableCell>
+											<TableCell className={classes.center}>Acceso</TableCell>
+											<TableCell className={classes.center}>Tipo de Invitado</TableCell>
+											<TableCell className={`${classes.alignRightOption} ${classes.center}`} >Opciones</TableCell>
 										</TableRow>
 									</TableHead>
 
@@ -96,9 +98,11 @@ const Invited = ({
 										{
 											response.map(user => (
 												<TableRow key={user.id}>
-													<TableCell >{`${user.user.name}`}</TableCell>
-													<TableCell >{`${user.user.lastName}`}</TableCell>
-													<TableCell className={classes.alignRight} >
+													<TableCell >{`${user.user.name} ${user.user.lastName}`}</TableCell>
+													<TableCell >{`${user.user.dni}`}</TableCell>
+													<TableCell >{`${user.access.name}`}</TableCell>
+													<TableCell >{`${user.typeInvited.name}`}</TableCell>
+													<TableCell className={`${classes.alignRight} ${classes.options}`} >
 														<Tooltip
 															enterDelay={200}
 															id='tooltip-controlled'

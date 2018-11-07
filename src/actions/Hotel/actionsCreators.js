@@ -27,16 +27,14 @@ const checkMessageError = (res) => {
 };
 
 export const createHotel = (
-	idUser,
 	event,
 	provider,
 	createdBy,
 	updatedBy,
-	paginationPageHotel,
+	paginationPage,
 	createHotelMutation,
 ) =>
 	async (dispatch) => {
-		const user = idUser;
 		createHotelMutation({
 			variables:
 			{
@@ -44,13 +42,12 @@ export const createHotel = (
 				event,
 				createdBy,
 				updatedBy,
-				user,
 			},
-			refetchQueries: [{ query: GET_HOTELS, variables: { paginationPageHotel } }],
+			refetchQueries: [{ query: GET_HOTELS, variables: { paginationPage } }],
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('/hotel')), 2000);
+				// setTimeout(() => (window.location.assign('/hotel')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

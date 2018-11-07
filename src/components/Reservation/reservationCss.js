@@ -103,6 +103,9 @@ const styles = () => ({
 	marginIcon: {
 		'margin-right': '10px',
 	},
+	inputSearch: {
+		width: '80%',
+	},
 });
 
 export default styles;

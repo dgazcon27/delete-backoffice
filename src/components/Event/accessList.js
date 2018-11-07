@@ -79,15 +79,14 @@ const AccessList = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-							Acceso
-
+							Accesos por Evento
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
 								<Link to={{ pathname: `/event-access-create/${events}` }}>
 									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 										<Add className={classes.marginIcon} />
-										Crear Acceso
+										Crear Acceso por Evento
 									</Button>
 								</Link>
 							</h5>
@@ -97,8 +96,8 @@ const AccessList = ({
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
-										<TableCell>Ubicación</TableCell>
-										<TableCell>Habitacion</TableCell>
+										<TableCell>Área</TableCell>
+										<TableCell>Habitación</TableCell>
 										<TableCell>Cantidad</TableCell>
 										<TableCell className={classes.alignRightOption}>
 											Opciones

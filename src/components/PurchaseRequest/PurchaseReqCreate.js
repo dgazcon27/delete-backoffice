@@ -128,7 +128,7 @@ let PurchaseRequestCreate = ({
 					}
 					disabled={submitting}
 				>
-					Crear
+					Registrar
 				</button>
 				<BackButton />
 			</form>

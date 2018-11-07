@@ -79,7 +79,7 @@ const Hotel = ({
 				<div>
 					<div>
 						<h5 className={classes.title}>
-						Hotel
+						Hoteles por Evento
 						</h5>
 						<h5 className={classes.searchAlignRigth}>
 							<Link to='/hotel-create' href='/hotel-create' >
@@ -93,7 +93,7 @@ const Hotel = ({
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Proveedor </TableCell>
+										<TableCell>Hotel </TableCell>
 										<TableCell>Evento</TableCell>
 										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
 									</TableRow>

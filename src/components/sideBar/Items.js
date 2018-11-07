@@ -36,20 +36,20 @@ const Items = ({
 	actionCollapse,
 }) => (
 	<div>
-		<Link to='/hotel' href='/hotel'>
-			<ListItem button>
-				<ListItemIcon>
-					<Hotel />
-				</ListItemIcon>
-				<ListItemText primary='Hotel' />
-			</ListItem>
-		</Link>
 		<Link to='/' href='/'>
 			<ListItem button>
 				<ListItemIcon>
 					<AttachMoney />
 				</ListItemIcon>
-				<ListItemText primary='Taquilla' />
+				<ListItemText primary='Ventas' />
+			</ListItem>
+		</Link>
+		<Link to='/reservation' href='/reservation'>
+			<ListItem button>
+				<ListItemIcon>
+					<RoomService />
+				</ListItemIcon>
+				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
 		<Link to='/payment' href='/payment'>
@@ -60,21 +60,28 @@ const Items = ({
 				<ListItemText primary='Pagos' />
 			</ListItem>
 		</Link>
-		{/* <Link to='/' href='/'>
-			<ListItem button>
-				<ListItemIcon>
-					<Apps />
-				</ListItemIcon>
-				<ListItemText primary='Dashboard' />
-			</ListItem>
-		</Link>
-		*/}
 		<Link to='/guests' href='/guests'>
 			<ListItem button>
 				<ListItemIcon>
 					<Wc />
 				</ListItemIcon>
 				<ListItemText primary='Invitados' />
+			</ListItem>
+		</Link>
+		<Link to='/hotel' href='/hotel'>
+			<ListItem button>
+				<ListItemIcon>
+					<Hotel />
+				</ListItemIcon>
+				<ListItemText primary='Hoteles por Evento' />
+			</ListItem>
+		</Link>
+		<Link to='/room' href='/room'>
+			<ListItem button>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Habitaciones' />
 			</ListItem>
 		</Link>
 		<Link to='/events' href='/events'>
@@ -86,25 +93,7 @@ const Items = ({
 			</ListItem>
 		</Link>
 
-		{/*
-		<Link to='/djs' href='/djs'>
-			<ListItem button>
-				<ListItemIcon>
-					<Album />
-				</ListItemIcon>
-				<ListItemText primary='DJS' />
-			</ListItem>
-		</Link>
 
-		<Link to='/categories' href='/categories'>
-			<ListItem button>
-				<ListItemIcon>
-					<Work />
-				</ListItemIcon>
-				<ListItemText primary='Categorías' />
-			</ListItem>
-		</Link>
-		*/}
 		<ListItem button onClick={() => { actionCollapse(!open); }}>
 			<ListItemIcon >
 				<InboxIcon />
@@ -127,7 +116,7 @@ const Items = ({
 						<ListItemIcon>
 							<Weekend />
 						</ListItemIcon>
-						<ListItemText primary='Areas' />
+						<ListItemText primary='Áreas' />
 					</ListItem>
 				</Link>
 				<Link to='/bank' href='/bank'>
@@ -172,22 +161,7 @@ const Items = ({
 				</Link>
 			</List>
 		</Collapse>
-		<Link to='/reservation' href='/reservation'>
-			<ListItem button>
-				<ListItemIcon>
-					<RoomService />
-				</ListItemIcon>
-				<ListItemText primary='Paquetes' />
-			</ListItem>
-		</Link>
-		<Link to='/room' href='/room'>
-			<ListItem button>
-				<ListItemIcon>
-					<ContactPhone />
-				</ListItemIcon>
-				<ListItemText primary='Habitaciones' />
-			</ListItem>
-		</Link>
+
 	</div>
 );
 
