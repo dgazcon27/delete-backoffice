@@ -39,7 +39,6 @@ let HotelCreate = ({
 	myValues,
 	submitting,
 	handleSubmit,
-	idUser,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Registrar Hotel</h3>
@@ -57,7 +56,6 @@ let HotelCreate = ({
 					type='submit'
 					onClick={handleSubmit(() =>
 						actionCreateHotel(
-							idUser,
 							myValues.event,
 							myValues.provider,
 							parseInt(userId, 10),
@@ -119,7 +117,6 @@ HotelCreate.propTypes = {
 	createHotelMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
-	idUser: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 };
@@ -133,20 +130,18 @@ const selector = formValueSelector('HotelCreate');
 const mapStateToProps = state => ({
 	newUserModal: state.ReducerHotel.newUserModal,
 	id: state.ReducerHotel.id,
-	idUser: state.ReducerHotel.idUser,
 	userId: state.ReducerLogin.userId,
-	alertType: state.ReducerUserType.alertType,
-	alertOpen: state.ReducerUserType.alertOpen,
-	name: state.ReducerUserType.name,
-	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerHotel.paginationPagePreq,
+	alertType: state.ReducerHotel.alertType,
+	alertOpen: state.ReducerHotel.alertOpen,
+	name: state.ReducerHotel.name,
+	descripcion: state.ReducerHotel.descripcion,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'event', 'provider'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionCreateHotel: (
-		idUser,
 		event,
 		provider,
 		createdBy,
@@ -155,7 +150,6 @@ const mapDispatchToProps = dispatch => ({
 		createHotelMutation,
 	) =>
 		dispatch(createHotel(
-			idUser,
 			event,
 			provider,
 			createdBy,

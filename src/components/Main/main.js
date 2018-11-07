@@ -50,7 +50,6 @@ const Main = (props) => {
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />
 				<Route exact path='/' component={PurchaseRequest} />
-				<Route path='/hotel' component={Hotel} />
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={Users} />
 				<Route path='/users-create' component={UsersCreate} />

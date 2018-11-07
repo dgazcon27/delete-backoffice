@@ -1,36 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-	compose,
-	graphql,
-	Query,
-} from 'react-apollo';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
+import { compose, graphql } from 'react-apollo';
+import ContainerList from '../List/containerList';
+import Search from '../Search/search';
 import {
-	Modal,
-	Switch,
-	Paper,
-	Table,
-	Tooltip,
-	TableRow,
-	TableBody,
-	TableHead,
-	TableCell,
-	IconButton,
-	TableFooter,
-	TablePagination,
-} from '@material-ui/core';
-
-import styles from './userTypeCss';
-import {
-	changePage,
 	openModal,
 	closeModal,
 	blockHotel,
@@ -43,248 +17,128 @@ import {
 	DELETE_HOTEL,
 } from '../../queries/hotels';
 
-import Loading from '../Loading/loading';
-
-const Hotel = ({
-	id,
-	isOpen,
-	classes,
-	modalType,
-	currentPage,
-	statusValue,
+const Hotel2 = ({
+	objectStateHotel,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
-	actionChangePage,
-	actionBlockHotel,
+	actionBlock,
+	actionDelete,
 	blockHotelMutation,
-	actionDeleteHotel,
 	deleteHotelMutation,
-}) => (
-	<Query query={GET_HOTELS} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div> Error :( </div>
-				);
-			}
-			return (
-				<div>
-					<div>
-						<h5 className={classes.title}>
-						Hotel
-						</h5>
-						<h5 className={classes.searchAlignRigth}>
-							<Link to='/hotel-create' href='/hotel-create' >
-								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-									<Add className={classes.marginIcon} />
-									Agregar Nuevo
-								</Button>
-							</Link>
-						</h5>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Proveedor </TableCell>
-										<TableCell>Evento</TableCell>
-										<TableCell className={classes.alignRightOption} >Opciones</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										data.hotelss.data.map(hotel => (
-											<TableRow key={hotel.id}>
-												<TableCell >{`${hotel.provider.name}`}</TableCell>
-												<TableCell >{hotel.event.name}</TableCell>
-												<TableCell className={classes.alignRight}>
+}) => {
+	const objectQuery = {
+		queryComponent: GET_HOTELS,
+	};
 
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Bloquear / Desbloquear'
-													>
-														<Switch
-															onClick={() => { actionOpenModal('block', hotel); }}
-															checked={hotel.active === false}
-															value='checked'
-														/>
-													</Tooltip>
-													<Link to={{ pathname: `/hotel-edit/${hotel.id}` }}>
-														<IconButton>
-															<Edit />
-														</IconButton>
-													</Link>
-													<Tooltip
-														enterDelay={200}
-														id='tooltip-controlled'
-														leaveDelay={100}
-														placement='top'
-														title='Eliminar purchaseReq'
-													>
-														<IconButton onClick={() => { actionOpenModal('delete', hotel); }}>
-															<Delete />
-														</IconButton>
-													</Tooltip>
-												</TableCell>
-											</TableRow>
-										))
-									}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.hotelss.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={6}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						onBackdropClick={() => actionCloseModal()}
-						disableAutoFocus={false}
-					>
-						<div>
-							{modalType === 'block' &&
-							<Paper className={classNames(classes.paperOnModal)}>
-								{statusValue && <h6> Bloquear Hotel </h6>}
-								{!statusValue && <h6> Desbloquear Hotel </h6>}
-								{
-									statusValue &&
-									<p>
-											¿Estas seguro que desea bloquear el Hotel?
-									</p>
-								}
-								{
-									!statusValue &&
-									<p>
-												¿Estas seguro que desea desbloquear el Hotel?
-									</p>
-								}
+	const objectSearch = {
+		showButton: true,
+		showSearch: false,
+		titleButton: 'agregar nuevo',
+		url: '/hotel-create',
+	};
 
-								<span>
-									<IconButton
-										onClick={() => {
-											actionBlockHotel(
-												id,
-												statusValue,
-												blockHotelMutation,
-											);
-										}}
-									>
-											Si
-									</IconButton>
-											&nbsp;
-											&nbsp;
-									<IconButton onClick={actionCloseModal} >
-											No
-									</IconButton>
-								</span>
-							</Paper>
-							}
+	const objectList = {
+		titlesColumns: [{
+			id: 1,
+			columName: 'Proveedor',
+			jsonPath: 'provider.name',
+		},
+		{
+			id: 2,
+			columName: 'Evento',
+			jsonPath: 'event.name',
+		}],
+		arrayActive: [false, true, true, true, false],
+	};
 
-							{modalType === 'delete' &&
-							<Paper className={classNames(classes.paperOnModal)}>
-								<h6>
-									Eliminar Compra
-								</h6>
-								<p>
-									¿Estas seguro que desea eliminar esta compra?
-								</p>
-								<span>
-									<IconButton onClick={() => {
-										actionDeleteHotel(id, paginationPage, deleteHotelMutation);
-									}}
-									>
-										Si
-									</IconButton>
-									&nbsp;
-									&nbsp;
-									<IconButton onClick={actionCloseModal}>
-										No
-									</IconButton>
-								</span>
-							</Paper>
-							}
-						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+	const objectPath = {
+		currentComponent: {
+			dataPath: 'hotelss.data',
+			totalPath: 'hotelss.total',
+		},
+		searchComponent: {
+			dataPath: '',
+			totalPath: '',
+		},
+	};
 
-Hotel.propTypes = {
-	isOpen: PropTypes.bool,
-	statusValue: PropTypes.bool,
-	modalType: PropTypes.string,
-	id: PropTypes.number.isRequired,
-	classes: PropTypes.object.isRequired,
-	actionOpenModal: PropTypes.func.isRequired,
-	actionDeleteHotel: PropTypes.func.isRequired,
-	actionBlockHotel: PropTypes.func.isRequired,
-	blockHotelMutation: PropTypes.func.isRequired,
-	deleteHotelMutation: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
-	currentPage: PropTypes.number.isRequired,
-	actionCloseModal: PropTypes.func.isRequired,
-	actionChangePage: PropTypes.func.isRequired,
+	const objectModal = {
+		componentState: Object.assign({}, objectStateHotel),
+		paginationPage,
+		messages: {
+			edit: {
+				title: 'contenido edit modal',
+			},
+			block: {
+				titleStatus1: 'Bloquear Hotel',
+				msgStatus1: '¿Estas seguro que desea bloquear el Hotel?',
+				titleStatus2: 'Desbloquear Hotel',
+				msgStatus2: '¿Estas seguro que desea desbloquear el Hotel?',
+			},
+			delete: {
+				title: 'Eliminar Compra',
+				msg: '¿Estas seguro que desea eliminar esta compra?',
+			},
+		},
+	};
+
+	const actions = {
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		block: actionBlock,
+		queryblock: blockHotelMutation,
+		delete: actionDelete,
+		queryDelete: deleteHotelMutation,
+	};
+
+	return (
+		<div>
+			<Search
+				showButton={objectSearch.showButton}
+				showSearch={objectSearch.showSearch}
+				titleButton={objectSearch.titleButton}
+				url={objectSearch.url}
+			/>
+			<ContainerList
+				queries={objectQuery}
+				propsSearchComponent={objectSearch}
+				propsListComponent={objectList}
+				propsModalComponent={objectModal}
+				objectPath={objectPath}
+				actions={actions}
+			/>
+		</div>
+	);
 };
 
-Hotel.defaultProps = {
-	isOpen: false,
-	modalType: '',
-	statusValue: false,
+Hotel2.propTypes = {
+	actionOpenModal: PropTypes.func.isRequired,
+	actionBlock: PropTypes.func.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
+	objectStateHotel: PropTypes.object.isRequired,
+	paginationPage: PropTypes.number.isRequired,
+	blockHotelMutation: PropTypes.func.isRequired,
+	deleteHotelMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-	currency: state.ReducerHotel.currency,
-	statusValue: state.ReducerHotel.statusValue,
-	id: state.ReducerHotel.id,
-	isOpen: state.ReducerHotel.isOpen,
-	modalType: state.ReducerHotel.modalType,
-	currentPage: state.ReducerHotel.currentPagePreq,
-	paginationPage: state.ReducerHotel.paginationPageHotel,
-	initialValues: state.ReducerHotel,
-	userId: state.ReducerLogin.userId,
+	paginationPage: state.ReducerPagination.paginationPage,
+	objectStateHotel: state.ReducerHotel,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
-	actionOpenModal: (modalType, hotel) => dispatch(openModal(modalType, hotel)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionBlockHotel: (id, statusValue, blockHotelMutation) =>
-		dispatch(blockHotel(id, statusValue, blockHotelMutation)),
-	actionDeleteHotel: (id, paginationPage, deleteHotelMutation) =>
-		dispatch(deleteHotel(id, paginationPage, deleteHotelMutation)),
-
+	actionBlock: (componentState, deleteHotelMutation) =>
+		dispatch(blockHotel(componentState, deleteHotelMutation)),
+	actionDelete: (componentState, paginationPage, blockHotelMutation) =>
+		dispatch(deleteHotel(componentState, paginationPage, blockHotelMutation)),
 });
-
-export { Hotel as PurchaseRequestTest };
 
 export default compose(
 	graphql(DELETE_HOTEL, { name: 'deleteHotelMutation' }),
 	graphql(BLOCK_HOTEL, { name: 'blockHotelMutation' }),
-	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Hotel);
+)(Hotel2);
