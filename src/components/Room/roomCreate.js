@@ -23,9 +23,11 @@ import {
 	empty,
 } from '../validations/validations';
 import {
+	renderDateField,
 	renderTextField,
 	renderNumberField,
 	renderSelectField,
+	renderDateMaxField,
 } from '../RenderFields/renderFields';
 import { CREATE_ROOM } from '../../queries/room';
 import { GET_HOTELS } from '../../queries/event';
@@ -35,6 +37,35 @@ import {
 	createRoom,
 	getHotels,
 } from '../../actions/Room/actionsCreators';
+
+const validate = (values) => {
+	const errors = {};
+	const startNumbering = new Date(values.startNumbering);
+	const endNumbering = new Date(values.endNumbering);
+
+	if (startNumbering.getTime() <= endNumbering.getTime()) {
+		errors.endNumbering = false;
+	} else {
+		errors.endNumbering = true;
+	}
+	return errors;
+};
+
+const warn = (values) => {
+	const warnings = {};
+	const startNumbering = new Date(values.startNumbering);
+	const endNumbering = new Date(values.endNumbering);
+
+	if ((startNumbering.getTime() <= endNumbering.getTime()) ||
+		((values.endNumbering === undefined) && values.startNumbering === undefined)) {
+		warnings.endNumbering = 'Este campo es obligatorio';
+	} else if (values.endNumbering === undefined) {
+		warnings.endNumbering = 'Este campo es obligatorio';
+	} else {
+		warnings.endNumbering = 'La fecha deber mayor a la fecha de Inicio';
+	}
+	return warnings;
+};
 
 const Events = ({
 	actionGetHotels,
@@ -170,16 +201,6 @@ let RoomCreate = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='capacity'
-						type='number'
-						component={renderNumberField}
-						validate={[required]}
-						label='Capacidad'
-						className='yourclass'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
 						name='quantityAvailableSell'
 						type='number'
 						component={renderNumberField}
@@ -221,21 +242,21 @@ let RoomCreate = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='startNumbering'
-						type='date'
-						component={renderNumberField}
+						type='text'
+						component={renderDateField}
 						validate={[required]}
-						label='Inicio de la estancia'
-						className='yourclass'
+						label='Inicio Estadía'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
 						name='endNumbering'
-						type='date'
-						component={renderNumberField}
+						type='text'
+						component={renderDateMaxField}
 						validate={[required]}
-						label='Fin de la estancia'
-						className='yourclass'
+						label='Fin Estadía'
+						className='yourclass date-label container'
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -251,7 +272,6 @@ let RoomCreate = ({
 						handleSubmit(() => actionCreateRoom(
 							myValues.name,
 							myValues.type,
-							myValues.capacity,
 							myValues.quantityAvailableSell,
 							myValues.stockReserve,
 							myValues.costPurchaseNight,
@@ -315,6 +335,8 @@ RoomCreate.propTypes = {
 
 RoomCreate = reduxForm({
 	form: 'RoomCreate',
+	validate,
+	warn,
 })(RoomCreate);
 
 const selector = formValueSelector('RoomCreate');
@@ -328,7 +350,6 @@ const mapStateToProps = state => ({
 		state,
 		'name',
 		'type',
-		'capacity',
 		'quantityAvailableSell',
 		'stockReserve',
 		'costPurchaseNight',
@@ -346,7 +367,6 @@ const mapDispatchToProps = dispatch => ({
 	actionCreateRoom: (
 		name,
 		type,
-		capacity,
 		quantityAvailableSell,
 		stockReserve,
 		costPurchaseNight,
@@ -360,7 +380,6 @@ const mapDispatchToProps = dispatch => ({
 	) => dispatch(createRoom(
 		name,
 		type,
-		capacity,
 		quantityAvailableSell,
 		stockReserve,
 		costPurchaseNight,
