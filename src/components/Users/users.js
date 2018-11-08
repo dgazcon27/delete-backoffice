@@ -52,7 +52,15 @@ const Users = ({
 			columName: 'Tipo de Usuario',
 			jsonPath: 'role.name',
 		}],
-		arrayActive: [false, true, true, true, true],
+		arrayActive: [false, false, true, true, true, true],
+		urls: {
+			list: {
+				type: '',
+				path: '',
+			},
+			payment: '',
+			edit: '/',
+		},
 	};
 
 	const objectPath = {

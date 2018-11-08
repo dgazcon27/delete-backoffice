@@ -48,7 +48,15 @@ const UserType = ({
 			columName: 'Nombre',
 			jsonPath: 'name',
 		}],
-		arrayActive: [false, true, true, true, false],
+		arrayActive: [false, false, true, true, true, false],
+		urls: {
+			list: {
+				type: '',
+				path: '',
+			},
+			payment: '',
+			edit: '/',
+		},
 	};
 
 	const objectPath = {

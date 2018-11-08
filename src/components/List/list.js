@@ -29,6 +29,7 @@ const List = ({
 	data,
 	titles,
 	activeOptions,
+	urls,
 	total,
 	classes,
 	actions,
@@ -61,6 +62,7 @@ const List = ({
 										activeButtons={activeOptions}
 										actions={actions}
 										rowData={obj}
+										urls={urls}
 									/>
 								</TableRow>
 							))
@@ -81,6 +83,7 @@ List.propTypes = {
 	data: PropTypes.array.isRequired,
 	titles: PropTypes.array.isRequired,
 	activeOptions: PropTypes.array.isRequired,
+	urls: PropTypes.object.isRequired,
 	total: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	actions: PropTypes.object.isRequired,
@@ -109,6 +112,7 @@ const mapStateToProps = (state, ownProps) => ({
 	data: ownProps.dataToShow,
 	titles: ownProps.titlesColumns,
 	activeOptions: ownProps.activeOptions,
+	urls: ownProps.urlsOptions,
 	total: ownProps.itemTotal,
 	actions: ownProps.actions,
 	modal: ownProps.propsModalComponent,

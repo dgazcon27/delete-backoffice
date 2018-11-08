@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import Payment from '@material-ui/icons/Payment';
 import VpnKey from '@material-ui/icons/VpnKey';
 import List from '@material-ui/icons/List';
 import { compose } from 'react-apollo';
@@ -24,9 +25,10 @@ const Options = ({
 	active,
 	actions,
 	rowData,
+	urls,
 }) => (
 	<TableCell className={classes.alignRight}>
-		{active[0] &&
+		{active[0] && urls.list.type === 'viewList' &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -34,11 +36,25 @@ const Options = ({
 				placement='top'
 				title='Lista de Accesos'
 			>
-				<Link to={{ pathname: `/event-access/${rowData.id}` }}>
+				<Link to={{ pathname: `${urls.list.path}/${rowData.id}` }}>
 					<IconButton>
 						<List />
 					</IconButton>
 				</Link>
+			</Tooltip>
+		}
+
+		{active[0] && urls.list.type === 'viewModal' &&
+			<Tooltip
+				enterDelay={200}
+				id='tooltip-controlled'
+				leaveDelay={100}
+				placement='top'
+				title='Lista de Accesos'
+			>
+				<IconButton onClick={() => actions.openModal('pagos', rowData)}>
+					<List />
+				</IconButton>
 			</Tooltip>
 		}
 
@@ -48,16 +64,32 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Editar Rol.'
+				title='Realizar pago'
 			>
-				<Link to='/user-type-edit' href='/user-type-edit'>
+				<Link to={`${urls.payment}`} href={`${urls.payment}`}>
 					<IconButton>
-						<Edit onClick={() => actions.edit(rowData.id, rowData.name, rowData.description)} />
+						<Payment />
 					</IconButton>
 				</Link>
 			</Tooltip>
 		}
+
 		{active[2] &&
+			<Tooltip
+				enterDelay={200}
+				id='tooltip-controlled'
+				leaveDelay={100}
+				placement='top'
+				title='Editar Rol.'
+			>
+				<Link to={`${urls.edit}`} href={`${urls.edit}`}>
+					<IconButton>
+						<Edit />
+					</IconButton>
+				</Link>
+			</Tooltip>
+		}
+		{active[3] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -70,7 +102,7 @@ const Options = ({
 				</IconButton>
 			</Tooltip>
 		}
-		{active[3] &&
+		{active[4] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -85,7 +117,7 @@ const Options = ({
 				/>
 			</Tooltip>
 		}
-		{active[4] &&
+		{active[5] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -106,12 +138,14 @@ Options.propTypes = {
 	active: PropTypes.array.isRequired,
 	actions: PropTypes.object.isRequired,
 	rowData: PropTypes.object.isRequired,
+	urls: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
 	active: ownProps.activeButtons,
 	actions: ownProps.actions,
 	rowData: ownProps.rowData,
+	urls: ownProps.urls,
 });
 
 export default compose(
@@ -119,3 +153,4 @@ export default compose(
 	connect(mapStateToProps, null),
 )(Options);
 
+// onClick={() => actions.edit(rowData.id, rowData.name, rowData.description)}

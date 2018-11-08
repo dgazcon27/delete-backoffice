@@ -44,7 +44,7 @@ const ContainerList = ({
 
 	// titlesColumns es un array de objetos que representas las columnas
 	// arrayActive es un vector de tipo booleno que indica que botones estan activos
-	const { titlesColumns, arrayActive } = objectList;
+	const { titlesColumns, arrayActive, urls } = objectList;
 
 	return (
 		<Query {...params}>
@@ -75,6 +75,7 @@ const ContainerList = ({
 							dataToShow={response}
 							titlesColumns={titlesColumns}
 							activeOptions={arrayActive}
+							urlsOptions={urls}
 							itemTotal={total}
 							actions={objectAction}
 							propsModalComponent={objectModal}
@@ -97,6 +98,7 @@ ContainerList.propTypes = {
 	objectList: PropTypes.shape({
 		titlesColumns: PropTypes.arrayOf(PropTypes.object),
 		arrayActive: PropTypes.arrayOf(PropTypes.bool),
+		urls: PropTypes.object,
 	}).isRequired,
 	objectModal: PropTypes.shape({
 		componentState: PropTypes.object.isRequired,

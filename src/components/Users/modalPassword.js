@@ -62,7 +62,8 @@ let ModalPassword = ({
 	actionSetPassword,
 	resetPasswordIdUserMutation,
 }) => (
-	<div className={classes.backgroundModal}><h4>Cambiar Contraseña</h4>
+	<div className={classes.backgroundModal}>
+		<h4 className={classes.titleModal}>Cambiar Contraseña</h4>
 		<form>
 			<Field
 				name='password'
@@ -80,13 +81,16 @@ let ModalPassword = ({
 				className='yourclass'
 				validate={[required, empty]}
 			/>
-			<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionSetPassword(id, myValues.password, myValues.confirmation, paginationPage, resetPasswordIdUserMutation))} disabled={submitting} >
-				Confirmar
-			</button>
 
-			<Link to='/users' href='/users' onClick={actionCloseModal} className={classes.returnButton} >
-				Cancelar
-			</Link>
+			<div className={classes.buttonsModal}>
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionSetPassword(id, myValues.password, myValues.confirmation, paginationPage, resetPasswordIdUserMutation))} disabled={submitting} >
+					Confirmar
+				</button>
+
+				<Link to='/users' href='/users' onClick={actionCloseModal} className={classes.returnButton} >
+					Cancelar
+				</Link>
+			</div>
 		</form>
 	</div>
 );

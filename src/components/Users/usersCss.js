@@ -100,6 +100,16 @@ const styles = () => ({
 	},
 	backgroundModal: {
 		background: 'white',
+		padding: '2% 3% 2% 3%;',
+		'border-radius': '0.2em',
+		position: 'fixed',
+		width: '37vw',
+	},
+	titleModal: {
+		'text-align': 'center',
+	},
+	buttonsModal: {
+		'margin-left': '8vw',
 	},
 });
 

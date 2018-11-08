@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 
 import ModalPassword from '../Users/modalPassword';
+import PurchaseRequestPay from '../PurchaseRequest/PurchaseRequestPay';
 import styles from './userTypeCss';
 
 const ModalsOptions = ({
@@ -19,8 +20,8 @@ const ModalsOptions = ({
 }) => (
 	<Modal
 		open={modal.componentState.isOpen}
-		className={classes.modalOpenStyle}
-		hideBackdrop
+		className={classes.modalOpenStyle}T
+		onBackdropClick={() => actions.closeModal()}
 		disableAutoFocus={false}
 	>
 		<div>
@@ -93,6 +94,10 @@ const ModalsOptions = ({
 			}
 			{modal.componentState.modalType === 'password' &&
 				<ModalPassword />
+			}
+
+			{modal.componentState.modalType === 'pagos' &&
+				<PurchaseRequestPay />
 			}
 		</div>
 	</Modal>

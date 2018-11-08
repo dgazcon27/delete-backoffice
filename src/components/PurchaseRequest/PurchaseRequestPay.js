@@ -50,8 +50,8 @@ const PurchaseRequestPay = ({
 			}
 			return (
 				<div>
-					<div>
-						<h5>Abonos del Cliente</h5>
+					<div className={classes.purchaseRequestModal}>
+						<h5 className={classes.titleModal}>Abonos del Cliente</h5>
 						<Table>
 							<TableHead>
 								<TableRow>
