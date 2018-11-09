@@ -84,20 +84,6 @@ export const blockPayment = (id, statusValue, blockPaymentMutation) => {
 		dispatch(closeModal());
 	};
 };
-/*
-
-export const deleteUserType = (obj, paginationPage, deleteRolMutation) => {
-	const { id, statusValue } = obj;
-	return async (dispatch) => {
-		await deleteRolMutation({
-			variables: { id, statusValue },
-			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		// window.location.reload();
-	};
-};
-*/
 
 export const deletePayment = (obj, paginationPage, deletePaymentMutation) => {
 	const { id, statusValue } = obj;
