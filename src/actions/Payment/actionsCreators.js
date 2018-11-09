@@ -100,9 +100,6 @@ export const deleteUserType = (obj, paginationPage, deleteRolMutation) => {
 */
 
 export const deletePayment = (obj, paginationPage, deletePaymentMutation) => {
-	
-	console.log(obj);
-	
 	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deletePaymentMutation({
@@ -120,8 +117,8 @@ export const openModal = (modalType, _payment) => ({
 		modalType,
 		description: OPEN_MODAL_PAYMENT,
 		statusValue: 1,
-		name: _payment.id,
-		id: _payment.id,
+		name: _payment.payment.id,
+		id: _payment.payment.id,
 	},
 });
 

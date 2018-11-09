@@ -56,7 +56,9 @@ const List = ({
 								<TableRow key={getValue(obj, id)}>
 									{
 										titles.map((column, index) => (
-											<TableCell key={getIdElement(getValue(obj, id), index)}>{getValue(obj, column.jsonPath)}</TableCell>
+											<TableCell key={getIdElement(getValue(obj, id), index)}>
+												{getValue(obj, column.jsonPath)}
+											</TableCell>
 										))
 									}
 									<Options

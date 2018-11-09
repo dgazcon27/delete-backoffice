@@ -132,7 +132,6 @@ const Payment = ({
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
 											colSpan={5}
-											
 										/>
 									</TableRow>
 								</TableFooter>
@@ -193,7 +192,6 @@ Payment.propTypes = {
 	statusValue: PropTypes.number,
 	id: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	currentPage: PropTypes.number.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDeletePayment: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
@@ -213,7 +211,7 @@ const mapStateToProps = state => ({
 	modalType: state.ReducerPayment.modalType,
 	statusValue: state.ReducerPayment.statusValue,
 	currentPage: state.ReducerPayment.currentPagePay,
-	paginationPage: state.ReducerPayment.paginationPagePay,
+	paginationPage: state.ReducerPagination.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
