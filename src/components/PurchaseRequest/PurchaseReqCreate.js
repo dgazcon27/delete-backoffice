@@ -32,8 +32,6 @@ import {
 import BackButton from '../widget/BackButton';
 import UsersCreate from '../Users/usersCreate';
 import { Aevents } from '../commonComponent';
-
-
 import styles from './bankCss';
 import './styles.css';
 
@@ -110,13 +108,17 @@ let PurchaseRequestCreate = ({
 				</div>
 			</form>
 			<div className={classes.formStyle}>
-				Nombre:{nameUser}
-				<br />
-				Apellido:{lastName}
-				<br />
-				Telefono:{phone}
-				<br />
-				Correo:{email}
+				<div className={classes.panel1} >
+				Nombre: {nameUser}
+					<br />
+				Tlf: {phone}
+				</div>
+
+				<div className={classes.panel2} >
+				Apellido: {lastName}
+					<br />
+				Correo: {email}
+				</div>
 			</div>
 
 			<form>
@@ -135,7 +137,6 @@ let PurchaseRequestCreate = ({
 						label='comment'
 					/>
 				</div>
-
 				<button
 					className={classes.createButton}
 					type='submit'
@@ -180,13 +181,24 @@ let PurchaseRequestCreate = ({
 		}
 		{
 
-			(alertType === 'creado' && newUserModal) &&
+			(alertType === 'creado') &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{ 'aria-describedby': 'message-id' }}
 				message={<span id='message-id'>La peticion de pago fue generada con exito </span>}
+			/>
+		}
+		{
+
+			(alertType === 'creado' && newUserModal) &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>El usuario fue creado con exito </span>}
 			/>
 		}
 		<Modal
