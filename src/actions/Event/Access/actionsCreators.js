@@ -86,6 +86,7 @@ export const setAccess = (access) => {
 			access: access.access.id,
 			price: access.price,
 			days: access.days,
+			stock: access.stock,
 			hotel,
 			room,
 			hotelE,

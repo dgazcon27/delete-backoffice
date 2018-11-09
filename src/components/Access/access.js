@@ -94,7 +94,7 @@ const Access = ({
 								<TableHead>
 									<TableRow>
 										<TableCell>Nombre</TableCell>
-										<TableCell>Ubicacion</TableCell>
+										<TableCell>Área</TableCell>
 										<TableCell className={classes.alignRightOption}>
 												Opciones
 										</TableCell>

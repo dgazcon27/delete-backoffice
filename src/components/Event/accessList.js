@@ -17,7 +17,6 @@ import {
 	Modal,
 	Paper,
 	Table,
-	Switch,
 	Tooltip,
 	TableRow,
 	TableBody,
@@ -150,7 +149,8 @@ const AccessList = ({
 														<Delete />
 													</IconButton>
 												</Tooltip>
-												<Tooltip
+												{/*
+	<Tooltip
 													enterDelay={200}
 													id='tooltip-controlled'
 													leaveDelay={100}
@@ -163,6 +163,7 @@ const AccessList = ({
 														value='checked'
 													/>
 												</Tooltip>
+												*/}
 											</TableCell>
 										</TableRow>
 									))}

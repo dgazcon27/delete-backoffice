@@ -219,6 +219,14 @@ let a = class AccessEventCreate extends React.Component {
 								className='yourclass'
 							/>
 						</div>
+						<div className={classes.formStyle}>
+							<Field
+								name='stock'
+								component={renderNumberField}
+								label='Stock del Acceso'
+								className='yourclass'
+							/>
+						</div>
 						<RadioGroup
 							aria-label='withTickets'
 							name='with_tickets'
@@ -404,7 +412,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerEventAccess.alertOpen,
 	withTickets: state.ReducerEventAccess.withTickets,
 	paginationPage: state.ReducerEventAccess.paginationPage,
-	myValues: selector(state, 'withRoom', 'withTickets', 'numberRooms', 'days', 'numberTickets', 'price', 'access', 'hotel', 'room'),
+	myValues: selector(state, 'withRoom', 'withTickets', 'stock', 'numberRooms', 'days', 'numberTickets', 'price', 'access', 'hotel', 'room'),
 });
 
 const mapDispatchToProps = dispatch => ({

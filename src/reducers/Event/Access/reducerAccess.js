@@ -161,6 +161,7 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				activeTickets: action.payload.activeTickets,
 				price: action.payload.price,
 				days: action.payload.days,
+				stock: action.payload.stock,
 				hotel: action.payload.hotel,
 				room: action.payload.room,
 				hotelE: action.payload.hotelE,

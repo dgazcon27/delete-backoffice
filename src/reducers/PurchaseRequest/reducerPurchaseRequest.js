@@ -125,7 +125,6 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				user: action.payload.user,
 				accessName: action.payload.access,
 				event: action.payload.event,
-				status: action.payload.status,
 				comment: action.payload.comment,
 			});
 		case SET_TO_PAY:
