@@ -41,9 +41,6 @@ export const GET_PURCHASE_REQ = gql`
 			name
 			eventStart
 		}
-		status{
-			id
-		}
 		comment
 	}
 	total
@@ -79,8 +76,8 @@ export const DELETE_PURCHASE_REQ = gql`
 `;
 
 export const CREATE_PURCHASE_REQ = gql`
-	mutation createPurchaseRequest($createdBy:Int!, $updatedBy:Int!, $user:ID!, $access:ID!, $event:ID!, $status:ID!, $comment:String!){
-		createPurchaseRequest(createdBy:$createdBy, updatedBy:$updatedBy , user:$user, access:$access, event:$event, status:$status, comment:$comment){
+	mutation createPurchaseRequest($createdBy:Int!, $updatedBy:Int!, $user:ID!, $access:ID!, $event:ID!, $comment:String!){
+		createPurchaseRequest(createdBy:$createdBy, updatedBy:$updatedBy , user:$user, access:$access, event:$event, comment:$comment){
 			id
 		}
 	}

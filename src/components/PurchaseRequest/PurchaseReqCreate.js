@@ -34,7 +34,6 @@ import UsersCreate from '../Users/usersCreate';
 import {
 	AccessE,
 	Aevents,
-	Status,
 } from '../commonComponent';
 
 
@@ -84,13 +83,17 @@ let PurchaseRequestCreate = ({
 				</div>
 			</form>
 			<div className={classes.formStyle}>
-				Nombre:{nameUser}
-				<br />
-				Apellido:{lastName}
-				<br />
-				Telefono:{phone}
-				<br />
-				Correo:{email}
+				<div className={classes.panel1} >
+				Nombre: {nameUser}
+					<br />
+				Tlf: {phone}
+				</div>
+
+				<div className={classes.panel2} >
+				Apellido: {lastName}
+					<br />
+				Correo: {email}
+				</div>
 			</div>
 
 			<form>
@@ -101,9 +104,6 @@ let PurchaseRequestCreate = ({
 					<AccessE access={access} />
 				</div>
 				<div className={classes.formStyle}>
-					<Status />
-				</div>
-				<div className={classes.formStyle}>
 					<Field
 						name='comment'
 						type='text'
@@ -112,25 +112,26 @@ let PurchaseRequestCreate = ({
 						label='comment'
 					/>
 				</div>
-
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={handleSubmit(() =>
-						actionCreatePurchaseReq(
-							idUser,
-							myValues,
-							parseInt(userId, 10),
-							parseInt(userId, 10),
-							paginationPage,
-							createPurchaseReqMutation,
-						))
-					}
-					disabled={submitting}
-				>
+				<div className={classes.centered}>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={handleSubmit(() =>
+							actionCreatePurchaseReq(
+								idUser,
+								myValues,
+								parseInt(userId, 10),
+								parseInt(userId, 10),
+								paginationPage,
+								createPurchaseReqMutation,
+							))
+						}
+						disabled={submitting}
+					>
 					Crear
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&
@@ -157,13 +158,24 @@ let PurchaseRequestCreate = ({
 		}
 		{
 
-			(alertType === 'creado' && newUserModal) &&
+			(alertType === 'creado') &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{ 'aria-describedby': 'message-id' }}
 				message={<span id='message-id'>La peticion de pago fue generada con exito </span>}
+			/>
+		}
+		{
+
+			(alertType === 'creado' && newUserModal) &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>El usuario fue creado con exito </span>}
 			/>
 		}
 		<Modal
@@ -222,7 +234,7 @@ const mapStateToProps = state => ({
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
 	access: state.ReducerPurchaseRequest.access,
-	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'status', 'comment'),
+	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'comment'),
 });
 
 const mapDispatchToProps = dispatch => ({
