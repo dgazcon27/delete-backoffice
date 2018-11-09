@@ -7,91 +7,104 @@ import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	deleteEvent,
-} from '../../actions/Event/actionsCreators';
+	deletePayment,
+} from '../../actions/Payment/actionsCreators';
 
 import {
-	GET_EVENTS,
-	DELETE_EVENT,
-} from '../../queries/event';
+	GET_PAYMENTS,
+	DELETE_PAYMENT,
+} from '../../queries/payment';
 
-const Event = ({
-	objectStateEvent,
+const Payment2 = ({
+	objectStatePayment,
 	paginationPage,
+	actionSetRol,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
-	deleteEventMutation,
+	deletePaymentMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_EVENTS,
+		queryComponent: GET_PAYMENTS,
 	};
 
 	const objectSearch = {
-		showButton: true,
+		showButton: false,
 		showSearch: false,
-		titleButton: 'agregar nuevo',
-		url: '/events-create',
+		titleButton: '',
+		url: '',
 	};
 
 	const objectList = {
 		titlesColumns: [{
 			id: 1,
-			columName: 'Nombre',
-			jsonPath: 'name',
+			columName: 'Monto',
+			jsonPath: 'payment.amount',
 		},
 		{
 			id: 2,
-			columName: 'Ubicación',
-			jsonPath: 'state.country.name',
+			columName: 'Referencia',
+			jsonPath: 'payment.reference',
+		},
+		{
+			id: 3,
+			columName: 'Banco',
+			jsonPath: 'payment.bankAccount.bank.name',
+		},
+		{
+			id: 4,
+			columName: 'Fecha',
+			jsonPath: 'payment.created_at',
 		}],
-		arrayActive: [true, false, true, true, false, false],
+		arrayActive: [false, false, true, true, false, false],
 		urls: {
 			list: {
-				type: 'viewList',
-				path: 'event-access',
+				type: '',
+				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/pre-sale-edit/',
 		},
+		keyId: 'payment.id',
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'events.data',
-			totalPath: 'events.total',
+			dataPath: 'payments.data',
+			totalPath: 'payments.total',
 		},
 		searchComponent: {
-			dataPath: 'search.events.data',
-			totalPath: 'search.events.total',
+			dataPath: '',
+			totalPath: '',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateEvent),
+		componentState: Object.assign({}, objectStatePayment),
 		paginationPage,
 		messages: {
 			edit: {
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: '',
-				msgStatus1: '',
-				titleStatus2: '',
-				msgStatus2: '',
+				titleStatus1: 'Bloquear Rol',
+				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
+				titleStatus2: 'Desbloquear Rol',
+				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
 			},
 			delete: {
-				title: 'Eliminar evento',
-				msg: '¿Estas seguro que desea eliminar este evento?',
+				title: 'Eliminar Rol',
+				msg: '¿Estas seguro que desea eliminar el rol ?',
 			},
 		},
 	};
 
 	const actions = {
+		edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
-		queryDelete: deleteEventMutation,
+		queryDelete: deletePaymentMutation,
 	};
 
 	return (
@@ -114,28 +127,30 @@ const Event = ({
 	);
 };
 
-Event.propTypes = {
+Payment2.propTypes = {
+	actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionCloseModal: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
-	objectStateEvent: PropTypes.object.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
+	objectStatePayment: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deleteEventMutation: PropTypes.func.isRequired,
+	deletePaymentMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateEvent: state.ReducerEvent,
+	objectStatePayment: state.ReducerPayment,
 });
 
 const mapDispatchToProps = dispatch => ({
+	// actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deleteEventMutation) =>
-		dispatch(deleteEvent(componentState, paginationPage, deleteEventMutation)),
+	actionDelete: (componentState, paginationPage, deletePaymentMutation) =>
+		dispatch(deletePayment(componentState, paginationPage, deletePaymentMutation)),
 });
 
 export default compose(
-	graphql(DELETE_EVENT, { name: 'deleteEventMutation' }),
+	graphql(DELETE_PAYMENT, { name: 'deletePaymentMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Event);
+)(Payment2);

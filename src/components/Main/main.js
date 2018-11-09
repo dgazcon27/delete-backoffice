@@ -22,6 +22,7 @@ import EditHotel from '../Hotel/HotelEdit';
 import PurchaseRequestCreate from '../PurchaseRequest/PurchaseReqCreate';
 import PayCreate from '../PurchaseRequest/PayCreate';
 import Payment from '../Payment/payment';
+import Payment2 from '../Payment/payment2';
 import Access from '../Access/access';
 import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
@@ -51,6 +52,7 @@ const Main = (props) => {
 				<Route path='/hotel-create' component={HotelCreate} />
 				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/payment' component={Payment} />
+				<Route path='/payment2' component={Payment2} />
 				<Route path='/users' component={Users} />
 				<Route path='/users-create' component={UsersCreate} />
 				<Route path='/users-edit/:id' component={EditionComponent} />

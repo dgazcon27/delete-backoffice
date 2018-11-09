@@ -29,7 +29,6 @@ import {
 	openModal,
 	closeModal,
 	deletePayment,
-	changePage,
 } from '../../actions/Payment/actionsCreators';
 import {
 	GET_PAYMENTS,
@@ -43,12 +42,10 @@ const Payment = ({
 	classes,
 	modalType,
 	statusValue,
-	currentPage,
 	actionOpenModal,
 	actionCloseModal,
 	paginationPage,
 	actionDeletePayment,
-	actionChangePage,
 	deletePaymentMutation,
 }) => (
 	<Query query={GET_PAYMENTS} variables={{ paginationPage }}>
@@ -67,6 +64,7 @@ const Payment = ({
 					</div>
 				);
 			}
+
 			return (
 				<div>
 					<div>
@@ -134,9 +132,7 @@ const Payment = ({
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
 											colSpan={5}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
+											
 										/>
 									</TableRow>
 								</TableFooter>
@@ -202,7 +198,6 @@ Payment.propTypes = {
 	actionDeletePayment: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	actionChangePage: PropTypes.func.isRequired,
 	deletePaymentMutation: PropTypes.func.isRequired,
 };
 
@@ -222,8 +217,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _payment) => dispatch(openModal(modalType, _payment)),
 	actionDeletePayment: (id, statusValue, paginationPage, deletePaymentMutation) =>
 		dispatch(deletePayment(id, statusValue, paginationPage, deletePaymentMutation)),

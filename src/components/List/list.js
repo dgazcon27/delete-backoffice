@@ -34,6 +34,7 @@ const List = ({
 	classes,
 	actions,
 	modal,
+	id,
 }) => (
 	<div>
 		<div>
@@ -52,10 +53,10 @@ const List = ({
 					<TableBody>
 						{
 							data.map(obj => (
-								<TableRow key={getValue(obj, 'id')}>
+								<TableRow key={getValue(obj, id)}>
 									{
 										titles.map((column, index) => (
-											<TableCell key={getIdElement(getValue(obj, 'id'), index)}>{getValue(obj, column.jsonPath)}</TableCell>
+											<TableCell key={getIdElement(getValue(obj, id), index)}>{getValue(obj, column.jsonPath)}</TableCell>
 										))
 									}
 									<Options
@@ -84,6 +85,7 @@ List.propTypes = {
 	titles: PropTypes.array.isRequired,
 	activeOptions: PropTypes.array.isRequired,
 	urls: PropTypes.object.isRequired,
+	id: PropTypes.string.isRequired,
 	total: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
 	actions: PropTypes.object.isRequired,
@@ -113,6 +115,7 @@ const mapStateToProps = (state, ownProps) => ({
 	titles: ownProps.titlesColumns,
 	activeOptions: ownProps.activeOptions,
 	urls: ownProps.urlsOptions,
+	id: ownProps.keyId,
 	total: ownProps.itemTotal,
 	actions: ownProps.actions,
 	modal: ownProps.propsModalComponent,

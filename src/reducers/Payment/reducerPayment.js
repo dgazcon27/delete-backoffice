@@ -1,11 +1,9 @@
 import {
 	SET_PAYMENT,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	PAGE_UP_PAY,
-	PAGE_DOWN_PAY,
+	OPEN_MODAL_PAYMENT,
+	OPEN_ALERT_PAYMENT,
+	CLOSE_MODAL_PAYMENT,
+	CLOSE_ALERT_PAYMENT,
 	EDIT_PAYMENT,
 	DELETE_PAYMENT,
 } from '../../actions/Payment/actionsTypes';
@@ -23,33 +21,10 @@ const initialState = {
 	alertType: '',
 	modalType: '',
 	statusValue: 0,
-	paginationPagePay: 0,
-	currentPageSearch: 0,
 };
-
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPagePay = JSON.parse(localStorage.getItem('paginations')).payment || 0;
-	initialState.currentPagePay = JSON.parse(localStorage.getItem('paginations')).payment || 0;
-} else {
-	initialState.paginationPagePay = 0;
-	initialState.currentPagePay = 0;
-}
 
 const ReducerPayment = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP_PAY:
-			return ({
-				...state,
-				paginationPagePay: action.payload.paginationPagePay,
-				currentPagePay: action.payload.currentPagePay,
-			});
-		case PAGE_DOWN_PAY:
-			return ({
-				...state,
-				paginationPagePay: action.payload.paginationPagePay,
-				currentPagePay: action.payload.currentPagePay,
-			});
 		case EDIT_PAYMENT:
 			return ({
 				...state,
@@ -70,7 +45,7 @@ const ReducerPayment = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_PAYMENT:
 			return ({
 				...state,
 				isOpen: true,
@@ -78,19 +53,19 @@ const ReducerPayment = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_PAYMENT:
 			return ({
 				...state,
 				isOpen: false,
 				id: 0,
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_PAYMENT:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_PAYMENT:
 			return ({
 				...state,
 				alertOpen: false,

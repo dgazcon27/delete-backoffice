@@ -1,12 +1,10 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
-	CLEAN_STATE,
+	OPEN_MODAL_PAYMENT,
+	OPEN_ALERT_PAYMENT,
+	CLOSE_ALERT_PAYMENT,
+	CLOSE_MODAL_PAYMENT,
+	CLEAN_STATE_PAYMENT,
 	SET_PAYMENT,
-	PAGE_UP_PAY,
-	PAGE_DOWN_PAY,
 } from './actionsTypes';
 import { GET_PAYMENTS, GET_PAYMENT_BY_ID } from '../../queries/payment';
 import { client } from '../../config/configStore';
@@ -17,21 +15,6 @@ const checkMessageError = (res) => {
 	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
-};
-export const changePage = (currentPage, paginationPagePay) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations')).payment;
-	paginations.payment = currentPage < paginationPagePay ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPagePay ? PAGE_UP_PAY : PAGE_DOWN_PAY,
-		payload: {
-			description: currentPage < paginationPagePay ? PAGE_UP_PAY : PAGE_DOWN_PAY,
-			paginationPagePay,
-			currentPagePay: currentPage < paginationPagePay ? currentPage + 1 : currentPage - 1,
-		},
-	});
 };
 
 export const setPaymentData = data => ({
@@ -68,29 +51,29 @@ export const getPaymentById = (id, fk) => (
 );
 
 export const cleanState = () => ({
-	type: CLEAN_STATE,
+	type: CLEAN_STATE_PAYMENT,
 	payload: {
-		description: CLEAN_STATE,
+		description: CLEAN_STATE_PAYMENT,
 	},
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_PAYMENT,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_PAYMENT,
 	},
 });
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_PAYMENT,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_PAYMENT,
 	},
 });
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_PAYMENT,
 	payload: {
-		description: OPEN_ALERT,
+		description: CLOSE_ALERT_PAYMENT,
 	},
 });
 
@@ -101,12 +84,29 @@ export const blockPayment = (id, statusValue, blockPaymentMutation) => {
 		dispatch(closeModal());
 	};
 };
+/*
 
-export const deletePayment = (id, statusValue, paginationPage, deletePaymentMutation) => {
-	const status = statusValue;
+export const deleteUserType = (obj, paginationPage, deleteRolMutation) => {
+	const { id, statusValue } = obj;
+	return async (dispatch) => {
+		await deleteRolMutation({
+			variables: { id, statusValue },
+			refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
+		});
+		dispatch(closeModal());
+		// window.location.reload();
+	};
+};
+*/
+
+export const deletePayment = (obj, paginationPage, deletePaymentMutation) => {
+	
+	console.log(obj);
+	
+	const { id, statusValue } = obj;
 	return async (dispatch) => {
 		await deletePaymentMutation({
-			variables: { id, status },
+			variables: { id, statusValue },
 			refetchQueries: [{ query: GET_PAYMENTS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
@@ -115,10 +115,10 @@ export const deletePayment = (id, statusValue, paginationPage, deletePaymentMuta
 };
 
 export const openModal = (modalType, _payment) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_PAYMENT,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_PAYMENT,
 		statusValue: 1,
 		name: _payment.id,
 		id: _payment.id,

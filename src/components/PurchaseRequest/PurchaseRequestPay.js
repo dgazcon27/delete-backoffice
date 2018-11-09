@@ -22,7 +22,6 @@ import styles from './userTypeCss';
 import {
 	openModal,
 	closeModal,
-	changePage,
 } from '../../actions/Payment/actionsCreators';
 
 import { PURCHASE_REQUEST_PAY } from '../../queries/purchaseRequest';
@@ -109,8 +108,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _payment) => dispatch(openModal(modalType, _payment)),
 	actionCloseModal: () => dispatch(closeModal()),
 });
