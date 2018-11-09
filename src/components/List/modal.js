@@ -20,7 +20,7 @@ const ModalsOptions = ({
 }) => (
 	<Modal
 		open={modal.componentState.isOpen}
-		className={classes.modalOpenStyle}T
+		className={classes.modalOpenStyle}
 		onBackdropClick={() => actions.closeModal()}
 		disableAutoFocus={false}
 	>

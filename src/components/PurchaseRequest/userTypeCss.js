@@ -105,13 +105,13 @@ const styles = () => ({
 	},
 	purchaseRequestModal: {
 		'background-color': 'white',
-		'padding': '2% 4% 2% 4%',
+		padding: '2% 4% 2% 4%',
 		'border-radius': '0.2em',
-		'position': 'absolute',
+		position: 'absolute',
 	},
 	titleModal: {
 		'text-align': 'center',
-	}
+	},
 });
 
 export default styles;
