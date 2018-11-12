@@ -12,7 +12,11 @@ import {
 	SET_GUEST,
 } from './actionsTypes';
 
-import { GET_GUEST_BY_ID } from '../../queries/guest';
+import {
+	GET_GUEST_BY_ID,
+	GET_GUESTS,
+} from '../../queries/guest';
+
 import { client } from '../../config/configStore';
 
 export const setGuest = guest => ({
@@ -96,15 +100,17 @@ export const updateGuest = (guest, update) => (
 			});
 	});
 
-export const deleteInvited = (id, deleteMutation) => (
-	async (dispatch) => {
+export const deleteInvited = (obj, paginationPage, deleteMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
 		await deleteMutation({
 			variables: { id },
+			refetchQueries: [{ query: GET_GUESTS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
 		window.location.reload();
-	}
-);
+	};
+};
 
 
 export const getGuestById = id => (

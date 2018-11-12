@@ -134,7 +134,7 @@ const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionDelete: (componentState, paginationPage, deleteMutation) =>
-		dispatch(deleteInvited(componentState, paginationPage, deleteMutation)),
+		dispatch(deleteInvited(componentState, paginationPage,deleteMutation)),
 });
 
 export default compose(
