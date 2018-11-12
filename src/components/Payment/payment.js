@@ -1,228 +1,156 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-	compose,
-	graphql,
-	Query,
-} from 'react-apollo';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
-import {
-	Modal,
-	Paper,
-	Table,
-	Tooltip,
-	TableRow,
-	TableBody,
-	TableHead,
-	TableCell,
-	IconButton,
-	TableFooter,
-	TablePagination,
-} from '@material-ui/core';
-import styles from './paymentCss';
+import { compose, graphql } from 'react-apollo';
+import ContainerList from '../List/containerList';
+import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
 	deletePayment,
 } from '../../actions/Payment/actionsCreators';
+
 import {
 	GET_PAYMENTS,
 	DELETE_PAYMENT,
 } from '../../queries/payment';
-import Loading from '../Loading/loading';
 
 const Payment = ({
-	id,
-	isOpen,
-	classes,
-	modalType,
-	statusValue,
+	objectStatePayment,
+	paginationPage,
+	actionSetRol,
 	actionOpenModal,
 	actionCloseModal,
-	paginationPage,
-	actionDeletePayment,
+	actionDelete,
 	deletePaymentMutation,
-}) => (
-	<Query query={GET_PAYMENTS} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div>
-							Error :(
-					</div>
-				);
-			}
+}) => {
+	const objectQuery = {
+		queryComponent: GET_PAYMENTS,
+	};
 
-			return (
-				<div>
-					<div>
-						<h5>
-							Pagos
-						</h5>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Monto</TableCell>
-										<TableCell>Referencia</TableCell>
-										<TableCell>Banco</TableCell>
-										<TableCell>Fecha</TableCell>
-										<TableCell className={classes.alignRightOption}>
-												Opciones
-										</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{data.payments.data.map(payment => (
-										<TableRow key={payment.payment.id}>
-											<TableCell>{payment.payment.amount}</TableCell>
-											<TableCell>{payment.payment.reference}</TableCell>
-											<TableCell>{payment.payment.bankAccount.bank.name}</TableCell>
-											<TableCell>{payment.payment.created_at}</TableCell>
-											<TableCell className={classes.alignRight}>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Editar Pago'
-												>
-													<Link to={{
-														pathname: `/pre-sale-edit/${payment.payment.id}/${payment.purchaseRequest.id}`,
-														state: { type: 'Payment' },
-													}}
-													>
-														<IconButton>
-															<Edit />
-														</IconButton>
-													</Link>
-												</Tooltip>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Eliminar Pago'
-												>
-													<IconButton onClick={() => { actionOpenModal('delete', payment.payment); }}>
-														<Delete />
-													</IconButton>
-												</Tooltip>
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.payments.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={5}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						hideBackdrop
-						disableAutoFocus={false}
-					>
-						<div>
-							{modalType === 'edit' &&
-							<Paper>
-								<h1>
-											contenido edit modal
-								</h1>
-								<button onClick={actionCloseModal}>
-											cerrar
-								</button>
-							</Paper>
-							}
-							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar Pago
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar el pago {id} ?
-									</p>
-									<span>
-										<IconButton onClick={() => {
-											actionDeletePayment(id, statusValue, paginationPage, deletePaymentMutation);
-										}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+	const objectSearch = {
+		showButton: false,
+		showSearch: false,
+		titleButton: '',
+		url: '',
+	};
+
+	const objectList = {
+		titlesColumns: [{
+			id: 1,
+			columName: 'Monto',
+			jsonPath: 'payment.amount',
+		},
+		{
+			id: 2,
+			columName: 'Referencia',
+			jsonPath: 'payment.reference',
+		},
+		{
+			id: 3,
+			columName: 'Banco',
+			jsonPath: 'payment.bankAccount.bank.name',
+		},
+		{
+			id: 4,
+			columName: 'Fecha',
+			jsonPath: 'payment.created_at',
+		}],
+		arrayActive: [false, false, true, true, false, false],
+		urls: {
+			list: {
+				type: '',
+				path: '',
+			},
+			payment: '',
+			edit: '/pre-sale-edit/',
+		},
+		keyId: 'payment.id',
+	};
+
+	const objectPath = {
+		currentComponent: {
+			dataPath: 'payments.data',
+			totalPath: 'payments.total',
+		},
+		searchComponent: {
+			dataPath: '',
+			totalPath: '',
+		},
+	};
+
+	const objectModal = {
+		componentState: Object.assign({}, objectStatePayment),
+		paginationPage,
+		messages: {
+			edit: {
+				title: 'contenido edit modal',
+			},
+			block: {
+				titleStatus1: 'Bloquear Rol',
+				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
+				titleStatus2: 'Desbloquear Rol',
+				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+			},
+			delete: {
+				title: 'Eliminar Rol',
+				msg: '¿Estas seguro que desea eliminar el rol ?',
+			},
+		},
+	};
+
+	const actions = {
+		edit: actionSetRol,
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		delete: actionDelete,
+		queryDelete: deletePaymentMutation,
+	};
+
+	return (
+		<div>
+			<Search
+				showButton={objectSearch.showButton}
+				showSearch={objectSearch.showSearch}
+				titleButton={objectSearch.titleButton}
+				url={objectSearch.url}
+			/>
+			<ContainerList
+				queries={objectQuery}
+				propsSearchComponent={objectSearch}
+				propsListComponent={objectList}
+				propsModalComponent={objectModal}
+				objectPath={objectPath}
+				actions={actions}
+			/>
+		</div>
+	);
+};
 
 Payment.propTypes = {
-	isOpen: PropTypes.bool,
-	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
-	id: PropTypes.number.isRequired,
-	classes: PropTypes.object.isRequired,
+	// actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDeletePayment: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
+	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
+	objectStatePayment: PropTypes.object.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 	deletePaymentMutation: PropTypes.func.isRequired,
 };
 
-Payment.defaultProps = {
-	isOpen: false,
-	modalType: '',
-	statusValue: 0,
-};
-
 const mapStateToProps = state => ({
-	id: state.ReducerPayment.id,
-	isOpen: state.ReducerPayment.isOpen,
-	modalType: state.ReducerPayment.modalType,
-	statusValue: state.ReducerPayment.statusValue,
-	currentPage: state.ReducerPayment.currentPagePay,
 	paginationPage: state.ReducerPagination.paginationPage,
+	objectStatePayment: state.ReducerPayment,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionOpenModal: (modalType, _payment) => dispatch(openModal(modalType, _payment)),
-	actionDeletePayment: (id, statusValue, paginationPage, deletePaymentMutation) =>
-		dispatch(deletePayment(id, statusValue, paginationPage, deletePaymentMutation)),
+	// actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
+	actionDelete: (componentState, paginationPage, deletePaymentMutation) =>
+		dispatch(deletePayment(componentState, paginationPage, deletePaymentMutation)),
 });
 
 export default compose(
 	graphql(DELETE_PAYMENT, { name: 'deletePaymentMutation' }),
-	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(Payment);

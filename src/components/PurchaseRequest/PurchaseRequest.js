@@ -16,7 +16,7 @@ import {
 	GET_PURCHASE_REQ,
 } from '../../queries/purchaseRequest';
 
-const PurchaseRequest2 = ({
+const PurchaseRequest = ({
 	objectStatePurchaseRequest,
 	paginationPage,
 	actionSetRol,
@@ -132,8 +132,8 @@ const PurchaseRequest2 = ({
 	);
 };
 
-PurchaseRequest2.propTypes = {
-	actionSetRol: PropTypes.func.isRequired,
+PurchaseRequest.propTypes = {
+	// actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
@@ -159,4 +159,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
 	graphql(DELETE_PURCHASE_REQ, { name: 'deletePurchaseReqMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(PurchaseRequest2);
+)(PurchaseRequest);
