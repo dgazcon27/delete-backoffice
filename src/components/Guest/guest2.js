@@ -4,56 +4,48 @@ import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
+import { deleteInvited } from '../../actions/Guest/actionsCreators';
 import {
 	openModal,
 	closeModal,
-	deletePayment,
-} from '../../actions/Payment/actionsCreators';
+} from '../../actions/sharedActions/sharedActions';
 
 import {
-	GET_PAYMENTS,
-	DELETE_PAYMENT,
-} from '../../queries/payment';
+	GET_GUESTS,
+	SEARCH_INVITED,
+	DELETE_GUEST,
+} from '../../queries/guest';
 
-const Payment = ({
-	objectStatePayment,
+const Invites2 = ({
+	objectStateInvited,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
-	deletePaymentMutation,
+	deleteMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_PAYMENTS,
+		queryComponent: GET_GUESTS,
+		querySearch: SEARCH_INVITED,
 	};
 
 	const objectSearch = {
-		showButton: false,
-		showSearch: false,
-		titleButton: '',
-		url: '',
+		showButton: true,
+		showSearch: true,
+		titleButton: 'agregar nuevo',
+		url: '/guest-create',
 	};
 
 	const objectList = {
 		titlesColumns: [{
 			id: 1,
-			columName: 'Monto',
-			jsonPath: 'payment.amount',
+			columName: 'Nombre',
+			jsonPath: 'user.name',
 		},
 		{
 			id: 2,
-			columName: 'Referencia',
-			jsonPath: 'payment.reference',
-		},
-		{
-			id: 3,
-			columName: 'Banco',
-			jsonPath: 'payment.bankAccount.bank.name',
-		},
-		{
-			id: 4,
-			columName: 'Fecha',
-			jsonPath: 'payment.created_at',
+			columName: 'Apellido',
+			jsonPath: 'user.lastName',
 		}],
 		arrayActive: [false, false, true, true, false, false],
 		urls: {
@@ -62,24 +54,23 @@ const Payment = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/pre-sale-edit/',
+			edit: '/',
 		},
-		keyId: 'payment.id',
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'payments.data',
-			totalPath: 'payments.total',
+			dataPath: 'inviteds.data',
+			totalPath: 'inviteds.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'search.inviteds.data',
+			totalPath: 'search.inviteds.total',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStatePayment),
+		componentState: Object.assign({}, objectStateInvited),
 		paginationPage,
 		messages: {
 			edit: {
@@ -99,11 +90,10 @@ const Payment = ({
 	};
 
 	const actions = {
-		//	edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
-		queryDelete: deletePaymentMutation,
+		queryDelete: deleteMutation,
 	};
 
 	return (
@@ -126,30 +116,28 @@ const Payment = ({
 	);
 };
 
-Payment.propTypes = {
-	// actionSetRol: PropTypes.func.isRequired,
+Invites2.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	objectStatePayment: PropTypes.object.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateInvited: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deletePaymentMutation: PropTypes.func.isRequired,
+	deleteMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStatePayment: state.ReducerPayment,
+	objectStateInvited: state.ReducerGuest,
 });
 
 const mapDispatchToProps = dispatch => ({
-	// actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deletePaymentMutation) =>
-		dispatch(deletePayment(componentState, paginationPage, deletePaymentMutation)),
+	actionDelete: (componentState, paginationPage, deleteMutation) =>
+		dispatch(deleteInvited(componentState, paginationPage, deleteMutation)),
 });
 
 export default compose(
-	graphql(DELETE_PAYMENT, { name: 'deletePaymentMutation' }),
+	graphql(DELETE_GUEST, { name: 'deleteMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Payment);
+)(Invites2);

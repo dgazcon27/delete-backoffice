@@ -112,8 +112,8 @@ export const GET_GUESTS = gql`
 `;
 
 export const SEARCH_INVITED = gql`
-	query search($query: String!,$page: Int!){
-		search(query: $query, page:$page) {
+	query search($query: String!,$currentPageSearch: Int!){
+		search(query: $query, page:$currentPageSearch) {
 			inviteds {
 				data {
 					id

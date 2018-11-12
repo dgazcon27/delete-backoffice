@@ -19,7 +19,6 @@ import {
 const PurchaseRequest = ({
 	objectStatePurchaseRequest,
 	paginationPage,
-	actionSetRol,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
@@ -105,7 +104,7 @@ const PurchaseRequest = ({
 	};
 
 	const actions = {
-		edit: actionSetRol,
+		//	edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,

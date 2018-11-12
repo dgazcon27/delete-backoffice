@@ -27,6 +27,7 @@ import AccessCreate from '../Access/accessCreate';
 import EditionComponent from '../Shared/editionComponent';
 import CreateGuest from '../Guest/createGuest';
 import ComponentGuest from '../Guest/componentGuest';
+import Invites2 from '../Guest/guest2';
 import AccessEventCreate from '../Event/accessEventCreate';
 import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
@@ -45,7 +46,6 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
-
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />
@@ -81,6 +81,7 @@ const Main = (props) => {
 				<Route path='/access-create' component={AccessCreate} />
 				<Route path='/access-edit/:id' component={EditionComponent} />
 				<Route path='/guests' component={ComponentGuest} />
+				<Route path='/guests2' component={Invites2} />
 				<Route path='/guest-create' component={CreateGuest} />
 				<Route path='/guest-edit/:id' component={EditionComponent} />
 				<Route path='/event-access/:id' component={PreAccessList} />
