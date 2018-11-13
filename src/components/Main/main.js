@@ -9,6 +9,7 @@ import BankAccountCreate from '../Bank/bankAccountCreate';
 import UserTypeCreate from '../UserType/userTypeCreate';
 import ComponentUsers from '../Users/componentUsers';
 import UsersCreate from '../Users/usersCreate';
+import NewUsersCreate from '../Users/newUsersCreate';
 import ComponentZone from '../Zone/componentZone';
 import ZoneCreate from '../Zone/zoneCreate';
 import LocationCreate from '../Location/locationCreate';
@@ -54,6 +55,7 @@ const Main = (props) => {
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={ComponentUsers} />
 				<Route path='/users-create' component={UsersCreate} />
+				<Route path='/new-users-create' component={NewUsersCreate} />
 				<Route path='/users-edit/:id' component={EditionComponent} />
 				<Route path='/user-type' component={ComponentUserType} />
 				<Route path='/user-type-edit/:id' component={EditionComponent} />

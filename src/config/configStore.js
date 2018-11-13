@@ -4,7 +4,7 @@
 import ApolloClient from 'apollo-boost';
 
 export const client = new ApolloClient({
-	uri: 'http://192.168.1.109:8000/graphql',
+	uri: 'http://localhost:8000/graphql',
 	request: (operation) => {
 		const token = `Bearer ${localStorage.getItem('token') || ''}`;
 		operation.setContext({

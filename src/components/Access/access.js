@@ -38,6 +38,7 @@ import {
 	DELETE_ACCESS,
 } from '../../queries/access';
 import Loading from '../Loading/loading';
+import BackButton from '../widget/BackButton';
 
 const Access = ({
 	id,
@@ -76,6 +77,9 @@ const Access = ({
 
 						<h5 className={classes.title}>
 							Accesos
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 
 						<div className={classes.search}>
