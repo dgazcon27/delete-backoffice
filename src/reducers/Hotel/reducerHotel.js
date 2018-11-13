@@ -1,13 +1,9 @@
 import {
-	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	PAGE_UP_HOTEL,
-	PAGE_DOWN_HOTEL,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
+	SET_NAME_HOTEL,
+	OPEN_MODAL_HOTEL,
+	OPEN_ALERT_HOTEL,
+	CLOSE_MODAL_HOTEL,
+	CLOSE_ALERT_HOTEL,
 	HT_SET_HOTEL,
 } from '../../actions/Hotel/actionsTypes';
 
@@ -27,42 +23,9 @@ const initialState = {
 	modalType: '',
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPageHotel = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).hotel || 0;
-} else {
-	initialState.paginationPageHotel = 0;
-	initialState.currentPage = 0;
-}
-
 const ReducerHotel = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP_HOTEL:
-			return ({
-				...state,
-				paginationPageHotel: action.payload.paginationPageHotel,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN_HOTEL:
-			return ({
-				...state,
-				paginationPageHotel: action.payload.paginationPageHotel,
-				currentPage: action.payload.currentPage,
-			});
-		case SEARCH_PAGE_UP:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case SEARCH_PAGE_DOWN:
-			return ({
-				...state,
-				paginationPageSearch: action.payload.paginationPageSearch,
-				currentPageSearch: action.payload.currentPageSearch,
-			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_HOTEL:
 			return ({
 				...state,
 				isOpen: true,
@@ -71,7 +34,7 @@ const ReducerHotel = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_HOTEL:
 			return ({
 				...state,
 				isOpen: false,
@@ -79,18 +42,18 @@ const ReducerHotel = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_HOTEL:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_HOTEL:
 			return ({
 				...state,
 				alertOpen: false,
 			});
-		case SET_NAME:
+		case SET_NAME_HOTEL:
 			return ({
 				...state,
 				name: action.payload.name,
