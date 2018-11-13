@@ -1,13 +1,11 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
-	PAGE_UP,
-	PAGE_DOWN,
-	CLEAN_STATE,
+	OPEN_MODAL_ROOM,
+	OPEN_ALERT_ROOM,
+	CLOSE_ALERT_ROOM,
+	CLOSE_MODAL_ROOM,
+	CLEAN_STATE_ROOM,
 	SET_ROOM,
-	SET_EVENT,
+	SET_EVENT_ROOM,
 } from './actionsTypes';
 
 import { GET_ROOMS } from '../../queries/room';
@@ -21,27 +19,27 @@ const checkMessageError = (res) => {
 };
 
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_ROOM,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_ROOM,
 	},
 });
 
 export const cleanState = () => ({
-	type: CLEAN_STATE,
+	type: CLEAN_STATE_ROOM,
 	payload: {
-		description: CLEAN_STATE,
+		description: CLEAN_STATE_ROOM,
 	},
 });
 
 export const openModal = (modalType, room) => {
 	const statusValue = room.active ? 1 : 2;
 	return {
-		type: OPEN_MODAL,
+		type: OPEN_MODAL_ROOM,
 		payload: {
 			modalType,
-			description: OPEN_MODAL,
+			description: OPEN_MODAL_ROOM,
 			id: room.id,
 			name: room.name,
 			statusValue,
@@ -70,34 +68,18 @@ export const setRoom = room => ({
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_ROOM,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_ROOM,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_ROOM,
 	payload: {
-		description: CLOSE_ALERT,
+		description: CLOSE_ALERT_ROOM,
 	},
 });
-
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
 
 export const createRoom = (
 	name,
@@ -189,32 +171,35 @@ export const editRoom = (
 			});
 	});
 
-export const deleteRoom = (id, events, paginationPage, deleteRoomMutation) => (
-	async (dispatch) => {
+export const deleteRoom = (obj, paginationPage, deleteRoomMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
 		await deleteRoomMutation({
 			variables: { id },
-			refetchQueries: [{ query: GET_ROOMS, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-	});
-
-export const blockRoom = (id, statusValue, paginationPage, blockRoomMutation) => {
-	const status = statusValue === 1 ? 0 : 1;
-	return async (dispatch) => {
-		await blockRoomMutation({
-			variables: { id, status },
 			refetchQueries: [{ query: GET_ROOMS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
 	};
 };
 
+export const blockRoom = (obj, blockRoomMutation) => {
+	const { id } = obj;
+	const status = obj.statusValue === 1 ? 0 : 1;
+	return async (dispatch) => {
+		await blockRoomMutation({
+			variables: { id, status },
+		});
+		dispatch(closeModal());
+		window.location.reload();
+	};
+};
+
 export const getHotels = (event) => {
 	const hotel = 0;
 	return ({
-		type: SET_EVENT,
+		type: SET_EVENT_ROOM,
 		payload: {
-			description: SET_EVENT,
+			description: SET_EVENT_ROOM,
 			event,
 			hotel,
 		},

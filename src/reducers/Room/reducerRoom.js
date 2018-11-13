@@ -1,15 +1,12 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
-	CLEAN_STATE,
-	PAGE_UP,
-	PAGE_DOWN,
+	OPEN_MODAL_ROOM,
+	OPEN_ALERT_ROOM,
+	CLOSE_MODAL_ROOM,
+	CLOSE_ALERT_ROOM,
+	CLEAN_STATE_ROOM,
 	SET_ROOM,
-	SET_EVENT,
+	SET_EVENT_ROOM,
 } from '../../actions/Room/actionsTypes';
-
 
 const initialState = {
 	id: 0,
@@ -33,29 +30,8 @@ const initialState = {
 	event: 0,
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-}
-
 const ReducerRoom = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
 		case SET_ROOM:
 			return ({
 				...state,
@@ -73,7 +49,7 @@ const ReducerRoom = (state = initialState, action = {}) => {
 				event: action.payload.event,
 				active: action.payload.active,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_ROOM:
 			return ({
 				...state,
 				isOpen: true,
@@ -82,7 +58,7 @@ const ReducerRoom = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_ROOM:
 			return ({
 				...state,
 				isOpen: false,
@@ -90,25 +66,25 @@ const ReducerRoom = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_ROOM:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_ROOM:
 			return ({
 				...state,
 				alertOpen: false,
 			});
-		case CLEAN_STATE:
+		case CLEAN_STATE_ROOM:
 			return ({
 				...state,
 				id: 0,
 				name: '',
 				rolDescription: '',
 			});
-		case SET_EVENT:
+		case SET_EVENT_ROOM:
 			return ({
 				...state,
 				event: action.payload.event,
