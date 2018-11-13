@@ -1,14 +1,10 @@
 import {
-	PAGE_UP,
-	PAGE_DOWN,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
+	OPEN_MODAL_GUEST,
+	OPEN_ALERT_GUEST,
+	CLOSE_MODAL_GUEST,
+	CLOSE_ALERT_GUEST,
 	SET_GUEST,
 } from '../../actions/Guest/actionsTypes';
-
-import { SET_SEARCH_INVITED } from '../../actions/Search/actionsTypesSearchRoles';
 
 const initialState = {
 	description: '',
@@ -22,29 +18,9 @@ const initialState = {
 	id: 0,
 };
 
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).invited || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).invited || 0;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-}
-
 const ReducerGuest = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_GUEST:
 			return ({
 				...state,
 				isOpen: true,
@@ -53,27 +29,22 @@ const ReducerGuest = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_GUEST:
 			return ({
 				...state,
 				isOpen: false,
 				id: 0,
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_GUEST:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_GUEST:
 			return ({
 				...state,
 				alertOpen: false,
-			});
-		case SET_SEARCH_INVITED:
-			return ({
-				...state,
-				query: action.payload.search,
 			});
 		case SET_GUEST:
 			return ({

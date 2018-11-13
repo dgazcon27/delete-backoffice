@@ -196,7 +196,6 @@ const mapStateToProps = state => ({
 		'event',
 		'typeInvited',
 		'citizenship',
-		'role',
 	),
 });
 

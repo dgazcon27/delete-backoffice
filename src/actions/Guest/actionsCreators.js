@@ -1,14 +1,9 @@
+import { checkMessageError } from '../sharedActions/sharedActions';
 import {
-	openAlert,
-	checkMessageError,
-	closeModal,
-} from '../sharedActions/sharedActions';
-
-import {
-	PAGE_UP,
-	PAGE_DOWN,
-	SEARCH_PAGE_UP,
-	SEARCH_PAGE_DOWN,
+	OPEN_MODAL_GUEST,
+	OPEN_ALERT_GUEST,
+	CLOSE_ALERT_GUEST,
+	CLOSE_MODAL_GUEST,
 	SET_GUEST,
 } from './actionsTypes';
 
@@ -38,36 +33,37 @@ export const setGuest = guest => ({
 	},
 });
 
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.invited = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+export const openAlert = alertType => ({
+	type: OPEN_ALERT_GUEST,
+	payload: {
+		alertType,
+		description: OPEN_ALERT_GUEST,
+	},
+});
 
-	localStorage.setItem('paginations', JSON.stringify(paginations));
+export const openModal = (modalType, obj) => ({
+	type: OPEN_MODAL_GUEST,
+	payload: {
+		modalType,
+		description: OPEN_MODAL_GUEST,
+		name: obj.name,
+		id: obj.id,
+	},
+});
 
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
+export const closeModal = () => ({
+	type: CLOSE_MODAL_GUEST,
+	payload: {
+		description: CLOSE_MODAL_GUEST,
+	},
+});
 
-export const changePageSearch = (currentPage, paginationPage) => {
-	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
-	paginations.searchInvited = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? SEARCH_PAGE_UP : SEARCH_PAGE_DOWN,
-			paginationPageSearch: paginationPage,
-			currentPageSearch: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
-};
+export const closeAlert = () => ({
+	type: CLOSE_ALERT_GUEST,
+	payload: {
+		description: CLOSE_ALERT_GUEST,
+	},
+});
 
 export const createInvited = (invited, create) => (
 	async (dispatch) => {
@@ -82,7 +78,8 @@ export const createInvited = (invited, create) => (
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
 			});
-	});
+	}
+);
 
 export const updateGuest = (guest, update) => (
 	async (dispatch) => {
@@ -111,7 +108,6 @@ export const deleteInvited = (obj, paginationPage, deleteMutation) => {
 		window.location.reload();
 	};
 };
-
 
 export const getGuestById = id => (
 	async (dispatch) => {

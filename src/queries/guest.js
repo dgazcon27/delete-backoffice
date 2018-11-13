@@ -13,7 +13,6 @@ export const CREATE_GUEST = gql`
 		$event: Int!,
 		$typeInvited: Int!,
 		$citizenship: Int!,
-		$role: Int!,
 		$createdBy: Int!,
 		$updatedBy: Int!
 	) {
@@ -28,7 +27,6 @@ export const CREATE_GUEST = gql`
 		event: $event,
 		typeInvited: $typeInvited,
 		citizenship: $citizenship,
-		role: $role,
 		createdBy: $createdBy,
 		updatedBy: $updatedBy
 		) {
