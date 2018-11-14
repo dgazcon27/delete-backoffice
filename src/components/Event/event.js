@@ -52,7 +52,7 @@ const Event = ({
 				path: 'event-access',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/event-edit',
 		},
 	};
 

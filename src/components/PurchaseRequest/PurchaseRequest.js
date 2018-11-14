@@ -68,7 +68,7 @@ const PurchaseRequest = ({
 				path: 'event-access',
 			},
 			payment: 'Pay',
-			edit: '/',
+			edit: '/purchase-request-edit',
 		},
 	};
 

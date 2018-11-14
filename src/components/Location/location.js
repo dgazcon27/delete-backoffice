@@ -49,7 +49,7 @@ const Location = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/edit-tables',
 		},
 	};
 

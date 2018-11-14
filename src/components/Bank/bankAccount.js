@@ -57,7 +57,7 @@ const BankAccountNew = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/bank-account-edit',
 		},
 	};
 

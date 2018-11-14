@@ -62,7 +62,7 @@ const Payment = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/pre-sale-edit/',
+			edit: '/pre-sale-edit',
 		},
 		keyId: 'payment.id',
 	};

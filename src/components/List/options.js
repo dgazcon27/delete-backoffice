@@ -82,7 +82,7 @@ const Options = ({
 				placement='top'
 				title='Editar Rol.'
 			>
-				<Link to={`${urls.edit}`} href={`${urls.edit}`}>
+				<Link to={`${urls.edit}/${rowData.id}`} href={`${urls.edit}/${rowData.id}`}>
 					<IconButton>
 						<Edit />
 					</IconButton>

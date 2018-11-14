@@ -59,7 +59,7 @@ const Users = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/users-edit',
 		},
 	};
 

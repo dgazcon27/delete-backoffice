@@ -71,7 +71,7 @@ const Room = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/room-edit',
 		},
 	};
 

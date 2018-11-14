@@ -55,7 +55,7 @@ const Zone = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/Departments-edit',
 		},
 	};
 

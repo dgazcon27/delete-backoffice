@@ -55,7 +55,7 @@ const UserType = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/user-type-edit',
 		},
 	};
 

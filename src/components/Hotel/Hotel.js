@@ -56,7 +56,7 @@ const Hotel2 = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/hotel-edit',
 		},
 	};
 

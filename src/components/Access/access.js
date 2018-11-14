@@ -52,7 +52,7 @@ const Access = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/access-edit',
 		},
 	};
 

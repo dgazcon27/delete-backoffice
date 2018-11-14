@@ -52,7 +52,7 @@ const Bank = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/bank-edit',
 		},
 	};
 

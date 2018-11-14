@@ -65,10 +65,10 @@ const Main = (props) => {
 				<Route path='/zones' component={Zone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
 				<Route path='/Departments-edit/:id' component={EditionComponent} />
-				<Route path='/bank' component={Bank} />
 				<Route path='/purchase-request-create' component={PurchaseRequestCreate} />
 				<Route path='/pay' component={PayCreate} />
 				<Route path='/purchase-request-edit/:id' component={EditionComponent} />
+				<Route path='/bank' component={Bank} />
 				<Route path='/bank-account' component={BankAccount} />
 				<Route path='/bank-create' component={BankCreate} />
 				<Route path='/bank-account-create' component={BankAccountCreate} />

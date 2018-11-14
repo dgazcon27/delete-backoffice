@@ -54,7 +54,7 @@ const Guest = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/',
+			edit: '/guest-edit',
 		},
 	};
 
