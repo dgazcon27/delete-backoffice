@@ -16,7 +16,9 @@ import Paper from '@material-ui/core/Paper';
 import Radio from 'material-ui/Radio/Radio';
 import RadioGroup from 'material-ui/Radio/RadioGroup';
 import FormControlLabel from 'material-ui/Form/FormControlLabel';
-import styles from './userTypeCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 import './styles.css';
 import {
 	required,
@@ -76,7 +78,11 @@ let AccessEventEdit = class ClassAccessEventEdit extends React.Component {
 
 		return (
 			<div>
-				<h3 className={classes.formTitle}>Acceso por Evento</h3>
+				<h3 className={classes.formTitle}>Acceso por Evento
+					<div className={classes.backbuttonCreation}>
+						<BackButton />
+					</div>
+				</h3>
 				<Paper className={classes.createContainer}>
 					<form>
 						<h6 className={classes.formTitle}>Editar Acceso por Evento</h6>

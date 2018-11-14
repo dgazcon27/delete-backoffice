@@ -9,7 +9,7 @@ import Add from '@material-ui/icons/Add';
 import { setSearchPurchase } from '../../actions/Search/actionCreatorSearchRoles';
 import PurchaseRequest from './PurchaseRequest';
 import styles from '../Shared/sharedStyles';
-
+import BackButton from '../widget/BackButton';
 
 const ComponentInvited = ({
 	query,
@@ -19,6 +19,9 @@ const ComponentInvited = ({
 	<div>
 		<h5 className={classes.title}>
 			Ventas
+			<div className={classes.backbutton}>
+				<BackButton />
+			</div>
 		</h5>
 
 		<div className={classes.search}>

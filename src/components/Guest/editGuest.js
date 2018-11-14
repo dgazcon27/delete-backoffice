@@ -14,8 +14,10 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+
+import BackButton from '../widget/BackButton';
 import styles from '../Shared/sharedStyles';
-import '../Shared/styles.css';
+
 import {
 	required,
 	empty,
@@ -46,7 +48,11 @@ let UpdateGuest = ({
 	updateMutation,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Invitados</h3>
+		<h3 className={classes.formTitle}>Invitados
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar invitado</h6>
