@@ -18,7 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Search from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './reservationCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	required,
@@ -41,6 +41,7 @@ import {
 	getUserByDNI,
 	createReservation,
 } from '../../actions/Reservation/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 const Room = ({
 	event,
@@ -161,7 +162,11 @@ let ReservationCreate = ({
 	createReservationMutation,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nueva Paquete</h3>
+		<h3 className={classes.formTitle}>Nuevo Paquete
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nueva Paquete</h6>

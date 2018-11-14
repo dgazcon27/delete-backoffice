@@ -21,8 +21,7 @@ import {
 	Aevents,
 	Providers,
 } from '../commonComponent';
-
-import styles from './bankCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 
 import { CREATE_HOTEL } from '../../queries/hotels';
@@ -41,7 +40,11 @@ let HotelCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Registrar Hotel</h3>
+		<h3 className={classes.formTitle}>Registrar Hotel
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<h6 className={classes.formTitle}>Nuevo Hotel</h6>
 			<form>

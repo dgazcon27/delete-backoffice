@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import UserType from './userType';
 import { setSearch } from '../../actions/Search/actionCreatorSearchRoles';
-import styles from './userTypeCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
 
 const ComponentUserType = ({
 	query,
@@ -18,6 +19,9 @@ const ComponentUserType = ({
 	<div>
 		<h5 className={classes.title}>
 			Roles
+			<div className={classes.backbutton}>
+				<BackButton />
+			</div>
 		</h5>
 
 		<div className={classes.search}>

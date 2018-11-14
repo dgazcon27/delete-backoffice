@@ -3,14 +3,16 @@ import gql from 'graphql-tag';
 export const GET_BANKS = gql`
 	query banks($paginationPage:Int!) {
 		banks(page:$paginationPage) {
-			data{
+			data
+			{
 				id
 				name
 				currency
-			}
+				}
 			total
-		}
+			}
 	}
+	
 `;
 export const GET_BANK_ACCOUNTS = gql`
 	query bankAccounts($paginationPage:Int!) {

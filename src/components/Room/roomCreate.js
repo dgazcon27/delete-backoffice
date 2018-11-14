@@ -16,7 +16,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import styles from './roomCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	required,
@@ -37,6 +37,7 @@ import {
 	createRoom,
 	getHotels,
 } from '../../actions/Room/actionsCreators';
+import BackButton from '../widget/BackButton';
 
 const validate = (values) => {
 	const errors = {};
@@ -171,7 +172,11 @@ let RoomCreate = ({
 	paginationPage,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nueva Habitación</h3>
+		<h3 className={classes.formTitle}>Nueva Habitación
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nueva Habitación</h6>

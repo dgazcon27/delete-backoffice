@@ -27,8 +27,8 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
+import styles from '../Shared/sharedStyles';
 
-import styles from './userTypeCss';
 import {
 	changePage,
 	openModal,
@@ -42,6 +42,8 @@ import {
 	BLOCK_HOTEL,
 	DELETE_HOTEL,
 } from '../../queries/hotels';
+
+import BackButton from '../widget/BackButton';
 
 import Loading from '../Loading/loading';
 
@@ -80,6 +82,9 @@ const Hotel = ({
 					<div>
 						<h5 className={classes.title}>
 						Hoteles por Evento
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 						<h5 className={classes.searchAlignRigth}>
 							<Link to='/hotel-create' href='/hotel-create' >

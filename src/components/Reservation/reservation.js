@@ -26,7 +26,6 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-import styles from './reservationCss';
 import {
 	openModal,
 	closeModal,
@@ -39,6 +38,9 @@ import {
 	DELETE_RESERVATION,
 } from '../../queries/reservation';
 import Loading from '../Loading/loading';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 
 const Reservation = ({
 	id,
@@ -76,6 +78,9 @@ const Reservation = ({
 					<div>
 						<h5>
 							Paquetes
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
