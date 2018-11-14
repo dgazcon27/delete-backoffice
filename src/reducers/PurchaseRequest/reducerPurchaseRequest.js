@@ -6,8 +6,6 @@ import {
 	CLOSE_MODAL,
 	CLOSE_ALERT,
 	CLEAN_STATE,
-	PAGE_UP_PREQ,
-	PAGE_DOWN_PREQ,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
 	BLOCK_USER_TYPE,
@@ -18,7 +16,6 @@ import {
 	MODAL_USER,
 	CLOSE_MODAL_USER,
 } from '../../actions/PurchaseRequest/actionsTypes';
-
 
 const initialState = {
 	newUserModal: false,
@@ -67,18 +64,6 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				newUserModal: false,
-			});
-		case PAGE_UP_PREQ:
-			return ({
-				...state,
-				paginationPagePreq: action.payload.paginationPagePreq,
-				currentPagePreq: action.payload.currentPagePreq,
-			});
-		case PAGE_DOWN_PREQ:
-			return ({
-				...state,
-				paginationPagePreq: action.payload.paginationPagePreq,
-				currentPagePreq: action.payload.currentPagePreq,
 			});
 		case EDIT_USER_TYPE:
 			return ({
