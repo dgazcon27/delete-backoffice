@@ -6,15 +6,20 @@ import {
 	CLOSE_ALERT,
 	PAGE_UP,
 	PAGE_DOWN,
+	RST_CLEAN_STATE,
 	DELETE_RESERVATION,
-	SET_USER,
+	SET_USER_RESERVATION,
 	SET_HOTEL,
+	RST_SET_MODAL,
+	RST_SET_LOAD,
 } from '../../actions/Reservation/actionsTypes';
 
 const initialState = {
 	id: 0,
 	room: 0,
 	days: 0,
+	open: '',
+	load: false,
 	name: '',
 	event: 0,
 	hotel: 0,
@@ -22,6 +27,7 @@ const initialState = {
 	quantity: 0,
 	comment: '',
 	lastName: '',
+	nameAccess: '',
 	isOpen: false,
 	alertType: '',
 	modalType: '',
@@ -34,8 +40,8 @@ const initialState = {
 
 // Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).payment || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).payment || 0;
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).reservation || 0;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).reservation || 0;
 } else {
 	initialState.paginationPage = 0;
 	initialState.currentPage = 0;
@@ -70,7 +76,7 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				quantity: action.payload.quantity,
 				purchaseRequest: action.payload.purchaseRequest,
 			});
-		case SET_USER:
+		case SET_USER_RESERVATION:
 			return ({
 				...state,
 				name: action.payload.name,
@@ -78,6 +84,13 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				client: action.payload.client,
 				lastName: action.payload.lastName,
 				purchaseRequest: action.payload.purchaseRequest,
+				nameAccess: action.payload.nameAccess,
+			});
+		case RST_SET_MODAL:
+			return ({
+				...state,
+				open: action.payload.open,
+				isOpen: action.payload.isOpen,
 			});
 		case SET_HOTEL:
 			return ({
@@ -102,6 +115,36 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				...state,
 				isOpen: false,
 				id: 0,
+			});
+		case RST_SET_LOAD:
+			return ({
+				...state,
+				load: action.payload.load,
+			});
+		case RST_CLEAN_STATE:
+			return ({
+				...state,
+				id: 0,
+				room: 0,
+				days: 0,
+				open: '',
+				name: '',
+				event: 0,
+				hotel: 0,
+				load: false,
+				client: 0,
+				quantity: 0,
+				comment: '',
+				lastName: '',
+				nameAccess: '',
+				isOpen: false,
+				alertType: '',
+				modalType: '',
+				statusValue: 0,
+				alertOpen: false,
+				paginationPage: 0,
+				purchaseRequest: 0,
+				currentPageSearch: 0,
 			});
 		case OPEN_ALERT:
 			return ({

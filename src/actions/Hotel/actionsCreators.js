@@ -47,7 +47,7 @@ export const createHotel = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				// setTimeout(() => (window.location.assign('/hotel')), 2000);
+				setTimeout(() => (window.location.assign('/hotel')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

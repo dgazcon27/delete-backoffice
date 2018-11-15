@@ -1,15 +1,21 @@
-import SB_COLLAPSE from '../../actions/SideBar/actionsTypes';
+import { SB_COLLAPSE_CONFIG, SB_COLLAPSE_TRACKER } from '../../actions/SideBar/actionsTypes';
 
 const initialState = {
-	open: false,
+	openConfig: false,
+	openTracker: false,
 };
 
 const ReducerSideBar = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case SB_COLLAPSE:
+		case SB_COLLAPSE_CONFIG:
 			return ({
 				...state,
-				open: action.payload.open,
+				openConfig: action.payload.open,
+			});
+		case SB_COLLAPSE_TRACKER:
+			return ({
+				...state,
+				openTracker: action.payload.open,
 			});
 		default:
 			return state;

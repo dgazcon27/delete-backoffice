@@ -99,16 +99,6 @@ let PurchaseRequestEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
-						name='status'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Estatus'
-						disabled
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
 						name='comment'
 						type='text'
 						component={renderTextField}

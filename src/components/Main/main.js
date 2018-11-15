@@ -31,12 +31,13 @@ import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
 import Reservation from '../Reservation/reservation';
 import ReservationCreate from '../Reservation/reservationCreate';
-import ReservationEdit from '../Reservation/reservationEdit';
 import ReservationPayment from '../Reservation/reservationPayment';
 import Room from '../Room/room';
 import RoomCreate from '../Room/roomCreate';
 import RoomEdit from '../Room/roomEdit';
 import ComponentPurchase from '../PurchaseRequest/componentPurchase';
+import Tokens from '../Tokens/tokens';
+import TokensReservation from '../Tokens/tokensReservation';
 
 
 const Main = (props) => {
@@ -89,11 +90,13 @@ const Main = (props) => {
 				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
 				<Route path='/reservation' component={Reservation} />
 				<Route path='/reservation-create' component={ReservationCreate} />
-				<Route path='/reservation-edit' component={ReservationEdit} />
+				<Route path='/reservation-edit/:id' component={EditionComponent} />
 				<Route path='/reservation-payment' component={ReservationPayment} />
 				<Route path='/room' component={Room} />
 				<Route path='/room-create' component={RoomCreate} />
 				<Route path='/room-edit' component={RoomEdit} />
+				<Route path='/tokens' component={Tokens} />
+				<Route path='/tokens-reservation' component={TokensReservation} />
 			</Switch>
 		</main>
 	);

@@ -1,0 +1,7 @@
+const TK_SET_STATUS = 'TK_SET_STATUS';
+const TK_SET_ALERT = 'TK_SET_ALERT';
+
+export {
+	TK_SET_STATUS,
+	TK_SET_ALERT,
+};

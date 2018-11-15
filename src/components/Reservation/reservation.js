@@ -9,10 +9,11 @@ import {
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import Payment from '@material-ui/icons/Payment';
 import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
+import Visibility from '@material-ui/icons/Visibility';
 import {
 	Modal,
 	Paper,
@@ -92,7 +93,7 @@ const Reservation = ({
 								<TableHead>
 									<TableRow>
 										<TableCell>Cliente</TableCell>
-										<TableCell>Compra</TableCell>
+										<TableCell>Pendiente por pagar</TableCell>
 										<TableCell>Habitación</TableCell>
 										<TableCell>Días</TableCell>
 										<TableCell>Cantidad</TableCell>
@@ -104,8 +105,10 @@ const Reservation = ({
 								<TableBody>
 									{data.reservations.data.map(reservation => (
 										<TableRow key={reservation.id}>
-											<TableCell>{reservation.client.name}</TableCell>
-											<TableCell>{reservation.purchaseRequest.id}</TableCell>
+											<TableCell>
+												{reservation.client.name} {reservation.client.lastName}
+											</TableCell>
+											<TableCell>{reservation.pendingPayment}</TableCell>
 											<TableCell>{reservation.room.name}</TableCell>
 											<TableCell>{reservation.days}</TableCell>
 											<TableCell>{reservation.quantity}</TableCell>
@@ -115,15 +118,11 @@ const Reservation = ({
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
-													title='Editar Pago'
+													title='Ver reservación'
 												>
-													<Link to='/reservation-edit' href='/reservation-edit'>
-														<IconButton
-															onClick={() => {
-																actionEditReservation(reservation);
-															}}
-														>
-															<Edit />
+													<Link to={`/reservation-edit/${reservation.id}`}>
+														<IconButton>
+															<Visibility />
 														</IconButton>
 													</Link>
 												</Tooltip>
@@ -140,7 +139,7 @@ const Reservation = ({
 																actionEditReservation(reservation);
 															}}
 														>
-															<Edit />
+															<Payment />
 														</IconButton>
 													</Link>
 												</Tooltip>

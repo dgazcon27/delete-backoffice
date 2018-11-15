@@ -9,9 +9,9 @@ import {
 } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Payment from '@material-ui/icons/Payment';
+import Visibility from '@material-ui/icons/Visibility';
 import List from '@material-ui/icons/List';
 import ThumbDown from '@material-ui/icons/ThumbDown';
 import ThumbUp from '@material-ui/icons/ThumbUp';
@@ -159,9 +159,9 @@ const PurchaseRequest = ({
 																</IconButton>
 															</Link>
 														</Tooltip>
-														<Link to={{ pathname: `/purchase-request-edit/${purchaseReq.id}`, state: { type: 'Purchase' } }}>
+														<Link to={{ pathname: `/purchase-request-edit/${purchaseReq.id}` }}>
 															<IconButton>
-																<Edit />
+																<Visibility />
 															</IconButton>
 														</Link>
 														<Tooltip

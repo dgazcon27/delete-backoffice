@@ -193,7 +193,7 @@ export const editAccessEvent = (data, event, paginationPage, editAccessEventMuta
 	action.withTickets = data.withTickets === 'true';
 	action.event = event;
 
-	if (!data.withRoom) {
+	if (!action.withRoom) {
 		action.hotel = null;
 		action.room = null;
 	}

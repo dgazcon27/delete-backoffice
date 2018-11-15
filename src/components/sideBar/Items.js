@@ -9,13 +9,9 @@ import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-	// Divider,
+	Divider,
 } from '@material-ui/core/';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import ReportIcon from '@material-ui/icons/Report';
-// import Apps from '@material-ui/icons/Apps';
 import Weekend from '@material-ui/icons/Weekend';
-import Wc from '@material-ui/icons/Wc';
 import Event from '@material-ui/icons/Album';
 import Hotel from '@material-ui/icons/Hotel';
 import ContactPhone from '@material-ui/icons/ContactPhone';
@@ -27,12 +23,15 @@ import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import RoomService from '@material-ui/icons/RoomService';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import Settings from '@material-ui/icons/Settings';
 import Collapse from '@material-ui/core/Collapse';
+import LocationOn from '@material-ui/icons/LocationOn';
 import collapseItem from '../../actions/SideBar/actionsCreators';
+import { SB_COLLAPSE_CONFIG, SB_COLLAPSE_TRACKER } from '../../actions/SideBar/actionsTypes';
 
 const Items = ({
-	open,
+	openConfig,
+	openTracker,
 	actionCollapse,
 }) => (
 	<div>
@@ -60,14 +59,35 @@ const Items = ({
 				<ListItemText primary='Pagos' />
 			</ListItem>
 		</Link>
-		<Link to='/guests' href='/guests'>
-			<ListItem button>
-				<ListItemIcon>
-					<Wc />
-				</ListItemIcon>
-				<ListItemText primary='Invitados' />
-			</ListItem>
-		</Link>
+
+		<ListItem button onClick={() => { actionCollapse(!openTracker, SB_COLLAPSE_TRACKER); }}>
+			<ListItemIcon >
+				<LocationOn />
+			</ListItemIcon>
+			<ListItemText inset primary='Localizadores' />
+			{openTracker ? <ExpandLess /> : <ExpandMore />}
+		</ListItem>
+		<Collapse in={openTracker} timeout='auto' unmountOnExit>
+			<List component='div' disablePadding>
+				<Link to='/tokens' href='/tokens'>
+					<ListItem button>
+						<ListItemIcon>
+							<LocationOn />
+						</ListItemIcon>
+						<ListItemText primary='Ventas' />
+					</ListItem>
+				</Link>
+				<Link to='/tokens-reservation' href='/tokens-reservation'>
+					<ListItem button>
+						<ListItemIcon>
+							<LocationOn />
+						</ListItemIcon>
+						<ListItemText primary='Paquetes' />
+					</ListItem>
+				</Link>
+				<Divider />
+			</List>
+		</Collapse>
 		<Link to='/hotel' href='/hotel'>
 			<ListItem button>
 				<ListItemIcon>
@@ -92,16 +112,14 @@ const Items = ({
 				<ListItemText primary='Eventos' />
 			</ListItem>
 		</Link>
-
-
-		<ListItem button onClick={() => { actionCollapse(!open); }}>
+		<ListItem button onClick={() => { actionCollapse(!openConfig, SB_COLLAPSE_CONFIG); }}>
 			<ListItemIcon >
-				<InboxIcon />
+				<Settings />
 			</ListItemIcon>
 			<ListItemText inset primary='Configuración' />
-			{open ? <ExpandLess /> : <ExpandMore />}
+			{openConfig ? <ExpandLess /> : <ExpandMore />}
 		</ListItem>
-		<Collapse in={open} timeout='auto' unmountOnExit>
+		<Collapse in={openConfig} timeout='auto' unmountOnExit>
 			<List component='div' disablePadding>
 				<Link to='/access' href='/access'>
 					<ListItem button>
@@ -166,18 +184,20 @@ const Items = ({
 );
 
 Items.propTypes = {
-	open: PropTypes.bool.isRequired,
+	openConfig: PropTypes.bool.isRequired,
+	openTracker: PropTypes.bool.isRequired,
 	actionCollapse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-	open: state.ReducerSideBar.open,
+	openConfig: state.ReducerSideBar.openConfig,
+	openTracker: state.ReducerSideBar.openTracker,
 });
 
 
 const mapDispatchToProps = dispatch => ({
-	actionCollapse: open =>
-		dispatch(collapseItem(open)),
+	actionCollapse: (open, type) =>
+		dispatch(collapseItem(open, type)),
 });
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(Items);

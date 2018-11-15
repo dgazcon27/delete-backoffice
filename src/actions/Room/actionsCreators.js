@@ -151,7 +151,7 @@ export const createRoom = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.history.back()), 2000);
+				setTimeout(() => (window.history.assign('/room')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
