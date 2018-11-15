@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 // typeInvited is a role id
+
 export const CREATE_GUEST = gql`
 	mutation createInvited(
 		$name: String!,
@@ -34,6 +35,31 @@ export const CREATE_GUEST = gql`
 		}
 	}
 `;
+
+export const NEW_CREATE_GUEST = gql`
+	mutation NewCreateInvited(
+		$user: Int!,
+		$access: Int!,
+		$status: Int!,
+		$event: Int!,
+		$typeInvited: Int!,
+		$createdBy: Int!,
+		$updatedBy: Int!
+	) {
+		NewCreateInvited(
+		user: $user,
+		access: $access,
+		status: $status,
+		event: $event,
+		typeInvited: $typeInvited,
+		createdBy: $createdBy,
+		updatedBy: $updatedBy
+		) {
+			id
+		}
+	}
+`;
+
 
 export const UPDATE_GUEST = gql`
 	mutation updateInvited(
@@ -102,6 +128,13 @@ export const GET_GUESTS = gql`
 				user{
 					name
 					lastName
+					dni
+				}
+				access{
+					name
+				}
+				typeInvited{
+					name
 				}
 			}
 			total

@@ -202,10 +202,10 @@ let a = class AccessEventCreate extends React.Component {
 
 		return (
 			<div>
-				<h3 className={classes.formTitle}>Evento/Acceso</h3>
+				<h3 className={classes.formTitle}>Acceso por Evento</h3>
 				<Paper className={classes.createContainer}>
 					<form>
-						<h6 className={classes.formTitle}>Nuevo Evento/Acceso</h6>
+						<h6 className={classes.formTitle}>Nuevo Acceso por Evento</h6>
 						<div className={classes.formStyle}>
 							<Access />
 						</div>
@@ -216,6 +216,14 @@ let a = class AccessEventCreate extends React.Component {
 								component={renderTextField}
 								validate={[required, empty]}
 								label='Precio'
+								className='yourclass'
+							/>
+						</div>
+						<div className={classes.formStyle}>
+							<Field
+								name='stock'
+								component={renderNumberField}
+								label='Stock del Acceso'
 								className='yourclass'
 							/>
 						</div>
@@ -404,7 +412,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerEventAccess.alertOpen,
 	withTickets: state.ReducerEventAccess.withTickets,
 	paginationPage: state.ReducerEventAccess.paginationPage,
-	myValues: selector(state, 'withRoom', 'withTickets', 'numberRooms', 'days', 'numberTickets', 'price', 'access', 'hotel', 'room'),
+	myValues: selector(state, 'withRoom', 'withTickets', 'stock', 'numberRooms', 'days', 'numberTickets', 'price', 'access', 'hotel', 'room'),
 });
 
 const mapDispatchToProps = dispatch => ({

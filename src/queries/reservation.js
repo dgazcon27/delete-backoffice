@@ -6,6 +6,7 @@ export const GET_RESERVATIONS = gql`
 			data{
 				id
 				comment
+				pendingPayment
 				client{
 					id
 					name
@@ -101,6 +102,9 @@ export const GET_USER_BY_DNI = gql`
 			lastName
 			purchaseRequest{
 				id
+				access{
+					name
+				}
 				event{
 					id
 					name
@@ -162,5 +166,40 @@ export const CREATE_RESERVATION_PAY = gql`
 		){
 			id
 		}
+	}
+`;
+
+export const GET_RESERVATION_BY_ID = gql`
+	query reservationId($id: Int!){
+		reservationId(id:$id) {
+			id
+			comment
+			client{
+				id
+				name
+				lastName
+			}
+			purchaseRequest{
+				id
+				event{
+					id
+					name
+				}
+			}
+			room{
+				id
+				name
+				hotel{
+					id
+					provider{
+						id
+						name
+					}
+				}
+			}
+			days
+			quantity
+		}
+
 	}
 `;

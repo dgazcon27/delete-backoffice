@@ -84,7 +84,6 @@ export const closeAlert = () => ({
 export const createRoom = (
 	name,
 	type,
-	capacity,
 	quantityAvailableSell,
 	stockReserve,
 	costPurchaseNight,
@@ -95,8 +94,25 @@ export const createRoom = (
 	event,
 	paginationPage,
 	createRoomMutation,
-) => (
-	async (dispatch) => {
+) => {
+	let capacity;
+	switch (type) {
+		case 'Individual':
+			capacity = 1;
+			break;
+		case 'Double':
+			capacity = 2;
+			break;
+		case 'Triple':
+			capacity = 3;
+			break;
+		case 'Quadruple':
+			capacity = 4;
+			break;
+		default:
+			break;
+	}
+	return async (dispatch) => {
 		createRoomMutation({
 			variables: {
 				name,
@@ -117,19 +133,19 @@ export const createRoom = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => (window.history.back()), 2000);
+				setTimeout(() => (window.history.assign('/room')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
 			});
-	});
+	};
+};
 
 export const editRoom = (
 	id,
 	name,
 	type,
-	capacity,
 	quantityAvailableSell,
 	stockReserve,
 	costPurchaseNight,
@@ -140,8 +156,25 @@ export const editRoom = (
 	event,
 	paginationPage,
 	editRoomMutation,
-) => (
-	async (dispatch) => {
+) => {
+	let capacity;
+	switch (type) {
+		case 'Individual':
+			capacity = 1;
+			break;
+		case 'Double':
+			capacity = 2;
+			break;
+		case 'Triple':
+			capacity = 3;
+			break;
+		case 'Quadruple':
+			capacity = 4;
+			break;
+		default:
+			break;
+	}
+	return async (dispatch) => {
 		editRoomMutation({
 			variables: {
 				id,
@@ -169,7 +202,8 @@ export const editRoom = (
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
 			});
-	});
+	};
+};
 
 export const deleteRoom = (obj, paginationPage, deleteRoomMutation) => {
 	const { id } = obj;

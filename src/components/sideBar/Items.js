@@ -12,7 +12,6 @@ import {
 	Divider,
 } from '@material-ui/core/';
 import Weekend from '@material-ui/icons/Weekend';
-import Wc from '@material-ui/icons/Wc';
 import Event from '@material-ui/icons/Album';
 import Hotel from '@material-ui/icons/Hotel';
 import ContactPhone from '@material-ui/icons/ContactPhone';
@@ -24,31 +23,35 @@ import AccountBalanceWallet from '@material-ui/icons/AccountBalanceWallet';
 import RoomService from '@material-ui/icons/RoomService';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import Settings from '@material-ui/icons/Settings';
 import Collapse from '@material-ui/core/Collapse';
+import LocationOn from '@material-ui/icons/LocationOn';
 import collapseItem from '../../actions/SideBar/actionsCreators';
 import { resetPagination } from '../../actions/List/actionsCreators';
+import { SB_COLLAPSE_CONFIG, SB_COLLAPSE_TRACKER } from '../../actions/SideBar/actionsTypes';
 
 const Items = ({
 	open,
+	openConfig,
+	openTracker,
 	actionCollapse,
 	actionResetPagination,
 }) => (
 	<div>
-		<Link to='/hotel' href='/hotel'>
-			<ListItem button>
-				<ListItemIcon>
-					<Hotel />
-				</ListItemIcon>
-				<ListItemText primary='Hotel' />
-			</ListItem>
-		</Link>
 		<Link to='/' href='/'>
-			<ListItem button onClick={() => actionResetPagination()} >
+			<ListItem button>
 				<ListItemIcon>
 					<AttachMoney />
 				</ListItemIcon>
-				<ListItemText primary='Taquilla' />
+				<ListItemText primary='Ventas' />
+			</ListItem>
+		</Link>
+		<Link to='/reservation' href='/reservation'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<RoomService />
+				</ListItemIcon>
+				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
 		<Link to='/payment' href='/payment' >
@@ -60,12 +63,48 @@ const Items = ({
 			</ListItem>
 		</Link>
 
-		<Link to='/guests' href='/guests'>
+		<ListItem button onClick={() => { actionCollapse(!openTracker, SB_COLLAPSE_TRACKER); }}>
+			<ListItemIcon >
+				<LocationOn />
+			</ListItemIcon>
+			<ListItemText inset primary='Localizadores' />
+			{openTracker ? <ChevronLeft /> : <ExpandMore />}
+		</ListItem>
+		<Collapse in={openTracker} timeout='auto' unmountOnExit>
+			<List component='div' disablePadding>
+				<Link to='/tokens' href='/tokens'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<LocationOn />
+						</ListItemIcon>
+						<ListItemText primary='Ventas' />
+					</ListItem>
+				</Link>
+				<Link to='/tokens-reservation' href='/tokens-reservation'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<LocationOn />
+						</ListItemIcon>
+						<ListItemText primary='Paquetes' />
+					</ListItem>
+				</Link>
+				<Divider />
+			</List>
+		</Collapse>
+		<Link to='/hotel' href='/hotel'>
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
-					<Wc />
+					<Hotel />
 				</ListItemIcon>
-				<ListItemText primary='Invitados' />
+				<ListItemText primary='Hoteles por Evento' />
+			</ListItem>
+		</Link>
+		<Link to='/room' href='/room'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Habitaciones' />
 			</ListItem>
 		</Link>
 		<Link to='/events' href='/events'>
@@ -76,15 +115,14 @@ const Items = ({
 				<ListItemText primary='Eventos' />
 			</ListItem>
 		</Link>
-
-		<ListItem button onClick={() => { actionCollapse(!open); }}>
+		<ListItem button onClick={() => { actionCollapse(!openConfig, SB_COLLAPSE_CONFIG); }}>
 			<ListItemIcon >
-				<InboxIcon />
+				<Settings />
 			</ListItemIcon>
 			<ListItemText inset primary='Configuración' />
 			{open ? <ExpandMore /> : <ChevronLeft />}
 		</ListItem>
-		<Collapse in={open} timeout='auto' unmountOnExit>
+		<Collapse in={openConfig} timeout='auto' unmountOnExit>
 			<List component='div' disablePadding>
 				<Link to='/access' href='/access'>
 					<ListItem button onClick={() => actionResetPagination()}>
@@ -99,7 +137,7 @@ const Items = ({
 						<ListItemIcon>
 							<Weekend />
 						</ListItemIcon>
-						<ListItemText primary='Areas' />
+						<ListItemText primary='Áreas' />
 					</ListItem>
 				</Link>
 				<Link to='/bank' href='/bank'>
@@ -145,39 +183,26 @@ const Items = ({
 				<Divider />
 			</List>
 		</Collapse>
-		<Link to='/reservation' href='/reservation'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<RoomService />
-				</ListItemIcon>
-				<ListItemText primary='Paquetes' />
-			</ListItem>
-		</Link>
-
-		<Link to='/room' href='/room'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<ContactPhone />
-				</ListItemIcon>
-				<ListItemText primary='Habitaciones' />
-			</ListItem>
-		</Link>
 	</div>
 );
 
 Items.propTypes = {
 	actionResetPagination: PropTypes.func.isRequired,
 	open: PropTypes.bool.isRequired,
+	openConfig: PropTypes.bool.isRequired,
+	openTracker: PropTypes.bool.isRequired,
 	actionCollapse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-	open: state.ReducerSideBar.open,
+	openConfig: state.ReducerSideBar.openConfig,
+	openTracker: state.ReducerSideBar.openTracker,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionResetPagination: () => dispatch(resetPagination()),
-	actionCollapse: open =>	dispatch(collapseItem(open)),
+	actionCollapse: (open, type) =>
+		dispatch(collapseItem(open, type)),
 });
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(Items);

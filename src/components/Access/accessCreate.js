@@ -41,10 +41,15 @@ let AccessCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Acceso</h3>
+		<h3 className={classes.formTitle}>Acceso
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Acceso</h6>
+
 				<div className={classes.formStyle}>
 					<Field
 						name='name'

@@ -61,14 +61,7 @@ const styles = () => ({
 		marginLeft: '25px',
 		'box-shadow': '0px 2px 1px 0px #8e8e8e73',
 	},
-	formStyle: {
-		padding: '3%',
-	},
-	formTitle: {
-		fontSize: '1.25em',
-		color: '#898989',
-		padding: '1% 3%',
-	},
+
 	search: {
 		display: 'inline-flex',
 		'align-items': 'baseline',
@@ -97,6 +90,47 @@ const styles = () => ({
 	},
 	marginIcon: {
 		'margin-right': '10px',
+	},
+	options: {
+		width: '170px',
+	},
+	center: {
+		'text-align': 'center',
+	},
+	formStyle: {
+		padding: '3%',
+		display: 'flex',
+		color: '#949494',
+	},
+	formStyle3: {
+		margin: '15px 5px 5px 5px',
+	},
+
+	formStyle2: {
+		marginRight: '0',
+		padding: '3%',
+		width: '60%',
+	},
+	formTitle: {
+		fontSize: '1.25em',
+		color: '#898989',
+		padding: '1% 3%',
+	},
+
+	panel1: {
+		width: '40%',
+	},
+	panel2: {
+		position: 'relative',
+
+		width: '60%',
+		paddingLeft: '0 !important',
+	},
+	centered: {
+		textAlign: 'center',
+	},
+	panelColor: {
+		color: '#3f3f3f',
 	},
 });
 

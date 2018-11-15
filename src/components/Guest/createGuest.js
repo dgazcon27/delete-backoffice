@@ -12,28 +12,33 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
+import { Modal } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import Search from '@material-ui/icons/Search';
 import styles from '../Shared/sharedStyles';
 import '../Shared/styles.css';
 import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField } from '../RenderFields/renderFields';
-import { CREATE_GUEST } from '../../queries/guest';
+import { renderNumberField } from '../RenderFields/renderFields';
+import { NEW_CREATE_GUEST } from '../../queries/guest';
 import { closeAlert } from '../../actions/sharedActions/sharedActions';
 import { createInvited } from '../../actions/Guest/actionsCreators';
+import { getUserByDNI } from '../../actions/PurchaseRequest/actionsCreators';
 import {
 	Events,
 	Access,
 	Status,
 	Countries,
-	SelectRoles,
 	TypeInvited,
 } from '../commonComponent';
+import NewUsersCreate from '../Users/newUsersCreate';
 
 let InvitedCreate = ({
+	newUserModal,
 	userId,
 	classes,
 	alertOpen,
@@ -44,57 +49,47 @@ let InvitedCreate = ({
 	submitting,
 	handleSubmit,
 	createMutation,
+	actionUserByDNI,
+	nameUser,
+	lastName,
+	idUser,
+	phone,
+	email,
 }) => (
 	<div>
 		<h3 className={classes.formTitle}>Invitados</h3>
 		<Paper className={classes.createContainer}>
+			<h6 className={classes.formTitle}>Nuevo invitado</h6>
 			<form>
-				<h6 className={classes.formTitle}>Nuevo invitado</h6>
-				<div className={classes.formStyle}>
-					<Field
-						name='name'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Nombre de invitado'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='lastName'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Apellido de invitado'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='email'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Correo'
-					/>
-				</div>
-				<div className={classes.formStyle}>
-					<Field
-						name='phone'
-						type='text'
-						component={renderTextField}
-						validate={[required, empty]}
-						label='Teléfono'
-					/>
-				</div>
 				<div className={classes.formStyle}>
 					<Field
 						name='dni'
-						type='text'
-						component={renderTextField}
+						type='number'
+						component={renderNumberField}
 						validate={[required, empty]}
 						label='dni'
 					/>
+					<IconButton className={classes.formStyle3}>
+						<Search onClick={(event) => { event.preventDefault(actionUserByDNI(myValues.dni)); }} />
+					</IconButton>
 				</div>
+			</form>
+			<div className={classes.formStyle}>
+				<div className={classes.panel1} >
+				Nombre: {nameUser}
+					<br />
+				Tlf: {phone}
+				</div>
+
+				<div className={classes.panel2} >
+				Apellido: {lastName}
+					<br />
+				Correo: {email}
+				</div>
+			</div>
+			<form>
+				<h6 className={classes.formTitle}>Nuevo invitado</h6>
+
 				<div className={classes.formStyle}>
 					<Countries name='citizenship' />
 				</div>
@@ -108,9 +103,6 @@ let InvitedCreate = ({
 					<Access />
 				</div>
 				<div className={classes.formStyle}>
-					<SelectRoles name='role' label='Roles' />
-				</div>
-				<div className={classes.formStyle}>
 					<TypeInvited />
 				</div>
 				<button
@@ -119,14 +111,13 @@ let InvitedCreate = ({
 					onClick={
 						handleSubmit(() => actionCreate(
 							{
+								idUser,
 								...myValues,
 								updatedBy: userId,
 								createdBy: userId,
 							},
 							createMutation,
-
 						))
-
 					}
 					disabled={submitting}
 				>
@@ -148,7 +139,7 @@ let InvitedCreate = ({
 				message={<span id='message-id'>El invitado que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 			/>
 		}
-		{alertType === 'creado' &&
+		{(alertType === 'creado' && !newUserModal) &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				open={alertOpen}
@@ -157,18 +148,33 @@ let InvitedCreate = ({
 				message={<span id='message-id'>El invitado {myValues.name} {myValues.lastName} fue creado con exito.</span>}
 			/>
 		}
+		<Modal
+			open={newUserModal}
+			disableAutoFocus={false}
+		>
+			<div>
+				<NewUsersCreate />
+			</div>
+		</Modal>
 	</div>
 );
 
 InvitedCreate.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
+	nameUser: PropTypes.string.isRequired,
+	lastName: PropTypes.string.isRequired,
+	phone: PropTypes.string.isRequired,
+	email: PropTypes.string.isRequired,
+	idUser: PropTypes.number.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	actionCreate: PropTypes.func.isRequired,
 	createMutation: PropTypes.func.isRequired,
+	actionUserByDNI: PropTypes.func.isRequired,
 	submitting: PropTypes.bool.isRequired,
+	newUserModal: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	userId: PropTypes.number.isRequired,
 };
@@ -180,16 +186,18 @@ InvitedCreate = reduxForm({
 const selector = formValueSelector('InvitedCreate');
 
 const mapStateToProps = state => ({
+	newUserModal: state.ReducerPurchaseRequest.newUserModal,
+	idUser: state.ReducerPurchaseRequest.idUser,
+	email: state.ReducerPurchaseRequest.email,
+	phone: state.ReducerPurchaseRequest.phone,
+	nameUser: state.ReducerPurchaseRequest.nameUser,
+	lastName: state.ReducerPurchaseRequest.lastName,
 	alertType: state.ReducerGuest.alertType,
 	alertOpen: state.ReducerGuest.alertOpen,
 	states: state.ReducerGuest.states,
 	userId: state.ReducerLogin.userId,
 	myValues: selector(
 		state,
-		'name',
-		'lastName',
-		'email',
-		'phone',
 		'dni',
 		'access',
 		'status',
@@ -200,12 +208,21 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionCreate: (invited, createMutation) => dispatch(createInvited(invited, createMutation)),
+	actionUserByDNI: (event, dni) => dispatch(getUserByDNI(event, dni)),
+	actionCreate: (
+		user,
+		invited,
+		createMutation,
+	) => dispatch(createInvited(
+		user,
+		invited,
+		createMutation,
+	)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 });
 
 export default compose(
-	graphql(CREATE_GUEST, { name: 'createMutation' }),
+	graphql(NEW_CREATE_GUEST, { name: 'createMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(InvitedCreate);

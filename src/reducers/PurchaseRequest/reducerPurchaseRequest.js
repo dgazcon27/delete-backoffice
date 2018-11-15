@@ -17,6 +17,8 @@ import {
 	CLOSE_MODAL_USER,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
+import { SET_SEARCH_PURCHASE } from '../../actions/Search/actionsTypesSearchRoles';
+
 const initialState = {
 	newUserModal: false,
 	id: 0,
@@ -42,16 +44,10 @@ const initialState = {
 	dni: 0,
 	phone: '',
 	email: '',
+	query: '',
+	currentPageSearch: 0,
+	paginationPageSearch: 0,
 };
-
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPagePreq = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
-	initialState.currentPagePreq = JSON.parse(localStorage.getItem('paginations')).purchaseReq || 0;
-} else {
-	initialState.paginationPagePreq = 0;
-	initialState.currentPagePreq = 0;
-}
 
 const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 	switch (action.type) {
@@ -76,6 +72,11 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				name: action.payload.name,
 				rolDescription: action.payload.rolDescription,
 			});
+		case SET_SEARCH_PURCHASE:
+			return ({
+				...state,
+				query: action.payload.search,
+			});
 		case SET_PURCHASE_REQ:
 			return ({
 				...state,
@@ -87,7 +88,6 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				user: action.payload.user,
 				accessName: action.payload.access,
 				event: action.payload.event,
-				status: action.payload.status,
 				comment: action.payload.comment,
 			});
 		case SET_TO_PAY:

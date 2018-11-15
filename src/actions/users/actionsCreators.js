@@ -171,6 +171,47 @@ export const createUser = (
 			});
 	}
 );
+export const newCreateUser = (
+	myValues,
+	name,
+	email,
+	lastName,
+	phone,
+	dni,
+	birthDate,
+	citizenship,
+	createdBy,
+	updatedBy,
+	createNewUserMutation,
+	paginationPage,
+) => (
+	async (dispatch) => {
+		createNewUserMutation({
+			variables: {
+				...myValues,
+				name,
+				email,
+				lastName,
+				phone,
+				dni,
+				birthDate,
+				citizenship,
+				createdBy,
+				updatedBy,
+			},
+			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(openAlert('creado'));
+				dispatch(closeUserModal());
+				setTimeout(() => (window.history.back()), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	}
+);
 
 export const editUser = (
 	myValues,

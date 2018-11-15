@@ -1,10 +1,7 @@
-import SB_COLLAPSE from './actionsTypes';
-
-const collapseItem = item => ({
-	type: SB_COLLAPSE,
+const collapseItem = (open, type) => ({
+	type,
 	payload: {
-		open: item,
-		description: SB_COLLAPSE,
+		open,
 	},
 });
 

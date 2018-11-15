@@ -21,6 +21,7 @@ import ReducerEventAccess from './Event/Access/reducerAccess';
 import ReducerReservation from './Reservation/reducerReservation';
 import ReducerRoom from './Room/reducerRoom';
 import ReducerSideBar from './SideBar/reducerSideBar';
+import ReducerTokens from './Tokens/reducerTokens';
 
 const rootReducer = combineReducers({
 	ReducerHeader,
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
 	ReducerRoom,
 	ReducerHotel,
 	ReducerSideBar,
+	ReducerTokens,
 	form: reduxFormReducer,
 });
 

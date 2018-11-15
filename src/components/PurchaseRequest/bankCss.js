@@ -23,8 +23,9 @@ const styles = () => ({
 		paddingRight: '10% !important',
 	},
 	createContainer: {
+
 		borderRadius: '1%',
-		marginTop: '10%',
+		marginTop: '2%',
 		margin: '2%',
 		padding: '1% 1%',
 		height: '40%',
@@ -49,6 +50,7 @@ const styles = () => ({
 		borderTop: '2px solid green',
 	},
 	createButton: {
+
 		cursor: 'pointer',
 		fontSize: '1.1em',
 		borderRadius: '5%',
@@ -78,6 +80,21 @@ const styles = () => ({
 		fontSize: '1.25em',
 		color: '#898989',
 		padding: '1% 3%',
+	},
+	panel1: {
+		width: '40%',
+	},
+	panel2: {
+		position: 'relative',
+
+		width: '60%',
+		paddingLeft: '0 !important',
+	},
+	centered: {
+		textAlign: 'center',
+	},
+	panelColor: {
+		color: '#3f3f3f',
 	},
 });
 

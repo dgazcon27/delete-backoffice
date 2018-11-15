@@ -86,6 +86,7 @@ export const setAccess = (access) => {
 			access: access.access.id,
 			price: access.price,
 			days: access.days,
+			stock: access.stock,
 			hotel,
 			room,
 			hotelE,
@@ -192,7 +193,7 @@ export const editAccessEvent = (data, event, paginationPage, editAccessEventMuta
 	action.withTickets = data.withTickets === 'true';
 	action.event = event;
 
-	if (!data.withRoom) {
+	if (!action.withRoom) {
 		action.hotel = null;
 		action.room = null;
 	}

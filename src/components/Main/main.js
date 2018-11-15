@@ -10,12 +10,12 @@ import UserTypeCreate from '../UserType/userTypeCreate';
 import Users from '../Users/users';
 import UsersCreate from '../Users/usersCreate';
 import Zone from '../Zone/zone';
+import NewUsersCreate from '../Users/newUsersCreate';
 import ZoneCreate from '../Zone/zoneCreate';
 import LocationCreate from '../Location/locationCreate';
 import Location from '../Location/location';
 import Event from '../Event/event';
 import EventCreate from '../Event/eventCreate';
-import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Hotel from '../Hotel/Hotel';
 import HotelCreate from '../Hotel/HotelCreate';
 import EditHotel from '../Hotel/HotelEdit';
@@ -32,11 +32,13 @@ import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
 import Reservation from '../Reservation/reservation';
 import ReservationCreate from '../Reservation/reservationCreate';
-import ReservationEdit from '../Reservation/reservationEdit';
 import ReservationPayment from '../Reservation/reservationPayment';
 import Room from '../Room/room';
 import RoomCreate from '../Room/roomCreate';
 import RoomEdit from '../Room/roomEdit';
+import ComponentPurchase from '../PurchaseRequest/componentPurchase';
+import Tokens from '../Tokens/tokens';
+import TokensReservation from '../Tokens/tokensReservation';
 
 
 const Main = (props) => {
@@ -45,13 +47,15 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
+
+				<Route exact path='/' component={ComponentPurchase} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />
-				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/payment' component={Payment} />
 				<Route path='/users' component={Users} />
 				<Route path='/users-create' component={UsersCreate} />
+				<Route path='/new-users-create' component={NewUsersCreate} />
 				<Route path='/users-edit/:id' component={EditionComponent} />
 				<Route path='/user-type' component={UserType} />
 				<Route path='/user-type-edit/:id' component={EditionComponent} />
@@ -87,11 +91,13 @@ const Main = (props) => {
 				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
 				<Route path='/reservation' component={Reservation} />
 				<Route path='/reservation-create' component={ReservationCreate} />
-				<Route path='/reservation-edit' component={ReservationEdit} />
+				<Route path='/reservation-edit/:id' component={EditionComponent} />
 				<Route path='/reservation-payment' component={ReservationPayment} />
 				<Route path='/room' component={Room} />
 				<Route path='/room-create' component={RoomCreate} />
 				<Route path='/room-edit' component={RoomEdit} />
+				<Route path='/tokens' component={Tokens} />
+				<Route path='/tokens-reservation' component={TokensReservation} />
 			</Switch>
 		</main>
 	);

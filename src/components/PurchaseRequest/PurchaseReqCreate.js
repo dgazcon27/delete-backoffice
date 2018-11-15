@@ -12,6 +12,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import { Modal } from '@material-ui/core';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import {
 	compose,
 	graphql,
@@ -20,7 +21,7 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
-import { renderTextField, renderNumberField } from '../RenderFields/renderFields';
+import { renderTextField, renderNumberField, renderSelectField } from '../RenderFields/renderFields';
 import {
 	closeAlert,
 	setName,
@@ -29,19 +30,42 @@ import {
 	getUserByDNI,
 } from '../../actions/PurchaseRequest/actionsCreators';
 import BackButton from '../widget/BackButton';
-import UsersCreate from '../Users/usersCreate';
-
-import {
-	AccessE,
-	Aevents,
-	Status,
-} from '../commonComponent';
-
-
+import NewUsersCreate from '../Users/newUsersCreate';
+import { Aevents } from '../commonComponent';
 import styles from './bankCss';
 import './styles.css';
 
 import { CREATE_PURCHASE_REQ } from '../../queries/purchaseRequest';
+
+export const AccessEvent = (access) => {
+	if (access !== {} && access.access.length > 0) {
+		return (
+			<Field
+				name='access'
+				type='select'
+				label='Accesos'
+				placeholder='Accesos'
+				component={renderSelectField}
+				validate={required}
+				className='container'
+			>
+				{access.access.map(acc => (
+					<MenuItem key={acc.access.id} value={acc.access.id}>{acc.access.name}</MenuItem>
+				))}
+			</Field>);
+	}
+	return (
+		<Field
+			name='access'
+			type='select'
+			label='Accesos'
+			component={renderSelectField}
+			validate={required}
+			className='container'
+		>
+			<MenuItem />
+		</Field>);
+};
 
 let PurchaseRequestCreate = ({
 	access,
@@ -84,13 +108,17 @@ let PurchaseRequestCreate = ({
 				</div>
 			</form>
 			<div className={classes.formStyle}>
-				Nombre:{nameUser}
-				<br />
-				Apellido:{lastName}
-				<br />
-				Telefono:{phone}
-				<br />
-				Correo:{email}
+				<div className={classes.panel1} >
+				Nombre: {nameUser}
+					<br />
+				Tlf: {phone}
+				</div>
+
+				<div className={classes.panel2} >
+				Apellido: {lastName}
+					<br />
+				Correo: {email}
+				</div>
 			</div>
 
 			<form>
@@ -98,10 +126,7 @@ let PurchaseRequestCreate = ({
 					<Aevents actionSelectEvent={actionSelectEvent} />
 				</div>
 				<div className={classes.formStyle}>
-					<AccessE access={access} />
-				</div>
-				<div className={classes.formStyle}>
-					<Status />
+					<AccessEvent access={access} />
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -112,7 +137,6 @@ let PurchaseRequestCreate = ({
 						label='comment'
 					/>
 				</div>
-
 				<button
 					className={classes.createButton}
 					type='submit'
@@ -128,7 +152,7 @@ let PurchaseRequestCreate = ({
 					}
 					disabled={submitting}
 				>
-					Crear
+					Registrar
 				</button>
 				<BackButton />
 			</form>
@@ -157,7 +181,7 @@ let PurchaseRequestCreate = ({
 		}
 		{
 
-			(alertType === 'creado' && newUserModal) &&
+			(alertType === 'creado') &&
 			<Snackbar
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				open={alertOpen}
@@ -166,12 +190,23 @@ let PurchaseRequestCreate = ({
 				message={<span id='message-id'>La peticion de pago fue generada con exito </span>}
 			/>
 		}
+		{
+
+			(alertType === 'creado' && newUserModal) &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>El usuario fue creado con exito </span>}
+			/>
+		}
 		<Modal
 			open={newUserModal}
 			disableAutoFocus={false}
 		>
 			<div>
-				<UsersCreate />
+				<NewUsersCreate />
 			</div>
 		</Modal>
 	</div>
@@ -222,7 +257,7 @@ const mapStateToProps = state => ({
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
 	access: state.ReducerPurchaseRequest.access,
-	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'status', 'comment'),
+	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'comment'),
 });
 
 const mapDispatchToProps = dispatch => ({

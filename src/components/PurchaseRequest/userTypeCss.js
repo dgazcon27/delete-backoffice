@@ -112,6 +112,13 @@ const styles = () => ({
 	titleModal: {
 		'text-align': 'center',
 	},
+	iconPayment: {
+		height: '12px !important',
+	},
+	center: {
+		'text-align': 'center',
+	},
+
 });
 
 export default styles;

@@ -4,15 +4,20 @@ import {
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
+	RST_CLEAN_STATE,
 	DELETE_RESERVATION,
-	SET_USER,
+	SET_USER_RESERVATION,
 	SET_HOTEL,
+	RST_SET_MODAL,
+	RST_SET_LOAD,
 } from '../../actions/Reservation/actionsTypes';
 
 const initialState = {
 	id: 0,
 	room: 0,
 	days: 0,
+	open: '',
+	load: false,
 	name: '',
 	event: 0,
 	hotel: 0,
@@ -20,6 +25,7 @@ const initialState = {
 	quantity: 0,
 	comment: '',
 	lastName: '',
+	nameAccess: '',
 	isOpen: false,
 	alertType: '',
 	modalType: '',
@@ -47,7 +53,7 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				quantity: action.payload.quantity,
 				purchaseRequest: action.payload.purchaseRequest,
 			});
-		case SET_USER:
+		case SET_USER_RESERVATION:
 			return ({
 				...state,
 				name: action.payload.name,
@@ -55,6 +61,13 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				client: action.payload.client,
 				lastName: action.payload.lastName,
 				purchaseRequest: action.payload.purchaseRequest,
+				nameAccess: action.payload.nameAccess,
+			});
+		case RST_SET_MODAL:
+			return ({
+				...state,
+				open: action.payload.open,
+				isOpen: action.payload.isOpen,
 			});
 		case SET_HOTEL:
 			return ({
@@ -79,6 +92,36 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				...state,
 				isOpen: false,
 				id: 0,
+			});
+		case RST_SET_LOAD:
+			return ({
+				...state,
+				load: action.payload.load,
+			});
+		case RST_CLEAN_STATE:
+			return ({
+				...state,
+				id: 0,
+				room: 0,
+				days: 0,
+				open: '',
+				name: '',
+				event: 0,
+				hotel: 0,
+				load: false,
+				client: 0,
+				quantity: 0,
+				comment: '',
+				lastName: '',
+				nameAccess: '',
+				isOpen: false,
+				alertType: '',
+				modalType: '',
+				statusValue: 0,
+				alertOpen: false,
+				paginationPage: 0,
+				purchaseRequest: 0,
+				currentPageSearch: 0,
 			});
 		case OPEN_ALERT:
 			return ({

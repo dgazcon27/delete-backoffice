@@ -28,7 +28,6 @@ export const setGuest = guest => ({
 		event: guest.event.id,
 		status: guest.status.id,
 		access: guest.access.id,
-		role: guest.user.role.id,
 		typeInvited: guest.typeInvited.id,
 	},
 });
@@ -65,10 +64,22 @@ export const closeAlert = () => ({
 	},
 });
 
-export const createInvited = (invited, create) => (
+export const createInvited = (
+	invited,
+	create,
+) => (
 	async (dispatch) => {
 		create({
-			variables: invited,
+			variables: {
+				user: invited.idUser,
+				access: invited.access,
+				status: invited.status,
+				event: invited.event,
+				typeInvited: invited.typeInvited,
+				citizenship: invited.citizenship,
+				createdBy: invited.createdBy,
+				updatedBy: invited.updatedBy,
+			},
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));

@@ -3,16 +3,18 @@ import gql from 'graphql-tag';
 export const GET_HOTELS = gql`
 	query hotelss($paginationPage:Int!) {
 		hotelss(page:$paginationPage) {
-			data{id
-  	provider{
-   		 name
-  		}
-   	
-  	event{
-   		 name
-  		}
-   		 active
-  		}
+			data{
+				id
+				provider{
+					id
+					name
+				}
+				event{
+					id
+					name
+				}
+				active
+			}
 			total
 		}
 	}

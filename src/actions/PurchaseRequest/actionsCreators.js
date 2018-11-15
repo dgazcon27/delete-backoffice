@@ -41,7 +41,6 @@ export const setPurchaseReq = purchase => ({
 		user: Number(purchase.user.id),
 		access: purchase.access.name,
 		event: purchase.event.name,
-		status: purchase.status.name,
 		description: SET_PURCHASE_REQ,
 	},
 });
@@ -204,17 +203,15 @@ export const createPurchaseReq = (
 				user,
 				access: myValues.access,
 				event: myValues.event,
-				status: myValues.status,
 				comment: myValues.comment,
 			},
-			refetchQueries: [{ query: GET_PURCHASE_REQ, variables: { paginationPage } }],
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
 				setTimeout(() => (window.location.assign('/')), 2000);
 			})
-			.catch((res) => {
-				const message = checkMessageError(res);
+			.catch((err) => {
+				const message = checkMessageError(err);
 				dispatch(openAlert(message));
 			});
 	};
@@ -235,13 +232,7 @@ export const editPurchaseReq = (
 		})
 			.then(() => {
 				dispatch(openAlert('edit'));
-				dispatch(setPurchaseReq({
-					user: { id: purchase.user },
-					access: { id: purchase.access },
-					event: { id: purchase.event },
-					status: { id: purchase.status },
-					comment: purchase.comment,
-				}));
+
 				setTimeout(() => (window.location.assign('/')), 2000);
 			})
 			.catch((res) => {
