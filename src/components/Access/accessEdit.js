@@ -140,7 +140,7 @@ const mapStateToProps = state => ({
 	initialValues: state.ReducerAccess,
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
-	paginationPage: state.ReducerAccess.paginationPageAcc,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'id', 'name', 'descriptionAccess', 'currency', 'location', 'zone', 'status'),
 });
 

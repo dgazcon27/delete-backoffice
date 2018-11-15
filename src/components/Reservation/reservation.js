@@ -32,7 +32,6 @@ import {
 	closeModal,
 	setReservation,
 	deleteReservation,
-	changePage,
 } from '../../actions/Reservation/actionsCreators';
 import {
 	GET_RESERVATIONS,
@@ -52,7 +51,6 @@ const Reservation = ({
 	actionEditReservation,
 	paginationPage,
 	actionDeleteReservation,
-	actionChangePage,
 	deleteReservationMutation,
 }) => (
 	<Query query={GET_RESERVATIONS} variables={{ paginationPage }}>
@@ -167,9 +165,6 @@ const Reservation = ({
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
 											colSpan={6}
-											onChangePage={(event, changuedPage) => {
-												actionChangePage(currentPage, changuedPage);
-											}}
 										/>
 									</TableRow>
 								</TableFooter>
@@ -242,7 +237,6 @@ Reservation.propTypes = {
 	actionDeleteReservation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	actionChangePage: PropTypes.func.isRequired,
 	deleteReservationMutation: PropTypes.func.isRequired,
 };
 
@@ -258,12 +252,10 @@ const mapStateToProps = state => ({
 	modalType: state.ReducerReservation.modalType,
 	statusValue: state.ReducerReservation.statusValue,
 	currentPage: state.ReducerReservation.currentPage,
-	paginationPage: state.ReducerReservation.paginationPage,
+	paginationPage: state.ReducerPagination.paginationPage,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionChangePage: (currentPage, paginationPage) =>
-		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _reservation) => dispatch(openModal(modalType, _reservation)),
 	actionDeleteReservation: (id, statusValue, paginationPage, deleteReservationMutation) =>
 		dispatch(deleteReservation(id, statusValue, paginationPage, deleteReservationMutation)),

@@ -5,8 +5,6 @@ import {
 	CLOSE_MODAL,
 	CLEAN_STATE,
 	SET_RESERVATION,
-	PAGE_UP,
-	PAGE_DOWN,
 	SET_USER,
 	SET_HOTEL,
 } from './actionsTypes';
@@ -22,21 +20,6 @@ const checkMessageError = (res) => {
 	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
-};
-export const changePage = (currentPage, paginationPage) => {
-	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
-	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
-
-	localStorage.setItem('paginations', JSON.stringify(paginations));
-
-	return ({
-		type: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-		payload: {
-			description: currentPage < paginationPage ? PAGE_UP : PAGE_DOWN,
-			paginationPage,
-			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
-		},
-	});
 };
 
 export const setUser = purchaseRequest => ({

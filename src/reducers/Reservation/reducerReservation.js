@@ -4,8 +4,6 @@ import {
 	OPEN_ALERT,
 	CLOSE_MODAL,
 	CLOSE_ALERT,
-	PAGE_UP,
-	PAGE_DOWN,
 	DELETE_RESERVATION,
 	SET_USER,
 	SET_HOTEL,
@@ -32,29 +30,8 @@ const initialState = {
 	currentPageSearch: 0,
 };
 
-// Se inicializa paginationPage y currentPage para que se sincronize con el localstorage
-if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).payment || 0;
-	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).payment || 0;
-} else {
-	initialState.paginationPage = 0;
-	initialState.currentPage = 0;
-}
-
 const ReducerReservation = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case PAGE_UP:
-			return ({
-				...state,
-				paginationPage: action.payload.paginationPage,
-				currentPage: action.payload.currentPage,
-			});
-		case PAGE_DOWN:
-			return ({
-				...state,
-				currentPage: action.payload.currentPage,
-				paginationPage: action.payload.paginationPage,
-			});
 		case SET_RESERVATION:
 			return ({
 				...state,
