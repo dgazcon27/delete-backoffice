@@ -30,7 +30,7 @@ import {
 	getUserByDNI,
 } from '../../actions/PurchaseRequest/actionsCreators';
 import BackButton from '../widget/BackButton';
-import UsersCreate from '../Users/usersCreate';
+import NewUsersCreate from '../Users/newUsersCreate';
 import { Aevents } from '../commonComponent';
 import styles from './bankCss';
 import './styles.css';
@@ -206,7 +206,7 @@ let PurchaseRequestCreate = ({
 			disableAutoFocus={false}
 		>
 			<div>
-				<UsersCreate />
+				<NewUsersCreate />
 			</div>
 		</Modal>
 	</div>

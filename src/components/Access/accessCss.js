@@ -100,6 +100,24 @@ const styles = () => ({
 	marginIcon: {
 		'margin-right': '10px',
 	},
+	backbutton: {
+		width: '100px',
+		position: 'relative',
+		float: 'right',
+		right: '30px',
+		top: '2px',
+		fontSize: '20px',
+		style: 'none',
+	},
+	backbuttonCreation: {
+		width: '100px',
+		position: 'relative',
+		float: 'right',
+		right: '-19px',
+		top: '-23px',
+		fontSize: '20px',
+		style: 'none',
+	},
 });
 
 export default styles;
