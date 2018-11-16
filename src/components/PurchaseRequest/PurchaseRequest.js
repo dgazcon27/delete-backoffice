@@ -14,6 +14,7 @@ import {
 import {
 	DELETE_PURCHASE_REQ,
 	GET_PURCHASE_REQ,
+	SEARCH_PURCHASE_REQUEST,
 } from '../../queries/purchaseRequest';
 
 const PurchaseRequest = ({
@@ -26,11 +27,12 @@ const PurchaseRequest = ({
 }) => {
 	const objectQuery = {
 		queryComponent: GET_PURCHASE_REQ,
+		querySearch: SEARCH_PURCHASE_REQUEST,
 	};
 
 	const objectSearch = {
 		showButton: true,
-		showSearch: false,
+		showSearch: true,
 		titleButton: 'agregar nuevo',
 		url: '/purchase-request-create',
 	};
@@ -78,8 +80,8 @@ const PurchaseRequest = ({
 			totalPath: 'purchaseRequests.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'search.purchases.data',
+			totalPath: 'search.purchases.total',
 		},
 	};
 

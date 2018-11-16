@@ -31,7 +31,6 @@ import { resetPagination } from '../../actions/List/actionsCreators';
 import { SB_COLLAPSE_CONFIG, SB_COLLAPSE_TRACKER } from '../../actions/SideBar/actionsTypes';
 
 const Items = ({
-	open,
 	openConfig,
 	openTracker,
 	actionCollapse,
@@ -68,7 +67,7 @@ const Items = ({
 				<LocationOn />
 			</ListItemIcon>
 			<ListItemText inset primary='Localizadores' />
-			{openTracker ? <ChevronLeft /> : <ExpandMore />}
+			{openTracker ? <ExpandMore /> : <ChevronLeft />}
 		</ListItem>
 		<Collapse in={openTracker} timeout='auto' unmountOnExit>
 			<List component='div' disablePadding>
@@ -120,7 +119,7 @@ const Items = ({
 				<Settings />
 			</ListItemIcon>
 			<ListItemText inset primary='Configuración' />
-			{open ? <ExpandMore /> : <ChevronLeft />}
+			{openConfig ? <ExpandMore /> : <ChevronLeft />}
 		</ListItem>
 		<Collapse in={openConfig} timeout='auto' unmountOnExit>
 			<List component='div' disablePadding>
@@ -188,7 +187,6 @@ const Items = ({
 
 Items.propTypes = {
 	actionResetPagination: PropTypes.func.isRequired,
-	open: PropTypes.bool.isRequired,
 	openConfig: PropTypes.bool.isRequired,
 	openTracker: PropTypes.bool.isRequired,
 	actionCollapse: PropTypes.func.isRequired,

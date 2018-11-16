@@ -255,7 +255,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerUserType.alertOpen,
 	name: state.ReducerUserType.name,
 	descripcion: state.ReducerUserType.descripcion,
-	paginationPage: state.ReducerPurchaseRequest.paginationPagePreq,
+	paginationPage: state.ReducerPagination.paginationPage,
 	access: state.ReducerPurchaseRequest.access,
 	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'comment'),
 });

@@ -140,8 +140,8 @@ export const PURCHASE_REQUEST_PAY = gql`
 }`;
 
 export const SEARCH_PURCHASE_REQUEST = gql`
-	query search($query: String!,$page: Int!){
-		search(query: $query, page:$page) {
+	query search($query: String!,$currentPageSearch: Int!){
+		search(query: $query, page:$currentPageSearch) {
 			purchases {
 				data{
 				id

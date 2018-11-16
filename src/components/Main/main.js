@@ -36,7 +36,7 @@ import ReservationPayment from '../Reservation/reservationPayment';
 import Room from '../Room/room';
 import RoomCreate from '../Room/roomCreate';
 import RoomEdit from '../Room/roomEdit';
-import ComponentPurchase from '../PurchaseRequest/componentPurchase';
+import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Tokens from '../Tokens/tokens';
 import TokensReservation from '../Tokens/tokensReservation';
 
@@ -47,8 +47,7 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
-
-				<Route exact path='/' component={ComponentPurchase} />
+				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />

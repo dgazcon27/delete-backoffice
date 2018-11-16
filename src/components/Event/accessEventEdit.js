@@ -286,7 +286,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerEventAccess.alertType,
 	alertOpen: state.ReducerEventAccess.alertOpen,
 	withTickets: state.ReducerEventAccess.withTickets,
-	paginationPage: state.ReducerEventAccess.paginationPage,
+	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'id', 'withRoom', 'withTickets', 'stock', 'days', 'numberRooms', 'numberTickets', 'price', 'access', 'hotel', 'room'),
 });
 
