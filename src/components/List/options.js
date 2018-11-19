@@ -8,6 +8,7 @@ import Delete from '@material-ui/icons/Delete';
 import Payment from '@material-ui/icons/Payment';
 import VpnKey from '@material-ui/icons/VpnKey';
 import List from '@material-ui/icons/List';
+import Visibility from '@material-ui/icons/Visibility';
 import { compose } from 'react-apollo';
 
 import {
@@ -84,12 +85,28 @@ const Options = ({
 			>
 				<Link to={`${urls.edit}/${rowData.id}`} href={`${urls.edit}/${rowData.id}`}>
 					<IconButton>
+						<Visibility />
+					</IconButton>
+				</Link>
+			</Tooltip>
+		}
+
+		{active[3] &&
+			<Tooltip
+				enterDelay={200}
+				id='tooltip-controlled'
+				leaveDelay={100}
+				placement='top'
+				title='Editar Rol.'
+			>
+				<Link to={`${urls.edit}/${rowData.id}`} href={`${urls.edit}/${rowData.id}`}>
+					<IconButton>
 						<Edit />
 					</IconButton>
 				</Link>
 			</Tooltip>
 		}
-		{active[3] &&
+		{active[4] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -102,7 +119,7 @@ const Options = ({
 				</IconButton>
 			</Tooltip>
 		}
-		{active[4] &&
+		{active[5] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'
@@ -117,7 +134,7 @@ const Options = ({
 				/>
 			</Tooltip>
 		}
-		{active[5] &&
+		{active[6] &&
 			<Tooltip
 				enterDelay={200}
 				id='tooltip-controlled'

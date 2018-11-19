@@ -42,7 +42,7 @@ const Location = ({
 			columName: 'Nombre',
 			jsonPath: 'name',
 		}],
-		arrayActive: [false, false, true, true, false, false],
+		arrayActive: [false, false, false, true, true, false, false],
 		urls: {
 			list: {
 				type: '',

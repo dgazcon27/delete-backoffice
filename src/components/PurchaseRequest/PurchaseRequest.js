@@ -63,7 +63,7 @@ const PurchaseRequest = ({
 			columName: 'Evento',
 			jsonPath: 'event.name',
 		}],
-		arrayActive: [true, true, true, true, false, false],
+		arrayActive: [true, true, true, false, true, false, false],
 		urls: {
 			list: {
 				type: 'viewModal',

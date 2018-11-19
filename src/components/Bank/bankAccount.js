@@ -50,7 +50,7 @@ const BankAccountNew = ({
 			columName: 'Moneda',
 			jsonPath: 'currency',
 		}],
-		arrayActive: [false, false, true, true, false, false],
+		arrayActive: [false, false, false, true, true, false, false],
 		urls: {
 			list: {
 				type: '',

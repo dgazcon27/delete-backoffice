@@ -55,7 +55,7 @@ const Payment = ({
 			columName: 'Fecha',
 			jsonPath: 'payment.created_at',
 		}],
-		arrayActive: [false, false, true, true, false, false],
+		arrayActive: [false, false, false, true, true, false, false],
 		urls: {
 			list: {
 				type: '',
