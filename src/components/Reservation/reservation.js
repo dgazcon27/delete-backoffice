@@ -1,266 +1,156 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-	compose,
-	graphql,
-	Query,
-} from 'react-apollo';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Delete from '@material-ui/icons/Delete';
-import Payment from '@material-ui/icons/Payment';
-import Button from '@material-ui/core/Button';
-import Add from '@material-ui/icons/Add';
-import Visibility from '@material-ui/icons/Visibility';
-import {
-	Modal,
-	Paper,
-	Table,
-	Tooltip,
-	TableRow,
-	TableBody,
-	TableHead,
-	TableCell,
-	IconButton,
-	TableFooter,
-	TablePagination,
-} from '@material-ui/core';
-import styles from './reservationCss';
+import { compose, graphql } from 'react-apollo';
+import ContainerList from '../List/containerList';
+import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	setReservation,
 	deleteReservation,
 } from '../../actions/Reservation/actionsCreators';
+
 import {
 	GET_RESERVATIONS,
 	DELETE_RESERVATION,
 } from '../../queries/reservation';
-import Loading from '../Loading/loading';
 
 const Reservation = ({
-	id,
-	isOpen,
-	classes,
-	modalType,
-	statusValue,
+	objectStateReservation,
+	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
-	actionEditReservation,
-	paginationPage,
-	actionDeleteReservation,
+	actionDelete,
 	deleteReservationMutation,
-}) => (
-	<Query query={GET_RESERVATIONS} variables={{ paginationPage }}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<div>
-						<Loading />
-					</div>
-				);
-			}
-			if (error) {
-				return (
-					<div>
-						Error :(
-					</div>
-				);
-			}
-			return (
-				<div>
-					<div>
-						<h5>
-							Paquetes
-						</h5>
-						<div className={classes.search}>
-							<h5 className={classes.searchAlignRigth}>
-								<Link to='/reservation-create' href='/reservation-create' >
-									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
-										<Add className={classes.marginIcon} />
-										Agregar Nuevo
-									</Button>
-								</Link>
-							</h5>
-						</div>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Cliente</TableCell>
-										<TableCell>Pendiente por pagar</TableCell>
-										<TableCell>Habitación</TableCell>
-										<TableCell>Días</TableCell>
-										<TableCell>Cantidad</TableCell>
-										<TableCell className={classes.alignRightOption}>
-												Opciones
-										</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{data.reservations.data.map(reservation => (
-										<TableRow key={reservation.id}>
-											<TableCell>
-												{reservation.client.name} {reservation.client.lastName}
-											</TableCell>
-											<TableCell>{reservation.pendingPayment}</TableCell>
-											<TableCell>{reservation.room.name}</TableCell>
-											<TableCell>{reservation.days}</TableCell>
-											<TableCell>{reservation.quantity}</TableCell>
-											<TableCell className={classes.alignRight}>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Ver reservación'
-												>
-													<Link to={`/reservation-edit/${reservation.id}`}>
-														<IconButton>
-															<Visibility />
-														</IconButton>
-													</Link>
-												</Tooltip>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Realizar Pago'
-												>
-													<Link to='/reservation-payment' href='/reservation-payment'>
-														<IconButton
-															onClick={() => {
-																actionEditReservation(reservation);
-															}}
-														>
-															<Payment />
-														</IconButton>
-													</Link>
-												</Tooltip>
-												<Tooltip
-													enterDelay={200}
-													id='tooltip-controlled'
-													leaveDelay={100}
-													placement='top'
-													title='Eliminar Reservación'
-												>
-													<IconButton onClick={() => { actionOpenModal('delete', reservation); }}>
-														<Delete />
-													</IconButton>
-												</Tooltip>
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={data.reservations.total}
-											rowsPerPage={10}
-											page={paginationPage}
-											rowsPerPageOptions={[10]}
-											colSpan={6}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
-					<Modal
-						open={isOpen}
-						className={classNames(classes.modalOpenStyle)}
-						disableAutoFocus={false}
-						onBackdropClick={() => actionCloseModal()}
-					>
-						<div>
-							{modalType === 'edit' &&
-							<Paper>
-								<h1>
-									contenido edit modal
-								</h1>
-								<button onClick={actionCloseModal}>
-											cerrar
-								</button>
-							</Paper>
-							}
-							{modalType === 'delete' &&
-								<Paper className={classNames(classes.paperOnModal)}>
-									<h6>
-										Eliminar Reservación
-									</h6>
-									<p>
-										¿Estas seguro que desea eliminar la reservación {id} ?
-									</p>
-									<span>
-										<IconButton
-											onClick={() => {
-												actionDeleteReservation(
-													id,
-													statusValue,
-													paginationPage,
-													deleteReservationMutation,
-												);
-											}}
-										>
-											Si
-										</IconButton>
-										&nbsp;
-										&nbsp;
-										<IconButton onClick={actionCloseModal}>
-											No
-										</IconButton>
-									</span>
-								</Paper>
-							}
-						</div>
-					</Modal>
-				</div>
-			);
-		}}
-	</Query>
-);
+}) => {
+	const objectQuery = {
+		queryComponent: GET_RESERVATIONS,
+	};
+
+	const objectSearch = {
+		showButton: true,
+		showSearch: false,
+		titleButton: 'agregar nuevo',
+		url: '/reservation-create',
+	};
+
+	const objectList = {
+		titlesColumns: [{
+			id: 1,
+			columName: 'Cliente',
+			jsonPath: 'client.name',
+		},
+		{
+			id: 2,
+			columName: 'Pendiente por pagar',
+			jsonPath: 'pendingPayment',
+		},
+		{
+			id: 3,
+			columName: 'Habitación',
+			jsonPath: 'room.name',
+		},
+		{
+			id: 4,
+			columName: 'Días',
+			jsonPath: 'days',
+		},
+		{
+			id: 5,
+			columName: 'Cantidad',
+			jsonPath: 'quantity',
+		}],
+		arrayActive: [false, true, true, false, true, false, false],
+		urls: {
+			list: {
+				type: '',
+				path: '',
+			},
+			payment: 'reservation-payment',
+			edit: '/reservation-edit',
+		},
+	};
+
+	const objectPath = {
+		currentComponent: {
+			dataPath: 'reservations.data',
+			totalPath: 'reservations.total',
+		},
+		searchComponent: {
+			dataPath: '',
+			totalPath: '',
+		},
+	};
+
+	const objectModal = {
+		componentState: Object.assign({}, objectStateReservation),
+		paginationPage,
+		messages: {
+			edit: {
+				title: '',
+			},
+			block: {
+				titleStatus1: '',
+				msgStatus1: '',
+				titleStatus2: '',
+				msgStatus2: '',
+			},
+			delete: {
+				title: 'Eliminar Reservación',
+				msg: '¿Estas seguro que desea eliminar esta reservación?',
+			},
+		},
+	};
+
+	const actions = {
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+		delete: actionDelete,
+		queryDelete: deleteReservationMutation,
+	};
+
+	return (
+		<div>
+			<Search
+				showButton={objectSearch.showButton}
+				showSearch={objectSearch.showSearch}
+				titleButton={objectSearch.titleButton}
+				url={objectSearch.url}
+			/>
+			<ContainerList
+				queries={objectQuery}
+				propsSearchComponent={objectSearch}
+				propsListComponent={objectList}
+				propsModalComponent={objectModal}
+				objectPath={objectPath}
+				actions={actions}
+			/>
+		</div>
+	);
+};
 
 Reservation.propTypes = {
-	isOpen: PropTypes.bool,
-	modalType: PropTypes.string,
-	statusValue: PropTypes.number,
-	id: PropTypes.number.isRequired,
-	classes: PropTypes.object.isRequired,
-	actionEditReservation: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDeleteReservation: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateReservation: PropTypes.object.isRequired,
+	paginationPage: PropTypes.number.isRequired,
 	deleteReservationMutation: PropTypes.func.isRequired,
 };
 
-Reservation.defaultProps = {
-	isOpen: false,
-	modalType: '',
-	statusValue: 0,
-};
-
 const mapStateToProps = state => ({
-	id: state.ReducerReservation.id,
-	isOpen: state.ReducerReservation.isOpen,
-	modalType: state.ReducerReservation.modalType,
-	statusValue: state.ReducerReservation.statusValue,
 	paginationPage: state.ReducerPagination.paginationPage,
+	objectStateReservation: state.ReducerReservation,
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionOpenModal: (modalType, _reservation) => dispatch(openModal(modalType, _reservation)),
-	actionDeleteReservation: (id, statusValue, paginationPage, deleteReservationMutation) =>
-		dispatch(deleteReservation(id, statusValue, paginationPage, deleteReservationMutation)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionEditReservation: reservation => dispatch(setReservation(reservation)),
+	actionDelete: (componentState, paginationPage, deleteReservationMutation) =>
+		dispatch(deleteReservation(componentState, paginationPage, deleteReservationMutation)),
 });
 
 export default compose(
 	graphql(DELETE_RESERVATION, { name: 'deleteReservationMutation' }),
-	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(Reservation);
