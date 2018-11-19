@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import Users from './users';
 import { setSearchUsers } from '../../actions/Search/actionCreatorSearchRoles';
-import styles from './usersCss';
+import styles from '../Shared/sharedStyles';
+import BackButton from '../widget/BackButton';
 
 const ComponentUsers = ({
 	query,
@@ -18,6 +19,9 @@ const ComponentUsers = ({
 	<div>
 		<h5 className={classes.title}>
 			Usuarios
+			<div className={classes.backbutton}>
+				<BackButton />
+			</div>
 		</h5>
 
 		<div className={classes.search}>

@@ -51,7 +51,7 @@ let Payment = ({
 		<h3 className={classes.formTitle}>Pagos</h3>
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Generar Pago</h6>
+				<h6 className={classes.formTitle}>Registrar Pago</h6>
 				<div className={classes.formStyle}>
 					<Field
 						name='amount'

@@ -72,7 +72,7 @@ const Items = ({
 				<Link to='/tokens' href='/tokens'>
 					<ListItem button>
 						<ListItemIcon>
-							<LocationOn />
+							<AttachMoney />
 						</ListItemIcon>
 						<ListItemText primary='Ventas' />
 					</ListItem>
@@ -80,7 +80,7 @@ const Items = ({
 				<Link to='/tokens-reservation' href='/tokens-reservation'>
 					<ListItem button>
 						<ListItemIcon>
-							<LocationOn />
+							<RoomService />
 						</ListItemIcon>
 						<ListItemText primary='Paquetes' />
 					</ListItem>

@@ -39,25 +39,23 @@ export const BankAccount = () => (
 				);
 			}
 			return (
-				<div>
-					<Field
-						name='bankAccount'
-						type='select'
-						label='bankAccount'
-						component={renderSelectField}
-						validate={required}
-						className='container'
-					>
-						{data.bankAccountss.map(bankAccount => (
-							<MenuItem
-								key={bankAccount.id}
-								value={bankAccount.id}
-							>
-								{`${bankAccount.accountNumber} - ${bankAccount.owner.name} ${bankAccount.owner.lastName}`}
-							</MenuItem>
-						))}
-					</Field>
-				</div>
+				<Field
+					name='bankAccount'
+					type='select'
+					label='Cuenta de Banco'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.bankAccountss.map(bankAccount => (
+						<MenuItem
+							key={bankAccount.id}
+							value={bankAccount.id}
+						>
+							{`${bankAccount.accountNumber} - ${bankAccount.owner.name} ${bankAccount.owner.lastName}`}
+						</MenuItem>
+					))}
+				</Field>
 			);
 		}}
 	</Query>

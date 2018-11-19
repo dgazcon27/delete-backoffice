@@ -36,6 +36,7 @@ import {
 	TypeInvited,
 } from '../commonComponent';
 import NewUsersCreate from '../Users/newUsersCreate';
+import BackButton from '../widget/BackButton';
 
 let InvitedCreate = ({
 	newUserModal,
@@ -57,7 +58,11 @@ let InvitedCreate = ({
 	email,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Invitados</h3>
+		<h3 className={classes.formTitle}>Invitados
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<h6 className={classes.formTitle}>Nuevo invitado</h6>
 			<form>

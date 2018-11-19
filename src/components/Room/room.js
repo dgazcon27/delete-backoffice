@@ -27,7 +27,9 @@ import {
 } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-import styles from './roomCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 import {
 	openModal,
 	closeModal,
@@ -82,6 +84,9 @@ const Room = ({
 					<div>
 						<h5>
 							Habitaciones
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>

@@ -27,7 +27,9 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-import styles from './userTypeCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 import {
 	changePage,
 	openModal,
@@ -75,6 +77,9 @@ const Event = ({
 					<div>
 						<h5 className={classes.title}>
 							Eventos
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>

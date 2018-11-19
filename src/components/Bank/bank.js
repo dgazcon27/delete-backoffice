@@ -27,7 +27,7 @@ import {
 	TablePagination,
 } from '@material-ui/core';
 
-import styles from './userTypeCss';
+import styles from '../Shared/sharedStyles';
 import {
 	changePage,
 	deleteBank,
@@ -41,6 +41,7 @@ import {
 } from '../../queries/bank';
 
 import Loading from '../Loading/loading';
+import BackButton from '../widget/BackButton';
 
 const Bank = ({
 	id,
@@ -76,6 +77,9 @@ const Bank = ({
 						<h5 className={classes.title}>
 							Bancos
 						</h5>
+						<div className={classes.backbutton}>
+							<BackButton />
+						</div>
 						<h5 className={classes.searchAlignRigth}>
 							<Link to='/bank-create' href='/bank-create' >
 								<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>

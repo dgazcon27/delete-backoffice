@@ -9,6 +9,7 @@ import Add from '@material-ui/icons/Add';
 import { setSearchInvited } from '../../actions/Search/actionCreatorSearchRoles';
 import Guest from './guest';
 import styles from '../Shared/sharedStyles';
+import BackButton from '../widget/BackButton';
 
 const ComponentInvited = ({
 	query,
@@ -18,7 +19,11 @@ const ComponentInvited = ({
 	<div>
 		<h5 className={classes.title}>
 			Invitados
+			<div className={classes.backbutton}>
+				<BackButton />
+			</div>
 		</h5>
+
 
 		<div className={classes.search}>
 			<h5 className={classes.searchAlignRigth}>

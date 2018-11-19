@@ -26,7 +26,9 @@ import {
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
-import styles from './userTypeCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 import {
 	changePageAccount,
 	deleteBank,
@@ -74,6 +76,9 @@ const BankAccount = ({
 					<div>
 						<h5 className={classes.title}>
 							Cuentas Bancarias
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>

@@ -13,7 +13,9 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './userTypeCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 import { required, empty } from '../validations/validations';
 import { renderTextField } from '../RenderFields/renderFields';
 import { EDIT_PURCHASE_REQ } from '../../queries/purchaseRequest';
@@ -21,7 +23,6 @@ import {
 	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
-import BackButton from '../widget/BackButton';
 
 import { editPurchaseReq } from '../../actions/PurchaseRequest/actionsCreators';
 
@@ -32,7 +33,11 @@ let PurchaseRequestEdit = ({
 	actionCloseAlert,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Solicitud de Compra</h3>
+		<h3 className={classes.formTitle}>Solicitud de Compra
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Solicitud de Compra</h6>
@@ -103,7 +108,7 @@ let PurchaseRequestEdit = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='comment'
+						label='Comentario'
 						disabled
 					/>
 				</div>

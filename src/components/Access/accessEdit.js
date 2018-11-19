@@ -13,7 +13,9 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './accessCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
+
 import './styles.css';
 import {
 	required,
@@ -25,7 +27,6 @@ import {
 	closeAlert,
 	editAccess,
 } from '../../actions/Access/actionsCreators';
-import BackButton from '../widget/BackButton';
 
 import {
 	Location,
@@ -46,7 +47,11 @@ let AccessEdit = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Acceso</h3>
+		<h3 className={classes.formTitle}>Acceso
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Acceso</h6>

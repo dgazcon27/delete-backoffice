@@ -134,7 +134,7 @@ let PurchaseRequestCreate = ({
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
-						label='comment'
+						label='Comentario'
 					/>
 				</div>
 				<button

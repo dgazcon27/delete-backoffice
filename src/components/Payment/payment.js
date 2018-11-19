@@ -24,7 +24,7 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
-import styles from './paymentCss';
+import styles from '../Shared/sharedStyles';
 import {
 	openModal,
 	closeModal,
@@ -36,6 +36,7 @@ import {
 	DELETE_PAYMENT,
 } from '../../queries/payment';
 import Loading from '../Loading/loading';
+import BackButton from '../widget/BackButton';
 
 const Payment = ({
 	id,
@@ -70,8 +71,11 @@ const Payment = ({
 			return (
 				<div>
 					<div>
-						<h5>
+						<h5 className={classes.title}>
 							Pagos
+							<div className={classes.backbutton}>
+								<BackButton />
+							</div>
 						</h5>
 						<Paper>
 							<Table>
