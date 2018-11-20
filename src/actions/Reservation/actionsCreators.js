@@ -1,8 +1,8 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
+	OPEN_MODAL_RESERVATION,
+	OPEN_ALERT_RESERVATION,
+	CLOSE_ALERT_RESERVATION,
+	CLOSE_MODAL_RESERVATION,
 	RST_CLEAN_STATE,
 	SET_RESERVATION,
 	SET_USER_RESERVATION,
@@ -99,25 +99,25 @@ export const cleanState = () => ({
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_RESERVATION,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_RESERVATION,
 	},
 });
 
 
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_RESERVATION,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_RESERVATION,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_RESERVATION,
 	payload: {
-		description: CLOSE_ALERT,
+		description: CLOSE_ALERT_RESERVATION,
 	},
 });
 
@@ -165,10 +165,10 @@ export const getReservationById = id => (
 );
 
 export const openModal = (modalType, _payment) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_RESERVATION,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_RESERVATION,
 		statusValue: 1,
 		name: _payment.id,
 		id: _payment.id,

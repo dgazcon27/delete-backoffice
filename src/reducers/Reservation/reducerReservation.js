@@ -1,9 +1,9 @@
 import {
 	SET_RESERVATION,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
+	OPEN_MODAL_RESERVATION,
+	OPEN_ALERT_RESERVATION,
+	CLOSE_MODAL_RESERVATION,
+	CLOSE_ALERT_RESERVATION,
 	RST_CLEAN_STATE,
 	DELETE_RESERVATION,
 	SET_USER_RESERVATION,
@@ -79,7 +79,7 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_RESERVATION:
 			return ({
 				...state,
 				isOpen: true,
@@ -87,7 +87,7 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_RESERVATION:
 			return ({
 				...state,
 				isOpen: false,
@@ -123,13 +123,13 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				purchaseRequest: 0,
 				currentPageSearch: 0,
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_RESERVATION:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_RESERVATION:
 			return ({
 				...state,
 				alertOpen: false,
