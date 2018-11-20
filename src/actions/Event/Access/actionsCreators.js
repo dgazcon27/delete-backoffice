@@ -1,10 +1,8 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
-	PAGE_UP,
-	PAGE_DOWN,
+	OPEN_MODAL_ACCESS_EVENT,
+	OPEN_ALERT_ACCESS_EVENT,
+	CLOSE_ALERT_ACCESS_EVENT,
+	CLOSE_MODAL_ACCESS_EVENT,
 	CLEAN_STATE,
 	AE_SET_ACCESS_EVENT,
 	SET_WITH_ROOM,
@@ -13,6 +11,8 @@ import {
 	SET_HOTEL,
 	AE_SET_NUMBER_ROOM,
 	AE_SET_NUMBER_TICKET,
+	PAGE_UP,
+	PAGE_DOWN,
 } from './actionsTypes';
 
 import { GET_ACCESS, GET_ACCESS_BY_ID } from '../../../queries/event';
@@ -27,10 +27,10 @@ const checkMessageError = (res) => {
 };
 
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_ACCESS_EVENT,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_ACCESS_EVENT,
 	},
 });
 
@@ -44,10 +44,10 @@ export const cleanState = () => ({
 export const openModal = (modalType, event) => {
 	const statusValue = event.active ? 1 : 2;
 	return {
-		type: OPEN_MODAL,
+		type: OPEN_MODAL_ACCESS_EVENT,
 		payload: {
 			modalType,
-			description: OPEN_MODAL,
+			description: OPEN_MODAL_ACCESS_EVENT,
 			id: event.id,
 			statusValue,
 		},
@@ -113,16 +113,16 @@ export const getEventAccessById = id => (
 );
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_ACCESS_EVENT,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_ACCESS_EVENT,
 	},
 });
 
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_ACCESS_EVENT,
 	payload: {
-		description: CLOSE_ALERT,
+		description: CLOSE_ALERT_ACCESS_EVENT,
 	},
 });
 

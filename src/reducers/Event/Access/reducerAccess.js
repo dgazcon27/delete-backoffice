@@ -1,8 +1,8 @@
 import {
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
+	OPEN_MODAL_ACCESS_EVENT,
+	OPEN_ALERT_ACCESS_EVENT,
+	CLOSE_MODAL_ACCESS_EVENT,
+	CLOSE_ALERT_ACCESS_EVENT,
 	SET_EVENT,
 	SET_WITH_ROOM,
 	SET_WITH_TICKET,
@@ -41,7 +41,7 @@ const initialState = {
 
 const ReducerEventAccess = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_ACCESS_EVENT:
 			return ({
 				...state,
 				isOpen: false,
@@ -49,13 +49,13 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_ACCESS_EVENT:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_ACCESS_EVENT:
 			return ({
 				...state,
 				alertOpen: false,
@@ -104,7 +104,7 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				hotel: action.payload.hotel,
 				roomE: action.payload.roomE,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_ACCESS_EVENT:
 			return ({
 				...state,
 				isOpen: true,
