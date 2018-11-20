@@ -1,10 +1,10 @@
 import {
 	SET_ROL,
 	SET_NAME,
-	OPEN_MODAL,
-	OPEN_ALERT,
-	CLOSE_MODAL,
-	CLOSE_ALERT,
+	OPEN_MODAL_PURCHASE_REQ,
+	OPEN_ALERT_PURCHASE_REQ,
+	CLOSE_MODAL_PURCHASE_REQ,
+	CLOSE_ALERT_PURCHASE_REQ,
 	CLEAN_STATE,
 	EDIT_USER_TYPE,
 	SET_DESCRIPTION,
@@ -101,7 +101,7 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				id: action.payload.id,
 				statusValue: action.payload.status,
 			});
-		case OPEN_MODAL:
+		case OPEN_MODAL_PURCHASE_REQ:
 			return ({
 				...state,
 				isOpen: true,
@@ -110,7 +110,7 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL:
+		case CLOSE_MODAL_PURCHASE_REQ:
 			return ({
 				...state,
 				isOpen: false,
@@ -118,13 +118,13 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				name: '',
 				descripcion: '',
 			});
-		case OPEN_ALERT:
+		case OPEN_ALERT_PURCHASE_REQ:
 			return ({
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
 			});
-		case CLOSE_ALERT:
+		case CLOSE_ALERT_PURCHASE_REQ:
 			return ({
 				...state,
 				alertOpen: false,

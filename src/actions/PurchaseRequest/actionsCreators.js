@@ -1,11 +1,11 @@
 import {
 	PR_SET_USER,
 	SET_NAME,
-	OPEN_MODAL,
+	OPEN_MODAL_PURCHASE_REQ,
 	MODAL_USER,
-	OPEN_ALERT,
-	CLOSE_ALERT,
-	CLOSE_MODAL,
+	OPEN_ALERT_PURCHASE_REQ,
+	CLOSE_ALERT_PURCHASE_REQ,
+	CLOSE_MODAL_PURCHASE_REQ,
 	CLEAN_STATE,
 	SET_PURCHASE_REQ,
 	SET_TO_PAY,
@@ -89,22 +89,22 @@ export const cleanState = () => ({
 });
 
 export const closeModal = () => ({
-	type: CLOSE_MODAL,
+	type: CLOSE_MODAL_PURCHASE_REQ,
 	payload: {
-		description: CLOSE_MODAL,
+		description: CLOSE_MODAL_PURCHASE_REQ,
 	},
 });
 export const openAlert = alertType => ({
-	type: OPEN_ALERT,
+	type: OPEN_ALERT_PURCHASE_REQ,
 	payload: {
 		alertType,
-		description: OPEN_ALERT,
+		description: OPEN_ALERT_PURCHASE_REQ,
 	},
 });
 export const closeAlert = () => ({
-	type: CLOSE_ALERT,
+	type: CLOSE_ALERT_PURCHASE_REQ,
 	payload: {
-		description: CLOSE_ALERT,
+		description: CLOSE_ALERT_PURCHASE_REQ,
 	},
 });
 export const deletePurchaseReq = (obj, paginationPage, deletePurchaseReqMutation) => {
@@ -119,10 +119,10 @@ export const deletePurchaseReq = (obj, paginationPage, deletePurchaseReqMutation
 	};
 };
 export const openModal = (modalType, bank) => ({
-	type: OPEN_MODAL,
+	type: OPEN_MODAL_PURCHASE_REQ,
 	payload: {
 		modalType,
-		description: OPEN_MODAL,
+		description: OPEN_MODAL_PURCHASE_REQ,
 		name: bank.name,
 		id: bank.id,
 	},
