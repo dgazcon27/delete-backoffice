@@ -169,5 +169,3 @@ export default compose(
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, null),
 )(Options);
-
-// onClick={() => actions.edit(rowData.id, rowData.name, rowData.description)}
