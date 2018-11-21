@@ -35,7 +35,7 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Lista de Accesos'
+				title='Listar'
 			>
 				<Link to={{ pathname: `${urls.list.path}/${rowData.id}` }}>
 					<IconButton>
@@ -51,7 +51,7 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Lista de Accesos'
+				title='Listar'
 			>
 				<IconButton onClick={() => actions.openModal('pagos', rowData)}>
 					<List />
@@ -65,7 +65,7 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Realizar pago'
+				title='Pagar'
 			>
 				<Link to={`${urls.payment}`} href={`${urls.payment}`}>
 					<IconButton>
@@ -81,7 +81,7 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Editar Rol.'
+				title='Visualizar'
 			>
 				<Link to={`${urls.edit}/${rowData.id}`} href={`${urls.edit}/${rowData.id}`}>
 					<IconButton>
@@ -97,7 +97,7 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Editar Rol.'
+				title='Editar'
 			>
 				<Link to={`${urls.edit}/${rowData.id}`} href={`${urls.edit}/${rowData.id}`}>
 					<IconButton>
@@ -112,7 +112,7 @@ const Options = ({
 				id='tooltip-controlled'
 				leaveDelay={100}
 				placement='top'
-				title='Eliminar Rol'
+				title='Eliminar'
 			>
 				<IconButton>
 					<Delete onClick={() => actions.openModal('delete', rowData)} />
