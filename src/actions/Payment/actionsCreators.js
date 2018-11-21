@@ -35,7 +35,7 @@ export const setPayment = payment => ({
 	},
 });
 
-export const getPaymentById = (id, fk) => (
+export const getPaymentById = id => (
 	async (dispatch) => {
 		client
 			.query({
@@ -44,7 +44,7 @@ export const getPaymentById = (id, fk) => (
 			})
 			.then((res) => {
 				const { payment } = res.data;
-				dispatch(setPayment({ ...payment, purchaseRequest: Number(fk) }));
+				dispatch(setPayment({ ...payment }));
 			})
 			.catch(() => {});
 	}

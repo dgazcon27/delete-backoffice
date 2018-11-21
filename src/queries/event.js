@@ -11,9 +11,6 @@ export const GET_EVENTS = gql`
 				presaleClosure
 				eventStart
 				eventClosure
-				status {
-					id
-				}
 				state{
 					name
 					id

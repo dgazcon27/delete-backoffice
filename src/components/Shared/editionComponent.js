@@ -83,7 +83,7 @@ class EditionComponent extends React.Component {
 				break;
 			case 'pre-sale-edit':
 				({ fk } = this.props.match.params);
-				this.props.dispatch(getPaymentById(id, fk));
+				this.props.dispatch(getPaymentById(id));
 				this.setState({ tag: <PaymentEdit /> });
 				break;
 			case 'Departments-edit':

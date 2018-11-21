@@ -16,9 +16,6 @@ export const GET_ACCESS = gql`
 					id
 					name
 				}
-				status{
-					id
-				}
 			}
 			total
 		}
