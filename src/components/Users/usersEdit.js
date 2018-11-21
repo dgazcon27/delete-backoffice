@@ -13,7 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './usersCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	empty,
@@ -49,7 +49,11 @@ let UsersEdit = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h4>Usuario</h4>
+		<h4>Usuario
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h4>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Usuario</h6>

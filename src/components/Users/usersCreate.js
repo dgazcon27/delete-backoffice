@@ -13,7 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './usersCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	empty,
@@ -51,7 +51,12 @@ let UsersCreate = ({
 	submitting,
 	handleSubmit,
 }) => (
-	<div><h3 className={classes.formTitle}>Usuario</h3>
+	<div>
+		<h3 className={classes.formTitle}>Usuario
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Usuario</h6>

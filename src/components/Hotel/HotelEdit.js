@@ -17,13 +17,12 @@ import {
 	updateHotel,
 	getHotelById,
 } from '../../actions/Hotel/actionsCreators';
-import BackButton from '../widget/BackButton';
 import {
 	Aevents,
 	Providers,
 } from '../commonComponent';
-
-import styles from './bankCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import { UPDATE_HOTEL } from '../../queries/hotels';
 

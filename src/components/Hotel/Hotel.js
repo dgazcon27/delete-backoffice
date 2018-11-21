@@ -17,6 +17,8 @@ import {
 	DELETE_HOTEL,
 } from '../../queries/hotels';
 
+import BackButton from '../widget/BackButton';
+
 const Hotel2 = ({
 	objectStateHotel,
 	paginationPage,
@@ -102,6 +104,7 @@ const Hotel2 = ({
 
 	return (
 		<div>
+			<BackButton />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

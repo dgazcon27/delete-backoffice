@@ -13,7 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './userTypeCss';
+import styles from '../Shared/sharedStyles';
 import { required, empty } from '../validations/validations';
 import { renderTextField } from '../RenderFields/renderFields';
 import { EDIT_ROL } from '../../queries/userType';
@@ -37,7 +37,11 @@ let UserTypeEdit = ({
 	submitting,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Roles</h3>
+		<h3 className={classes.formTitle}>Roles
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Rol</h6>

@@ -198,9 +198,9 @@ export const createPurchaseReq = (
 		createPurchaseReqMutation({
 			variables:
 			{
+				user,
 				createdBy,
 				updatedBy,
-				user,
 				access: myValues.access,
 				event: myValues.event,
 				comment: myValues.comment,

@@ -74,7 +74,7 @@ const Items = ({
 				<Link to='/tokens' href='/tokens'>
 					<ListItem button onClick={() => actionResetPagination()}>
 						<ListItemIcon>
-							<LocationOn />
+							<AttachMoney />
 						</ListItemIcon>
 						<ListItemText primary='Ventas' />
 					</ListItem>
@@ -82,7 +82,7 @@ const Items = ({
 				<Link to='/tokens-reservation' href='/tokens-reservation'>
 					<ListItem button onClick={() => actionResetPagination()}>
 						<ListItemIcon>
-							<LocationOn />
+							<RoomService />
 						</ListItemIcon>
 						<ListItemText primary='Paquetes' />
 					</ListItem>

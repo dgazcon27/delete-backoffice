@@ -60,7 +60,7 @@ export const getUserByDNI = dni => (
 					dispatch(setUser(aux));
 				})
 				.catch((err) => {
-					if (err) {
+					if (err.graphQLErrors.length > 0) {
 						const { message } = err.graphQLErrors[0];
 						if (message.indexOf('Cannot return null') >= 0) {
 							dispatch(setModal('non_payment', true));

@@ -13,7 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './bankCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	required,
@@ -42,7 +42,11 @@ let BankCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Crear Banco</h3>
+		<h3 className={classes.formTitle}>Crear Banco
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Banco</h6>

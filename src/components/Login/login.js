@@ -33,43 +33,46 @@ const Login = ({
 			</Grid>
 
 			<Grid container className={classes.centerLogin}>
-				<div className={`${classes.paper} ${classes.login}`}>
-					<label className={classes.label} htmlFor='Email'>
-						Usuario o email
-						<input
-							id='email'
-							className={classes.inputs}
-							type='email'
-							defaultValue={email}
-							onChange={actionSetEmail}
-							placeholder='Email'
-						/>
-					</label>
+				<form onSubmit={(ev) => { ev.preventDefault(); }}>
+					<div className={`${classes.paper} ${classes.login}`}>
+						<label className={classes.label} htmlFor='Email'>
+							Usuario o email
+							<input
+								id='email'
+								className={classes.inputs}
+								type='email'
+								defaultValue={email}
+								onChange={actionSetEmail}
+								placeholder='Email'
+							/>
+						</label>
 
-					<label className={classes.label} htmlFor='password'>
-						Contraseña
-						<input
-							id='password'
-							className={classes.inputs}
-							type='password'
-							defaultValue={password}
-							onChange={actionSetPassword}
-							placeholder='Contraseña'
-						/>
-					</label>
+						<label className={classes.label} htmlFor='password'>
+							Contraseña
+							<input
+								id='password'
+								className={classes.inputs}
+								type='password'
+								defaultValue={password}
+								onChange={actionSetPassword}
+								placeholder='Contraseña'
+							/>
+						</label>
 
-					<div className={classes.marginButtons}>
-						<a href='/' className={classes.recoverPassword}>Olvidé mi contraseña</a>
-						<Button
-							className={classes.enterButton}
-							color='primary'
-							onClick={() => actionLogin(email, password)}
-							variant='raised'
-						>
-							Ingresar
-						</Button>
+						<div className={classes.marginButtons}>
+							<a href='/' className={classes.recoverPassword}>Olvidé mi contraseña</a>
+							<Button
+								type='submit'
+								className={classes.enterButton}
+								color='primary'
+								onClick={() => actionLogin(email, password)}
+								variant='raised'
+							>
+								Ingresar
+							</Button>
+						</div>
 					</div>
-				</div>
+				</form>
 				{error &&
 					<div className={classes.error}>
 						Usuario y contraseña no concuerdan

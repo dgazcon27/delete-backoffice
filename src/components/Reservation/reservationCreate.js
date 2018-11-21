@@ -20,7 +20,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Search from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './reservationCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	required,
@@ -45,6 +45,7 @@ import {
 	setModal,
 } from '../../actions/Reservation/actionsCreators';
 import Loading from '../Loading/loading';
+import BackButton from '../widget/BackButton';
 
 const Room = ({
 	event,
@@ -177,7 +178,12 @@ let ReservationCreate = ({
 		}
 		{!load &&
 			<div>
-				<h3 className={classes.formTitle}>Nuevo Paquete</h3>
+				<h3 className={classes.formTitle}>
+					Nuevo Paquete
+					<div className={classes.backbuttonCreation}>
+						<BackButton />
+					</div>
+				</h3>
 				<Paper className={classes.createContainer}>
 					<form>
 						<h6 className={classes.formTitle}>Nuevo Paquete</h6>
@@ -258,7 +264,7 @@ let ReservationCreate = ({
 						<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateReservation(myValues.comment, client, purchaseRequest, myValues.room, myValues.days, myValues.quantity, paginationPage, createReservationMutation))} disabled={submitting} >
 							Crear
 						</button>
-						<Link to='/reservation' href='/reservation' className={classes.returnButton} >
+						<Link to='/reservation' className={classes.returnButton} >
 							Regresar
 						</Link>
 					</form>
@@ -338,8 +344,6 @@ let ReservationCreate = ({
 			message={<span id='message-id'>La Reservación fue creada con éxito.</span>}
 		/>
 		}
-
-
 	</div>
 );
 

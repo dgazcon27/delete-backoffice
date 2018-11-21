@@ -13,7 +13,8 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './zoneCss';
+import styles from '../Shared/sharedStyles';
+
 import {
 	required,
 	empty,
@@ -69,7 +70,11 @@ let ZoneCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Zonas</h3>
+		<h3 className={classes.formTitle}>Zonas
+			<div className={classes.backbuttonCreation}>
+				<BackButton />
+			</div>
+		</h3>
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nueva Zona</h6>

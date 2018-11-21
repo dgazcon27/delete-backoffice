@@ -96,6 +96,9 @@ const styles = () => ({
 	panelColor: {
 		color: '#3f3f3f',
 	},
+	maxWidth: {
+		width: '100%',
+	},
 });
 
 export default styles;

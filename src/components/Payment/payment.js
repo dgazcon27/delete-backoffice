@@ -15,6 +15,8 @@ import {
 	DELETE_PAYMENT,
 } from '../../queries/payment';
 
+import BackButton from '../widget/BackButton';
+
 const Payment = ({
 	objectStatePayment,
 	paginationPage,
@@ -108,6 +110,7 @@ const Payment = ({
 
 	return (
 		<div>
+			<BackButton />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

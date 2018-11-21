@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import Location from './location';
 import { setSearch } from '../../actions/Search/actionCreatorSearchRoles';
-import styles from './locationCss';
+import BackButton from '../widget/BackButton';
+import styles from '../Shared/sharedStyles';
 
 const ComponentLocation = ({
 	query,
@@ -18,6 +19,9 @@ const ComponentLocation = ({
 	<div>
 		<h5 className={classes.title}>
 			Áreas
+			<div className={classes.backbutton}>
+				<BackButton />
+			</div>
 		</h5>
 
 		<div className={classes.search}>
