@@ -33,7 +33,7 @@ import {
 import BackButton from '../widget/BackButton';
 
 
-import { Status, SelectCountry, SelectState } from '../commonComponent';
+import { SelectCountry, SelectState } from '../commonComponent';
 
 const validate = (values) => {
 	const errors = {};
@@ -134,9 +134,6 @@ let EventCreate = ({
 				</div>
 				<div className={classes.formStyle}>
 					<SelectState states={states} />
-				</div>
-				<div className={classes.formStyle}>
-					<Status />
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -259,7 +256,6 @@ const mapStateToProps = state => ({
 		'presaleClosure',
 		'eventStart',
 		'eventClosure',
-		'status',
 		'state',
 	),
 });

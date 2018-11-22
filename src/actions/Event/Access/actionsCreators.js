@@ -91,6 +91,7 @@ export const setAccess = (access) => {
 			room,
 			hotelE,
 			roomE,
+			status: access.status.id,
 		},
 	};
 };

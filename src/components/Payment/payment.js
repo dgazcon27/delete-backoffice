@@ -40,22 +40,22 @@ const Payment = ({
 		titlesColumns: [{
 			id: 1,
 			columName: 'Monto',
-			jsonPath: 'payment.amount',
+			jsonPath: 'amount',
 		},
 		{
 			id: 2,
 			columName: 'Referencia',
-			jsonPath: 'payment.reference',
+			jsonPath: 'reference',
 		},
 		{
 			id: 3,
 			columName: 'Banco',
-			jsonPath: 'payment.bankAccount.bank.name',
+			jsonPath: 'bankAccount.bank.name',
 		},
 		{
 			id: 4,
 			columName: 'Fecha',
-			jsonPath: 'payment.created_at',
+			jsonPath: 'created_at',
 		}],
 		arrayActive: [false, false, true, false, true, false, false],
 		urls: {
@@ -66,6 +66,7 @@ const Payment = ({
 			payment: '',
 			edit: '/pre-sale-edit',
 		},
+		keyId: 'id',
 	};
 
 	const objectPath = {
@@ -100,7 +101,6 @@ const Payment = ({
 	};
 
 	const actions = {
-		//	edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
@@ -129,7 +129,6 @@ const Payment = ({
 };
 
 Payment.propTypes = {
-	// actionSetRol: PropTypes.func.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
@@ -144,7 +143,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	// actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionDelete: (componentState, paginationPage, deletePaymentMutation) =>

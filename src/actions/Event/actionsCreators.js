@@ -106,7 +106,6 @@ export const setEvent = event => ({
 		presaleClosure: event.presaleClosure,
 		eventStart: event.eventStart,
 		eventClosure: event.eventClosure,
-		status: event.status.id,
 		state: event.state.id,
 		country: event.state.country.id,
 	},

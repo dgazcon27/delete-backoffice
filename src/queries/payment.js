@@ -3,25 +3,21 @@ import gql from 'graphql-tag';
 export const GET_PAYMENTS = gql`
 	query payments($paginationPage:Int!) {
 		payments(page:$paginationPage) {
-			data{
-				payment{
+			data {
+				id
+				amount
+				reference
+				comment
+				type
+				created_at
+				bankAccount {
 					id
-					amount
-					reference
-					comment
-					type
-					created_at
-					bankAccount{
+					bank {
 						id
-						bank{
-							id
-							name
-						}
+						name
 					}
 				}
-				purchaseRequest{
-					id
-				}
+
 			}
 			total
 		}

@@ -41,7 +41,7 @@ import {
 	setNumberRooms,
 } from '../../actions/Event/Access/actionsCreators';
 
-import { Access } from '../commonComponent';
+import { Access, Status } from '../commonComponent';
 import {
 	Hotels,
 	Rooms,
@@ -106,6 +106,9 @@ let AccessEventEdit = class ClassAccessEventEdit extends React.Component {
 								label='Stock del Acceso'
 								className='yourclass'
 							/>
+						</div>
+						<div className={classes.formStyle}>
+							<Status />
 						</div>
 						<RadioGroup
 							aria-label='withTickets'
@@ -293,7 +296,21 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerEventAccess.alertOpen,
 	withTickets: state.ReducerEventAccess.withTickets,
 	paginationPage: state.ReducerPagination.paginationPage,
-	myValues: selector(state, 'id', 'withRoom', 'withTickets', 'stock', 'days', 'numberRooms', 'numberTickets', 'price', 'access', 'hotel', 'room'),
+	myValues: selector(
+		state,
+		'id',
+		'withRoom',
+		'withTickets',
+		'stock',
+		'days',
+		'numberRooms',
+		'numberTickets',
+		'price',
+		'access',
+		'hotel',
+		'room',
+		'status',
+	),
 });
 
 const mapDispatchToProps = dispatch => ({

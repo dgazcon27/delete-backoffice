@@ -15,7 +15,6 @@ const initialState = {
 	amount: '',
 	location: 0,
 	zone: 0,
-	status: 1,
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
@@ -36,7 +35,6 @@ const ReducerAccess = (state = initialState, action = {}) => {
 				currency: action.payload.currency,
 				location: action.payload.location,
 				zone: action.payload.zone,
-				status: action.payload.status,
 			});
 		case DELETE_ACCESS:
 			return ({
