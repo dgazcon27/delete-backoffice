@@ -43,7 +43,6 @@ class EditionComponent extends React.Component {
 	}
 
 	initialize(id, type) {
-		let fk = {};
 		switch (type) {
 			case 'users-edit':
 				this.props.dispatch(getUserById(id));
@@ -82,8 +81,7 @@ class EditionComponent extends React.Component {
 				this.setState({ tag: <PurchaseRequestEdit /> });
 				break;
 			case 'pre-sale-edit':
-				({ fk } = this.props.match.params);
-				this.props.dispatch(getPaymentById(id, fk));
+				this.props.dispatch(getPaymentById(id));
 				this.setState({ tag: <PaymentEdit /> });
 				break;
 			case 'Departments-edit':

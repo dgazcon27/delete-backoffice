@@ -31,11 +31,11 @@ export const setPayment = payment => ({
 	payload: {
 		description: SET_PAYMENT,
 		...payment,
-		bankAccount: payment.bankAccount.id,
+		bankName: payment.bankAccount.name,
 	},
 });
 
-export const getPaymentById = (id, fk) => (
+export const getPaymentById = id => (
 	async (dispatch) => {
 		client
 			.query({
@@ -44,7 +44,7 @@ export const getPaymentById = (id, fk) => (
 			})
 			.then((res) => {
 				const { payment } = res.data;
-				dispatch(setPayment({ ...payment, purchaseRequest: Number(fk) }));
+				dispatch(setPayment(payment));
 			})
 			.catch(() => {});
 	}

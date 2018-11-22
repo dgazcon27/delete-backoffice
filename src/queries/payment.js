@@ -87,6 +87,7 @@ export const GET_PAYMENT_BY_ID = gql`
 			type
 			bankAccount{
 				id
+				name
 			}
 		}
 	}

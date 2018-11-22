@@ -16,6 +16,7 @@ const initialState = {
 	comment: '',
 	type: '',
 	bankAccount: 0,
+	bankName: '',
 	isOpen: false,
 	alertOpen: false,
 	alertType: '',
@@ -38,7 +39,7 @@ const ReducerPayment = (state = initialState, action = {}) => {
 				reference: action.payload.reference,
 				comment: action.payload.comment,
 				type: action.payload.type,
-				bankAccount: action.payload.bankAccount,
+				bankName: action.payload.bankName,
 			});
 		case DELETE_PAYMENT:
 			return ({
