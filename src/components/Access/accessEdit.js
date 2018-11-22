@@ -31,7 +31,6 @@ import {
 import {
 	Location,
 	Zone,
-	Status,
 } from '../commonComponent';
 
 let AccessEdit = ({
@@ -87,9 +86,6 @@ let AccessEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Zone />
-				</div>
-				<div className={classes.formStyle}>
-					<Status />
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditAccess(myValues, paginationPage, editAccessMutation))} disabled={submitting} >
 					Guardar

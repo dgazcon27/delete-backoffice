@@ -26,7 +26,6 @@ export const setAccess = access => ({
 		currency: access.currency,
 		location: access.location.id,
 		zone: access.zone.id,
-		status: access.status.id,
 	},
 });
 
@@ -110,14 +109,13 @@ export const createAccess = (
 	currency,
 	location,
 	zone,
-	status,
 	paginationPage,
 	createAccessMutation,
 ) =>
 	async (dispatch) => {
 		createAccessMutation({
 			variables: {
-				name, description, currency, location, zone, status,
+				name, description, currency, location, zone,
 			},
 			refetchQueries: [{ query: GET_ACCESS, variables: { paginationPage } }],
 		})

@@ -25,7 +25,6 @@ import {
 import { EDIT_EVENT } from '../../queries/event';
 
 import {
-	SelectStatus,
 	SelectCountry,
 	SelectState,
 } from '../commonComponent';
@@ -129,9 +128,6 @@ let EventEdit = ({
 				</div>
 				<div className={classes.formStyle}>
 					<SelectState states={states} />
-				</div>
-				<div className={classes.formStyle}>
-					<SelectStatus action={actionSetDate} stateDesc='SET_EVENT_STATUS' inputName='status' />
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -243,7 +239,6 @@ const mapStateToProps = state => ({
 		'presaleClosure',
 		'eventStart',
 		'eventClosure',
-		'status',
 		'state',
 		'country',
 

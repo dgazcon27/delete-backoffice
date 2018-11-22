@@ -31,7 +31,7 @@ export const setPayment = payment => ({
 	payload: {
 		description: SET_PAYMENT,
 		...payment,
-		bankAccount: payment.bankAccount.id,
+		bankName: payment.bankAccount.name,
 	},
 });
 
@@ -44,7 +44,7 @@ export const getPaymentById = id => (
 			})
 			.then((res) => {
 				const { payment } = res.data;
-				dispatch(setPayment({ ...payment }));
+				dispatch(setPayment(payment));
 			})
 			.catch(() => {});
 	}

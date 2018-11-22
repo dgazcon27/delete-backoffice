@@ -31,8 +31,6 @@ import {
 	editPayment,
 } from '../../actions/Payment/actionsCreators';
 
-import { BankAccount } from '../commonComponent';
-
 let PaymentEdit = ({
 	userId,
 	classes,
@@ -64,6 +62,7 @@ let PaymentEdit = ({
 						validate={[required, empty]}
 						label='cantidad'
 						className='yourclass'
+						disabled
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -74,6 +73,7 @@ let PaymentEdit = ({
 						validate={required}
 						label='Tipo'
 						className='yourclass'
+						disabled
 					/>
 				</div>
 				<div className={classes.formStyle}>
@@ -84,10 +84,19 @@ let PaymentEdit = ({
 						validate={required}
 						label='Referencia'
 						className='yourclass'
+						disabled
 					/>
 				</div>
 				<div className={classes.formStyle}>
-					<BankAccount />
+					<Field
+						name='bankName'
+						type='text'
+						component={renderTextField}
+						validate={required}
+						label='Nombre del banco'
+						className='yourclass'
+						disabled
+					/>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -97,6 +106,7 @@ let PaymentEdit = ({
 						validate={required}
 						label='Comentario/Observaciones'
 						className='yourclass'
+						disabled
 					/>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditPayment(myValues, Number(userId), paginationPage, editPaymentMutation))} disabled={submitting} >
@@ -144,6 +154,7 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerPayment.alertType,
 	alertOpen: state.ReducerPayment.alertOpen,
+	bankName: state.ReducerPayment.bankName,
 	paginationPage: state.ReducerPagination.paginationPage,
 	myValues: selector(state, 'id', 'purchaseRequest', 'amount', 'reference', 'comment', 'type', 'bankAccount'),
 });

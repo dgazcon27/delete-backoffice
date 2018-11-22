@@ -26,7 +26,7 @@ import {
 	createAccess,
 } from '../../actions/Access/actionsCreators';
 import BackButton from '../widget/BackButton';
-import { Location, Zone, Status } from '../commonComponent';
+import { Location, Zone } from '../commonComponent';
 
 let AccessCreate = ({
 	classes,
@@ -83,10 +83,7 @@ let AccessCreate = ({
 				<div className={classes.formStyle}>
 					<Zone />
 				</div>
-				<div className={classes.formStyle}>
-					<Status />
-				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.currency, myValues.location, myValues.zone, myValues.status, paginationPage, createAccessMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.currency, myValues.location, myValues.zone, paginationPage, createAccessMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<BackButton />
@@ -138,7 +135,7 @@ const mapStateToProps = state => ({
 	alertType: state.ReducerAccess.alertType,
 	alertOpen: state.ReducerAccess.alertOpen,
 	paginationPage: state.ReducerPagination.paginationPage,
-	myValues: selector(state, 'name', 'description', 'currency', 'location', 'zone', 'status'),
+	myValues: selector(state, 'name', 'description', 'currency', 'location', 'zone'),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -149,7 +146,6 @@ const mapDispatchToProps = dispatch => ({
 		currency,
 		location,
 		zone,
-		status,
 		paginationPage,
 		createAccessMutation,
 	) => dispatch(createAccess(
@@ -158,7 +154,6 @@ const mapDispatchToProps = dispatch => ({
 		currency,
 		location,
 		zone,
-		status,
 		paginationPage,
 		createAccessMutation,
 	)),

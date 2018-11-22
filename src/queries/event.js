@@ -42,13 +42,12 @@ export const CREATE_EVENT = gql`
     	$eventStart:String!,
 	    $eventClosure:String!,
 	    $state:ID!,
-	    $status: ID!,
 	    $createdBy: Int!,
 	    $updatedBy: Int!
 		){
 		createEvent(name:$name, description:$description, presaleStart:$presaleStart,
 		presaleClosure:$presaleClosure, eventStart:$eventStart, eventClosure:$eventClosure, state:$state,
-		status:$status,createdBy:$createdBy,updatedBy:$updatedBy
+		createdBy:$createdBy,updatedBy:$updatedBy
 		){
 			id
 		}
@@ -65,12 +64,11 @@ export const EDIT_EVENT = gql`
     	$eventStart:String!,
 	    $eventClosure:String!,
 	    $state:Int!,
-	    $status: Int!,
 	    $updatedBy: Int!
 		){
 		updateEvent(id:$id, name:$name, description:$description, presaleStart:$presaleStart,
 		presaleClosure:$presaleClosure, eventStart:$eventStart, eventClosure:$eventClosure, state:$state,
-		status:$status,updatedBy:$updatedBy
+		updatedBy:$updatedBy
 		){
 			id
 		}
@@ -87,9 +85,6 @@ export const GET_EVENT_BY_ID = gql`
 			presaleClosure
 			eventStart
 			eventClosure
-			status {
-				id
-			}
 			state{
 				name
 				id
@@ -150,6 +145,9 @@ export const GET_ACCESS_BY_ID = gql`
 				hotel{
 					id
 				}
+				status{
+					id
+				}
 				room{
 					id
 					name
@@ -188,10 +186,11 @@ export const CREATE_ACCESS_EVENT = gql`
 		$roomE:ID,
 		$days: Int!,
 		$stock: Int!,
+		$status: Int!,
 		){
 		createAccessesByEvent(withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
 		numberTickets:$numberTickets, price:$price, event:$event, access:$access, hotel:$hotelE, room:$roomE,
-		days:$days, stock:$stock
+		days:$days, stock:$stock, status: $status
 		){
 			id
 		}
@@ -212,10 +211,11 @@ export const EDIT_ACCESS_EVENT = gql`
 	    $hotel:ID,
 	    $days:Int!,
 	    $stock: Int!,
+	    $status: ID!,
 		){
 		updateAccessesByEvent(id:$id, withRoom:$withRoom, withTickets:$withTickets, numberRooms:$numberRooms,
 		numberTickets:$numberTickets, price:$price, event:$event, access:$access, room:$room, hotel:$hotel,
-		days: $days, stock:$stock
+		days: $days, stock:$stock, status: $status
 		){
 			id
 		}

@@ -87,7 +87,6 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				presaleClosure: action.payload.presaleClosure,
 				eventStart: action.payload.eventStart,
 				eventClosure: action.payload.eventClosure,
-				status: action.payload.status,
 				state: action.payload.state,
 				country: action.payload.country,
 				createdBy: action.payload.createdBy,
