@@ -182,6 +182,22 @@ const Items = ({
 				<Divider />
 			</List>
 		</Collapse>
+		<Link to='/income-per-event' href='/income-per-event'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<Event />
+				</ListItemIcon>
+				<ListItemText primary='Ingreso por evento' />
+			</ListItem>
+		</Link>
+		<Link to='/expense-per-event' href='/expense-per-event'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<Event />
+				</ListItemIcon>
+				<ListItemText primary='Egreso por evento' />
+			</ListItem>
+		</Link>
 	</div>
 );
 

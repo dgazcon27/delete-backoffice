@@ -23,6 +23,9 @@ import ReducerRoom from './Room/reducerRoom';
 import ReducerSideBar from './SideBar/reducerSideBar';
 import ReducerTokens from './Tokens/reducerTokens';
 
+import ReducerIncomePerEvent from './IncomePerEvent/reducerIncomePerEvent';
+import ReducerExpensePerEvent from './ExpensePerEvent/reducerExpensePerEvent';
+
 const rootReducer = combineReducers({
 	ReducerHeader,
 	ReducerUserType,
@@ -45,6 +48,8 @@ const rootReducer = combineReducers({
 	ReducerHotel,
 	ReducerSideBar,
 	ReducerTokens,
+	ReducerIncomePerEvent,
+	ReducerExpensePerEvent,
 	form: reduxFormReducer,
 });
 

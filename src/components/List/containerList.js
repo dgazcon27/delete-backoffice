@@ -28,12 +28,23 @@ const ContainerList = ({
 	// Consulta por default del component
 	const QUERY_COMPONENT = objectQuery.queryComponent;
 
+	/*
+		Parametros adicionales de la Consulta por default
+		Esto se utiliza cuando una query ademas de esperar la
+		el numero de pagina espera uno o mas valores adicionales
+	*/
+	let paramsGetComponent = '';
+	if (objectQuery.paramsQueryComponent !== undefined &&
+		Object.keys(objectQuery.paramsQueryComponent).length > 0) {
+		paramsGetComponent = objectQuery.paramsQueryComponent;
+	}
+
 	// Consulta utilizando el buscador
 	const QUERY_SEARCH = objectQuery.querySearch;
 
 	const params = query.length > 0 ?
 		{ query: QUERY_SEARCH, variables: { query, currentPageSearch } } :
-		{ query: QUERY_COMPONENT, variables: { paginationPage } };
+		{ query: QUERY_COMPONENT, variables: { paginationPage, ...paramsGetComponent } };
 
 	// Ruta para obtener la data y el total del json de la consulta QUERY_COMPONENT
 	const { dataPath, totalPath } = objectPath.currentComponent;

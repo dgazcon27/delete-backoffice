@@ -15,13 +15,13 @@ import {
 
 // Queries
 import {
-	GET_INCOME_PER_EVENT,
-	BLOCK_INCOME_PER_EVENT,
-	DELETE_INCOME_PER_EVENT,
-} from '../../queries/incomePerEvent';
+	GET_EXPENSE_PER_EVENT,
+	BLOCK_EXPENSE_PER_EVENT,
+	DELETE_EXPENSE_PER_EVENT,
+} from '../../queries/expensePerEvent';
 
-const IncomePerEvent = ({
-	objectStateIncomePerEvent,
+const ExpensePerEvent = ({
+	objectStateExpensePerEvent,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
@@ -31,9 +31,9 @@ const IncomePerEvent = ({
 	deleteMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_INCOME_PER_EVENT,
+		queryComponent: GET_EXPENSE_PER_EVENT,
 		paramsQueryComponent: {
-			event: 4,
+			event: 1,
 		},
 	};
 
@@ -78,8 +78,8 @@ const IncomePerEvent = ({
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'incomeMovementPagination.data',
-			totalPath: 'incomeMovementPagination.total',
+			dataPath: 'expensesMovementPagination.data',
+			totalPath: 'expensesMovementPagination.total',
 		},
 		searchComponent: {
 			dataPath: '',
@@ -88,7 +88,7 @@ const IncomePerEvent = ({
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateIncomePerEvent),
+		componentState: Object.assign({}, objectStateExpensePerEvent),
 		paginationPage,
 		messages: {
 			edit: {
@@ -136,12 +136,12 @@ const IncomePerEvent = ({
 	);
 };
 
-IncomePerEvent.propTypes = {
+ExpensePerEvent.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionBlock: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
-	objectStateIncomePerEvent: PropTypes.object.isRequired,
+	objectStateExpensePerEvent: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	blockMutation: PropTypes.func.isRequired,
 	deleteMutation: PropTypes.func.isRequired,
@@ -149,7 +149,7 @@ IncomePerEvent.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateIncomePerEvent: state.ReducerIncomePerEvent,
+	objectStateExpensePerEvent: state.ReducerIncomePerEvent,
 });
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
@@ -160,7 +160,7 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(deleteIncomePerEvent(componentState, paginationPage, deleteMutation)),
 });
 export default compose(
-	graphql(DELETE_INCOME_PER_EVENT, { name: 'deleteMutation' }),
-	graphql(BLOCK_INCOME_PER_EVENT, { name: 'blockMutation' }),
+	graphql(DELETE_EXPENSE_PER_EVENT, { name: 'deleteMutation' }),
+	graphql(BLOCK_EXPENSE_PER_EVENT, { name: 'blockMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(IncomePerEvent);
+)(ExpensePerEvent);
