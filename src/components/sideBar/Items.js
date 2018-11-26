@@ -53,6 +53,22 @@ const Items = ({
 				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
+		<Link to='/income' href='/income'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<RoomService />
+				</ListItemIcon>
+				<ListItemText primary='Ingresos por Evento' />
+			</ListItem>
+		</Link>
+		<Link to='/expenses' href='/expenses'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<RoomService />
+				</ListItemIcon>
+				<ListItemText primary='Pagos por Evento' />
+			</ListItem>
+		</Link>
 		<Link to='/payment' href='/payment' >
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>

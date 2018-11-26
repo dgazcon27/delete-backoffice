@@ -39,6 +39,8 @@ import RoomEdit from '../Room/roomEdit';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Tokens from '../Tokens/tokens';
 import TokensReservation from '../Tokens/tokensReservation';
+import Income from '../Income/income';
+import Expenses from '../Expenses/expenses';
 
 
 const Main = (props) => {
@@ -47,6 +49,8 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
+				<Route path='/income' component={Income} />
+				<Route path='/expenses' component={Expenses} />
 				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />

@@ -49,6 +49,11 @@ const Users = ({
 		},
 		{
 			id: 2,
+			columName: 'Apellido',
+			jsonPath: 'lastName',
+		},
+		{
+			id: 3,
 			columName: 'Tipo de Usuario',
 			jsonPath: 'role.name',
 		}],
