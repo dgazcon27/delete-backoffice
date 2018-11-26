@@ -80,7 +80,6 @@ export const blockUserType = (obj, blockRolMutation) => {
 	return async (dispatch) => {
 		await blockRolMutation({ variables: { id, status } });
 		dispatch(closeModal());
-		window.location.reload();
 	};
 };
 
@@ -148,8 +147,8 @@ export const editRol = (id, name, rolDescription, paginationPage, editRolMutatio
 				refetchQueries: [{ query: GET_ROLES, variables: { paginationPage } }],
 			})
 				.then(() => {
-					dispatch(setRol({ id, name, description: rolDescription }));
 					dispatch(openAlert('edit'));
+					dispatch(setRol({ id, name, description: rolDescription }));
 					setTimeout(() => (window.location.replace('/user-type')), 2000);
 				})
 				.catch((res) => {

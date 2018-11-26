@@ -91,3 +91,32 @@ export const SEARCH_ZONES = gql`
 		}
 	}
 `;
+
+export const SEARCH_PROVIDER = gql`
+	query search($query: String!, $currentPageSearch: Int) {
+		search(query:$query, page:$currentPageSearch) {
+			providers{
+				data{
+					id
+					name
+					rif
+					email
+					description
+					phone
+					address
+					active
+					state{
+						id
+						name
+					}
+					category{
+						id
+						name
+					}
+				}
+				total
+			}
+		}
+	}
+`;
+

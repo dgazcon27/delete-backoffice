@@ -54,7 +54,6 @@ const validate = (values) => {
 		errors.eventClosure = true;
 	}
 
-
 	return errors;
 };
 
@@ -263,7 +262,6 @@ const mapStateToProps = state => ({
 		'state',
 	),
 });
-
 
 const mapDispatchToProps = dispatch => ({
 	actionSelectCountry: (event, id) => dispatch(setCountriesStates(event, id)),

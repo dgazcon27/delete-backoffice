@@ -39,7 +39,8 @@ import RoomEdit from '../Room/roomEdit';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Tokens from '../Tokens/tokens';
 import TokensReservation from '../Tokens/tokensReservation';
-
+import Provider from '../Provider/provider';
+import ProviderCreate from '../Provider/providerCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -97,6 +98,10 @@ const Main = (props) => {
 				<Route path='/room-edit' component={RoomEdit} />
 				<Route path='/tokens' component={Tokens} />
 				<Route path='/tokens-reservation' component={TokensReservation} />
+				<Route path='/providers' component={Provider} />
+				<Route path='/provider-create' component={ProviderCreate} />
+				<Route path='/provider-edit/:id' component={EditionComponent} />
+				<Route path='/provider-details/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);

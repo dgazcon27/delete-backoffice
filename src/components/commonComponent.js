@@ -19,6 +19,7 @@ import {
 	GET_ZONES,
 	GET_COUNTRIES,
 	GET_TYPE_INVITED,
+	GET_CATEGORYS,
 } from './../queries/common';
 
 export const BankAccount = () => (
@@ -293,6 +294,44 @@ export const Access = () => (
 				>
 					{data.accesss.map(access => (
 						<MenuItem key={access.id} value={access.id}>{access.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+export const Categorys = () => (
+	<Query query={GET_CATEGORYS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='category'
+						type='select'
+						label='Categorías'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='category'
+					type='select'
+					label='Categorías'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.categorys.map(category => (
+						<MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
 					))}
 				</Field>
 			);
