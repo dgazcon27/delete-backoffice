@@ -100,11 +100,11 @@ class EditionComponent extends React.Component {
 				this.setState({ tag: <ReservationEdit /> });
 				break;
 			case 'provider-edit':
-				this.props.dispatch(getProviderById(id));
+				this.props.dispatch(getProviderById(id, true));
 				this.setState({ tag: <ProviderEdit /> });
 				break;
 			case 'provider-details':
-				this.props.dispatch(getProviderById(id));
+				this.props.dispatch(getProviderById(id, false));
 				this.setState({ tag: <ProviderDetails /> });
 				break;
 			default:

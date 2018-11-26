@@ -56,15 +56,6 @@ let ProviderCreate = ({
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Proveedor</h6>
 				<div className='row'>
-					<div className='input-field col s6' >
-						<Field
-							name='name'
-							type='text'
-							component={renderTextField}
-							validate={[required, empty]}
-							label='Nombre'
-						/>
-					</div>
 					<div className='input-field col s6'>
 						<Field
 							name='rif'
@@ -75,14 +66,23 @@ let ProviderCreate = ({
 							className='yourclass'
 						/>
 					</div>
-					<div className='input-field col s6'>
+					<div className='input-field col s6' >
 						<Field
-							name='description'
+							name='name'
 							type='text'
 							component={renderTextField}
 							validate={[required, empty]}
-							label='Descripcion'
-							className='yourclass'
+							label='Nombre'
+						/>
+					</div>
+					<div className='col s6 l6'>
+						<Field
+							name='email'
+							type='text'
+							component={renderTextField}
+							validate={required}
+							label='Correo'
+							className='yourclass container date-label'
 						/>
 					</div>
 					<div className='input-field col s6 l6'>
@@ -105,16 +105,6 @@ let ProviderCreate = ({
 							className='yourclass'
 						/>
 					</div>
-					<div className='col s6 l6'>
-						<Field
-							name='email'
-							type='text'
-							component={renderTextField}
-							validate={required}
-							label='Correo'
-							className='yourclass container date-label'
-						/>
-					</div>
 					<div className='input-field col s6'>
 						<SelectCountry actionSelectCountry={actionSelectCountry} />
 					</div>
@@ -123,6 +113,16 @@ let ProviderCreate = ({
 					</div>
 					<div className={classes.formStyle}>
 						<Categorys states={states} />
+					</div>
+					<div className='input-field col s12'>
+						<Field
+							name='description'
+							type='text'
+							component={renderTextField}
+							validate={[required, empty]}
+							label='Descripcion'
+							className='yourclass'
+						/>
 					</div>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateProvider(myValues.name, myValues.email, myValues.rif, myValues.phone, myValues.address, myValues.email, myValues.state, myValues.category, Number(userId), Number(userId), createProviderMutation, paginationPage))} disabled={submitting} >

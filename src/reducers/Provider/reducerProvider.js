@@ -7,6 +7,7 @@ import {
 	EDIT_PROVIDER,
 	DELETE_PROVIDER,
 	SET_COUNTRIES_STATES,
+	SET_COUNTRIES,
 } from '../../actions/Provider/actionsTypes';
 
 const initialState = {
@@ -27,6 +28,7 @@ const initialState = {
 	countryName: '',
 	stateName: '',
 	categoryName: '',
+	country: 0,
 };
 
 const ReducerProvider = (state = initialState, action = {}) => {
@@ -56,6 +58,12 @@ const ReducerProvider = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				states: action.payload.states,
+				country: action.payload.id,
+			});
+		case SET_COUNTRIES:
+			return ({
+				...state,
+				country: action.payload.id,
 			});
 		case DELETE_PROVIDER:
 			return ({

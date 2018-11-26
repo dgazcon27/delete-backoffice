@@ -7,6 +7,7 @@ import {
 	SET_COUNTRIES_STATES,
 	CLEAN_STATE_COUNTRY,
 	SET_PROVIDER,
+	SET_COUNTRIES,
 } from './actionsTypes';
 import { client } from '../../config/configStore';
 import { GET_PROVIDERS, GET_PROVIDER_BY_ID } from '../../queries/providers';
@@ -20,10 +21,11 @@ const checkMessageError = (res) => {
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
 
-export const setEstados = states => ({
+export const setEstados = (states, id) => ({
 	type: SET_COUNTRIES_STATES,
 	payload: {
 		states,
+		id,
 		description: SET_COUNTRIES_STATES,
 	},
 });
@@ -43,7 +45,35 @@ export const cleanState = () => ({
 	},
 });
 
-export const setProvider = provider => ({
+export const setProvider = (
+	id,
+	name,
+	rif,
+	descriptionProvider,
+	phone,
+	address,
+	email,
+	state,
+	category,
+	country,
+) => ({
+	type: SET_PROVIDER,
+	payload: {
+		description: SET_PROVIDER,
+		id,
+		name,
+		descriptionProvider,
+		rif,
+		phone,
+		address,
+		email,
+		state,
+		category,
+		country,
+	},
+});
+
+export const setDetails = provider => ({
 	type: SET_PROVIDER,
 	payload: {
 		description: SET_PROVIDER,
@@ -71,7 +101,7 @@ export const setCountriesStates = (ev, id, ini = false) => (
 				variables: { country: id },
 			})
 			.then((res) => {
-				dispatch(setEstados(res.data.countryStates));
+				dispatch(setEstados(res.data.countryStates, id));
 				if (!ini) {
 					dispatch(cleanStateCountry());
 				}
@@ -79,7 +109,14 @@ export const setCountriesStates = (ev, id, ini = false) => (
 			.catch(() => {});
 	});
 
-export const getProviderById = id =>
+export const setCountries = id => ({
+	type: SET_COUNTRIES,
+	paylaod: {
+		id,
+	},
+});
+
+export const getProviderById = (id, band) =>
 	async (dispatch) => {
 		client
 			.query({
@@ -88,7 +125,23 @@ export const getProviderById = id =>
 			})
 			.then((res) => {
 				const provider = res.data.providerId;
-				dispatch(setProvider(provider));
+				if (band) {
+					dispatch(setProvider(
+						provider.id,
+						provider.name,
+						provider.rif,
+						provider.description,
+						provider.phone,
+						provider.address,
+						provider.email,
+						provider.state.id,
+						provider.category.id,
+						provider.country,
+					));
+				} else {
+					dispatch(setDetails(provider));
+				}
+
 				dispatch(setCountriesStates({}, provider.state.country.id, true));
 			})
 			.catch(() => {});
@@ -189,6 +242,7 @@ export const editProvider = (
 	address,
 	email,
 	state,
+	country,
 	category,
 	updatedBy,
 	editProviderMutation,
@@ -201,12 +255,19 @@ export const editProvider = (
 		refetchQueries: [{ query: GET_PROVIDERS, variables: { paginationPage } }],
 	})
 		.then(() => {
+			dispatch(setProvider(
+				id,
+				name,
+				rif,
+				description,
+				phone,
+				address,
+				email,
+				state,
+				category,
+				country,
+			));
 			dispatch(openAlert('edit'));
-			/* dispatch(setProvider({
-				...provider,
-				name: 0,
-				email: { id: PROVIDER.email },
-			})); */
 			setTimeout(() => (window.location.assign('/providers')), 2000);
 		})
 		.catch((res) => {

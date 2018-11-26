@@ -106,7 +106,6 @@ let ProviderEdit = ({
 							className='yourclass'
 						/>
 					</div>
-
 					<div className='input-field col s6'>
 						<SelectCountry actionSelectCountry={actionSelectCountry} />
 					</div>
@@ -127,7 +126,7 @@ let ProviderEdit = ({
 						/>
 					</div>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditProvider(id, myValues.name, myValues.descriptionProvider, myValues.rif, myValues.phone, myValues.address, myValues.email, myValues.state, myValues.category, Number(userId), editProviderMutation, paginationPage))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditProvider(id, myValues.name, myValues.descriptionProvider, myValues.rif, myValues.phone, myValues.address, myValues.email, myValues.state, myValues.country, myValues.category, Number(userId), editProviderMutation, paginationPage))} disabled={submitting} >
                     Guardar
 				</button>
 				<BackButton />
@@ -188,7 +187,7 @@ const mapStateToProps = state => ({
 	alertOpen: state.ReducerProvider.alertOpen,
 	paginationPage: state.ReducerPagination.paginationPage,
 	initialValues: state.ReducerProvider,
-	myValues: selector(state, 'name', 'descriptionProvider', 'email', 'rif', 'phone', 'address', 'email', 'state', 'category'),
+	myValues: selector(state, 'name', 'descriptionProvider', 'email', 'rif', 'phone', 'address', 'email', 'state', 'country', 'category'),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -203,6 +202,7 @@ const mapDispatchToProps = dispatch => ({
 		address,
 		email,
 		state,
+		country,
 		category,
 		updatedBy,
 		editProviderMutation,
@@ -216,6 +216,7 @@ const mapDispatchToProps = dispatch => ({
 		address,
 		email,
 		state,
+		country,
 		category,
 		updatedBy,
 		editProviderMutation,
