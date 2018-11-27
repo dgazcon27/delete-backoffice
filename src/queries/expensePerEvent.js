@@ -35,3 +35,23 @@ export const DELETE_EXPENSE_PER_EVENT = gql`
         }
     }
 `;
+
+export const SEARCH_EXPENSES_PER_EVENT = gql`
+    query searchExpenses($query: String!, $currentPageSearch:Int!) {
+        searchExpenses(query:$query, page:$currentPageSearch) {
+            data{
+                id
+                reference
+                amount
+                bankAccount{
+                    id
+                }
+                active
+                category{
+                    name
+                }
+            }	
+            total
+        }
+    }
+`;

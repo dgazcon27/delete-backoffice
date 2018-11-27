@@ -35,3 +35,23 @@ export const DELETE_INCOME_PER_EVENT = gql`
         }
     }
 `;
+
+export const SEARCH_INCOME_PER_EVENT = gql`
+    query searchIncome($query:String!, $currentPageSearch:Int!){
+        searchIncome(query:$query, page: $currentPageSearch) {
+            data{
+                id
+                reference
+                amount
+                bankAccount{
+                    id
+                }
+                active
+                category{
+                    name
+                }
+            }	
+            total
+        }
+    }
+`;

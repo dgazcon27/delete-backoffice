@@ -18,6 +18,7 @@ import {
 	GET_EXPENSE_PER_EVENT,
 	BLOCK_EXPENSE_PER_EVENT,
 	DELETE_EXPENSE_PER_EVENT,
+	SEARCH_EXPENSES_PER_EVENT,
 } from '../../queries/expensePerEvent';
 
 const ExpensePerEvent = ({
@@ -32,8 +33,9 @@ const ExpensePerEvent = ({
 }) => {
 	const objectQuery = {
 		queryComponent: GET_EXPENSE_PER_EVENT,
+		querySearch: SEARCH_EXPENSES_PER_EVENT,
 		paramsQueryComponent: {
-			event: 1,
+			event: 4,
 		},
 	};
 
@@ -82,8 +84,8 @@ const ExpensePerEvent = ({
 			totalPath: 'expensesMovementPagination.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'searchExpenses.data',
+			totalPath: 'searchExpenses.total',
 		},
 	};
 
@@ -95,14 +97,14 @@ const ExpensePerEvent = ({
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: 'Bloquear Ingreso',
-				msgStatus1: '¿Desea bloquear este Ingreso por evento?',
-				titleStatus2: 'Desbloquear Ingreso',
-				msgStatus2: '¿Desea desbloquear este Ingreso por evento?',
+				titleStatus1: 'Bloquear egreso',
+				msgStatus1: '¿Desea bloquear este egreso por evento?',
+				titleStatus2: 'Desbloquear egreso',
+				msgStatus2: '¿Desea desbloquear este egreso por evento?',
 			},
 			delete: {
-				title: 'Eliminar Ingreso',
-				msg: '¿Desea eliminar este Ingreso?',
+				title: 'Eliminar egreso',
+				msg: '¿Desea eliminar este egreso?',
 			},
 		},
 	};

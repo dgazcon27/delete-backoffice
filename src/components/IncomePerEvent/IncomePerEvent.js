@@ -18,6 +18,7 @@ import {
 	GET_INCOME_PER_EVENT,
 	BLOCK_INCOME_PER_EVENT,
 	DELETE_INCOME_PER_EVENT,
+	SEARCH_INCOME_PER_EVENT,
 } from '../../queries/incomePerEvent';
 
 const IncomePerEvent = ({
@@ -32,6 +33,7 @@ const IncomePerEvent = ({
 }) => {
 	const objectQuery = {
 		queryComponent: GET_INCOME_PER_EVENT,
+		querySearch: SEARCH_INCOME_PER_EVENT,
 		paramsQueryComponent: {
 			event: 4,
 		},
@@ -82,8 +84,8 @@ const IncomePerEvent = ({
 			totalPath: 'incomeMovementPagination.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'searchIncome.data',
+			totalPath: 'searchIncome.total',
 		},
 	};
 
@@ -95,10 +97,10 @@ const IncomePerEvent = ({
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: 'Bloquear Ingreso',
-				msgStatus1: '¿Desea bloquear este Ingreso por evento?',
-				titleStatus2: 'Desbloquear Ingreso',
-				msgStatus2: '¿Desea desbloquear este Ingreso por evento?',
+				titleStatus1: 'Bloquear ingreso',
+				msgStatus1: '¿Desea bloquear este ingreso por evento?',
+				titleStatus2: 'Desbloquear ingreso',
+				msgStatus2: '¿Desea desbloquear este ingreso por evento?',
 			},
 			delete: {
 				title: 'Eliminar Ingreso',
