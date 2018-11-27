@@ -13,87 +13,113 @@ import {
 } from 'redux-form';
 import styles from '../Shared/sharedStyles';
 import BackButton from '../widget/BackButton';
-import { createIncome, setNotification } from '../../actions/Movement/actionsCreator';
+import {
+	createIncome,
+	setNotification,
+	getEventById,
+} from '../../actions/Movement/actionsCreator';
 import { CREATE_MOVEMENT } from '../../queries/movement';
 import NotificationAlert from '../widget/NotificationAlert';
 import FormMovement from './form';
 
-let IncomeCreate = ({
-	actionCreate,
-	classes,
-	create,
-	isAlert,
-	actionSetNotification,
-	myValues,
-	submitting,
-	handleSubmit,
-}) => {
-	const title = 'Registrar ingreso';
-	const message = 'Reporte de ingreso creado exitosamente';
-	return (
-		<div>
-			<h3 className={classes.formTitle}>{title}
-				<div className={classes.backbuttonCreation}>
-					<BackButton />
-				</div>
-			</h3>
-			<Paper className={classes.createContainer}>
-				<FormMovement
-					options='create'
-					disable={false}
+
+let IncomeCreate = class IncomeCreateClass extends React.Component {
+	componentDidMount() {
+		const { dispatch } = this.props;
+		const { id } = this.props.match.params;
+		if (id !== undefined) {
+			dispatch(getEventById(id));
+		}
+	}
+
+	render() {
+		const { actionCreate } = this.props;
+		const { classes } = this.props;
+		const { create } = this.props;
+		const { isAlert } = this.props;
+		const { actionSetNotification } = this.props;
+		const { myValues } = this.props;
+		const { submitting } = this.props;
+		const { handleSubmit } = this.props;
+		const { match } = this.props;
+		const title = 'Registrar ingreso';
+		const message = 'Reporte de ingreso creado exitosamente';
+		const event = match.params.id === undefined;
+
+		return (
+			<div>
+				<h3 className={classes.formTitle}>{title}
+					<div className={classes.backbuttonCreation}>
+						<BackButton />
+					</div>
+				</h3>
+				<Paper className={classes.createContainer}>
+					<FormMovement
+						options='create'
+						disable={false}
+						event={!event}
+					/>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={handleSubmit(() => actionCreate(myValues, create))}
+						disabled={submitting}
+					>
+						Registrar
+					</button>
+				</Paper>
+				<NotificationAlert
+					message={message}
+					open={isAlert}
+					close={actionSetNotification}
 				/>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={handleSubmit(() => actionCreate(myValues, create))}
-					disabled={submitting}
-				>
-					Registrar
-				</button>
-			</Paper>
-			<NotificationAlert
-				message={message}
-				open={isAlert}
-				close={actionSetNotification}
-			/>
-		</div>
-	);
+			</div>
+		);
+	}
 };
 
 IncomeCreate.propTypes = {
 	actionCreate: PropTypes.func.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	create: PropTypes.func.isRequired,
+	dispatch: PropTypes.func.isRequired,
 	actionSetNotification: PropTypes.func.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	isAlert: PropTypes.bool.isRequired,
 	classes: PropTypes.object.isRequired,
 	myValues: PropTypes.object.isRequired,
+	match: PropTypes.object.isRequired,
 };
 
 const selector = formValueSelector('IncomeCreateForm');
 
-const mapStateToProps = state => ({
-	isAlert: state.ReducerMovement.isAlert,
-	initialValues: {
-		movementsType: 'income',
-		createdBy: state.ReducerLogin.userId,
-		updatedBy: state.ReducerLogin.userId,
-	},
-	myValues: selector(
-		state,
-		'event',
-		'amount',
-		'reference',
-		'comment',
-		'movementsType',
-		'bankAccount',
-		'type',
-		'createdBy',
-		'updatedBy',
+const mapStateToProps = (state) => {
+	const initialValues = {};
+	initialValues.movementsType = 'income';
+	initialValues.createdBy = state.ReducerLogin.userId;
+	initialValues.updatedBy = state.ReducerLogin.userId;
+	if (state.ReducerMovement.event > 0) {
+		initialValues.eventName = state.ReducerMovement.eventName;
+		initialValues.event = state.ReducerMovement.event;
+	}
+	return ({
+		isAlert: state.ReducerMovement.isAlert,
+		initialValues,
+		myValues: selector(
+			state,
+			'event',
+			'amount',
+			'reference',
+			'comment',
+			'movementsType',
+			'bankAccount',
+			'type',
+			'createdBy',
+			'updatedBy',
 
-	),
-});
+		),
+	});
+};
 
 const mapDispatchToProps = dispatch => ({
 	actionCreate: (income, create) => dispatch(createIncome(income, create)),
@@ -102,6 +128,7 @@ const mapDispatchToProps = dispatch => ({
 
 IncomeCreate = reduxForm({
 	form: 'IncomeCreateForm',
+	enableReinitialize: true,
 }, mapStateToProps)(IncomeCreate);
 
 export default compose(

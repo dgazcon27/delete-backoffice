@@ -15,15 +15,15 @@ import {
 import styles from '../Shared/sharedStyles';
 import { BankAccount, Categories, Events } from '../commonComponent';
 
-
 const FormMovement = ({
 	options,
 	disable,
 	classes,
+	event,
 }) => (
 	<div>
 		<div className={classes.formStyle}>
-			{ options === 'create' &&
+			{ options === 'create' && !event &&
 				<Events />
 			}
 			{ options === 'visibility' &&
@@ -34,6 +34,16 @@ const FormMovement = ({
 					validate={[required, empty]}
 					label='Evento'
 					disabled={disable}
+				/>
+			}
+			{ event &&
+				<Field
+					name='eventName'
+					type='text'
+					component={renderTextField}
+					validate={[required, empty]}
+					label='Evento'
+					disabled
 				/>
 			}
 		</div>
@@ -135,6 +145,7 @@ const FormMovement = ({
 FormMovement.propTypes = {
 	classes: PropTypes.object.isRequired,
 	disable: PropTypes.bool.isRequired,
+	event: PropTypes.bool.isRequired,
 	options: PropTypes.string.isRequired,
 };
 

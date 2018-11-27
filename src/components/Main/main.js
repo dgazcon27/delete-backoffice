@@ -100,6 +100,8 @@ const Main = (props) => {
 				<Route path='/tokens' component={Tokens} />
 				<Route path='/tokens-reservation' component={TokensReservation} />
 				<Route path='/movement/income/create' component={IncomeCreate} />
+				<Route path='/movement/income/event/create/:id' component={IncomeCreate} />
+				<Route path='/movement/expenses/event/create/:id' component={ExpensesCreate} />
 				<Route path='/movement/expenses/create' component={ExpensesCreate} />
 				<Route path='/movement/income/update/:id' component={IncomeUpdate} />
 				<Route path='/movement/expenses/update/:id' component={IncomeUpdate} />

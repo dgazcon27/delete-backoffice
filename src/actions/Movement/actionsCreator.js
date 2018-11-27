@@ -1,5 +1,10 @@
-import { SET_ALERT_MOVEMENT, SET_DATA_MOVEMENT } from './actionsTypes';
+import {
+	SET_ALERT_MOVEMENT,
+	SET_DATA_MOVEMENT,
+	SET_EVENT_MOVEMENT,
+} from './actionsTypes';
 import { GET_MOVEMENT_BY_ID } from '../../queries/movement';
+import { GET_EVENT_BY_ID } from '../../queries/event';
 import { client } from '../../config/configStore';
 
 export const setNotification = isAlert => ({
@@ -7,6 +12,14 @@ export const setNotification = isAlert => ({
 	payload: {
 		isAlert,
 		description: SET_ALERT_MOVEMENT,
+	},
+});
+
+export const setEventMovement = event => ({
+	type: SET_EVENT_MOVEMENT,
+	payload: {
+		event: event.id,
+		eventName: event.name,
 	},
 });
 
@@ -63,6 +76,20 @@ export const getMovementById = id =>
 			.then((res) => {
 				const { movementId } = res.data;
 				dispatch(setMovement(movementId));
+			})
+			.catch(() => {});
+	};
+
+export const getEventById = id =>
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_EVENT_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { event } = res.data;
+				dispatch(setEventMovement(event));
 			})
 			.catch(() => {});
 	};

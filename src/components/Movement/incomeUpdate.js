@@ -19,11 +19,6 @@ import FormMovement from './form';
 import NotificationAlert from '../widget/NotificationAlert';
 
 let IncomeUpdate = class IncomeUpdateClass extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { id: null };
-	}
-
 	componentDidMount() {
 		const { id } = this.props.match.params;
 		const { dispatch } = this.props;
