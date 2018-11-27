@@ -3,15 +3,15 @@ import {
 	CLOSE_MODAL_EXPENSE_PER_EVENT,
 } from './actionsTypes';
 
-import { GET_INCOME_PER_EVENT } from '../../queries/incomePerEvent';
+import { GET_EXPENSE_PER_EVENT } from '../../queries/expensePerEvent';
 
-export const openModal = (modalType, income) => ({
+export const openModal = (modalType, expense) => ({
 	type: OPEN_MODAL_EXPENSE_PER_EVENT,
 	payload: {
 		modalType,
 		description: OPEN_MODAL_EXPENSE_PER_EVENT,
-		statusValue: income.active,
-		id: income.id,
+		statusValue: expense.active,
+		id: expense.id,
 	},
 });
 
@@ -22,23 +22,23 @@ export const closeModal = () => ({
 	},
 });
 
-export const blockIncomePerEvent = (obj, blockHotelMutation) => {
+export const blockExpensePerEvent = (obj, blockMutation) => {
 	const { id } = obj;
 	const status = obj.statusValue ? 0 : 1;
 	return async (dispatch) => {
-		await blockHotelMutation({ variables: { id, status } });
+		await blockMutation({ variables: { id, status } });
 		dispatch(closeModal());
 		window.location.reload();
 	};
 };
 
-export const deleteIncomePerEvent = (obj, paginationPage, deleteHotelMutation) => {
+export const deleteExpensePerEvent = (obj, paginationPage, deleteMutation) => {
 	const { id } = obj;
 	const event = obj.id;
 	return async (dispatch) => {
-		await deleteHotelMutation({
+		await deleteMutation({
 			variables: { id },
-			refetchQueries: [{ query: GET_INCOME_PER_EVENT, variables: { paginationPage, event } }],
+			refetchQueries: [{ query: GET_EXPENSE_PER_EVENT, variables: { paginationPage, event } }],
 		});
 		dispatch(closeModal());
 		window.location.reload();

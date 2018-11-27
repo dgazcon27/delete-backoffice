@@ -1,6 +1,7 @@
 import {
 	OPEN_MODAL_INCOME_PER_EVENT,
 	CLOSE_MODAL_INCOME_PER_EVENT,
+	// SET_INCOME_PER_EVENT,
 } from '../../actions/IncomePerEvent/actionsTypes';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
 	bankAccount: '',
 	statusValue: false,
 	isOpen: false,
+	event: undefined,
 };
 
 const ReducerIncomePerEvent = (state = initialState, action = {}) => {

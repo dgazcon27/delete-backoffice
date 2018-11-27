@@ -30,20 +30,22 @@ const IncomePerEvent = ({
 	actionDelete,
 	blockMutation,
 	deleteMutation,
+	match,
 }) => {
+	const event = match.params.id;
 	const objectQuery = {
 		queryComponent: GET_INCOME_PER_EVENT,
 		querySearch: SEARCH_INCOME_PER_EVENT,
 		paramsQueryComponent: {
-			event: 4,
+			event,
 		},
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: true,
-		titleButton: 'agregar nuevo +',
-		url: '/',
+		titleButton: 'agregar nuevo',
+		url: `/movement/income/create/${event}`,
 	};
 
 	const objectList = {

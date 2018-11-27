@@ -22,21 +22,21 @@ export const closeModal = () => ({
 	},
 });
 
-export const blockIncomePerEvent = (obj, blockHotelMutation) => {
+export const blockIncomePerEvent = (obj, blockMutation) => {
 	const { id } = obj;
 	const status = obj.statusValue ? 0 : 1;
 	return async (dispatch) => {
-		await blockHotelMutation({ variables: { id, status } });
+		await blockMutation({ variables: { id, status } });
 		dispatch(closeModal());
 		window.location.reload();
 	};
 };
 
-export const deleteIncomePerEvent = (obj, paginationPage, deleteHotelMutation) => {
+export const deleteIncomePerEvent = (obj, paginationPage, deleteMutation) => {
 	const { id } = obj;
 	const event = obj.id;
 	return async (dispatch) => {
-		await deleteHotelMutation({
+		await deleteMutation({
 			variables: { id },
 			refetchQueries: [{ query: GET_INCOME_PER_EVENT, variables: { paginationPage, event } }],
 		});

@@ -9,9 +9,9 @@ import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	blockIncomePerEvent,
-	deleteIncomePerEvent,
-} from '../../actions/IncomePerEvent/actionsCreators';
+	blockExpensePerEvent,
+	deleteExpensePerEvent,
+} from '../../actions/ExpensePerEvent/actionsCreators';
 
 // Queries
 import {
@@ -30,7 +30,9 @@ const ExpensePerEvent = ({
 	actionDelete,
 	blockMutation,
 	deleteMutation,
+	match,
 }) => {
+	const event = match.params.id;
 	const objectQuery = {
 		queryComponent: GET_EXPENSE_PER_EVENT,
 		querySearch: SEARCH_EXPENSES_PER_EVENT,
@@ -43,7 +45,7 @@ const ExpensePerEvent = ({
 		showButton: true,
 		showSearch: true,
 		titleButton: 'agregar nuevo +',
-		url: '/',
+		url: `/movement/expense/create/${event}`,
 	};
 
 	const objectList = {
@@ -151,15 +153,15 @@ ExpensePerEvent.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateExpensePerEvent: state.ReducerIncomePerEvent,
+	objectStateExpensePerEvent: state.ReducerExpensePerEvent,
 });
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionBlock: (componentState, blockMutation) =>
-		dispatch(blockIncomePerEvent(componentState, blockMutation)),
+		dispatch(blockExpensePerEvent(componentState, blockMutation)),
 	actionDelete: (componentState, paginationPage, deleteMutation) =>
-		dispatch(deleteIncomePerEvent(componentState, paginationPage, deleteMutation)),
+		dispatch(deleteExpensePerEvent(componentState, paginationPage, deleteMutation)),
 });
 export default compose(
 	graphql(DELETE_EXPENSE_PER_EVENT, { name: 'deleteMutation' }),

@@ -39,6 +39,7 @@ import RoomEdit from '../Room/roomEdit';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Tokens from '../Tokens/tokens';
 import TokensReservation from '../Tokens/tokensReservation';
+
 import IncomePerEvent from '../IncomePerEvent/IncomePerEvent';
 import ExpensePerEvent from '../ExpensePerEvent/ExpensePerEvent';
 
@@ -98,8 +99,8 @@ const Main = (props) => {
 				<Route path='/room-edit' component={RoomEdit} />
 				<Route path='/tokens' component={Tokens} />
 				<Route path='/tokens-reservation' component={TokensReservation} />
-				<Route path='/income-per-event' component={IncomePerEvent} />
-				<Route path='/expense-per-event' component={ExpensePerEvent} />
+				<Route path='/income-per-event/:id' component={IncomePerEvent} />
+				<Route path='/expense-per-event/:id' component={ExpensePerEvent} />
 			</Switch>
 		</main>
 	);
