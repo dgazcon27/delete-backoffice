@@ -151,6 +151,9 @@ const styles = () => ({
 		fontSize: '20px',
 		style: 'none',
 	},
+	hidden: {
+		display: 'none',
+	},
 });
 
 export default styles;

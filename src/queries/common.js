@@ -131,3 +131,12 @@ export const GET_STATUS = gql`
 		}
 	}
 `;
+
+export const GET_CATEGORIES = gql`
+	query{ 
+		categorys{
+			id
+			name
+  		}
+	}
+`;

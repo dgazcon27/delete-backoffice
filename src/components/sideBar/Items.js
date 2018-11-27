@@ -26,13 +26,19 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Settings from '@material-ui/icons/Settings';
 import Collapse from '@material-ui/core/Collapse';
 import LocationOn from '@material-ui/icons/LocationOn';
+import Work from '@material-ui/icons/Work';
 import collapseItem from '../../actions/SideBar/actionsCreators';
 import { resetPagination } from '../../actions/List/actionsCreators';
-import { SB_COLLAPSE_CONFIG, SB_COLLAPSE_TRACKER } from '../../actions/SideBar/actionsTypes';
+import {
+	SB_COLLAPSE_CONFIG,
+	SB_COLLAPSE_TRACKER,
+	SB_COLLAPSE_ADMINISTRATION,
+} from '../../actions/SideBar/actionsTypes';
 
 const Items = ({
 	openConfig,
 	openTracker,
+	openAdmin,
 	actionCollapse,
 	actionResetPagination,
 }) => (
@@ -182,6 +188,34 @@ const Items = ({
 				<Divider />
 			</List>
 		</Collapse>
+		<ListItem button onClick={() => { actionCollapse(!openAdmin, SB_COLLAPSE_ADMINISTRATION); }}>
+			<ListItemIcon >
+				<Work />
+			</ListItemIcon>
+			<ListItemText inset primary='Administración' />
+			{openAdmin ? <ExpandMore /> : <ChevronLeft />}
+		</ListItem>
+		<Collapse in={openAdmin} timeout='auto' unmountOnExit>
+			<List component='div' disablePadding>
+				<Link to='/movement/income/create'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Reportar ingreso' />
+					</ListItem>
+				</Link>
+				<Link to='/movement/expenses/create'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Reportar gasto' />
+					</ListItem>
+				</Link>
+				<Divider />
+			</List>
+		</Collapse>
 	</div>
 );
 
@@ -189,12 +223,14 @@ Items.propTypes = {
 	actionResetPagination: PropTypes.func.isRequired,
 	openConfig: PropTypes.bool.isRequired,
 	openTracker: PropTypes.bool.isRequired,
+	openAdmin: PropTypes.bool.isRequired,
 	actionCollapse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	openConfig: state.ReducerSideBar.openConfig,
 	openTracker: state.ReducerSideBar.openTracker,
+	openAdmin: state.ReducerSideBar.openAdmin,
 });
 
 const mapDispatchToProps = dispatch => ({

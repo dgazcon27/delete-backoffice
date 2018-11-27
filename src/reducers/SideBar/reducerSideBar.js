@@ -1,8 +1,13 @@
-import { SB_COLLAPSE_CONFIG, SB_COLLAPSE_TRACKER } from '../../actions/SideBar/actionsTypes';
+import {
+	SB_COLLAPSE_CONFIG,
+	SB_COLLAPSE_TRACKER,
+	SB_COLLAPSE_ADMINISTRATION,
+} from '../../actions/SideBar/actionsTypes';
 
 const initialState = {
 	openConfig: false,
 	openTracker: false,
+	openAdmin: false,
 };
 
 const ReducerSideBar = (state = initialState, action = {}) => {
@@ -16,6 +21,11 @@ const ReducerSideBar = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				openTracker: action.payload.open,
+			});
+		case SB_COLLAPSE_ADMINISTRATION:
+			return ({
+				...state,
+				openAdmin: action.payload.open,
 			});
 		default:
 			return state;

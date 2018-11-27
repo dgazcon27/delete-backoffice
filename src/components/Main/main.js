@@ -39,7 +39,9 @@ import RoomEdit from '../Room/roomEdit';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Tokens from '../Tokens/tokens';
 import TokensReservation from '../Tokens/tokensReservation';
-
+import IncomeCreate from '../Movement/incomeCreate';
+import ExpensesCreate from '../Movement/expensesCreate';
+import IncomeUpdate from '../Movement/incomeUpdate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -97,6 +99,12 @@ const Main = (props) => {
 				<Route path='/room-edit' component={RoomEdit} />
 				<Route path='/tokens' component={Tokens} />
 				<Route path='/tokens-reservation' component={TokensReservation} />
+				<Route path='/movement/income/create' component={IncomeCreate} />
+				<Route path='/movement/expenses/create' component={ExpensesCreate} />
+				<Route path='/movement/income/update/:id' component={IncomeUpdate} />
+				<Route path='/movement/expenses/update/:id' component={IncomeUpdate} />
+				<Route path='/movement/income/show/:id' component={IncomeUpdate} />
+				<Route path='/movement/expenses/show/:id' component={IncomeUpdate} />
 			</Switch>
 		</main>
 	);

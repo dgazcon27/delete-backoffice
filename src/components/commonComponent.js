@@ -19,6 +19,7 @@ import {
 	GET_ZONES,
 	GET_COUNTRIES,
 	GET_TYPE_INVITED,
+	GET_CATEGORIES,
 } from './../queries/common';
 
 export const BankAccount = () => (
@@ -736,6 +737,45 @@ export const TypeInvited = () => (
 				>
 					{data.typeInvits.map(typeinvited => (
 						<MenuItem key={typeinvited.id} value={typeinvited.id}>{typeinvited.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+
+export const Categories = () => (
+	<Query query={GET_CATEGORIES}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='type'
+						type='select'
+						label='Categoría'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='type'
+					type='select'
+					label='Categoría'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.categorys.map(category => (
+						<MenuItem key={category.name} value={category.name}>{category.name}</MenuItem>
 					))}
 				</Field>
 			);
