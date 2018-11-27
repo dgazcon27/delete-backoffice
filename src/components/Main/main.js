@@ -49,8 +49,6 @@ const Main = (props) => {
 		<main className={classes.content}>
 			<div className={classes.toolbar} />
 			<Switch>
-				<Route path='/income' component={Income} />
-				<Route path='/expenses' component={Expenses} />
 				<Route exact path='/' component={PurchaseRequest} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
@@ -68,6 +66,8 @@ const Main = (props) => {
 				<Route path='/edit-tables/:id' component={EditionComponent} />
 				<Route path='/events' component={Event} />
 				<Route path='/events-create' component={EventCreate} />
+				<Route path='/income' component={Income} />
+				<Route path='/expenses' component={Expenses} />
 				<Route path='/event-edit/:id' component={EditionComponent} />
 				<Route path='/zones' component={Zone} />
 				<Route path='/Departments-create' component={ZoneCreate} />

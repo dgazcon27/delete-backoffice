@@ -9,7 +9,7 @@ import {
 	openModal,
 	closeModal,
 } from '../../actions/BankAccount/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_BANK_ACCOUNTS,
 	DELETE_BANK_ACCOUNT,
@@ -101,6 +101,7 @@ const BankAccountNew = ({
 
 	return (
 		<div>
+			<Title title='Cuentas de banco' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

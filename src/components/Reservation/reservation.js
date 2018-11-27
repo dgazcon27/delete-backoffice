@@ -9,13 +9,12 @@ import {
 	closeModal,
 	deleteReservation,
 } from '../../actions/Reservation/actionsCreators';
+import Title from '../Shared/title';
 
 import {
 	GET_RESERVATIONS,
 	DELETE_RESERVATION,
 } from '../../queries/reservation';
-
-import BackButton from '../widget/BackButton';
 
 const Reservation = ({
 	objectStateReservation,
@@ -113,7 +112,7 @@ const Reservation = ({
 
 	return (
 		<div>
-			<BackButton />
+			<Title title='Reservaciones' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

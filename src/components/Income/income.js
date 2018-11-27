@@ -6,6 +6,7 @@ import ContainerList from '../List/containerList';
 import Search from '../Search/search';
 
 import { GET_EVENTS } from '../../queries/event';
+import Title from '../Shared/title';
 
 const Income = ({
 	objectStateEvent,
@@ -16,7 +17,7 @@ const Income = ({
 	};
 
 	const objectSearch = {
-		showButton: true,
+		showButton: false,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
 		url: '/events-create',
@@ -40,7 +41,8 @@ const Income = ({
 				path: 'event-access',
 			},
 			payment: '',
-			edit: '/event-edit',
+			edit: '/income-per-event',
+			visibility: '/income-per-event',
 		},
 	};
 
@@ -84,6 +86,7 @@ const Income = ({
 
 	return (
 		<div>
+			<Title title='Ingresos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

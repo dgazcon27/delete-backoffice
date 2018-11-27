@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
-
+import Title from '../Shared/title';
 import { GET_EVENTS } from '../../queries/event';
 
 const Expenses = ({
@@ -16,7 +16,7 @@ const Expenses = ({
 	};
 
 	const objectSearch = {
-		showButton: true,
+		showButton: false,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
 		url: '/events-create',
@@ -40,7 +40,8 @@ const Expenses = ({
 				path: 'event-access',
 			},
 			payment: '',
-			edit: '/event-edit',
+			edit: '',
+			visibility: '/expense-per-event',
 		},
 	};
 
@@ -84,6 +85,7 @@ const Expenses = ({
 
 	return (
 		<div>
+			<Title title='Gastos por evento' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

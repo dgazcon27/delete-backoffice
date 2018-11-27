@@ -10,6 +10,7 @@ import {
 	blockRoom,
 	deleteRoom,
 } from '../../actions/Room/actionsCreators';
+import Title from '../Shared/title';
 
 import {
 	GET_ROOMS,
@@ -118,6 +119,7 @@ const Room = ({
 
 	return (
 		<div>
+			<Title title='Cuartos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

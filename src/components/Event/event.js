@@ -9,7 +9,7 @@ import {
 	closeModal,
 	deleteEvent,
 } from '../../actions/Event/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_EVENTS,
 	DELETE_EVENT,
@@ -96,6 +96,7 @@ const Event = ({
 
 	return (
 		<div>
+			<Title title='Eventos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

@@ -14,8 +14,7 @@ import {
 	GET_PAYMENTS,
 	DELETE_PAYMENT,
 } from '../../queries/payment';
-
-import BackButton from '../widget/BackButton';
+import Title from '../Shared/title';
 
 const Payment = ({
 	objectStatePayment,
@@ -109,7 +108,7 @@ const Payment = ({
 
 	return (
 		<div>
-			<BackButton />
+			<Title title='Pagos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

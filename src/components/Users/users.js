@@ -10,7 +10,7 @@ import {
 	openModal,
 	closeModal,
 } from '../../actions/users/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_USERS,
 	BLOCK_USER,
@@ -110,6 +110,7 @@ const Users = ({
 
 	return (
 		<div>
+			<Title title='Usuarios' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

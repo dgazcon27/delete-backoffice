@@ -11,6 +11,8 @@ import {
 	ListItemText,
 	Divider,
 } from '@material-ui/core/';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Weekend from '@material-ui/icons/Weekend';
 import Event from '@material-ui/icons/Album';
 import Hotel from '@material-ui/icons/Hotel';
@@ -56,7 +58,7 @@ const Items = ({
 		<Link to='/income' href='/income'>
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
-					<RoomService />
+					<ArrowUpward />
 				</ListItemIcon>
 				<ListItemText primary='Ingresos por Evento' />
 			</ListItem>
@@ -64,7 +66,7 @@ const Items = ({
 		<Link to='/expenses' href='/expenses'>
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
-					<RoomService />
+					<ArrowDownward />
 				</ListItemIcon>
 				<ListItemText primary='Pagos por Evento' />
 			</ListItem>

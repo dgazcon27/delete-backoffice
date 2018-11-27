@@ -83,7 +83,7 @@ const Options = ({
 				placement='top'
 				title='Visualizar'
 			>
-				<Link to={`${urls.edit}/${rowData.id}`} href={`${urls.edit}/${rowData.id}`}>
+				<Link to={`${urls.visibility}/${rowData.id}`} href={`${urls.visibility}/${rowData.id}`}>
 					<IconButton>
 						<Visibility />
 					</IconButton>

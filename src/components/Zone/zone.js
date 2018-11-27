@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
+import Title from '../Shared/title';
+
 import {
 	openModal,
 	closeModal,
@@ -102,6 +104,7 @@ const Zone = ({
 
 	return (
 		<div>
+			<Title title='Zonas' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
