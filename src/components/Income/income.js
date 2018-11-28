@@ -86,7 +86,7 @@ const Income = ({
 
 	return (
 		<div>
-			<Title title='Ingresos' />
+			<Title title='Ingresos por Evento' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

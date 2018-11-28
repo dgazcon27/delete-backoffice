@@ -11,16 +11,16 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
-import BackButton from '../widget/BackButton';
 import { CREATE_MOVEMENT } from '../../queries/movement';
 import NotificationAlert from '../widget/NotificationAlert';
 import {
 	setNotification,
 	createIncome,
 	getEventById,
-} from '../../actions/Movement/actionsCreator';
+} from '../../actions/Movement/actionsCreators';
 import FormMovement from './form';
 import styles from '../Shared/sharedStyles';
+import Title from '../Shared/title';
 
 let ExpensesCreate = class ExpensesCreateClass extends React.Component {
 	componentDidMount() {
@@ -46,11 +46,7 @@ let ExpensesCreate = class ExpensesCreateClass extends React.Component {
 		const event = match.params.id === undefined;
 		return (
 			<div>
-				<h3 className={classes.formTitle}>{title}
-					<div className={classes.backbuttonCreation}>
-						<BackButton />
-					</div>
-				</h3>
+				<Title title={title} />
 				<Paper className={classes.createContainer}>
 					<FormMovement
 						options='create'
@@ -109,6 +105,7 @@ const mapStateToProps = (state) => {
 			'amount',
 			'reference',
 			'comment',
+			'category',
 			'movementsType',
 			'bankAccount',
 			'type',

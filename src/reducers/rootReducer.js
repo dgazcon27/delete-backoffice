@@ -14,7 +14,6 @@ import ReducerEvent from './Event/reducerEvent';
 import ReducerPayment from './Payment/reducerPayment';
 import ReducerAccess from './Access/reducerAccess';
 import ReducerSearch from './Search/reducerSearch';
-
 import ReducerPagination from './List/reducerPagination';
 import ReducerGuest from './Guest/reducerGuest';
 import ReducerEventAccess from './Event/Access/reducerAccess';
@@ -23,6 +22,7 @@ import ReducerRoom from './Room/reducerRoom';
 import ReducerSideBar from './SideBar/reducerSideBar';
 import ReducerTokens from './Tokens/reducerTokens';
 import ReducerMovement from './Movement/reducerMovement';
+
 
 const rootReducer = combineReducers({
 	ReducerHeader,

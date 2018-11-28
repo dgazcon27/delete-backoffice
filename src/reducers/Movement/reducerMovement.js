@@ -2,6 +2,10 @@ import {
 	SET_ALERT_MOVEMENT,
 	SET_DATA_MOVEMENT,
 	SET_EVENT_MOVEMENT,
+	OPEN_MODAL_EXPENSE_PER_EVENT,
+	CLOSE_MODAL_EXPENSE_PER_EVENT,
+	OPEN_MODAL_INCOME_PER_EVENT,
+	CLOSE_MODAL_INCOME_PER_EVENT,
 } from '../../actions/Movement/actionsTypes';
 
 const initialState = {
@@ -12,10 +16,14 @@ const initialState = {
 	comment: '',
 	type: '',
 	bankAccount: 0,
+	category: 0,
 	createdBy: 0,
 	updatedBy: 0,
 	isAlert: false,
 	typeAlert: '',
+	id: undefined,
+	statusValue: false,
+	isOpen: false,
 };
 
 const ReducerMovement = (state = initialState, action = {}) => {
@@ -32,6 +40,7 @@ const ReducerMovement = (state = initialState, action = {}) => {
 				event: action.payload.event,
 				eventName: action.payload.eventName,
 				amount: action.payload.amount,
+				category: action.payload.category,
 				reference: action.payload.reference,
 				comment: action.payload.comment,
 				movementsType: action.payload.movementsType,
@@ -44,6 +53,38 @@ const ReducerMovement = (state = initialState, action = {}) => {
 				...state,
 				event: action.payload.event,
 				eventName: action.payload.eventName,
+			});
+		case OPEN_MODAL_EXPENSE_PER_EVENT:
+			return ({
+				...state,
+				isOpen: true,
+				id: action.payload.id,
+				modalType: action.payload.modalType,
+				statusValue: action.payload.statusValue,
+			});
+		case CLOSE_MODAL_EXPENSE_PER_EVENT:
+			return ({
+				...state,
+				isOpen: false,
+				id: undefined,
+				modalType: '',
+				statusValue: '',
+			});
+		case OPEN_MODAL_INCOME_PER_EVENT:
+			return ({
+				...state,
+				isOpen: true,
+				id: action.payload.id,
+				modalType: action.payload.modalType,
+				statusValue: action.payload.statusValue,
+			});
+		case CLOSE_MODAL_INCOME_PER_EVENT:
+			return ({
+				...state,
+				isOpen: false,
+				id: undefined,
+				modalType: '',
+				statusValue: '',
 			});
 		default:
 			return state;

@@ -12,11 +12,15 @@ import {
 	formValueSelector,
 } from 'redux-form';
 import styles from '../Shared/sharedStyles';
-import BackButton from '../widget/BackButton';
 import { UPDATE_MOVEMENT } from '../../queries/movement';
-import { getMovementById, updateMovement, setNotification } from '../../actions/Movement/actionsCreator';
+import {
+	getMovementById,
+	updateMovement,
+	setNotification,
+} from '../../actions/Movement/actionsCreators';
 import FormMovement from './form';
 import NotificationAlert from '../widget/NotificationAlert';
+import Title from '../Shared/title';
 
 let IncomeUpdate = class IncomeUpdateClass extends React.Component {
 	componentDidMount() {
@@ -43,11 +47,7 @@ let IncomeUpdate = class IncomeUpdateClass extends React.Component {
 
 		return (
 			<div>
-				<h3 className={classes.formTitle}>{title}
-					<div className={classes.backbuttonCreation}>
-						<BackButton />
-					</div>
-				</h3>
+				<Title title={title} />
 				<Paper className={classes.createContainer}>
 					<FormMovement
 						options={option}
@@ -117,6 +117,7 @@ const mapStateToProps = state => ({
 		'movementsType',
 		'bankAccount',
 		'type',
+		'category',
 		'updatedBy',
 	),
 });

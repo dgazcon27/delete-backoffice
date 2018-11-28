@@ -751,7 +751,7 @@ export const Categories = () => (
 			if (loading) {
 				return (
 					<Field
-						name='type'
+						name='category'
 						type='select'
 						label='Categoría'
 						component={renderSelectField}
@@ -767,7 +767,7 @@ export const Categories = () => (
 			}
 			return (
 				<Field
-					name='type'
+					name='category'
 					type='select'
 					label='Categoría'
 					component={renderSelectField}
@@ -775,7 +775,7 @@ export const Categories = () => (
 					className='container'
 				>
 					{data.categorys.map(category => (
-						<MenuItem key={category.name} value={category.name}>{category.name}</MenuItem>
+						<MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
 					))}
 				</Field>
 			);

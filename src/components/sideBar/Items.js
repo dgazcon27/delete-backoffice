@@ -61,22 +61,7 @@ const Items = ({
 				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
-		<Link to='/income' href='/income'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<ArrowUpward />
-				</ListItemIcon>
-				<ListItemText primary='Ingresos por Evento' />
-			</ListItem>
-		</Link>
-		<Link to='/expenses' href='/expenses'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<ArrowDownward />
-				</ListItemIcon>
-				<ListItemText primary='Pagos por Evento' />
-			</ListItem>
-		</Link>
+
 		<Link to='/payment' href='/payment' >
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
@@ -215,6 +200,22 @@ const Items = ({
 		</ListItem>
 		<Collapse in={openAdmin} timeout='auto' unmountOnExit>
 			<List component='div' disablePadding>
+				<Link to='/income' href='/income'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<ArrowUpward />
+						</ListItemIcon>
+						<ListItemText primary='Ingresos por Evento' />
+					</ListItem>
+				</Link>
+				<Link to='/expenses' href='/expenses'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<ArrowDownward />
+						</ListItemIcon>
+						<ListItemText primary='Gastos por Evento' />
+					</ListItem>
+				</Link>
 				<Link to='/movement/income/create'>
 					<ListItem button onClick={() => actionResetPagination()}>
 						<ListItemIcon>
@@ -234,6 +235,7 @@ const Items = ({
 				<Divider />
 			</List>
 		</Collapse>
+
 	</div>
 );
 

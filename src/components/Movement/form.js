@@ -98,6 +98,16 @@ const FormMovement = ({
 				disabled={disable}
 			/>
 		</div>
+		<div className={classes.formStyle}>
+			<Field
+				name='type'
+				type='text'
+				component={renderTextField}
+				validate={[required, empty]}
+				label='Tipo'
+				disabled={disable}
+			/>
+		</div>
 		<div className={classes.hidden}>
 			<Field
 				name='movementsType'
