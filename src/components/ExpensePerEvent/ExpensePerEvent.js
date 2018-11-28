@@ -149,6 +149,7 @@ ExpensePerEvent.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	blockMutation: PropTypes.func.isRequired,
 	deleteMutation: PropTypes.func.isRequired,
+	match: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
