@@ -30,6 +30,7 @@ import {
 	createPaymentReservation,
 } from '../../actions/Reservation/actionsCreators';
 import { BankAccount } from '../commonComponent';
+import Title from '../Shared/title';
 
 let ReservationPayment = ({
 	userId,
@@ -46,7 +47,7 @@ let ReservationPayment = ({
 	createReservationPayMutation,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nuevo Pago</h3>
+		<Title title='Nuevo Pago' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Pago</h6>

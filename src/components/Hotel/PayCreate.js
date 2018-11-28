@@ -19,6 +19,7 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 
 import {
@@ -48,7 +49,7 @@ let Payment = ({
 	createPaymentMutation,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Pagos</h3>
+		<Title title='Pagos' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Generar Pago</h6>

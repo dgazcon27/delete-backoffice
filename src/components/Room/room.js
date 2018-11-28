@@ -119,7 +119,7 @@ const Room = ({
 
 	return (
 		<div>
-			<Title title='Cuartos' />
+			<Title title='Habitaciones' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

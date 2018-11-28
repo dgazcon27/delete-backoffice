@@ -28,6 +28,7 @@ import {
 	createRol,
 } from '../../actions/userType/actionsCreators';
 import BackButton from '../widget/BackButton';
+import Title from '../Shared/title';
 
 let UserTypeCreate = ({
 	classes,
@@ -42,11 +43,7 @@ let UserTypeCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Roles
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Roles' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Rol</h6>

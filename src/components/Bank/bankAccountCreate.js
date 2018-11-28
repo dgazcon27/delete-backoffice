@@ -26,6 +26,7 @@ import {
 	createBankAccount,
 } from '../../actions/BankAccount/actionsCreators';
 
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import { Banks, Users } from '../commonComponent';
 
@@ -43,11 +44,7 @@ let BankAccountCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Cuenta Bancaria
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Cuenta Bancaria' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nueva cuenta bancaria</h6>

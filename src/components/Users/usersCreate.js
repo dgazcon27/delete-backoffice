@@ -32,6 +32,7 @@ import {
 	createUser,
 } from '../../actions/users/actionsCreators';
 
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import {
 	Roles,
@@ -52,11 +53,8 @@ let UsersCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Usuario
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Usuarios' />
+
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Usuario</h6>

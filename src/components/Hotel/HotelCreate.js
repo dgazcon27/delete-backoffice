@@ -16,6 +16,7 @@ import {
 	closeAlert,
 	createHotel,
 } from '../../actions/Hotel/actionsCreators';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import {
 	Aevents,
@@ -40,11 +41,7 @@ let HotelCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Registrar Hotel
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Registrar Hotel' />
 		<Paper className={classes.createContainer}>
 			<h6 className={classes.formTitle}>Nuevo Hotel</h6>
 			<form>

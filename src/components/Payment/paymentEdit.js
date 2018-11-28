@@ -13,6 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import styles from '../Shared/sharedStyles';
 
@@ -46,11 +47,8 @@ let PaymentEdit = ({
 	initialValues,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Pagos
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Pagos' />
+
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Pago</h6>

@@ -21,6 +21,7 @@ import {
 	Aevents,
 	Providers,
 } from '../commonComponent';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import styles from '../Shared/sharedStyles';
 import './styles.css';
@@ -43,9 +44,9 @@ let EditHotel = ({
 	actionSetHotel(parseInt(match.params.id, 10));
 	return (
 		<div>
-			<h3 className={classes.formTitle}>Registrar Hotel</h3>
+			<Title title='Editar Hotel' />
 			<Paper className={classes.createContainer}>
-				<h6 className={classes.formTitle}>Nuevo Hotel</h6>
+				<h6 className={classes.formTitle}>Hotel</h6>
 				<form>
 					<div className={classes.formStyle}>
 						<Aevents />

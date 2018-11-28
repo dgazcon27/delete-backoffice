@@ -37,7 +37,7 @@ import {
 	editRoom,
 	getHotels,
 } from '../../actions/Room/actionsCreators';
-import BackButton from '../widget/BackButton';
+import Title from '../Shared/title';
 
 const validate = (values) => {
 	const errors = {};
@@ -173,11 +173,7 @@ let RoomEdit = ({
 	paginationPage,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Editar Habitación
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Habitaciones' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Habitación</h6>

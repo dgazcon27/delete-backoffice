@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core';
 
 import styles from '../Shared/sharedStyles';
+import Title from '../Shared/title';
 
 import {
 	sendTokens,
@@ -62,9 +63,7 @@ const Tokens = ({
 					}
 					{load === 'list' &&
 					<div>
-						<h5 className={classes.title}>
-								Envio de Localizadores
-						</h5>
+						<Title title='Envio de Localizadores' />
 						<h5 className={classes.searchAlignRigth}>
 							{data.paidSalesList.total > 0 &&
 								<Button

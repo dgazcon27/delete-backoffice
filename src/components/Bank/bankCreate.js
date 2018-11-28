@@ -19,6 +19,7 @@ import {
 	required,
 	empty,
 } from '../validations/validations';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import { renderTextField } from '../RenderFields/renderFields';
 import { CREATE_BANK } from '../../queries/bank';
@@ -42,11 +43,7 @@ let BankCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Crear Banco
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Crear Banco' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Banco</h6>

@@ -28,6 +28,7 @@ import {
 	closeAlert,
 	editUser,
 } from '../../actions/users/actionsCreators';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import {
 	Roles,
@@ -49,11 +50,7 @@ let UsersEdit = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h4>Usuario
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h4>
+		<Title title='Usuarios' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Usuario</h6>

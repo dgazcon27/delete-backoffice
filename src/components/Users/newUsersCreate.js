@@ -30,7 +30,7 @@ import {
 	closeAlert,
 	newCreateUser,
 } from '../../actions/users/actionsCreators';
-
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import { Citizenship } from '../commonComponent';
 
@@ -47,7 +47,8 @@ let NewUsersCreate = ({
 	submitting,
 	handleSubmit,
 }) => (
-	<div><h3 className={classes.formTitle}>Usuario</h3>
+	<div>
+		<Title title='Ventas' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Usuario</h6>

@@ -30,6 +30,7 @@ import {
 	createEvent,
 	setCountriesStates,
 } from '../../actions/Event/actionsCreators';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 
 
@@ -102,11 +103,7 @@ let EventCreate = ({
 	states,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Eventos
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Eventos' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Evento</h6>

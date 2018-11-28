@@ -13,6 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import styles from '../Shared/sharedStyles';
 import './styles.css';
@@ -70,11 +71,8 @@ let LocationEdit = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nueva Ubicación
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Editar Ubicación' />
+
 		<Paper className={classes.createContainer}>
 			<h6 className={classes.formTitle}>Editar Ubicación</h6>
 			<form>

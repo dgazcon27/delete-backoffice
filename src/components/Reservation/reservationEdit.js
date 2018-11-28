@@ -11,7 +11,6 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import BackButton from '../widget/BackButton';
 import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
@@ -23,6 +22,7 @@ import {
 	renderNumberField,
 } from '../RenderFields/renderFields';
 import { closeAlert } from '../../actions/Reservation/actionsCreators';
+import Title from '../Shared/title';
 
 
 let ReservationEdit = ({
@@ -33,11 +33,7 @@ let ReservationEdit = ({
 	actionCloseAlert,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Editar Paquete
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Editar Paquete' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Paquete</h6>
