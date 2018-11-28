@@ -154,6 +154,16 @@ const styles = () => ({
 	hidden: {
 		display: 'none',
 	},
+	right: {
+		float: 'right',
+		position: 'relative',
+		right: '5px',
+		top: '-45px',
+	},
+	left: {
+		position: 'relative',
+		right: '-20px',
+	},
 });
 
 export default styles;

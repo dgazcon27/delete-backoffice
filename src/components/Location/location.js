@@ -9,7 +9,7 @@ import {
 	closeModal,
 	deleteLocation,
 } from '../../actions/location/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_LOCATIONS,
 	DELETE_LOCATION,
@@ -93,6 +93,7 @@ const Location = ({
 
 	return (
 		<div>
+			<Title title='Areas/Mesas' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

@@ -45,7 +45,7 @@ import {
 	setModal,
 } from '../../actions/Reservation/actionsCreators';
 import Loading from '../Loading/loading';
-import BackButton from '../widget/BackButton';
+import Title from '../Shared/title';
 
 const Room = ({
 	event,
@@ -178,12 +178,7 @@ let ReservationCreate = ({
 		}
 		{!load &&
 			<div>
-				<h3 className={classes.formTitle}>
-					Nuevo Paquete
-					<div className={classes.backbuttonCreation}>
-						<BackButton />
-					</div>
-				</h3>
+				<Title title='Nuevo Paquete' />
 				<Paper className={classes.createContainer}>
 					<form>
 						<h6 className={classes.formTitle}>Nuevo Paquete</h6>

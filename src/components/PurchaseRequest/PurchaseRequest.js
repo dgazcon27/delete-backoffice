@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
+import Title from '../Shared/title';
 import {
 	openModal,
 	closeModal,
@@ -71,6 +72,7 @@ const PurchaseRequest = ({
 			},
 			payment: 'Pay',
 			edit: '/purchase-request-edit',
+			visibility: '/purchase-request-edit',
 		},
 	};
 
@@ -115,6 +117,7 @@ const PurchaseRequest = ({
 
 	return (
 		<div>
+			<Title title='Ventas' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

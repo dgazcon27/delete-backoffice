@@ -14,6 +14,7 @@ import {
 	GET_ACCESS,
 	DELETE_ACCESS,
 } from '../../queries/access';
+import Title from '../Shared/title';
 
 const Access = ({
 	objectStateAccess,
@@ -96,6 +97,7 @@ const Access = ({
 
 	return (
 		<div>
+			<Title title='Accesos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

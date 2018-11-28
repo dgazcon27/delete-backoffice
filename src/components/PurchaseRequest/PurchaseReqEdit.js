@@ -23,6 +23,7 @@ import {
 	cleanState,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+import Title from '../Shared/title';
 
 import { editPurchaseReq } from '../../actions/PurchaseRequest/actionsCreators';
 
@@ -33,11 +34,7 @@ let PurchaseRequestEdit = ({
 	actionCloseAlert,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Solicitud de Compra
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Solicitud de Compra' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Solicitud de Compra</h6>

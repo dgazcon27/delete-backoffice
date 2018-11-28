@@ -10,7 +10,7 @@ import {
 	openModal,
 	closeModal,
 } from '../../actions/users/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_USERS,
 	BLOCK_USER,
@@ -49,6 +49,11 @@ const Users = ({
 		},
 		{
 			id: 2,
+			columName: 'Apellido',
+			jsonPath: 'lastName',
+		},
+		{
+			id: 3,
 			columName: 'Tipo de Usuario',
 			jsonPath: 'role.name',
 		}],
@@ -105,6 +110,7 @@ const Users = ({
 
 	return (
 		<div>
+			<Title title='Usuarios' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

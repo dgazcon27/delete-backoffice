@@ -9,7 +9,7 @@ import {
 	openModal,
 	closeModal,
 } from '../../actions/Guest/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_GUESTS,
 	SEARCH_INVITED,
@@ -98,6 +98,7 @@ const Guest = ({
 
 	return (
 		<div>
+			<Title title='Invitados' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

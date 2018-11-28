@@ -30,6 +30,7 @@ import {
 	closeAlert,
 	createLocation,
 } from '../../actions/location/actionsCreators';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 
 import { Status } from '../commonComponent';
@@ -73,11 +74,8 @@ let LocationCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Nueva Ubicación
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Nueva Ubicación' />
+
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Ubicación</h6>

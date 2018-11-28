@@ -10,14 +10,13 @@ import {
 	blockHotel,
 	deleteHotel,
 } from '../../actions/Hotel/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_HOTELS,
 	BLOCK_HOTEL,
 	DELETE_HOTEL,
 } from '../../queries/hotels';
 
-import BackButton from '../widget/BackButton';
 
 const Hotel2 = ({
 	objectStateHotel,
@@ -104,7 +103,7 @@ const Hotel2 = ({
 
 	return (
 		<div>
-			<BackButton />
+			<Title title='Hoteles' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

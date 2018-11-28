@@ -1,34 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { compose, graphql } from 'react-apollo';
+import { compose } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
-import {
-	openModal,
-	closeModal,
-	deleteEvent,
-} from '../../actions/Event/actionsCreators';
-import Title from '../Shared/title';
-import {
-	GET_EVENTS,
-	DELETE_EVENT,
-} from '../../queries/event';
 
-const Event = ({
+import { GET_EVENTS } from '../../queries/event';
+import Title from '../Shared/title';
+
+const Income = ({
 	objectStateEvent,
 	paginationPage,
-	actionOpenModal,
-	actionCloseModal,
-	actionDelete,
-	deleteEventMutation,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_EVENTS,
 	};
 
 	const objectSearch = {
-		showButton: true,
+		showButton: false,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
 		url: '/events-create',
@@ -45,14 +34,15 @@ const Event = ({
 			columName: 'Ubicación',
 			jsonPath: 'state.country.name',
 		}],
-		arrayActive: [true, false, false, true, true, false, false],
+		arrayActive: [false, false, true, false, false, false, false],
 		urls: {
 			list: {
 				type: 'viewList',
 				path: 'event-access',
 			},
 			payment: '',
-			edit: '/event-edit',
+			edit: '/income-per-event',
+			visibility: '/income-per-event',
 		},
 	};
 
@@ -72,7 +62,7 @@ const Event = ({
 		paginationPage,
 		messages: {
 			edit: {
-				title: 'contenido edit modal',
+				title: '',
 			},
 			block: {
 				titleStatus1: '',
@@ -81,22 +71,22 @@ const Event = ({
 				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar evento',
-				msg: '¿Estas seguro que desea eliminar este evento?',
+				title: '',
+				msg: '',
 			},
 		},
 	};
 
 	const actions = {
-		openModal: actionOpenModal,
-		closeModal: actionCloseModal,
-		delete: actionDelete,
-		queryDelete: deleteEventMutation,
+		openModal: '',
+		closeModal: '',
+		delete: '',
+		queryDelete: '',
 	};
 
 	return (
 		<div>
-			<Title title='Eventos' />
+			<Title title='Ingresos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
@@ -115,13 +105,9 @@ const Event = ({
 	);
 };
 
-Event.propTypes = {
-	actionOpenModal: PropTypes.func.isRequired,
-	actionCloseModal: PropTypes.func.isRequired,
-	actionDelete: PropTypes.func.isRequired,
+Income.propTypes = {
 	objectStateEvent: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deleteEventMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -129,14 +115,7 @@ const mapStateToProps = state => ({
 	objectStateEvent: state.ReducerEvent,
 });
 
-const mapDispatchToProps = dispatch => ({
-	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
-	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deleteEventMutation) =>
-		dispatch(deleteEvent(componentState, paginationPage, deleteEventMutation)),
+const mapDispatchToProps = () => ({
 });
 
-export default compose(
-	graphql(DELETE_EVENT, { name: 'deleteEventMutation' }),
-	connect(mapStateToProps, mapDispatchToProps),
-)(Event);
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Income);

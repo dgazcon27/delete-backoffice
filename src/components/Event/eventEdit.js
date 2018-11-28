@@ -28,6 +28,7 @@ import {
 	SelectCountry,
 	SelectState,
 } from '../commonComponent';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 
 
@@ -97,7 +98,7 @@ let EventEdit = ({
 	actionSetDate,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Eventos</h3>
+		<Title title='Eventos' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Evento</h6>

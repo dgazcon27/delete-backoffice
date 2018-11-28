@@ -34,6 +34,8 @@ import NewUsersCreate from '../Users/newUsersCreate';
 import { Aevents } from '../commonComponent';
 import styles from './bankCss';
 import './styles.css';
+import Title from '../Shared/title';
+
 
 import { CREATE_PURCHASE_REQ } from '../../queries/purchaseRequest';
 
@@ -90,7 +92,7 @@ let PurchaseRequestCreate = ({
 	email,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Registrar Compra</h3>
+		<Title title='Registrar Compra' />
 		<Paper className={classes.createContainer}>
 			<h6 className={classes.formTitle}>Nueva Compra</h6>
 			<form>

@@ -43,6 +43,7 @@ import {
 	setWithTickets,
 	createAccessEvent,
 } from '../../actions/Event/Access/actionsCreators';
+import Title from '../Shared/title';
 
 import { Access, Status } from '../commonComponent';
 
@@ -202,7 +203,7 @@ let a = class AccessEventCreate extends React.Component {
 
 		return (
 			<div>
-				<h3 className={classes.formTitle}>Acceso por Evento</h3>
+				<Title title='Accesos por evento' />
 				<Paper className={classes.createContainer}>
 					<form>
 						<h6 className={classes.formTitle}>Nuevo Acceso por Evento</h6>

@@ -11,7 +11,7 @@ import {
 	blockUserType,
 	deleteUserType,
 } from '../../actions/userType/actionsCreators';
-
+import Title from '../Shared/title';
 import {
 	GET_ROLES,
 	BLOCK_ROL,
@@ -102,6 +102,7 @@ const UserType = ({
 
 	return (
 		<div>
+			<Title title='Roles' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

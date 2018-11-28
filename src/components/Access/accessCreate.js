@@ -25,6 +25,7 @@ import {
 	closeAlert,
 	createAccess,
 } from '../../actions/Access/actionsCreators';
+import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import { Location, Zone } from '../commonComponent';
 
@@ -41,11 +42,7 @@ let AccessCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Acceso
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Acceso' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Nuevo Acceso</h6>

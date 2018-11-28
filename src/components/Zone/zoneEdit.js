@@ -29,6 +29,7 @@ import {
 	editZone,
 } from '../../actions/zone/actionsCreators';
 import BackButton from '../widget/BackButton';
+import Title from '../Shared/title';
 
 const validate = (values) => {
 	const errors = {};
@@ -69,7 +70,7 @@ let ZoneEdit = ({
 	handleSubmit,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Zonas</h3>
+		<Title title='Zonas' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Editar Zona</h6>

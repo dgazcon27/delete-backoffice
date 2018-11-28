@@ -22,6 +22,7 @@ import {
 	closeAlert,
 } from '../../actions/userType/actionsCreators';
 import BackButton from '../widget/BackButton';
+import Title from '../Shared/title';
 
 let UserTypeEdit = ({
 	id,
@@ -37,11 +38,7 @@ let UserTypeEdit = ({
 	submitting,
 }) => (
 	<div>
-		<h3 className={classes.formTitle}>Roles
-			<div className={classes.backbuttonCreation}>
-				<BackButton />
-			</div>
-		</h3>
+		<Title title='Roles' />
 		<Paper className={classes.createContainer}>
 			<form>
 				<h6 className={classes.formTitle}>Rol</h6>

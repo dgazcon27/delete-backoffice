@@ -14,6 +14,7 @@ import {
 	GET_BANKS,
 	DELETE_BANK,
 } from '../../queries/bank';
+import Title from '../Shared/title';
 
 const Bank = ({
 	objectStateBank,
@@ -96,6 +97,7 @@ const Bank = ({
 
 	return (
 		<div>
+			<Title title='Bancos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

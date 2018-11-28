@@ -42,6 +42,8 @@ import TokensReservation from '../Tokens/tokensReservation';
 import IncomeCreate from '../Movement/incomeCreate';
 import ExpensesCreate from '../Movement/expensesCreate';
 import IncomeUpdate from '../Movement/incomeUpdate';
+import Income from '../Income/income';
+import Expenses from '../Expenses/expenses';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -66,6 +68,8 @@ const Main = (props) => {
 				<Route path='/edit-tables/:id' component={EditionComponent} />
 				<Route path='/events' component={Event} />
 				<Route path='/events-create' component={EventCreate} />
+				<Route path='/income' component={Income} />
+				<Route path='/expenses' component={Expenses} />
 				<Route path='/event-edit/:id' component={EditionComponent} />
 				<Route path='/zones' component={Zone} />
 				<Route path='/Departments-create' component={ZoneCreate} />
