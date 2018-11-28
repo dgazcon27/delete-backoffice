@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import {
 	// editUserType,
 	// deleteUserType,
-	openModal,
+	// openModal,
 	closeModal,
 } from '../../../actions/userType/actionsCreators';
 
@@ -52,24 +52,24 @@ describe('Test Actions Creator UserType', () => {
 	// 	expect(actions[0].type).toEqual('DELETE_USER_TYPE');
 	// });
 
-	it('Open Modal', () => {
-		const store = mockStore({});
-		const rol = {
-			status: { id: 1 },
-			name: 'ADMIN',
-			id: 1,
-		};
+	// it('Open Modal', () => {
+	// 	const store = mockStore({});
+	// 	const rol = {
+	// 		status: { id: 1 },
+	// 		name: 'ADMIN',
+	// 		id: 1,
+	// 	};
 
-		// Se despacha el actionCreator ha probar
-		store.dispatch(openModal('TYPE_OF_MODAL', rol));
-		const actions = store.getActions();
+	// 	// Se despacha el actionCreator ha probar
+	// 	store.dispatch(openModal('TYPE_OF_MODAL', rol));
+	// 	const actions = store.getActions();
 
-		// Se verifica que se despacho una unica accion
-		expect(actions.length).toBe(1);
+	// 	// Se verifica que se despacho una unica accion
+	// 	expect(actions.length).toBe(1);
 
-		// Se verifica que la accion ejecutada sea la correcta
-		expect(actions[0].type).toEqual('UST_OPEN_MODAL');
-	});
+	// 	// Se verifica que la accion ejecutada sea la correcta
+	// 	expect(actions[0].type).toEqual('UST_OPEN_MODAL');
+	// });
 
 	it('Close Modal', () => {
 		const store = mockStore({});
@@ -82,6 +82,6 @@ describe('Test Actions Creator UserType', () => {
 		expect(actions.length).toBe(1);
 
 		// Se verifica que la accion ejecutada sea la correcta
-		expect(actions[0].type).toEqual('CLOSE_MODAL');
+		expect(actions[0].type).toEqual('CLOSE_MODAL_USER_TYPE');
 	});
 });
