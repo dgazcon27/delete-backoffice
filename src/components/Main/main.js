@@ -42,8 +42,8 @@ import TokensReservation from '../Tokens/tokensReservation';
 import IncomeCreate from '../Movement/incomeCreate';
 import ExpensesCreate from '../Movement/expensesCreate';
 import IncomeUpdate from '../Movement/incomeUpdate';
-import Income from '../Income/income';
-import Expenses from '../Expenses/expenses';
+import Income from '../Movement/income';
+import Expenses from '../Movement/expenses';
 import IncomePerEvent from '../Movement/IncomePerEvent';
 import ExpensePerEvent from '../Movement/ExpensePerEvent';
 
