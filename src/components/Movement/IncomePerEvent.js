@@ -45,7 +45,7 @@ const IncomePerEvent = ({
 		showButton: true,
 		showSearch: true,
 		titleButton: 'agregar nuevo',
-		url: `/movement/income/create/${event}`,
+		url: `/movement/income/event/create/${event}`,
 	};
 
 	const objectList = {
@@ -69,7 +69,7 @@ const IncomePerEvent = ({
 			columName: 'Categoria',
 			jsonPath: 'category.name',
 		}],
-		arrayActive: [false, false, true, true, true, true, false],
+		arrayActive: [false, false, true, false, false, true, false],
 		urls: {
 			list: {
 				type: '',

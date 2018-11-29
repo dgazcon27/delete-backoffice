@@ -37,7 +37,7 @@ const ExpensePerEvent = ({
 		queryComponent: GET_EXPENSE_PER_EVENT,
 		querySearch: SEARCH_EXPENSES_PER_EVENT,
 		paramsQueryComponent: {
-			event: 4,
+			event,
 		},
 	};
 
@@ -45,7 +45,7 @@ const ExpensePerEvent = ({
 		showButton: true,
 		showSearch: true,
 		titleButton: 'agregar nuevo +',
-		url: `/movement/expense/create/${event}`,
+		url: `/movement/expenses/event/create/${event}`,
 	};
 
 	const objectList = {
@@ -69,7 +69,7 @@ const ExpensePerEvent = ({
 			columName: 'Categoria',
 			jsonPath: 'category.name',
 		}],
-		arrayActive: [false, false, true, true, true, true, false],
+		arrayActive: [false, false, true, false, false, true, false],
 		urls: {
 			list: {
 				type: '',
