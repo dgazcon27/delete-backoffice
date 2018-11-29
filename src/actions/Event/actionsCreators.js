@@ -62,7 +62,6 @@ export const setEstados = states => ({
 	},
 });
 
-
 export const cleanStateCountry = () => ({
 	type: CLEAN_STATE_COUNTRY,
 	payload: {
@@ -110,6 +109,7 @@ export const setEvent = event => ({
 		country: event.state.country.id,
 	},
 });
+
 export const getEventById = id => (
 	async (dispatch) => {
 		client

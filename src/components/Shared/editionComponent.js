@@ -15,6 +15,7 @@ import { getZoneById } from '../../actions/zone/actionsCreators';
 import { getGuestById } from '../../actions/Guest/actionsCreators';
 import { getHotelById } from '../../actions/Hotel/actionsCreators';
 import { getReservationById } from '../../actions/Reservation/actionsCreators';
+import { getProviderById } from '../../actions/Provider/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -29,6 +30,8 @@ import ZoneEdit from '../Zone/zoneEdit';
 import UpdateGuest from '../Guest/editGuest';
 import EditHotel from '../Hotel/HotelEdit';
 import ReservationEdit from '../Reservation/reservationEdit';
+import ProviderEdit from '../Provider/providerEdit';
+import ProviderDetails from '../Provider/providerDetails';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -95,6 +98,14 @@ class EditionComponent extends React.Component {
 			case 'reservation-edit':
 				this.props.dispatch(getReservationById(id));
 				this.setState({ tag: <ReservationEdit /> });
+				break;
+			case 'provider-edit':
+				this.props.dispatch(getProviderById(id, true));
+				this.setState({ tag: <ProviderEdit /> });
+				break;
+			case 'provider-details':
+				this.props.dispatch(getProviderById(id, false));
+				this.setState({ tag: <ProviderDetails /> });
 				break;
 			default:
 				break;

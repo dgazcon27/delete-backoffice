@@ -14,6 +14,7 @@ import ReducerEvent from './Event/reducerEvent';
 import ReducerPayment from './Payment/reducerPayment';
 import ReducerAccess from './Access/reducerAccess';
 import ReducerSearch from './Search/reducerSearch';
+import ReducerProvider from './Provider/reducerProvider';
 import ReducerPagination from './List/reducerPagination';
 import ReducerGuest from './Guest/reducerGuest';
 import ReducerEventAccess from './Event/Access/reducerAccess';
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
 	ReducerSideBar,
 	ReducerTokens,
 	ReducerMovement,
+	ReducerProvider,
 	form: reduxFormReducer,
 });
 
