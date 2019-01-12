@@ -203,8 +203,10 @@ export const newCreateUser = (
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				dispatch(closeUserModal());
-				setTimeout(() => (window.history.back()), 2000);
+				setTimeout(() => {
+					dispatch(closeUserModal());
+					window.location.reload()
+				}, 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

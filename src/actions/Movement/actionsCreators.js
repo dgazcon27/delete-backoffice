@@ -58,8 +58,8 @@ export const createIncome = (income, create) =>
 		})
 			.then(() => {
 				dispatch(setNotification(true));
-				const url = income.movementsType === 'income' ? 
-					`/income-per-event/${income.event}` : 
+				const url = income.movementsType === 'income' ?
+					`/income-per-event/${income.event}` :
 					`/expense-per-event/${income.event}`;
 				setTimeout(() => (window.location.assign(url)), 2000);
 			})
@@ -74,8 +74,8 @@ export const updateMovement = (income, update) =>
 		})
 			.then(() => {
 				dispatch(setNotification(true));
-				const url = income.movementsType === 'income' ? 
-					`/income-per-event/${income.event}` : 
+				const url = income.movementsType === 'income' ?
+					`/income-per-event/${income.event}` :
 					`/expense-per-event/${income.event}`;
 				setTimeout(() => (window.location.assign(url)), 2000);
 			})
