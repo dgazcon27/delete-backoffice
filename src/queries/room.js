@@ -32,6 +32,35 @@ export const GET_ROOMS = gql`
 	}
 `;
 
+export const GET_ROOM_BY_ID = gql`
+	query roomsById($id:Int!) {
+		roomsById(id:$id) {
+			id
+			name
+			type
+			capacity
+			quantityAvailableSell
+			stockReserve
+			costPurchaseNight
+			costNight
+			startNumbering
+			endNumbering
+			active
+			hotel{
+				id
+				provider{
+					id
+					name
+				}
+			}
+			event{
+				id
+				name
+			}
+		}
+	}
+`;
+
 export const DELETE_ROOM = gql`
 	mutation deleteRoom ($id:Int!){
 		deleteRoom(id:$id) {

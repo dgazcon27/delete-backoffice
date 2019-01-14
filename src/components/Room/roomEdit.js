@@ -339,6 +339,7 @@ RoomEdit.propTypes = {
 
 RoomEdit = reduxForm({
 	form: 'RoomEdit',
+	enableReinitialize: true,
 	validate,
 	warn,
 })(RoomEdit);

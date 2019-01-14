@@ -205,7 +205,7 @@ export const newCreateUser = (
 				dispatch(openAlert('creado'));
 				setTimeout(() => {
 					dispatch(closeUserModal());
-					window.location.reload()
+					window.location.reload();
 				}, 2000);
 			})
 			.catch((res) => {

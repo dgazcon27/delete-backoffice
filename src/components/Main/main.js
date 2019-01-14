@@ -35,7 +35,6 @@ import ReservationCreate from '../Reservation/reservationCreate';
 import ReservationPayment from '../Reservation/reservationPayment';
 import Room from '../Room/room';
 import RoomCreate from '../Room/roomCreate';
-import RoomEdit from '../Room/roomEdit';
 import PurchaseRequest from '../PurchaseRequest/PurchaseRequest';
 import Tokens from '../Tokens/tokens';
 import TokensReservation from '../Tokens/tokensReservation';
@@ -79,7 +78,7 @@ const Main = (props) => {
 				<Route path='/Departments-create' component={ZoneCreate} />
 				<Route path='/Departments-edit/:id' component={EditionComponent} />
 				<Route path='/purchase-request-create' component={PurchaseRequestCreate} />
-				<Route path='/pay' component={PayCreate} />
+				<Route path='/pay/:id' component={PayCreate} />
 				<Route path='/purchase-request-edit/:id' component={EditionComponent} />
 				<Route path='/bank' component={Bank} />
 				<Route path='/bank-account' component={BankAccount} />
@@ -104,7 +103,7 @@ const Main = (props) => {
 				<Route path='/reservation-payment' component={ReservationPayment} />
 				<Route path='/room' component={Room} />
 				<Route path='/room-create' component={RoomCreate} />
-				<Route path='/room-edit' component={RoomEdit} />
+				<Route path='/room-edit/:id' component={EditionComponent} />
 				<Route path='/tokens' component={Tokens} />
 				<Route path='/tokens-reservation' component={TokensReservation} />
 				<Route path='/movement/income/create' component={IncomeCreate} />

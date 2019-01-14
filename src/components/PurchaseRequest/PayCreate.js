@@ -35,9 +35,9 @@ import {
 import { BankAccount } from '../commonComponent';
 
 let Payment = ({
-	id,
 	userId,
 	classes,
+	match,
 	myValues,
 	alertType,
 	alertOpen,
@@ -100,7 +100,7 @@ let Payment = ({
 					className={classes.createButton}
 					type='submit'
 					onClick={handleSubmit(() => actionCreatePayment(
-						id,
+						match.params.id,
 						myValues.amount,
 						myValues.reference,
 						myValues.comment,
@@ -132,11 +132,11 @@ let Payment = ({
 
 Payment.propTypes = {
 
-	id: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
+	match: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
 	actionCreatePayment: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,

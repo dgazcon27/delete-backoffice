@@ -67,7 +67,7 @@ const Options = ({
 				placement='top'
 				title='Pagar'
 			>
-				<Link to={`${urls.payment}`} href={`${urls.payment}`}>
+				<Link to={`${urls.payment}/${rowData.id}`} href={`${urls.payment}`}>
 					<IconButton>
 						<Payment />
 					</IconButton>

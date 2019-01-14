@@ -8,7 +8,9 @@ import {
 	SET_EVENT_ROOM,
 } from './actionsTypes';
 
-import { GET_ROOMS } from '../../queries/room';
+import { client } from '../../config/configStore';
+
+import { GET_ROOMS, GET_ROOM_BY_ID } from '../../queries/room';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -66,6 +68,20 @@ export const setRoom = room => ({
 		active: room.active,
 	},
 });
+
+export const getRoomById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_ROOM_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				dispatch(setRoom(res.data.roomsById));
+			})
+			.catch(() => {});
+	}
+);
 
 export const closeModal = () => ({
 	type: CLOSE_MODAL_ROOM,
