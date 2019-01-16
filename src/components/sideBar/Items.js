@@ -243,7 +243,14 @@ const Items = ({
 				<Divider />
 			</List>
 		</Collapse>
-
+		<Link to='/ticket' href='/ticket'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Ticket' />
+			</ListItem>
+		</Link>
 	</div>
 );
 

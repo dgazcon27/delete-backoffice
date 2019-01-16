@@ -47,6 +47,7 @@ import IncomePerEvent from '../Movement/IncomePerEvent';
 import ExpensePerEvent from '../Movement/ExpensePerEvent';
 import Provider from '../Provider/provider';
 import ProviderCreate from '../Provider/providerCreate';
+import Ticket from '../Ticket/ticket';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -120,6 +121,7 @@ const Main = (props) => {
 				<Route path='/provider-create' component={ProviderCreate} />
 				<Route path='/provider-edit/:id' component={EditionComponent} />
 				<Route path='/provider-details/:id' component={EditionComponent} />
+				<Route path='/Ticket' component={Ticket} />
 			</Switch>
 		</main>
 	);

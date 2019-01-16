@@ -47,7 +47,9 @@ const List = ({
 									<TableCell key={title.id}>{ title.columName }</TableCell>
 								))
 							}
-							<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+							{activeOptions.includes(true) &&
+								<TableCell className={classes.alignRightOption} >Opciones</TableCell>
+							}
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -61,19 +63,23 @@ const List = ({
 											</TableCell>
 										))
 									}
-									<Options
-										activeButtons={activeOptions}
-										actions={actions}
-										rowData={obj}
-										urls={urls}
-									/>
+									{activeOptions.includes(true) &&
+										<Options
+											activeButtons={activeOptions}
+											actions={actions}
+											rowData={obj}
+											urls={urls}
+										/>
+									}
 								</TableRow>
 							))
 						}
-						<ModalsOptions
-							componentState={modal}
-							actions={actions}
-						/>
+						{activeOptions.includes(true) &&
+							<ModalsOptions
+								componentState={modal}
+								actions={actions}
+							/>
+						}
 					</TableBody>
 					<Pagination total={total} />
 				</Table>
