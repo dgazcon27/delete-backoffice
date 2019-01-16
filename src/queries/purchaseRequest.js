@@ -77,8 +77,8 @@ export const DELETE_PURCHASE_REQ = gql`
 `;
 
 export const CREATE_PURCHASE_REQ = gql`
-	mutation createPurchaseRequest($createdBy:Int!, $updatedBy:Int!, $user:ID!, $access:ID!, $event:ID!, $comment:String!){
-		createPurchaseRequest(createdBy:$createdBy, updatedBy:$updatedBy , user:$user, access:$access, event:$event, comment:$comment){
+	mutation createPurchaseRequest($createdBy:Int!, $updatedBy:Int!, $user:ID!, $access:ID!, $event:ID!, $comment:String!, $numberAccess:Int!){
+		createPurchaseRequest(createdBy:$createdBy, updatedBy:$updatedBy , user:$user, access:$access, event:$event, comment:$comment, numberAccess:$numberAccess){
 			id
 		}
 	}

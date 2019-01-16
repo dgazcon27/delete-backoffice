@@ -204,6 +204,7 @@ export const createPurchaseReq = (
 				access: myValues.access,
 				event: myValues.event,
 				comment: myValues.comment,
+				numberAccess: myValues.numberAccess,
 			},
 		})
 			.then(() => {

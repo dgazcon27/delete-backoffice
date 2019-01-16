@@ -132,6 +132,15 @@ let PurchaseRequestCreate = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Field
+						name='numberAccess'
+						type='number'
+						component={renderNumberField}
+						validate={[required, empty]}
+						label='Cantidad'
+					/>
+				</div>
+				<div className={classes.formStyle}>
+					<Field
 						name='comment'
 						type='text'
 						component={renderTextField}
@@ -259,7 +268,7 @@ const mapStateToProps = state => ({
 	descripcion: state.ReducerUserType.descripcion,
 	paginationPage: state.ReducerPagination.paginationPage,
 	access: state.ReducerPurchaseRequest.access,
-	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'comment'),
+	myValues: selector(state, 'dni', 'roles', 'access', 'event', 'comment', 'numberAccess'),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -79,7 +79,7 @@ export const renderNumberField = field => (
 		type='number'
 		disabled={field.disabled}
 		{...field.input}
-		className={field.className}
+		className='inputNumber'
 		error={(field.meta.touched && field.meta.error)}
 		helperText={
 			(field.meta.touched && field.meta.error) &&
