@@ -193,8 +193,9 @@ let ReservationCreate = ({
 							/>
 							<IconButton className={classes.formStyle3}>
 								<Search onClick={(event) => {
-									event.preventDefault(actionUserByDNI(myValues.client));
-								}}
+									event.preventDefault(actionUserByDNI(myValues.dni));
+								}
+								}
 								/>
 							</IconButton>
 						</div>

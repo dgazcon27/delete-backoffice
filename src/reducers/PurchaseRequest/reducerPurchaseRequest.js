@@ -37,7 +37,7 @@ const initialState = {
 	access: [],
 	event: 0,
 	status: 0,
-	comment: 0,
+	comment: ' ',
 	totalPrice: 0,
 	pendingPayment: 0,
 	totalPaid: 0,

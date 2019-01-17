@@ -195,8 +195,9 @@ export const createPurchaseReq = (
 ) =>
 	async (dispatch) => {
 		const user = idUser;
-		createPurchaseReqMutation({
-			variables:
+		if (myValues.comment) {
+			createPurchaseReqMutation({
+				variables:
 			{
 				user,
 				createdBy,
@@ -206,15 +207,37 @@ export const createPurchaseReq = (
 				comment: myValues.comment,
 				numberAccess: myValues.numberAccess,
 			},
-		})
-			.then(() => {
-				dispatch(openAlert('creado'));
-				setTimeout(() => (window.location.assign('/')), 2000);
 			})
-			.catch((err) => {
-				const message = checkMessageError(err);
-				dispatch(openAlert(message));
-			});
+				.then(() => {
+					dispatch(openAlert('creado'));
+					setTimeout(() => (window.location.assign('/')), 2000);
+				})
+				.catch((err) => {
+					const message = checkMessageError(err);
+					dispatch(openAlert(message));
+				});
+		} else {
+			createPurchaseReqMutation({
+				variables:
+			{
+				user,
+				createdBy,
+				updatedBy,
+				access: myValues.access,
+				event: myValues.event,
+				comment: '-',
+				numberAccess: myValues.numberAccess,
+			},
+			})
+				.then(() => {
+					dispatch(openAlert('creado'));
+					setTimeout(() => (window.location.assign('/')), 2000);
+				})
+				.catch((err) => {
+					const message = checkMessageError(err);
+					dispatch(openAlert(message));
+				});
+		}
 	};
 
 export const editPurchaseReq = (
