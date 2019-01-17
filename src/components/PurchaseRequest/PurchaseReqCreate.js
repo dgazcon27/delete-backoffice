@@ -252,6 +252,7 @@ PurchaseRequestCreate = reduxForm({
 const selector = formValueSelector('PurchaseRequestCreate');
 
 const mapStateToProps = state => ({
+	initialValues: { numberAccess: 1 },
 	newUserModal: state.ReducerPurchaseRequest.newUserModal,
 	id: state.ReducerPurchaseRequest.id,
 	idUser: state.ReducerPurchaseRequest.idUser,

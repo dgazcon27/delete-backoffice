@@ -193,9 +193,8 @@ let ReservationCreate = ({
 							/>
 							<IconButton className={classes.formStyle3}>
 								<Search onClick={(event) => {
-									event.preventDefault(actionUserByDNI(myValues.dni));
-								}
-								}
+									event.preventDefault(actionUserByDNI(myValues.client));
+								}}
 								/>
 							</IconButton>
 						</div>
@@ -226,7 +225,6 @@ let ReservationCreate = ({
 								name='comment'
 								type='text'
 								component={renderTextField}
-								validate={[required, empty]}
 								label='Comentario'
 							/>
 						</div>

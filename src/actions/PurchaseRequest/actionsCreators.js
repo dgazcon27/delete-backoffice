@@ -210,7 +210,8 @@ export const createPurchaseReq = (
 			})
 				.then(() => {
 					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('/')), 2000);
+					window.location.reload();
+					// setTimeout(() => (window.location.assign('/')), 1000);
 				})
 				.catch((err) => {
 					const message = checkMessageError(err);
@@ -232,6 +233,7 @@ export const createPurchaseReq = (
 				.then(() => {
 					dispatch(openAlert('creado'));
 					setTimeout(() => (window.location.assign('/')), 2000);
+					setTimeout(window.location.reload(), 2000);
 				})
 				.catch((err) => {
 					const message = checkMessageError(err);

@@ -185,30 +185,57 @@ export const createReservation = (
 	paginationPage,
 	createReservationMutation,
 ) => async (dispatch) => {
-	dispatch(setLoad(true));
-	createReservationMutation({
-		variables: {
-			comment,
-			clientId,
-			purchaseRequest,
-			room,
-			days,
-			quantity,
-		},
-		refetchQueries: [{ query: GET_RESERVATIONS, variables: { paginationPage } }],
-	})
-		.then(() => {
-			dispatch(openAlert('creado'));
-			dispatch(setLoad(false));
-			setTimeout(() => {
-				dispatch(cleanState());
-				window.location.reload('/reservation');
-			}, 2000);
+	if (comment === undefined) {
+		dispatch(setLoad(true));
+		createReservationMutation({
+			variables: {
+				comment: '-',
+				clientId,
+				purchaseRequest,
+				room,
+				days,
+				quantity,
+			},
+			refetchQueries: [{ query: GET_RESERVATIONS, variables: { paginationPage } }],
 		})
-		.catch((res) => {
-			const message = checkMessageError(res);
-			dispatch(openAlert(message));
-		});
+			.then(() => {
+				dispatch(openAlert('creado'));
+				dispatch(setLoad(false));
+				setTimeout(() => {
+					dispatch(cleanState());
+					window.location.reload('/reservation');
+				}, 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	} else {
+		dispatch(setLoad(true));
+		createReservationMutation({
+			variables: {
+				comment,
+				clientId,
+				purchaseRequest,
+				room,
+				days,
+				quantity,
+			},
+			refetchQueries: [{ query: GET_RESERVATIONS, variables: { paginationPage } }],
+		})
+			.then(() => {
+				dispatch(openAlert('creado'));
+				dispatch(setLoad(false));
+				setTimeout(() => {
+					dispatch(cleanState());
+					window.location.reload('/reservation');
+				}, 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	}
 };
 
 export const editReservation = (

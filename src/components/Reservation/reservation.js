@@ -69,6 +69,7 @@ const Reservation = ({
 			},
 			payment: 'reservation-payment',
 			edit: '/reservation-edit',
+			visibility: '/reservation-edit',
 		},
 	};
 
