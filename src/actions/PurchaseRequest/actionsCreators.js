@@ -195,51 +195,30 @@ export const createPurchaseReq = (
 ) =>
 	async (dispatch) => {
 		const user = idUser;
-		if (myValues.comment) {
-			createPurchaseReqMutation({
-				variables:
+		const comment = (myValues.comment && myValues.comment.trim().length > 0)
+			? myValues.comment
+			: '-';
+		createPurchaseReqMutation({
+			variables:
 			{
 				user,
 				createdBy,
 				updatedBy,
 				access: myValues.access,
 				event: myValues.event,
-				comment: myValues.comment,
+				comment,
 				numberAccess: myValues.numberAccess,
 			},
+		})
+			.then(() => {
+				dispatch(openAlert('creado'));
+				window.location.reload();
+				// setTimeout(() => (window.location.assign('/')), 1000);
 			})
-				.then(() => {
-					dispatch(openAlert('creado'));
-					window.location.reload();
-					// setTimeout(() => (window.location.assign('/')), 1000);
-				})
-				.catch((err) => {
-					const message = checkMessageError(err);
-					dispatch(openAlert(message));
-				});
-		} else {
-			createPurchaseReqMutation({
-				variables:
-			{
-				user,
-				createdBy,
-				updatedBy,
-				access: myValues.access,
-				event: myValues.event,
-				comment: '-',
-				numberAccess: myValues.numberAccess,
-			},
-			})
-				.then(() => {
-					dispatch(openAlert('creado'));
-					setTimeout(() => (window.location.assign('/')), 2000);
-					setTimeout(window.location.reload(), 2000);
-				})
-				.catch((err) => {
-					const message = checkMessageError(err);
-					dispatch(openAlert(message));
-				});
-		}
+			.catch((err) => {
+				const message = checkMessageError(err);
+				dispatch(openAlert(message));
+			});
 	};
 
 export const editPurchaseReq = (
