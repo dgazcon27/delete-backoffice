@@ -31,7 +31,7 @@ export const setPayment = payment => ({
 	payload: {
 		description: SET_PAYMENT,
 		...payment,
-		bankName: payment.bankAccount.name,
+		bankName: `${payment.bankAccount.owner.name} ${payment.bankAccount.owner.lastName}`,
 	},
 });
 
