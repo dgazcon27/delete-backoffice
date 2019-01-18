@@ -147,24 +147,26 @@ let PurchaseRequestCreate = ({
 						label='Comentario'
 					/>
 				</div>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={handleSubmit(() =>
-						actionCreatePurchaseReq(
-							idUser,
-							myValues,
-							parseInt(userId, 10),
-							parseInt(userId, 10),
-							paginationPage,
-							createPurchaseReqMutation,
-						))
-					}
-					disabled={submitting}
-				>
+				<div className={classes.centered}>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={handleSubmit(() =>
+							actionCreatePurchaseReq(
+								idUser,
+								myValues,
+								parseInt(userId, 10),
+								parseInt(userId, 10),
+								paginationPage,
+								createPurchaseReqMutation,
+							))
+						}
+						disabled={submitting}
+					>
 					Registrar
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

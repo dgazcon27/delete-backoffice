@@ -1,4 +1,5 @@
 const styles = () => ({
+
 	modalOpenStyle: {
 		height: '30%',
 		width: '50%',

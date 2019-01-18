@@ -255,12 +255,14 @@ let ReservationCreate = ({
 						<div className={classes.formStyle}>
 							<Room event={eventId} hotel={hotel} />
 						</div>
-						<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateReservation(myValues.comment, client, purchaseRequest, myValues.room, myValues.days, myValues.quantity, paginationPage, createReservationMutation))} disabled={submitting} >
+						<div className={classes.centered}>
+							<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateReservation(myValues.comment, client, purchaseRequest, myValues.room, myValues.days, myValues.quantity, paginationPage, createReservationMutation))} disabled={submitting} >
 							Crear
-						</button>
-						<Link to='/reservation' className={classes.returnButton} >
+							</button>
+							<Link to='/reservation' className={classes.returnButton} >
 							Regresar
-						</Link>
+							</Link>
+						</div>
 					</form>
 					<Modal
 						open={isOpen}

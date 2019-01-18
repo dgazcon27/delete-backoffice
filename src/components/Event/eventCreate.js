@@ -171,24 +171,26 @@ let EventCreate = ({
 						className='yourclass date-label container'
 					/>
 				</div>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={
-						handleSubmit(() => actionCreateEvent(
-							myValues,
-							paginationPage,
-							userId,
-							userId,
-							createEventMutation,
-						))
+				<div className={classes.centered}>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={
+							handleSubmit(() => actionCreateEvent(
+								myValues,
+								paginationPage,
+								userId,
+								userId,
+								createEventMutation,
+							))
 
-					}
-					disabled={submitting}
-				>
+						}
+						disabled={submitting}
+					>
 					Crear
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

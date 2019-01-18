@@ -125,10 +125,12 @@ let ProviderCreate = ({
 						/>
 					</div>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateProvider(myValues.name, myValues.email, myValues.rif, myValues.phone, myValues.address, myValues.email, myValues.state, myValues.category, Number(userId), Number(userId), createProviderMutation, paginationPage))} disabled={submitting} >
+				<div className={classes.centered}>
+					<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateProvider(myValues.name, myValues.email, myValues.rif, myValues.phone, myValues.address, myValues.email, myValues.state, myValues.category, Number(userId), Number(userId), createProviderMutation, paginationPage))} disabled={submitting} >
 					Crear
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

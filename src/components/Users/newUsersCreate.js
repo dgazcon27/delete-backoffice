@@ -13,7 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './usersCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	empty,
@@ -114,28 +114,30 @@ let NewUsersCreate = ({
 						<Citizenship />
 					</div>
 				</div>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={handleSubmit(() => actionNewCreateUser(
-						myValues,
-						myValues.name,
-						myValues.email,
-						myValues.lastName,
-						myValues.phone,
-						myValues.dni,
-						myValues.birthDate,
-						Number(myValues.citizenship),
-						Number(userId),
-						Number(userId),
-						createNewUserMutation,
-						paginationPage,
-					))}
-					disabled={submitting}
-				>
-					Crear
-				</button>
-				<BackButton />
+				<div className={classes.centered}>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={handleSubmit(() => actionNewCreateUser(
+							myValues,
+							myValues.name,
+							myValues.email,
+							myValues.lastName,
+							myValues.phone,
+							myValues.dni,
+							myValues.birthDate,
+							Number(myValues.citizenship),
+							Number(userId),
+							Number(userId),
+							createNewUserMutation,
+							paginationPage,
+						))}
+						disabled={submitting}
+					>
+						Crear
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

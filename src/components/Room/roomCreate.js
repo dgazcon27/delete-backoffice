@@ -266,32 +266,34 @@ let RoomCreate = ({
 				<div className={classes.formStyle}>
 					<Hotels event={event} />
 				</div>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={
-						handleSubmit(() => actionCreateRoom(
-							myValues.name,
-							myValues.type,
-							myValues.quantityAvailableSell,
-							myValues.stockReserve,
-							myValues.costPurchaseNight,
-							myValues.costNight,
-							myValues.startNumbering,
-							myValues.endNumbering,
-							myValues.hotel,
-							myValues.event,
-							paginationPage,
-							createRoomMutation,
-						))
-					}
-					disabled={submitting}
-				>
+				<div className={classes.centered}>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={
+							handleSubmit(() => actionCreateRoom(
+								myValues.name,
+								myValues.type,
+								myValues.quantityAvailableSell,
+								myValues.stockReserve,
+								myValues.costPurchaseNight,
+								myValues.costNight,
+								myValues.startNumbering,
+								myValues.endNumbering,
+								myValues.hotel,
+								myValues.event,
+								paginationPage,
+								createRoomMutation,
+							))
+						}
+						disabled={submitting}
+					>
 					Crear
-				</button>
-				<Link to='/room' href='/room' className={classes.returnButton} >
+					</button>
+					<Link to='/room' href='/room' className={classes.returnButton} >
 					Regresar
-				</Link>
+					</Link>
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

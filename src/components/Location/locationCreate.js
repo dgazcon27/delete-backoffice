@@ -121,10 +121,12 @@ let LocationCreate = ({
 				<div className={classes.formStyle}>
 					<Status />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateLocation(myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), Number(userId), paginationPage, createLocationMutation))} disabled={submitting} >
+				<div className={classes.centered}>
+					<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateLocation(myValues.name, myValues.description, Number(myValues.fullcapacity), Number(myValues.capacity), Number(myValues.status), Number(userId), Number(userId), paginationPage, createLocationMutation))} disabled={submitting} >
 					Crear
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'validation' &&
