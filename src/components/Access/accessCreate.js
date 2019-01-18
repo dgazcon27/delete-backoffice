@@ -13,7 +13,7 @@ import {
 } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import styles from './accessCss';
+import styles from '../Shared/sharedStyles';
 import './styles.css';
 import {
 	required,
@@ -80,10 +80,12 @@ let AccessCreate = ({
 				<div className={classes.formStyle}>
 					<Zone />
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.currency, myValues.location, myValues.zone, paginationPage, createAccessMutation))} disabled={submitting} >
+				<div className={classes.centered}>
+					<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateAccess(myValues.name, myValues.description, myValues.currency, myValues.location, myValues.zone, paginationPage, createAccessMutation))} disabled={submitting} >
 					Crear
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'validation' &&

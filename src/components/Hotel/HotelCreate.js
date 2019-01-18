@@ -51,24 +51,26 @@ let HotelCreate = ({
 				<div className={classes.formStyle}>
 					<Providers />
 				</div>
-				<button
-					className={classes.createButton}
-					type='submit'
-					onClick={handleSubmit(() =>
-						actionCreateHotel(
-							myValues.event,
-							myValues.provider,
-							parseInt(userId, 10),
-							parseInt(userId, 10),
-							paginationPage,
-							createHotelMutation,
-						))
-					}
-					disabled={submitting}
-				>
+				<div className={classes.centered}>
+					<button
+						className={classes.createButton}
+						type='submit'
+						onClick={handleSubmit(() =>
+							actionCreateHotel(
+								myValues.event,
+								myValues.provider,
+								parseInt(userId, 10),
+								parseInt(userId, 10),
+								paginationPage,
+								createHotelMutation,
+							))
+						}
+						disabled={submitting}
+					>
 					Crear
-				</button>
-				<BackButton />
+					</button>
+					<BackButton />
+				</div>
 			</form>
 		</Paper>
 		{alertType === 'nombre' &&

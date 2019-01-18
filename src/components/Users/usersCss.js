@@ -1,4 +1,9 @@
 const styles = () => ({
+	centered: {
+		border: '1px dotted red',
+		position: 'relative',
+		padding: '20%',
+	},
 	modalOpenStyle: {
 		height: '30%',
 		width: '50%',
@@ -60,6 +65,7 @@ const styles = () => ({
 		color: '#4b5f69',
 		marginLeft: '25px',
 		'box-shadow': '0px 2px 1px 0px #8e8e8e73',
+
 	},
 	formStyle: {
 		padding: '3%',

@@ -185,10 +185,13 @@ export const createReservation = (
 	paginationPage,
 	createReservationMutation,
 ) => async (dispatch) => {
+	const comm = (comment && comment.trim().length > 0)
+		? comment
+		: '-';
 	dispatch(setLoad(true));
 	createReservationMutation({
 		variables: {
-			comment,
+			comment: comm,
 			clientId,
 			purchaseRequest,
 			room,

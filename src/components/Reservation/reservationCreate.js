@@ -193,9 +193,8 @@ let ReservationCreate = ({
 							/>
 							<IconButton className={classes.formStyle3}>
 								<Search onClick={(event) => {
-									event.preventDefault(actionUserByDNI(myValues.dni));
-								}
-								}
+									event.preventDefault(actionUserByDNI(myValues.client));
+								}}
 								/>
 							</IconButton>
 						</div>
@@ -226,7 +225,6 @@ let ReservationCreate = ({
 								name='comment'
 								type='text'
 								component={renderTextField}
-								validate={[required, empty]}
 								label='Comentario'
 							/>
 						</div>
@@ -257,12 +255,14 @@ let ReservationCreate = ({
 						<div className={classes.formStyle}>
 							<Room event={eventId} hotel={hotel} />
 						</div>
-						<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateReservation(myValues.comment, client, purchaseRequest, myValues.room, myValues.days, myValues.quantity, paginationPage, createReservationMutation))} disabled={submitting} >
+						<div className={classes.centered}>
+							<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateReservation(myValues.comment, client, purchaseRequest, myValues.room, myValues.days, myValues.quantity, paginationPage, createReservationMutation))} disabled={submitting} >
 							Crear
-						</button>
-						<Link to='/reservation' className={classes.returnButton} >
+							</button>
+							<Link to='/reservation' className={classes.returnButton} >
 							Regresar
-						</Link>
+							</Link>
+						</div>
 					</form>
 					<Modal
 						open={isOpen}

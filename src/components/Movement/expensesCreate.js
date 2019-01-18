@@ -53,14 +53,16 @@ let ExpensesCreate = class ExpensesCreateClass extends React.Component {
 						disable={false}
 						event={!event}
 					/>
-					<button
-						className={classes.createButton}
-						type='submit'
-						onClick={handleSubmit(() => actionCreate(myValues, create))}
-						disabled={submitting}
-					>
+					<div className={classes.centered}>
+						<button
+							className={classes.createButton}
+							type='submit'
+							onClick={handleSubmit(() => actionCreate(myValues, create))}
+							disabled={submitting}
+						>
 					Registrar
-					</button>
+						</button>
+					</div>
 				</Paper>
 				<NotificationAlert
 					message={message}
