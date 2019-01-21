@@ -41,6 +41,16 @@ export const GET_TABLE_ACCESS_BY_EVENT = gql`query accessByEventStatusTable($eve
 	}
 }
 `;
+export const GET_PRESALE_ACCESS_BY_EVENT = gql`query accessByEventStatusPresale($event:Int!){
+	accessByEventStatusPresale(event:$event){
+		id
+		access{
+				id
+				name
+			}
+	}
+}
+`;
 
 export const GET_PURCHASE_REQ = gql`
 	query purchaseRequests($paginationPage:Int!){

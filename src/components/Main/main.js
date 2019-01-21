@@ -51,6 +51,8 @@ import Ticket from '../Ticket/ticket';
 import TicketCreate from '../Ticket/ticketCreate';
 import Table from '../Table/table';
 import TableCreate from '../Table/tableCreate';
+import Presale from '../Presale/presale';
+import PresaleCreate from '../Presale/presaleCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -128,6 +130,8 @@ const Main = (props) => {
 				<Route path='/ticket-create' component={TicketCreate} />
 				<Route path='/table' component={Table} />
 				<Route path='/table-create' component={TableCreate} />
+				<Route path='/presale' component={Presale} />
+				<Route path='/presale-create' component={PresaleCreate} />
 			</Switch>
 		</main>
 	);
