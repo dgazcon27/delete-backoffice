@@ -9,6 +9,7 @@ import Payment from '@material-ui/icons/Payment';
 import VpnKey from '@material-ui/icons/VpnKey';
 import List from '@material-ui/icons/List';
 import Visibility from '@material-ui/icons/Visibility';
+import Group from '@material-ui/icons/Group';
 import { compose } from 'react-apollo';
 
 import {
@@ -144,6 +145,19 @@ const Options = ({
 			>
 				<IconButton onClick={() => actions.openModal('password', rowData)}>
 					<VpnKey />
+				</IconButton>
+			</Tooltip>
+		}
+		{active[7] &&
+			<Tooltip
+				enterDelay={200}
+				id='tooltip-controlled'
+				leaveDelay={100}
+				placement='top'
+				title='Asignar acreditacion'
+			>
+				<IconButton >
+					<Group />
 				</IconButton>
 			</Tooltip>
 		}
