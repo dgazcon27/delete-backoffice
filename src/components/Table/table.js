@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
-import GET_TICKET from '../../queries/ticket';
+import GET_TABLE from '../../queries/table';
 import Title from '../Shared/title';
 
 const Ticket = ({
@@ -11,7 +11,7 @@ const Ticket = ({
 	paginationPage,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_TICKET,
+		queryComponent: GET_TABLE,
 	};
 
 	const objectSearch = {
@@ -60,8 +60,8 @@ const Ticket = ({
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'boxOfficeSalesPagination.data',
-			totalPath: 'boxOfficeSalesPagination.total',
+			dataPath: 'salesTypeTablesPagination.data',
+			totalPath: 'salesTypeTablesPagination.total',
 		},
 		searchComponent: {
 			dataPath: '',
