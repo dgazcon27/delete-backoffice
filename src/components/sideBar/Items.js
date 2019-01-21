@@ -50,7 +50,7 @@ const Items = ({
 				<ListItemIcon>
 					<AttachMoney />
 				</ListItemIcon>
-				<ListItemText primary='Ventas' />
+				<ListItemText primary='Preventa' />
 			</ListItem>
 		</Link>
 		<Link to='/reservation' href='/reservation'>
@@ -61,7 +61,6 @@ const Items = ({
 				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
-
 		<Link to='/payment' href='/payment' >
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
@@ -248,7 +247,15 @@ const Items = ({
 				<ListItemIcon>
 					<People />
 				</ListItemIcon>
-				<ListItemText primary='Ticket' />
+				<ListItemText primary='Taquilla' />
+			</ListItem>
+		</Link>
+		<Link to='/table' href='/table'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Mesas' />
 			</ListItem>
 		</Link>
 	</div>
