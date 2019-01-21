@@ -107,9 +107,6 @@ let PaymentEdit = ({
 						disabled
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditPayment(myValues, Number(userId), paginationPage, editPaymentMutation))} disabled={submitting} >
-					Guardar
-				</button>
 				<BackButton />
 			</form>
 		</Paper>
