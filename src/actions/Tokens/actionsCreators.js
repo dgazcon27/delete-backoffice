@@ -1,5 +1,12 @@
 import { SEND_TOKENS, SEND_TOKENS_RESERVATION } from '../../queries/tokens';
-import { TK_SET_STATUS, TK_SET_ALERT, PAGE_UP_TOKENS, PAGE_DOWN_TOKENS } from './actionsTypes';
+import {
+	TK_SET_STATUS,
+	TK_SET_ALERT,
+	PAGE_UP_TOKENS,
+	PAGE_DOWN_TOKENS,
+	PAGE_UP_TOKENS_PACK,
+	PAGE_DOWN_TOKENS_PACK,
+} from './actionsTypes';
 import { client } from '../../config/configStore';
 
 
@@ -10,9 +17,23 @@ export const changePage = (currentPage, paginationPage) => {
 	return ({
 		type: currentPage < paginationPage ? PAGE_UP_TOKENS : PAGE_DOWN_TOKENS,
 		payload: {
-			description: currentPage < paginationPage ? PAGE_UP_TOKENS : PAGE_UP_TOKENS,
+			description: currentPage < paginationPage ? PAGE_UP_TOKENS : PAGE_DOWN_TOKENS,
 			paginationPage,
 			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+		},
+	});
+};
+
+export const changePagePack = (currentPage, paginationPagePack) => {
+	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	paginations.packet = currentPage < paginationPagePack ? currentPage + 1 : currentPage - 1;
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+	return ({
+		type: currentPage < paginationPagePack ? PAGE_UP_TOKENS_PACK : PAGE_DOWN_TOKENS_PACK,
+		payload: {
+			description: currentPage < paginationPagePack ? PAGE_UP_TOKENS_PACK : PAGE_DOWN_TOKENS_PACK,
+			paginationPagePack,
+			currentPagePack: currentPage < paginationPagePack ? currentPage + 1 : currentPage - 1,
 		},
 	});
 };

@@ -26,6 +26,7 @@ import Title from '../Shared/title';
 import {
 	sendTokensReservation,
 	setAlert,
+	changePagePack,
 } from '../../actions/Tokens/actionsCreators';
 
 import { GET_TOKENS_RESERVATION } from '../../queries/tokens';
@@ -38,7 +39,9 @@ const TokensReservation = ({
 	classes,
 	paginationPage,
 	actionSendTokens,
+	actionChangePage,
 	actionClose,
+	currentPage,
 }) => (
 	<Query query={GET_TOKENS_RESERVATION} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -112,6 +115,9 @@ const TokensReservation = ({
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
 											colSpan={6}
+											onChangePage={(ev, changuedPage) => {
+												actionChangePage(currentPage, changuedPage);
+											}}
 										/>
 									</TableRow>
 								</TableFooter>
@@ -142,17 +148,22 @@ TokensReservation.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	actionClose: PropTypes.func.isRequired,
 	actionSendTokens: PropTypes.func.isRequired,
+	actionChangePage: PropTypes.func.isRequired,
+	currentPage: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
 	load: state.ReducerTokens.load,
 	open: state.ReducerTokens.open,
-	paginationPage: state.ReducerTokens.paginationTokens,
+	paginationPage: state.ReducerTokens.paginationPagePack,
+	currentPage: state.ReducerTokens.currentPagePack,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionSendTokens: () => dispatch(sendTokensReservation()),
 	actionClose: () => dispatch(setAlert(false)),
+	actionChangePage: (currentPage, paginationPage) =>
+		dispatch(changePagePack(currentPage, paginationPage)),
 });
 
 export { TokensReservation as TokensReservationTest };

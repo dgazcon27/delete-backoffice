@@ -70,6 +70,14 @@ const Items = ({
 				<ListItemText primary='Pagos' />
 			</ListItem>
 		</Link>
+		<Link to='/ticket-assign' href='/ticket-assign'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<ContactPhone />
+				</ListItemIcon>
+				<ListItemText primary='Acreditaciones' />
+			</ListItem>
+		</Link>
 
 		<ListItem button onClick={() => { actionCollapse(!openTracker, SB_COLLAPSE_TRACKER); }}>
 			<ListItemIcon >
