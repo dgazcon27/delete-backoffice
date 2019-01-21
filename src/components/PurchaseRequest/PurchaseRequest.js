@@ -46,7 +46,7 @@ const PurchaseRequest = ({
 		},
 		{
 			id: 2,
-			columName: 'Documento de Identidad',
+			columName: 'DNI',
 			jsonPath: 'user.dni',
 		},
 		{

@@ -33,17 +33,10 @@ import {
 } from '../../actions/Payment/actionsCreators';
 
 let PaymentEdit = ({
-	userId,
 	classes,
 	alertOpen,
 	alertType,
 	actionCloseAlert,
-	actionEditPayment,
-	editPaymentMutation,
-	paginationPage,
-	myValues,
-	submitting,
-	handleSubmit,
 	initialValues,
 }) => (
 	<div>
@@ -123,17 +116,10 @@ let PaymentEdit = ({
 );
 
 PaymentEdit.propTypes = {
-	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
-	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionEditPayment: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	editPaymentMutation: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
-	submitting: PropTypes.bool.isRequired,
-	handleSubmit: PropTypes.func.isRequired,
 	initialValues: PropTypes.object.isRequired,
 };
 
@@ -146,7 +132,6 @@ const selector = formValueSelector('PaymentEdit');
 
 const mapStateToProps = state => ({
 	initialValues: state.ReducerPayment,
-	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerPayment.alertType,
 	alertOpen: state.ReducerPayment.alertOpen,
 	bankName: state.ReducerPayment.bankName,

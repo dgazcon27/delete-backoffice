@@ -17,6 +17,6 @@ input#search::placeholder {
 	color: black;
 }
 
-input.MuiInput-input-23.MuiInput-inputType-26 {
+input#numberField {
 	border-bottom: none;	
 }

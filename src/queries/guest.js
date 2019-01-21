@@ -9,8 +9,6 @@ export const CREATE_GUEST = gql`
 		$email: String!,
 		$phone: String!,
 		$dni: String!,
-		$access: Int!,
-		$status: Int!,
 		$event: Int!,
 		$typeInvited: Int!,
 		$citizenship: Int!,
@@ -23,8 +21,6 @@ export const CREATE_GUEST = gql`
 		email: $email,
 		phone: $phone,
 		dni: $dni,
-		access: $access,
-		status: $status,
 		event: $event,
 		typeInvited: $typeInvited,
 		citizenship: $citizenship,
@@ -68,8 +64,6 @@ export const UPDATE_GUEST = gql`
 		$lastName: String!,
 		$phone: String!,
 		$dni: String!,
-		$access: Int!,
-		$status: Int!,
 		$event: Int!,
 		$typeInvited: Int!,
 		$citizenship: Int!,
@@ -82,8 +76,6 @@ export const UPDATE_GUEST = gql`
 		lastName: $lastName,
 		phone: $phone,
 		dni: $dni,
-		access: $access,
-		status: $status,
 		event: $event,
 		typeInvited: $typeInvited,
 		citizenship: $citizenship,
@@ -104,16 +96,10 @@ export const UPDATE_GUEST = gql`
 					id
 				}
 			}
-			access{
-				id
-			}
 			event{
 				id
 			}
 			typeInvited{
-				id
-			}
-			status{
 				id
 			}
 		}
@@ -176,16 +162,10 @@ export const GET_GUEST_BY_ID = gql`
 					id
 				}
 			}
-			access{
-				id
-			}
 			event{
 				id
 			}
 			typeInvited{
-				id
-			}
-			status{
 				id
 			}
 		}

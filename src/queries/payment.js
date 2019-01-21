@@ -86,6 +86,7 @@ export const GET_PAYMENT_BY_ID = gql`
 				owner {
 					id
 					name
+					lastName
 				}
 			}
 		}

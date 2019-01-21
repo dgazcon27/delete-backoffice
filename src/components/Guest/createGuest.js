@@ -30,8 +30,6 @@ import { createInvited } from '../../actions/Guest/actionsCreators';
 import { getUserByDNI } from '../../actions/PurchaseRequest/actionsCreators';
 import {
 	Events,
-	Access,
-	Status,
 	Countries,
 	TypeInvited,
 } from '../commonComponent';
@@ -100,12 +98,6 @@ let InvitedCreate = ({
 				</div>
 				<div className={classes.formStyle}>
 					<Events />
-				</div>
-				<div className={classes.formStyle}>
-					<Status />
-				</div>
-				<div className={classes.formStyle}>
-					<Access />
 				</div>
 				<div className={classes.formStyle}>
 					<TypeInvited />
@@ -204,8 +196,6 @@ const mapStateToProps = state => ({
 	myValues: selector(
 		state,
 		'dni',
-		'access',
-		'status',
 		'event',
 		'typeInvited',
 		'citizenship',

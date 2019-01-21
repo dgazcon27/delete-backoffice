@@ -73,7 +73,7 @@ export const renderNumberField = field => (
 		value={field.value ? field.value : 0}
 		fullWidth
 		multiline={false}
-		inputProps={{ min: '0', step: '1' }}
+		inputProps={{ min: '0', step: '1', id: 'numberField' }}
 		label={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
 		placeholder={field.label.charAt(0).toUpperCase() + field.label.slice(1)}
 		type='number'

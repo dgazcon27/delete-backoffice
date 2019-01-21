@@ -25,8 +25,6 @@ export const setGuest = guest => ({
 		phone: guest.user.phone,
 		dni: guest.user.dni.toString(),
 		citizenship: guest.user.citizenship.id,
-		event: guest.event.id,
-		status: guest.status.id,
 		access: guest.access.id,
 		typeInvited: guest.typeInvited.id,
 	},
@@ -72,8 +70,6 @@ export const createInvited = (
 		create({
 			variables: {
 				user: invited.idUser,
-				access: invited.access,
-				status: invited.status,
 				event: invited.event,
 				typeInvited: invited.typeInvited,
 				citizenship: invited.citizenship,

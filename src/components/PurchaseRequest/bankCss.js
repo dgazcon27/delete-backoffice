@@ -29,10 +29,10 @@ const styles = () => ({
 		margin: '2%',
 		padding: '1% 1%',
 		height: '40%',
-		width: '40%',
+		width: '50%',
 		display: 'block',
 		position: 'relative !important',
-		left: '28% !important',
+		left: '20% !important',
 	},
 	returnButton: {
 		cursor: 'pointer',

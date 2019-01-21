@@ -56,8 +56,6 @@ const ReducerGuest = (state = initialState, action = {}) => {
 				dni: action.payload.dni,
 				citizenship: action.payload.citizenship,
 				event: action.payload.event,
-				status: action.payload.status,
-				access: action.payload.access,
 				role: action.payload.role,
 				typeInvited: action.payload.typeInvited,
 			});
