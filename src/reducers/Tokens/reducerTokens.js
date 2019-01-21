@@ -1,12 +1,14 @@
 import {
 	TK_SET_STATUS,
 	TK_SET_ALERT,
+	PAGE_UP_TOKENS,
+	PAGE_DOWN_TOKENS,
 } from '../../actions/Tokens/actionsTypes';
 
 const initialState = {
 	id: 0,
-	currentPageTokens: 0,
-	paginationTokens: 0,
+	currentPage: 0,
+	paginationPage: 0,
 	pagSearchTokens: 0,
 	currentPageSearchTokens: 0,
 	load: 'list',
@@ -15,11 +17,11 @@ const initialState = {
 };
 
 if (JSON.parse(localStorage.getItem('paginations'))) {
-	initialState.paginationTokens = JSON.parse(localStorage.getItem('paginations')).tokens || 0;
-	initialState.currentPageTokens = JSON.parse(localStorage.getItem('paginations')).tokens || 0;
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).tokens || 0;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).tokens || 0;
 } else {
-	initialState.paginationTokens = 0;
-	initialState.currentPageTokens = 0;
+	initialState.paginationPage = 0;
+	initialState.currentPage = 0;
 }
 const ReducerTokens = (state = initialState, action = {}) => {
 	switch (action.type) {
@@ -32,6 +34,18 @@ const ReducerTokens = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				open: action.payload.open,
+			});
+		case PAGE_UP_TOKENS:
+			return ({
+				...state,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
+			});
+		case PAGE_DOWN_TOKENS:
+			return ({
+				...state,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
 			});
 		default:
 			return state;

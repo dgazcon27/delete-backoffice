@@ -26,6 +26,7 @@ import Title from '../Shared/title';
 import {
 	sendTokens,
 	setAlert,
+	changePage,
 } from '../../actions/Tokens/actionsCreators';
 
 import { GET_TOKENS } from '../../queries/tokens';
@@ -38,7 +39,9 @@ const Tokens = ({
 	classes,
 	paginationPage,
 	actionSendTokens,
+	actionChangePage,
 	actionClose,
+	currentPage,
 }) => (
 	<Query query={GET_TOKENS} variables={{ paginationPage }}>
 		{({ loading, error, data }) => {
@@ -96,7 +99,7 @@ const Tokens = ({
 												<TableCell className={classes.center}>
 													{item.access.name}
 												</TableCell>
-												<TableCell className={classes.center}>{item.event.name}</TableCell>
+												<TableCell className={classes.center}>{`${item.event.name} ${currentPage}`}</TableCell>
 											</TableRow>
 										))
 									}
@@ -109,6 +112,10 @@ const Tokens = ({
 											page={paginationPage}
 											rowsPerPageOptions={[10]}
 											colSpan={6}
+											onChangePage={(ev, changuedPage) => {
+												actionChangePage(currentPage, changuedPage);
+											}}
+
 										/>
 									</TableRow>
 								</TableFooter>
@@ -139,17 +146,23 @@ Tokens.propTypes = {
 	paginationPage: PropTypes.number.isRequired,
 	actionClose: PropTypes.func.isRequired,
 	actionSendTokens: PropTypes.func.isRequired,
+	actionChangePage: PropTypes.func.isRequired,
+	currentPage: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
 	load: state.ReducerTokens.load,
 	open: state.ReducerTokens.open,
-	paginationPage: state.ReducerTokens.paginationTokens,
+	paginationPage: state.ReducerTokens.paginationPage,
+	currentPage: state.ReducerTokens.currentPage,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionSendTokens: () => dispatch(sendTokens()),
 	actionClose: () => dispatch(setAlert(false)),
+	actionChangePage: (currentPage, paginationPage) =>
+		dispatch(changePage(currentPage, paginationPage)),
+
 });
 
 export { Tokens as TokensTest };
