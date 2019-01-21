@@ -16,6 +16,7 @@ import { GET_BANK_ACCOUNTS } from '../../queries/bank';
 import {
 	GET_PURCHASE_REQ,
 	GET_ACCESS_BY_EVENT,
+	GET_TICKETS_ACCESS_BY_EVENT,
 	GET_PURCHASE_BY_ID,
 	GET_USER_BY_DNI,
 } from '../../queries/purchaseRequest';
@@ -151,6 +152,33 @@ export const setAccessEvent = (event, id) => (
 			})
 			.then((res) => {
 				dispatch(setAccess(res.data.accessByEvent));
+			})
+			.catch(() => {});
+	}
+);
+export const setAccessEvent2 = (event, id) => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_TICKETS_ACCESS_BY_EVENT,
+				variables: { event: id },
+			})
+			.then((res) => {
+				dispatch(setAccess(res.data.accessByEventStatusBoxOffice));
+			})
+			.catch(() => {});
+	}
+);
+
+export const setTicketAccessEvent = (event, id) => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_TICKETS_ACCESS_BY_EVENT,
+				variables: { event: id },
+			})
+			.then((res) => {
+				dispatch(setAccess(res.data.access));
 			})
 			.catch(() => {});
 	}

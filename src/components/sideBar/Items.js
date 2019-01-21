@@ -61,7 +61,6 @@ const Items = ({
 				<ListItemText primary='Paquetes' />
 			</ListItem>
 		</Link>
-
 		<Link to='/payment' href='/payment' >
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>

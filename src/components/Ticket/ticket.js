@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
 import GET_TICKET from '../../queries/ticket';
+import Title from '../Shared/title';
 
 const Ticket = ({
 	objectStateTicket,
@@ -14,10 +15,10 @@ const Ticket = ({
 	};
 
 	const objectSearch = {
-		showButton: false,
+		showButton: true,
 		showSearch: false,
-		titleButton: '',
-		url: '',
+		titleButton: 'agregar nuevo',
+		url: '/ticket-create',
 	};
 
 	const objectList = {
@@ -93,6 +94,7 @@ const Ticket = ({
 
 	return (
 		<div>
+			<Title title='Ticket' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

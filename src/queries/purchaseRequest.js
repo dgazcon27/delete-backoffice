@@ -21,6 +21,16 @@ export const GET_ACCESS_BY_EVENT = gql`query accessByEvent($event:Int!){
 	}
 }
 `;
+export const GET_TICKETS_ACCESS_BY_EVENT = gql`query accessByEventStatusBoxOffice($event:Int!){
+	accessByEventStatusBoxOffice(event:$event){
+		id
+		access{
+				id
+				name
+			}
+	}
+}
+`;
 
 export const GET_PURCHASE_REQ = gql`
 	query purchaseRequests($paginationPage:Int!){
