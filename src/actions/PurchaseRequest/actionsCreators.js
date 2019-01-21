@@ -17,6 +17,7 @@ import {
 	GET_PURCHASE_REQ,
 	GET_ACCESS_BY_EVENT,
 	GET_TICKETS_ACCESS_BY_EVENT,
+	GET_TABLE_ACCESS_BY_EVENT,
 	GET_PURCHASE_BY_ID,
 	GET_USER_BY_DNI,
 } from '../../queries/purchaseRequest';
@@ -169,16 +170,15 @@ export const setAccessEvent2 = (event, id) => (
 			.catch(() => {});
 	}
 );
-
-export const setTicketAccessEvent = (event, id) => (
+export const setAccessEvent3 = (event, id) => (
 	async (dispatch) => {
 		client
 			.query({
-				query: GET_TICKETS_ACCESS_BY_EVENT,
+				query: GET_TABLE_ACCESS_BY_EVENT,
 				variables: { event: id },
 			})
 			.then((res) => {
-				dispatch(setAccess(res.data.access));
+				dispatch(setAccess(res.data.accessByEventStatusTable));
 			})
 			.catch(() => {});
 	}
