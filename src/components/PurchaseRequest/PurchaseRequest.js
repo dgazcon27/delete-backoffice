@@ -64,7 +64,7 @@ const PurchaseRequest = ({
 			columName: 'Evento',
 			jsonPath: 'event.name',
 		}],
-		arrayActive: [true, true, true, false, true, false, false],
+		arrayActive: [true, true, true, false, true, false, false, true],
 		urls: {
 			list: {
 				type: 'viewModal',
@@ -117,7 +117,7 @@ const PurchaseRequest = ({
 
 	return (
 		<div>
-			<Title title='Ventas' />
+			<Title title='Pre-Ventas' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
