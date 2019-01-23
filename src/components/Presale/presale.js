@@ -5,6 +5,7 @@ import ContainerList from '../List/containerList';
 import Search from '../Search/search';
 import GET_PRESALE from '../../queries/presale';
 import Title from '../Shared/title';
+import { SEARCH_PRESALE } from '../../queries/purchaseRequest';
 
 const Presale = ({
 	objectStateTicket,
@@ -12,11 +13,12 @@ const Presale = ({
 }) => {
 	const objectQuery = {
 		queryComponent: GET_PRESALE,
+		querySearch: SEARCH_PRESALE,
 	};
 
 	const objectSearch = {
 		showButton: true,
-		showSearch: false,
+		showSearch: true,
 		titleButton: 'agregar nuevo',
 		url: '/presale-create',
 	};
@@ -64,8 +66,8 @@ const Presale = ({
 			totalPath: 'presaleTypeSalesPagination.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'searchAccessByEventStatusPresale.data',
+			totalPath: 'searchAccessByEventStatusPresale.total',
 		},
 	};
 

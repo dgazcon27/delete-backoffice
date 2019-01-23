@@ -6,17 +6,20 @@ import Search from '../Search/search';
 import GET_TABLE from '../../queries/table';
 import Title from '../Shared/title';
 
+import { SEARCH_TABLES } from '../../queries/purchaseRequest';
+
 const Ticket = ({
 	objectStateTicket,
 	paginationPage,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_TABLE,
+		querySearch: SEARCH_TABLES,
 	};
 
 	const objectSearch = {
 		showButton: true,
-		showSearch: false,
+		showSearch: true,
 		titleButton: 'agregar nuevo',
 		url: '/table-create',
 	};
@@ -64,8 +67,8 @@ const Ticket = ({
 			totalPath: 'salesTypeTablesPagination.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'searchAccessByEventStatusTable.data',
+			totalPath: 'searchAccessByEventStatusTable.total',
 		},
 	};
 

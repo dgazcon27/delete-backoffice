@@ -53,6 +53,30 @@ const Items = ({
 				<ListItemText primary='Ventas' />
 			</ListItem>
 		</Link>
+		<Link to='/ticket' href='/ticket'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Taquilla' />
+			</ListItem>
+		</Link>
+		<Link to='/table' href='/table'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Mesas' />
+			</ListItem>
+		</Link>
+		<Link to='/presale' href='/presale'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Preventa' />
+			</ListItem>
+		</Link>
 
 		<Link to='/reservation' href='/reservation'>
 			<ListItem button onClick={() => actionResetPagination()}>
@@ -243,30 +267,6 @@ const Items = ({
 				<Divider />
 			</List>
 		</Collapse>
-		<Link to='/ticket' href='/ticket'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<People />
-				</ListItemIcon>
-				<ListItemText primary='Taquilla' />
-			</ListItem>
-		</Link>
-		<Link to='/table' href='/table'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<People />
-				</ListItemIcon>
-				<ListItemText primary='Mesas' />
-			</ListItem>
-		</Link>
-		<Link to='/presale' href='/presale'>
-			<ListItem button onClick={() => actionResetPagination()}>
-				<ListItemIcon>
-					<People />
-				</ListItemIcon>
-				<ListItemText primary='Preventa' />
-			</ListItem>
-		</Link>
 	</div>
 );
 

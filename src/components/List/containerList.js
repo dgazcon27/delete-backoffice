@@ -80,7 +80,6 @@ const ContainerList = ({
 				const total = query.length > 0 ?
 					getValue(data, totalSearchPath) :
 					getValue(data, totalPath);
-
 				return (
 					<div>
 						<List
