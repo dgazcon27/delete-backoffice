@@ -93,7 +93,9 @@ const Presale = ({
 
 	const actions = {
 	};
-
+	if ((window.localStorage.getItem('actualRole') !== ('PRESALE' && 'ADM'))) {
+		window.location.assign('/');
+	}
 	return (
 		<div>
 			<Title title='Preventa' />

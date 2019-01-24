@@ -94,6 +94,9 @@ const Ticket = ({
 
 	const actions = {
 	};
+	if ((window.localStorage.getItem('actualRole') !== ('TICKET' && 'ADM'))) {
+		window.location.assign('/');
+	}
 
 	return (
 		<div>

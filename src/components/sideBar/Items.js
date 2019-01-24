@@ -48,7 +48,7 @@ const Items = ({
 	<div>
 		{ localRole === 'VENTA' &&
 		<div>
-			{localRole}
+
 			<Link to='/' href='/'>
 				<ListItem button>
 					<ListItemIcon>
@@ -77,7 +77,7 @@ const Items = ({
 		}
 		{ localRole === 'TAQUILLA' &&
 		<div>
-			{localRole}
+
 			<Link to='/' href='/'>
 				<ListItem button>
 					<ListItemIcon>
@@ -106,7 +106,7 @@ const Items = ({
 		}
 		{ localRole === 'MESAS' &&
 		<div>
-			{localRole}
+
 			<Link to='/' href='/'>
 				<ListItem button>
 					<ListItemIcon>
@@ -135,7 +135,7 @@ const Items = ({
 		}
 		{ localRole === 'ADM' &&
 		<div>
-			{localRole}
+
 			<Link to='/' href='/'>
 				<ListItem button>
 					<ListItemIcon>

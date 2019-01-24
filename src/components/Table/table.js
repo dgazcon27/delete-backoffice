@@ -95,6 +95,11 @@ const Ticket = ({
 	const actions = {
 	};
 
+	if ((window.localStorage.getItem('actualRole') !== ('TABLE' && 'ADM'))) {
+		window.location.assign('/');
+	}
+
+
 	return (
 		<div>
 			<Title title='Mesas' />
