@@ -101,6 +101,10 @@ export const GET_CURRENT_USER = gql`
 		getCurrent(token:$token) {
 			id
 			name
+			role {
+				name
+			}
+
 		}
 	}
 `;
