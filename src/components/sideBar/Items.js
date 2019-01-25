@@ -50,9 +50,10 @@ const Items = ({
 				<ListItemIcon>
 					<AttachMoney />
 				</ListItemIcon>
-				<ListItemText primary='Preventa' />
+				<ListItemText primary='Ventas' />
 			</ListItem>
 		</Link>
+
 		<Link to='/reservation' href='/reservation'>
 			<ListItem button onClick={() => actionResetPagination()}>
 				<ListItemIcon>
@@ -264,6 +265,14 @@ const Items = ({
 					<People />
 				</ListItemIcon>
 				<ListItemText primary='Mesas' />
+			</ListItem>
+		</Link>
+		<Link to='/presale' href='/presale'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Preventa' />
 			</ListItem>
 		</Link>
 	</div>

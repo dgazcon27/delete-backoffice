@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-const GET_TABLE = gql`
-	query salesTypeTablesPagination($paginationPage: Int!) {
-		salesTypeTablesPagination(page: $paginationPage) {
+const GET_PRESALE = gql`
+	query presaleTypeSalesPagination($paginationPage: Int!) {
+		presaleTypeSalesPagination(page: $paginationPage) {
 			data {
 				id
 				totalPrice
@@ -30,4 +30,4 @@ const GET_TABLE = gql`
 	}
 `;
 
-export default GET_TABLE;
+export default GET_PRESALE;

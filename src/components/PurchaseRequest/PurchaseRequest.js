@@ -32,7 +32,7 @@ const PurchaseRequest = ({
 	};
 
 	const objectSearch = {
-		showButton: true,
+		showButton: false,
 		showSearch: true,
 		titleButton: 'agregar nuevo',
 		url: '/purchase-request-create',

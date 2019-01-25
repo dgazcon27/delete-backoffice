@@ -4,12 +4,24 @@ import PropTypes from 'prop-types';
 import { compose } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Title from '../Shared/title';
+import Loading from '../Loading/loading';
+import NotificationAlert from '../widget/NotificationAlert';
 
 import { GET_TOKENS } from '../../queries/tokens';
+import {
+	openTicketModal,
+	closeTicketModal,
+	setAlert,
+} from '../../actions/Ticket/actionsCreators';
 
 const AssignTicket = ({
 	paginationPage,
 	objectStateAssign,
+	actionOpenModal,
+	actionCloseModal,
+	isLoading,
+	isAlert,
+	actionSetAlert,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_TOKENS,
@@ -47,10 +59,8 @@ const AssignTicket = ({
 			columName: 'Evento',
 			jsonPath: 'event.name',
 		}],
-		arrayActive: [false, false, true, false, false, false, false],
-		urls: {
-			visibility: '/purchase-request-edit',
-		},
+		arrayActive: [false, false, false, false, false, false, false, true],
+		urls: {},
 	};
 
 	const objectPath = {
@@ -70,18 +80,33 @@ const AssignTicket = ({
 		messages: {},
 	};
 
-	const actions = {};
+	const actions = {
+		openModal: actionOpenModal,
+		closeModal: actionCloseModal,
+	};
 
 	return (
 		<div>
-			<Title title='Asignar tickets' />
-			<ContainerList
-				queries={objectQuery}
-				propsSearchComponent={objectSearch}
-				propsListComponent={objectList}
-				propsModalComponent={objectModal}
-				objectPath={objectPath}
-				actions={actions}
+			{ isLoading &&
+				<Loading />
+			}
+			{ !isLoading &&
+				<div>
+					<Title title='Asignar tickets' />
+					<ContainerList
+						queries={objectQuery}
+						propsSearchComponent={objectSearch}
+						propsListComponent={objectList}
+						propsModalComponent={objectModal}
+						objectPath={objectPath}
+						actions={actions}
+					/>
+				</div>
+			}
+			<NotificationAlert
+				message='El ticket ha sido acreditado exitosamente'
+				open={isAlert}
+				close={actionSetAlert}
 			/>
 		</div>
 	);
@@ -90,12 +115,22 @@ const AssignTicket = ({
 AssignTicket.propTypes = {
 	objectStateAssign: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	isAlert: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired,
+	actionOpenModal: PropTypes.func.isRequired,
+	actionSetAlert: PropTypes.func.isRequired,
+	actionCloseModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateAssign: state.ReducerPurchaseRequest,
+	isLoading: state.ReducerTicket.isLoading,
+	isAlert: state.ReducerTicket.isAlert,
+	objectStateAssign: state.ReducerTicket,
 });
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
+	actionOpenModal: (type, data) => dispatch(openTicketModal('assign_ticket', data)),
+	actionCloseModal: () => dispatch(closeTicketModal('assign_ticket')),
+	actionSetAlert: () => dispatch(setAlert(false)),
 });
 export default compose(connect(mapStateToProps, mapDispatchToProps))(AssignTicket);

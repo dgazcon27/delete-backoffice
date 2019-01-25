@@ -156,7 +156,7 @@ const Options = ({
 				placement='top'
 				title='Asignar acreditacion'
 			>
-				<IconButton >
+				<IconButton onClick={() => actions.openModal('assign_ticket', rowData)}>
 					<Group />
 				</IconButton>
 			</Tooltip>

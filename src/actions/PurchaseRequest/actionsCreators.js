@@ -18,6 +18,7 @@ import {
 	GET_ACCESS_BY_EVENT,
 	GET_TICKETS_ACCESS_BY_EVENT,
 	GET_TABLE_ACCESS_BY_EVENT,
+	GET_PRESALE_ACCESS_BY_EVENT,
 	GET_PURCHASE_BY_ID,
 	GET_USER_BY_DNI,
 } from '../../queries/purchaseRequest';
@@ -179,6 +180,19 @@ export const setAccessEvent3 = (event, id) => (
 			})
 			.then((res) => {
 				dispatch(setAccess(res.data.accessByEventStatusTable));
+			})
+			.catch(() => {});
+	}
+);
+export const setAccessEvent4 = (event, id) => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_PRESALE_ACCESS_BY_EVENT,
+				variables: { event: id },
+			})
+			.then((res) => {
+				dispatch(setAccess(res.data.accessByEventStatusPresale));
 			})
 			.catch(() => {});
 	}

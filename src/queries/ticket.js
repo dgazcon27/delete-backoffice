@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const GET_TICKET = gql`
+export const GET_TICKET = gql`
 	query boxOfficeSalesPagination($paginationPage: Int!) {
 		boxOfficeSalesPagination(page: $paginationPage) {
 			data {
@@ -30,4 +30,10 @@ const GET_TICKET = gql`
 	}
 `;
 
-export default GET_TICKET;
+export const ASSIGN_TICKET = gql`
+	mutation updateUserPurchaseRequest ($id:Int!, $user:Int, $updatedBy:Int){
+		 updateUserPurchaseRequest (id:$id, user:$user, updatedBy:$updatedBy) {
+			id
+		}
+	}
+`;

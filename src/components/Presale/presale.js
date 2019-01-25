@@ -3,22 +3,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
-import { GET_TICKET } from '../../queries/ticket';
+import GET_PRESALE from '../../queries/presale';
 import Title from '../Shared/title';
 
-const Ticket = ({
+const Presale = ({
 	objectStateTicket,
 	paginationPage,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_TICKET,
+		queryComponent: GET_PRESALE,
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
-		url: '/ticket-create',
+		url: '/presale-create',
 	};
 
 	const objectList = {
@@ -60,8 +60,8 @@ const Ticket = ({
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'boxOfficeSalesPagination.data',
-			totalPath: 'boxOfficeSalesPagination.total',
+			dataPath: 'presaleTypeSalesPagination.data',
+			totalPath: 'presaleTypeSalesPagination.total',
 		},
 		searchComponent: {
 			dataPath: '',
@@ -94,7 +94,7 @@ const Ticket = ({
 
 	return (
 		<div>
-			<Title title='Ticket' />
+			<Title title='Preventa' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
@@ -113,7 +113,7 @@ const Ticket = ({
 	);
 };
 
-Ticket.propTypes = {
+Presale.propTypes = {
 	objectStateTicket: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 };
@@ -123,4 +123,4 @@ const mapStateToProps = state => ({
 	objectStateTicket: {},
 });
 
-export default connect(mapStateToProps, null)(Ticket);
+export default connect(mapStateToProps, null)(Presale);

@@ -11,6 +11,7 @@ import {
 
 import ModalPassword from '../Users/modalPassword';
 import PurchaseRequestPay from '../PurchaseRequest/PurchaseRequestPay';
+import ModalsAssignTicket from '../Ticket/ModalAssignTicket';
 import styles from './userTypeCss';
 
 const ModalsOptions = ({
@@ -98,6 +99,9 @@ const ModalsOptions = ({
 
 			{modal.componentState.modalType === 'pagos' &&
 				<PurchaseRequestPay />
+			}
+			{modal.componentState.modalType === 'assign_ticket' &&
+				<ModalsAssignTicket id={modal.componentState.id} />
 			}
 		</div>
 	</Modal>

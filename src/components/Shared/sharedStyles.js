@@ -165,6 +165,14 @@ const styles = () => ({
 		position: 'relative',
 		right: '-20px',
 	},
+	modalAssignTicket: {
+		left: '-15%',
+		marginTop: '-15%',
+		position: 'relative',
+		textAlign: 'center',
+		margin: '25px',
+		padding: '25px',
+	},
 });
 
 export default styles;
