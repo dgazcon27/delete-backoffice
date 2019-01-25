@@ -6,6 +6,7 @@ import ContainerList from '../List/containerList';
 import Title from '../Shared/title';
 import Loading from '../Loading/loading';
 import NotificationAlert from '../widget/NotificationAlert';
+import NewUsersCreate from '../Users/newUsersCreate';
 
 import { GET_TOKENS } from '../../queries/tokens';
 import {
@@ -22,6 +23,9 @@ const AssignTicket = ({
 	isLoading,
 	isAlert,
 	actionSetAlert,
+	viewlist,
+	existUser,
+	noModal,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_TOKENS,
@@ -87,27 +91,37 @@ const AssignTicket = ({
 
 	return (
 		<div>
-			{ isLoading &&
-				<Loading />
-			}
-			{ !isLoading &&
+			{ viewlist &&
 				<div>
-					<Title title='Asignar tickets' />
-					<ContainerList
-						queries={objectQuery}
-						propsSearchComponent={objectSearch}
-						propsListComponent={objectList}
-						propsModalComponent={objectModal}
-						objectPath={objectPath}
-						actions={actions}
+					{ isLoading &&
+						<Loading />
+					}
+					{ !isLoading &&
+						<div>
+							<Title title='Asignar tickets' />
+							<ContainerList
+								queries={objectQuery}
+								propsSearchComponent={objectSearch}
+								propsListComponent={objectList}
+								propsModalComponent={objectModal}
+								objectPath={objectPath}
+								actions={actions}
+							/>
+						</div>
+					}
+					<NotificationAlert
+						message='El ticket ha sido acreditado exitosamente'
+						open={isAlert}
+						close={actionSetAlert}
 					/>
 				</div>
 			}
-			<NotificationAlert
-				message='El ticket ha sido acreditado exitosamente'
-				open={isAlert}
-				close={actionSetAlert}
-			/>
+			{ !existUser && !noModal &&
+				<NewUsersCreate
+					propClass='true'
+					noReload='true'
+				/>
+			}
 		</div>
 	);
 };
@@ -116,7 +130,10 @@ AssignTicket.propTypes = {
 	objectStateAssign: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	isAlert: PropTypes.bool.isRequired,
+	viewlist: PropTypes.bool.isRequired,
+	existUser: PropTypes.bool.isRequired,
 	isLoading: PropTypes.bool.isRequired,
+	noModal: PropTypes.bool.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	actionSetAlert: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
@@ -126,6 +143,9 @@ const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
 	isLoading: state.ReducerTicket.isLoading,
 	isAlert: state.ReducerTicket.isAlert,
+	noModal: state.ReducerTicket.noModal,
+	existUser: state.ReducerTicket.isAlert,
+	viewlist: state.ReducerTicket.viewlist,
 	objectStateAssign: state.ReducerTicket,
 });
 const mapDispatchToProps = dispatch => ({

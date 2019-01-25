@@ -10,6 +10,10 @@ import {
 import { GET_USERS, GET_USER_BY_ID } from '../../queries/users';
 import { client } from '../../config/configStore';
 import { closeUserModal } from '../PurchaseRequest/actionsCreators';
+import {
+	showUserForm,
+	showMessageFailed,
+} from '../Ticket/actionsCreators';
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -180,10 +184,9 @@ export const newCreateUser = (
 	dni,
 	birthDate,
 	citizenship,
-	createdBy,
 	updatedBy,
 	createNewUserMutation,
-	paginationPage,
+	reload = false,
 ) => (
 	async (dispatch) => {
 		createNewUserMutation({
@@ -196,17 +199,23 @@ export const newCreateUser = (
 				dni,
 				birthDate,
 				citizenship,
-				createdBy,
+				createdBy: updatedBy,
 				updatedBy,
 			},
-			refetchQueries: [{ query: GET_USERS, variables: { paginationPage } }],
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
-				setTimeout(() => {
-					dispatch(closeUserModal());
-					window.location.reload();
-				}, 2000);
+				if (!reload) {
+					setTimeout(() => {
+						dispatch(closeUserModal());
+						window.location.reload();
+					}, 2000);
+				} else {
+					setTimeout(() => {
+						dispatch(showUserForm(true, true, false));
+						dispatch(showMessageFailed(false));
+					}, 1000);
+				}
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

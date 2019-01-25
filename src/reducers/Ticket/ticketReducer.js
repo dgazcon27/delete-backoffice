@@ -4,6 +4,9 @@ import {
 	SET_DATA_TICKET_USER,
 	SET_ALERT_ASSIGN_TICKET,
 	SHOW_LOADING_ASSIGN_TICKET,
+	SET_EXISTING_USER_TICKET,
+	SHOW_USER_TICKET_FORM,
+	SHOW_MESSAGE_FAILED_TICKET,
 } from '../../actions/Ticket/actionsTypes';
 
 const initialState = {
@@ -17,6 +20,9 @@ const initialState = {
 	purchase: 0,
 	isAlert: false,
 	isLoading: false,
+	viewlist: true,
+	noModal: true,
+	searcherFailed: false,
 };
 
 
@@ -48,7 +54,6 @@ const ReducerTicket = (state = initialState, action = {}) => {
 				name: action.payload.name,
 				email: action.payload.email,
 				phone: action.payload.phone,
-				existUser: action.payload.existUser,
 			});
 		case SET_ALERT_ASSIGN_TICKET:
 			return ({
@@ -59,6 +64,24 @@ const ReducerTicket = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				isLoading: action.payload.isLoading,
+			});
+		case SET_EXISTING_USER_TICKET:
+			return ({
+				...state,
+				existUser: action.payload.existUser,
+				viewlist: action.payload.viewlist,
+			});
+		case SHOW_USER_TICKET_FORM:
+			return ({
+				...state,
+				noModal: action.payload.noModal,
+				viewlist: action.payload.viewlist,
+				existUser: action.payload.existUser,
+			});
+		case SHOW_MESSAGE_FAILED_TICKET:
+			return ({
+				...state,
+				searcherFailed: action.payload.searcherFailed,
 			});
 		default:
 			return state;

@@ -4,6 +4,9 @@ import {
 	SET_DATA_TICKET_USER,
 	SET_ALERT_ASSIGN_TICKET,
 	SHOW_LOADING_ASSIGN_TICKET,
+	SET_EXISTING_USER_TICKET,
+	SHOW_USER_TICKET_FORM,
+	SHOW_MESSAGE_FAILED_TICKET,
 } from './actionsTypes';
 
 import { GET_USER_BY_DNI } from '../../queries/purchaseRequest';
@@ -20,6 +23,23 @@ export const setAlert = isAlert => ({
 	},
 });
 
+export const showMessageFailed = searcherFailed => ({
+	type: SHOW_MESSAGE_FAILED_TICKET,
+	payload: {
+		searcherFailed,
+		description: SHOW_MESSAGE_FAILED_TICKET,
+	},
+});
+
+export const setExistingUser = (existUser, viewlist) => ({
+	type: SET_EXISTING_USER_TICKET,
+	payload: {
+		existUser,
+		viewlist,
+		description: SET_EXISTING_USER_TICKET,
+	},
+});
+
 export const showLoading = isLoading => ({
 	type: SHOW_LOADING_ASSIGN_TICKET,
 	payload: {
@@ -27,6 +47,17 @@ export const showLoading = isLoading => ({
 		description: SHOW_LOADING_ASSIGN_TICKET,
 	},
 });
+
+export const showUserForm = (noModal, viewlist, existUser) => ({
+	type: SHOW_USER_TICKET_FORM,
+	payload: {
+		noModal,
+		viewlist,
+		existUser,
+		description: SHOW_USER_TICKET_FORM,
+	},
+});
+
 
 export const openTicketModal = (modalType, data) => ({
 	type: OPEN_ASSIGN_MODAL_TICKET,
@@ -44,7 +75,6 @@ export const setDataTicket = data => ({
 		email: data.email,
 		phone: data.phone,
 		id: data.id,
-		existUser: data.existUser,
 	},
 });
 
@@ -83,12 +113,11 @@ export const getUserByDNI = dni => (
 					variables: { dni },
 				})
 				.then((res) => {
-					dispatch(setDataTicket({
-						...res.data.purchaseRequestAutocomplete,
-						existUser: true,
-					}));
+					dispatch(setExistingUser(true, true));
+					dispatch(setDataTicket(res.data.purchaseRequestAutocomplete));
 				})
 				.catch(() => {
+					dispatch(showMessageFailed(true));
 				});
 		}
 	}

@@ -173,6 +173,17 @@ const styles = () => ({
 		margin: '25px',
 		padding: '25px',
 	},
+	createContainerTicketView: {
+		borderRadius: '1%',
+		marginTop: '5%',
+		margin: '2%',
+		padding: '1% 1%',
+		height: '40%',
+		width: '58%',
+		display: 'block',
+		position: 'relative !important',
+		left: '20% !important',
+	},
 });
 
 export default styles;

@@ -25,6 +25,7 @@ import {
 	getUserByDNI,
 	closeTicketModal,
 	assingTicket,
+	showUserForm,
 } from '../../actions/Ticket/actionsCreators';
 import { renderNumberField } from '../RenderFields/renderFields';
 import {
@@ -37,32 +38,36 @@ let ModalAssignTicket = ({
 	actionSearchUser,
 	actionAssignTicket,
 	actionCloseModal,
+	actionShowUserForm,
 	existUser,
 	myValues,
 	userId,
 	purchase,
+	searcherFailed,
 	user,
 }) => (
 	<div>
 		<Paper className={classes.modalAssignTicket}>
-			<h6 className={classes.formTitle}>Buscar Usuario</h6>
-			<form>
-				<div className={classes.formStyle}>
-					<Field
-						name='dni'
-						type='number'
-						component={renderNumberField}
-						validate={[required, empty]}
-						label='dni'
-					/>
-					<IconButton className={classes.formStyle3}>
-						<Search onClick={(event) => {
-							event.preventDefault(actionSearchUser(myValues));
-						}}
+			<div>
+				<h6 className={classes.formTitle}>Buscar Usuario</h6>
+				<form>
+					<div className={classes.formStyle}>
+						<Field
+							name='dni'
+							type='number'
+							component={renderNumberField}
+							validate={[required, empty]}
+							label='dni'
 						/>
-					</IconButton>
-				</div>
-			</form>
+						<IconButton className={classes.formStyle3}>
+							<Search onClick={(event) => {
+								event.preventDefault(actionSearchUser(myValues));
+							}}
+							/>
+						</IconButton>
+					</div>
+				</form>
+			</div>
 			{ existUser &&
 				<div>
 					<Table>
@@ -104,7 +109,19 @@ let ModalAssignTicket = ({
 						</button>
 					</div>
 				</div>
-
+			}
+			{ searcherFailed &&
+				<div>
+					<h6>El DNI no se encuentra registrado. ¿Desea agreagarlo?</h6>
+					<button
+						className={classes.createButton}
+						onClick={(event) => {
+							event.preventDefault(actionShowUserForm(false, false, false));
+						}}
+					>
+					Agregar
+					</button>
+				</div>
 			}
 		</Paper>
 	</div>
@@ -118,13 +135,15 @@ const selector = formValueSelector('SearchUserTicket');
 
 ModalAssignTicket.propTypes = {
 	user: PropTypes.object.isRequired,
+	myValues: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired,
-	myValues: PropTypes.object.isRequired,
 	purchase: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
 	existUser: PropTypes.bool.isRequired,
+	searcherFailed: PropTypes.bool.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionAssignTicket: PropTypes.func.isRequired,
+	actionShowUserForm: PropTypes.func.isRequired,
 	actionSearchUser: PropTypes.func.isRequired,
 };
 
@@ -137,6 +156,7 @@ const mapStateToProps = state => ({
 	},
 	existUser: state.ReducerTicket.existUser,
 	purchase: state.ReducerTicket.purchase,
+	searcherFailed: state.ReducerTicket.searcherFailed,
 	userId: state.ReducerLogin.userId,
 	myValues: selector(state, 'dni'),
 });
@@ -145,6 +165,8 @@ const mapDispatchToProps = dispatch => ({
 	actionSearchUser: id => dispatch(getUserByDNI(id)),
 	actionCloseModal: () => dispatch(closeTicketModal()),
 	actionAssignTicket: data => dispatch(assingTicket(data)),
+	actionShowUserForm: (noModal, viewList, existUser) =>
+		dispatch(showUserForm(noModal, viewList, existUser)),
 });
 
 export default compose(

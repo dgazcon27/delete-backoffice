@@ -42,149 +42,153 @@ let NewUsersCreate = ({
 	actionCloseAlert,
 	actionNewCreateUser,
 	createNewUserMutation,
-	paginationPage,
 	myValues,
 	submitting,
 	handleSubmit,
-}) => (
-	<div>
-		<Title title='Ventas' />
-		<Paper className={classes.createContainer}>
-			<form>
-				<h6 className={classes.formTitle}>Nuevo Usuario</h6>
-				<div className='row'>
-					<div className='input-field col s6'>
-						<Field
-							name='dni'
-							type='number'
-							component={renderNumberField}
-							validate={[required, empty]}
-							label='CI/Pasaporte'
-							className='yourclass'
-						/>
+	propClass,
+	noReload,
+}) => {
+	const classView = propClass === 'true' ? classes.createContainerTicketView : classes.createContainer;
+	const title = propClass === 'true' ? 'Registrar Usuario' : 'Ventas';
+	return (
+		<div>
+			<Title title={title} />
+			<Paper className={classView}>
+				<form>
+					<h6 className={classes.formTitle}>Nuevo Usuario</h6>
+					<div className='row'>
+						<div className='input-field col s6'>
+							<Field
+								name='dni'
+								type='number'
+								component={renderNumberField}
+								validate={[required, empty]}
+								label='CI/Pasaporte'
+								className='yourclass'
+							/>
+						</div>
+						<div className='input-field col s6' >
+							<Field
+								name='name'
+								type='text'
+								component={renderTextField}
+								validate={[required, empty]}
+								label='Nombre'
+							/>
+						</div>
+						<div className='input-field col s6 l6'>
+							<Field
+								name='lastName'
+								type='text'
+								component={renderTextField}
+								validate={[required, empty]}
+								label='Apellido'
+								className='yourclass'
+							/>
+						</div>
+						<div className='col s6 l6'>
+							<Field
+								name='birthDate'
+								type='date'
+								component={renderDateField}
+								validate={required}
+								label='Fecha de nacimiento'
+								className='yourclass container date-label'
+							/>
+						</div>
+						<div className='input-field col s6'>
+							<Field
+								name='email'
+								type='text'
+								component={renderTextField}
+								validate={[required, email, empty]}
+								label='Correo'
+							/>
+						</div>
+						<div className='input-field col s6'>
+							<Field
+								name='phone'
+								type='text'
+								component={renderTextField}
+								validate={[required, empty]}
+								label='Teléfono'
+							/>
+						</div>
+						<div className='input-field col s6'>
+							<Citizenship />
+						</div>
 					</div>
-					<div className='input-field col s6' >
-						<Field
-							name='name'
-							type='text'
-							component={renderTextField}
-							validate={[required, empty]}
-							label='Nombre'
-						/>
+					<div className={classes.centered}>
+						<button
+							className={classes.createButton}
+							type='submit'
+							onClick={handleSubmit(() => actionNewCreateUser(
+								myValues,
+								myValues.name,
+								myValues.email,
+								myValues.lastName,
+								myValues.phone,
+								myValues.dni,
+								myValues.birthDate,
+								Number(myValues.citizenship),
+								Number(userId),
+								createNewUserMutation,
+								noReload,
+							))}
+							disabled={submitting}
+						>
+							Crear
+						</button>
+						<BackButton />
 					</div>
-					<div className='input-field col s6 l6'>
-						<Field
-							name='lastName'
-							type='text'
-							component={renderTextField}
-							validate={[required, empty]}
-							label='Apellido'
-							className='yourclass'
-						/>
-					</div>
-					<div className='col s6 l6'>
-						<Field
-							name='birthDate'
-							type='date'
-							component={renderDateField}
-							validate={required}
-							label='Fecha de nacimiento'
-							className='yourclass container date-label'
-						/>
-					</div>
-					<div className='input-field col s6'>
-						<Field
-							name='email'
-							type='text'
-							component={renderTextField}
-							validate={[required, email, empty]}
-							label='Correo'
-						/>
-					</div>
-					<div className='input-field col s6'>
-						<Field
-							name='phone'
-							type='text'
-							component={renderTextField}
-							validate={[required, empty]}
-							label='Teléfono'
-						/>
-					</div>
-					<div className='input-field col s6'>
-						<Citizenship />
-					</div>
-				</div>
-				<div className={classes.centered}>
-					<button
-						className={classes.createButton}
-						type='submit'
-						onClick={handleSubmit(() => actionNewCreateUser(
-							myValues,
-							myValues.name,
-							myValues.email,
-							myValues.lastName,
-							myValues.phone,
-							myValues.dni,
-							myValues.birthDate,
-							Number(myValues.citizenship),
-							Number(userId),
-							Number(userId),
-							createNewUserMutation,
-							paginationPage,
-						))}
-						disabled={submitting}
-					>
-						Crear
-					</button>
-					<BackButton />
-				</div>
-			</form>
-		</Paper>
-		{alertType === 'nombre' &&
+				</form>
+			</Paper>
+			{alertType === 'nombre' &&
 
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-		/>
-		}
-		{alertType === 'validation' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-		/>
-		}
-		{alertType === 'rolDescription' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{
-				'aria-describedby': 'message-id',
-			}}
-			message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-		/>
-		}
-		{alertType === 'creado' &&
-		<Snackbar
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			open={alertOpen}
-			onClose={() => { setTimeout(actionCloseAlert, 100); }}
-			ContentProps={{ 'aria-describedby': 'message-id' }}
-			message={<span id='message-id'>El usuario fue creado con éxito.</span>}
-		/>
-		}
-	</div>
-);
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+			/>
+			}
+			{alertType === 'validation' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+			/>
+			}
+			{alertType === 'rolDescription' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
+			/>
+			}
+			{alertType === 'creado' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>El usuario fue creado con éxito.</span>}
+			/>
+			}
+		</div>
+	);
+};
 
 NewUsersCreate.propTypes = {
 	userId: PropTypes.number.isRequired,
@@ -195,9 +199,10 @@ NewUsersCreate.propTypes = {
 	actionNewCreateUser: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	createNewUserMutation: PropTypes.func.isRequired,
-	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
+	propClass: PropTypes.bool.isRequired,
+	noReload: PropTypes.bool.isRequired,
 };
 
 NewUsersCreate = reduxForm({
@@ -210,7 +215,6 @@ const mapStateToProps = state => ({
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerUser.alertType,
 	alertOpen: state.ReducerUser.alertOpen,
-	paginationPage: state.ReducerUser.paginationPageUsers,
 	myValues: selector(state, 'name', 'email', 'password', 'lastName', 'phone', 'dni', 'citizenship'),
 });
 
@@ -227,7 +231,7 @@ const mapDispatchToProps = dispatch => ({
 		createdBy,
 		updatedBy,
 		createNewUserMutation,
-		paginationPage,
+		noReload,
 	) => dispatch(newCreateUser(
 		myValues,
 		name,
@@ -239,7 +243,7 @@ const mapDispatchToProps = dispatch => ({
 		createdBy,
 		updatedBy,
 		createNewUserMutation,
-		paginationPage,
+		noReload,
 	)),
 });
 
