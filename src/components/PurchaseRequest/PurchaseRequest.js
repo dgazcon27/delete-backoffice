@@ -117,7 +117,7 @@ const PurchaseRequest = ({
 
 	return (
 		<div>
-			<Title title='Pre-Ventas' />
+			<Title title='Ventas' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

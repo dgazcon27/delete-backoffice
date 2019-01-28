@@ -6,17 +6,20 @@ import Search from '../Search/search';
 import { GET_TICKET } from '../../queries/ticket';
 import Title from '../Shared/title';
 
+import { SEARCH_TICKETS } from '../../queries/purchaseRequest';
+
 const Ticket = ({
 	objectStateTicket,
 	paginationPage,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_TICKET,
+		querySearch: SEARCH_TICKETS,
 	};
 
 	const objectSearch = {
 		showButton: true,
-		showSearch: false,
+		showSearch: true,
 		titleButton: 'agregar nuevo',
 		url: '/ticket-create',
 	};
@@ -64,8 +67,8 @@ const Ticket = ({
 			totalPath: 'boxOfficeSalesPagination.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'searchAccessByEventStatusBoxOffice.data',
+			totalPath: 'searchAccessByEventStatusBoxOffice.total',
 		},
 	};
 
@@ -91,10 +94,13 @@ const Ticket = ({
 
 	const actions = {
 	};
+	if ((window.localStorage.getItem('actualRole') !== ('TICKET' && 'ADM'))) {
+		window.location.assign('/');
+	}
 
 	return (
 		<div>
-			<Title title='Ticket' />
+			<Title title='Taquilla' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}

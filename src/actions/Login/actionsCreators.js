@@ -89,8 +89,23 @@ export const requestLogin = (email, password) => {
 							variables: { token: response.token },
 						})
 						.then((res) => {
+							switch (res.data.getCurrent.role.name) {
+								case 'ADMIN':
+									localStorage.setItem('actualRole', 'ADM');
+									break;
+								case 'SUPER_ADMIN':
+									localStorage.setItem('actualRole', 'ADM');
+									break;
+								case 'ADMINISTRACION':
+									localStorage.setItem('actualRole', 'ADM');
+									break;
+								default: {
+									localStorage.setItem('actualRole', res.data.getCurrent.role.name);
+								}
+							}
 							localStorage.setItem('userId', parseInt(res.data.getCurrent.id, 10));
 							dispatch(setCurrentUser(res.data.getCurrent.id));
+							window.location.reload();
 						})
 						.catch(() => {});
 				}
@@ -109,6 +124,7 @@ export const requestLogout = (token) => {
 	return (dispatch) => {
 		fetch(query, options)
 			.then(() => {
+				localStorage.setItem('actualRole', '');
 				dispatch(closeProfile());
 				dispatch(logout(null));
 				localStorage.clear();

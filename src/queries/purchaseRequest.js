@@ -197,3 +197,87 @@ export const SEARCH_PURCHASE_REQUEST = gql`
 		}
 	}
 `;
+export const SEARCH_TICKETS = gql`
+	query searchAccessByEventStatusBoxOffice($query: String!,$currentPageSearch: Int!){
+		searchAccessByEventStatusBoxOffice(query: $query, page:$currentPageSearch) {
+			data{
+				id
+				totalPrice
+				pendingPayment
+				totalPaid
+				user{
+					id name lastName dni
+					}
+				access{
+					id
+					name
+				 }
+				event{
+					id
+					name
+					eventStart
+				}
+				comment 
+
+				}
+			total
+			
+		}
+	}
+`;
+export const SEARCH_TABLES = gql`
+	query searchAccessByEventStatusTable($query: String!,$currentPageSearch: Int!){
+		searchAccessByEventStatusTable(query: $query, page:$currentPageSearch) {
+			data{
+				id
+				totalPrice
+				pendingPayment
+				totalPaid
+				user{
+					id name lastName dni
+					}
+				access{
+					id
+					name
+				 }
+				event{
+					id
+					name
+					eventStart
+				}
+				comment 
+
+				}
+			total
+			
+		}
+	}
+`;
+export const SEARCH_PRESALE = gql`
+	query searchAccessByEventStatusPresale($query: String!,$currentPageSearch: Int!){
+		searchAccessByEventStatusPresale(query: $query, page:$currentPageSearch) {
+			data{
+				id
+				totalPrice
+				pendingPayment
+				totalPaid
+				user{
+					id name lastName dni
+					}
+				access{
+					id
+					name
+				 }
+				event{
+					id
+					name
+					eventStart
+				}
+				comment 
+
+				}
+			total
+			
+		}
+	}
+`;
