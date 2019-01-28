@@ -24,6 +24,28 @@ export const GET_PAYMENTS = gql`
 	}
 `;
 
+
+export const SEARCH_PAYMENT_LIST = gql`
+	query searchPaymentList($query:String!,$currentPageSearch: Int!) {
+		searchPaymentList(query:$query, page:$currentPageSearch) {
+			  data {
+      amount
+      type
+      reference
+      id
+      created_at
+      bankAccount{
+        bank {
+        id
+        name
+      }}
+    }
+    total
+  }
+}
+`;
+
+
 export const CREATE_PAYMENT = gql`
 	mutation createPayment($purchaseRequest:Int!, $amount:Int!, $reference:String!, $comment:String!, $type:String!, $bankAccount:Int!, $createdBy:Int!, $updatedBy:Int!) {
 		createPayment(purchaseRequest:$purchaseRequest, amount:$amount, reference:$reference, comment:$comment, type:$type, bankAccount:$bankAccount, createdBy:$createdBy, updatedBy:$updatedBy) {
