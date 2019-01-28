@@ -11,6 +11,7 @@ import {
 } from '../../actions/Payment/actionsCreators';
 
 import {
+	SEARCH_PAYMENT_LIST,
 	GET_PAYMENTS,
 	DELETE_PAYMENT,
 } from '../../queries/payment';
@@ -26,11 +27,13 @@ const Payment = ({
 }) => {
 	const objectQuery = {
 		queryComponent: GET_PAYMENTS,
+		querySearch: SEARCH_PAYMENT_LIST,
+
 	};
 
 	const objectSearch = {
 		showButton: false,
-		showSearch: false,
+		showSearch: true,
 		titleButton: '',
 		url: '',
 	};
@@ -74,8 +77,8 @@ const Payment = ({
 			totalPath: 'payments.total',
 		},
 		searchComponent: {
-			dataPath: '',
-			totalPath: '',
+			dataPath: 'searchPaymentList.data',
+			totalPath: 'searchPaymentList.total',
 		},
 	};
 
