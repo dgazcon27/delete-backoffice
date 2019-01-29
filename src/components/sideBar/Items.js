@@ -72,7 +72,6 @@ const Items = ({
 					<ListItemText primary='Pagos' />
 				</ListItem>
 			</Link>
-			
 		</div>
 		}
 		{ localRole === 'TAQUILLA' &&
