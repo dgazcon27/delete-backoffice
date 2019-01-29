@@ -9,6 +9,7 @@ const GET_PRESALE = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id
 					name
 					lastName

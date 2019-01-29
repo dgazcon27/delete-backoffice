@@ -18,6 +18,7 @@ import {
 	SEARCH_PURCHASE_REQUEST,
 } from '../../queries/purchaseRequest';
 
+
 const PurchaseRequest = ({
 	objectStatePurchaseRequest,
 	paginationPage,
@@ -38,11 +39,12 @@ const PurchaseRequest = ({
 		url: '/purchase-request-create',
 	};
 
+
 	const objectList = {
 		titlesColumns: [{
 			id: 1,
 			columName: 'Cliente',
-			jsonPath: 'user.name',
+			jsonPath: 'user.fullName',
 		},
 		{
 			id: 2,

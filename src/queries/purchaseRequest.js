@@ -61,7 +61,8 @@ export const GET_PURCHASE_REQ = gql`
 			pendingPayment
 			totalPaid
 			user{
-				id name lastName dni
+				fullName
+				id name lastName dni 
 				}
 			access{
 				id
@@ -129,6 +130,8 @@ export const GET_PURCHASE_BY_ID = gql`
 			pendingPayment
 			totalPaid
 			user{
+				fullName
+
 				id name lastName dni phone email
 				}
 			access{
@@ -179,6 +182,7 @@ export const SEARCH_PURCHASE_REQUEST = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id name lastName dni
 					}
 				access{
@@ -206,6 +210,7 @@ export const SEARCH_TICKETS = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id name lastName dni
 					}
 				access{
@@ -234,6 +239,7 @@ export const SEARCH_TABLES = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id name lastName dni
 					}
 				access{
@@ -262,6 +268,7 @@ export const SEARCH_PRESALE = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id name lastName dni
 					}
 				access{

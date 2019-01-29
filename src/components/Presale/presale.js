@@ -27,7 +27,7 @@ const Presale = ({
 		titlesColumns: [{
 			id: 1,
 			columName: 'Cliente',
-			jsonPath: 'user.name',
+			jsonPath: 'user.fullName',
 		},
 		{
 			id: 2,

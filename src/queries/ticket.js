@@ -9,6 +9,7 @@ export const GET_TICKET = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id
 					name
 					lastName

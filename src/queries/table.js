@@ -9,6 +9,7 @@ const GET_TABLE = gql`
 				pendingPayment
 				totalPaid
 				user{
+					fullName
 					id
 					name
 					lastName

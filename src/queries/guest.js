@@ -84,6 +84,7 @@ export const UPDATE_GUEST = gql`
 		) {
 			id
 			user{
+				fullName
 				name
 				lastName
 				phone
@@ -112,6 +113,7 @@ export const GET_GUESTS = gql`
 			data {
 				id
 				user{
+					fullName
 					name
 					lastName
 					dni
@@ -150,6 +152,7 @@ export const GET_GUEST_BY_ID = gql`
 		invited(id: $id){
 			id
 			user{
+				fullName
 				name
 				lastName
 				phone
