@@ -91,7 +91,6 @@ let Payment = ({
 						name='comment'
 						type='text'
 						component={renderTextField}
-						validate={required}
 						label='Comentario/Observaciones'
 						className='yourclass'
 					/>
