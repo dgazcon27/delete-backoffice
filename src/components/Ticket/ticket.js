@@ -94,7 +94,7 @@ const Ticket = ({
 
 	const actions = {
 	};
-	if ((window.localStorage.getItem('actualRole') !== ('TICKET' && 'ADM'))) {
+	if ((window.localStorage.getItem('actualRole') !== ('TICKET' && 'ADM' && 'ADMINISTRACION'))) {
 		window.location.assign('/');
 	}
 
