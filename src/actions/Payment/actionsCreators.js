@@ -120,9 +120,10 @@ export const createPayment = (
 	paginationPage,
 	createPaymentMutation,
 ) => async (dispatch) => {
+	const tex = comment || '-';
 	createPaymentMutation({
 		variables: {
-			purchaseRequest, amount, reference, comment, type, bankAccount, createdBy, updatedBy,
+			purchaseRequest, amount, reference, comment: tex, type, bankAccount, createdBy, updatedBy,
 		},
 		refetchQueries: [{ query: GET_PAYMENTS, variables: { paginationPage } }],
 	})
