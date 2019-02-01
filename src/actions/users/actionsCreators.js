@@ -212,7 +212,7 @@ export const newCreateUser = (
 					}, 2000);
 				} else {
 					setTimeout(() => {
-						dispatch(showUserForm(true, true, false));
+						dispatch(showUserForm(true, true, false, true));
 						dispatch(showMessageFailed(false));
 					}, 1000);
 				}

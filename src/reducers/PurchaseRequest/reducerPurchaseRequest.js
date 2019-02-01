@@ -15,6 +15,7 @@ import {
 	PR_SET_USER,
 	MODAL_USER,
 	CLOSE_MODAL_USER,
+	SET_PAGINATION_PURCHASE,
 } from '../../actions/PurchaseRequest/actionsTypes';
 
 import { SET_SEARCH_PURCHASE } from '../../actions/Search/actionsTypesSearchRoles';
@@ -47,7 +48,17 @@ const initialState = {
 	query: '',
 	currentPageSearch: 0,
 	paginationPageSearch: 0,
+	paginationPage: 0,
+	currentPage: 0,
 };
+
+if (JSON.parse(localStorage.getItem('paginations'))) {
+	initialState.paginationPage = JSON.parse(localStorage.getItem('paginations')).purchase || 0;
+	initialState.currentPage = JSON.parse(localStorage.getItem('paginations')).purchase || 0;
+} else {
+	initialState.paginationPage = 0;
+	initialState.currentPage = 0;
+}
 
 const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 	switch (action.type) {
@@ -106,9 +117,7 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				...state,
 				isOpen: true,
 				id: action.payload.id,
-				name: action.payload.name,
 				modalType: action.payload.modalType,
-				statusValue: action.payload.statusValue,
 			});
 		case CLOSE_MODAL_PURCHASE_REQ:
 			return ({
@@ -160,6 +169,12 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				id: 0,
 				name: '',
 				rolDescription: '',
+			});
+		case SET_PAGINATION_PURCHASE:
+			return ({
+				...state,
+				paginationPage: action.payload.paginationPage,
+				currentPage: action.payload.currentPage,
 			});
 		default:
 			return state;

@@ -77,6 +77,7 @@ const ReducerTicket = (state = initialState, action = {}) => {
 				noModal: action.payload.noModal,
 				viewlist: action.payload.viewlist,
 				existUser: action.payload.existUser,
+				isOpen: action.payload.isOpen,
 			});
 		case SHOW_MESSAGE_FAILED_TICKET:
 			return ({

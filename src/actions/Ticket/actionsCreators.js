@@ -48,12 +48,13 @@ export const showLoading = isLoading => ({
 	},
 });
 
-export const showUserForm = (noModal, viewlist, existUser) => ({
+export const showUserForm = (noModal, viewlist, existUser, isOpen) => ({
 	type: SHOW_USER_TICKET_FORM,
 	payload: {
 		noModal,
 		viewlist,
 		existUser,
+		isOpen,
 		description: SHOW_USER_TICKET_FORM,
 	},
 });

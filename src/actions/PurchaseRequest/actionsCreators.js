@@ -11,6 +11,7 @@ import {
 	SET_TO_PAY,
 	SET_ACCESS_EVENT,
 	CLOSE_MODAL_USER,
+	SET_PAGINATION_PURCHASE,
 } from './actionsTypes';
 import { GET_BANK_ACCOUNTS } from '../../queries/bank';
 import {
@@ -30,6 +31,21 @@ const checkMessageError = (res) => {
 	const errorOutput = pass.filter(e => e.includes('"$') || e.includes('validation'));
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
+};
+
+export const changePage = (currentPage, paginationPage) => {
+	const paginations = JSON.parse(localStorage.getItem('paginations')) || {};
+	paginations.userType = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
+
+	localStorage.setItem('paginations', JSON.stringify(paginations));
+
+	return ({
+		type: SET_PAGINATION_PURCHASE,
+		payload: {
+			paginationPage,
+			currentPage: currentPage < paginationPage ? currentPage + 1 : currentPage - 1,
+		},
+	});
 };
 
 export const setPurchaseReq = purchase => ({
@@ -110,26 +126,22 @@ export const closeAlert = () => ({
 		description: CLOSE_ALERT_PURCHASE_REQ,
 	},
 });
-export const deletePurchaseReq = (obj, paginationPage, deletePurchaseReqMutation) => {
-	const { id } = obj;
-	return async (dispatch) => {
-		await deletePurchaseReqMutation({
-			variables: { id },
-			refetchQueries: [{ query: GET_PURCHASE_REQ, variables: { paginationPage } }],
-		});
-		dispatch(closeModal());
-		window.location.reload();
-	};
+export const deletePurchaseReq = (id, deletePurchaseReqMutation) => async (dispatch) => {
+	await deletePurchaseReqMutation({
+		variables: { id },
+	});
+	dispatch(closeModal());
+	window.location.reload();
 };
-export const openModal = (modalType, bank) => ({
+export const openModal = (modalType, data) => ({
 	type: OPEN_MODAL_PURCHASE_REQ,
 	payload: {
 		modalType,
 		description: OPEN_MODAL_PURCHASE_REQ,
-		name: bank.name,
-		id: bank.id,
+		id: data.id,
 	},
 });
+
 export const setName = name => ({
 	type: SET_NAME,
 	payload: {

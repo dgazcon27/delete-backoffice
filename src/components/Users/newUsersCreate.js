@@ -201,8 +201,8 @@ NewUsersCreate.propTypes = {
 	createNewUserMutation: PropTypes.func.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	propClass: PropTypes.bool.isRequired,
-	noReload: PropTypes.bool.isRequired,
+	propClass: PropTypes.string.isRequired,
+	noReload: PropTypes.string.isRequired,
 };
 
 NewUsersCreate = reduxForm({
