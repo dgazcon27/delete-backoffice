@@ -93,7 +93,7 @@ const Presale = ({
 
 	const actions = {
 	};
-	if ((window.localStorage.getItem('actualRole') !== ('PRESALE' && 'ADM'))) {
+	if ((window.localStorage.getItem('actualRole') !== ('PRESALE' && 'ADM' && 'ADMINISTRACION'))) {
 		window.location.assign('/');
 	}
 	return (

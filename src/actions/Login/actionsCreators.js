@@ -96,9 +96,6 @@ export const requestLogin = (email, password) => {
 								case 'SUPER_ADMIN':
 									localStorage.setItem('actualRole', 'ADM');
 									break;
-								case 'ADMINISTRACION':
-									localStorage.setItem('actualRole', 'ADM');
-									break;
 								default: {
 									localStorage.setItem('actualRole', res.data.getCurrent.role.name);
 								}

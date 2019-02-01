@@ -365,6 +365,168 @@ const Items = ({
 			</Collapse>
 		</div>
 		}
+		{ localRole === 'ADMINISTRACION' &&
+			<div>
+				<Link to='/ticket-assign' href='/ticket-assign'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<ContactPhone />
+						</ListItemIcon>
+						<ListItemText primary='Acreditaciones' />
+					</ListItem>
+				</Link>
+
+				<Link to='/' href='/'>
+					<ListItem button>
+						<ListItemIcon>
+							<AttachMoney />
+						</ListItemIcon>
+						<ListItemText primary='Ventas' />
+					</ListItem>
+				</Link>
+				<Link to='/ticket' href='/ticket'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Taquilla' />
+					</ListItem>
+				</Link>
+				<Link to='/table' href='/table'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Mesas' />
+					</ListItem>
+				</Link>
+				<Link to='/presale' href='/presale'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Preventa' />
+					</ListItem>
+				</Link>
+				<Link to='/reservation' href='/reservation'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<RoomService />
+						</ListItemIcon>
+						<ListItemText primary='Paquetes' />
+					</ListItem>
+				</Link>
+				<Link to='/payment' href='/payment' >
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<AttachMoney />
+						</ListItemIcon>
+						<ListItemText primary='Pagos' />
+					</ListItem>
+				</Link>
+				<ListItem button onClick={() => { actionCollapse(!openTracker, SB_COLLAPSE_TRACKER); }}>
+					<ListItemIcon >
+						<LocationOn />
+					</ListItemIcon>
+					<ListItemText inset primary='Localizadores' />
+					{openTracker ? <ExpandMore /> : <ChevronLeft />}
+				</ListItem>
+
+				<Collapse in={openTracker} timeout='auto' unmountOnExit>
+					<List component='div' disablePadding>
+						<Link to='/tokens' href='/tokens'>
+							<ListItem button onClick={() => actionResetPagination()}>
+								<ListItemIcon>
+									<AttachMoney />
+								</ListItemIcon>
+								<ListItemText primary='Ventas' />
+							</ListItem>
+						</Link>
+						<Link to='/tokens-reservation' href='/tokens-reservation'>
+							<ListItem button onClick={() => actionResetPagination()}>
+								<ListItemIcon>
+									<RoomService />
+								</ListItemIcon>
+								<ListItemText primary='Paquetes' />
+							</ListItem>
+						</Link>
+						<Divider />
+					</List>
+				</Collapse>
+				<Link to='/events' href='/events'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<Event />
+						</ListItemIcon>
+						<ListItemText primary='Eventos' />
+					</ListItem>
+				</Link>
+				<Link to='/bank' href='/bank'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<AccountBalance />
+						</ListItemIcon>
+						<ListItemText primary='Bancos' />
+					</ListItem>
+				</Link>
+				<Link to='/bank-account' href='/bank-account'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<AccountBalanceWallet />
+						</ListItemIcon>
+						<ListItemText primary='Cuentas Bancarias' />
+					</ListItem>
+				</Link>
+
+				<ListItem
+					button
+					onClick={() => { actionCollapse(!openAdmin, SB_COLLAPSE_ADMINISTRATION); }}
+				>
+					<ListItemIcon >
+						<Work />
+					</ListItemIcon>
+					<ListItemText inset primary='Administración' />
+					{openAdmin ? <ExpandMore /> : <ChevronLeft />}
+				</ListItem>
+				<Collapse in={openAdmin} timeout='auto' unmountOnExit>
+					<List component='div' disablePadding>
+						<Link to='/income' href='/income'>
+							<ListItem button onClick={() => actionResetPagination()}>
+								<ListItemIcon>
+									<ArrowUpward />
+								</ListItemIcon>
+								<ListItemText primary='Ingresos por Evento' />
+							</ListItem>
+						</Link>
+						<Link to='/expenses' href='/expenses'>
+							<ListItem button onClick={() => actionResetPagination()}>
+								<ListItemIcon>
+									<ArrowDownward />
+								</ListItemIcon>
+								<ListItemText primary='Gastos por Evento' />
+							</ListItem>
+						</Link>
+						<Link to='/movement/income/create'>
+							<ListItem button onClick={() => actionResetPagination()}>
+								<ListItemIcon>
+									<People />
+								</ListItemIcon>
+								<ListItemText primary='Reportar ingreso' />
+							</ListItem>
+						</Link>
+						<Link to='/movement/expenses/create'>
+							<ListItem button onClick={() => actionResetPagination()}>
+								<ListItemIcon>
+									<People />
+								</ListItemIcon>
+								<ListItemText primary='Reportar gasto' />
+							</ListItem>
+						</Link>
+						<Divider />
+					</List>
+				</Collapse>
+			</div>
+		}
 	</div>
 );
 
