@@ -116,7 +116,7 @@ let ModalAssignTicket = ({
 					<button
 						className={classes.createButton}
 						onClick={(event) => {
-							event.preventDefault(actionShowUserForm(false, false, false));
+							event.preventDefault(actionShowUserForm(false, false, false, false));
 						}}
 					>
 					Agregar
@@ -165,8 +165,8 @@ const mapDispatchToProps = dispatch => ({
 	actionSearchUser: id => dispatch(getUserByDNI(id)),
 	actionCloseModal: () => dispatch(closeTicketModal()),
 	actionAssignTicket: data => dispatch(assingTicket(data)),
-	actionShowUserForm: (noModal, viewList, existUser) =>
-		dispatch(showUserForm(noModal, viewList, existUser)),
+	actionShowUserForm: (noModal, viewList, existUser, isOpen) =>
+		dispatch(showUserForm(noModal, viewList, existUser, isOpen)),
 });
 
 export default compose(
