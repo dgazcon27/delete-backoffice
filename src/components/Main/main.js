@@ -54,6 +54,7 @@ import Table from '../Table/table';
 import TableCreate from '../Table/tableCreate';
 import Presale from '../Presale/presale';
 import PresaleCreate from '../Presale/presaleCreate';
+import Currency from '../Currency/currency';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -62,6 +63,7 @@ const Main = (props) => {
 			<div className={classes.toolbar} />
 			<Switch>
 				<Route exact path='/' component={PurchaseRequest} />
+				<Route path='/Currency' component={Currency} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />
