@@ -2,6 +2,7 @@ import { GET_CURRENCY } from '../../queries/currency';
 import {
 	OPEN_MODAL_CURRENCY,
 	CLOSE_MODAL_CURRENCY,
+	SET_CURRENCY,
 } from './actionsTypes';
 
 // import { client } from '../../config/configStore';
@@ -31,3 +32,26 @@ export const deleteCurrency = (obj, paginationPage, deleteCurrencyMutation) => {
 		// window.location.reload();
 	};
 };
+
+export const createCurrency = (description, paginationPage, createCurrencyMutation) =>
+	async () => {
+		createCurrencyMutation({
+			variables: { description },
+			refetchQueries: [{ query: GET_CURRENCY, variables: { paginationPage } }],
+		})
+			.then(() => {
+				setTimeout(() => (window.location.assign('currency')), 2000);
+			})
+			.catch(() => {
+			});
+	};
+
+
+export const setCurrency = currency => ({
+	type: SET_CURRENCY,
+	payload: {
+		description: SET_CURRENCY,
+		id: currency.id,
+		currency: currency.description,
+	},
+});

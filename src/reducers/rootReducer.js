@@ -24,9 +24,11 @@ import ReducerSideBar from './SideBar/reducerSideBar';
 import ReducerTokens from './Tokens/reducerTokens';
 import ReducerMovement from './Movement/reducerMovement';
 import ReducerTicket from './Ticket/ticketReducer';
+import ReducerCurrency from './Currency/reducerCurrency';
 
 
 const rootReducer = combineReducers({
+	ReducerCurrency,
 	ReducerHeader,
 	ReducerUserType,
 	ReducerLogin,

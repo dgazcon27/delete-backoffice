@@ -127,7 +127,7 @@ Currency.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateBank: state.ReducerBank,
+	objectStateBank: state.ReducerCurrency,
 });
 
 const mapDispatchToProps = dispatch => ({
