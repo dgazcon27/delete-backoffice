@@ -1,17 +1,21 @@
 import {
 	SET_NAME_BANK,
 	SET_ROL_BANK,
-	OPEN_MODAL_BANK,
 	OPEN_ALERT_BANK,
-	CLOSE_MODAL_BANK,
 	CLOSE_ALERT_BANK,
 	CLEAN_STATE_BANK,
 	EDIT_BANK,
 	SET_DESCRIPTION_BANK,
 	BLOCK_BANK,
-	DELETE_BANK,
 	SET_BANK,
 } from '../../actions/Bank/actionsTypes';
+
+import {
+	DELETE_CURRENCY,
+	OPEN_MODAL_CURRENCY,
+	CLOSE_MODAL_CURRENCY,
+} from '../../actions/Currency/actionsTypes';
+
 
 const initialState = {
 	id: 0,
@@ -54,12 +58,12 @@ const ReducerCurrency = (state = initialState, action = {}) => {
 				id: action.payload.id,
 				statusValue: action.payload.status,
 			});
-		case DELETE_BANK:
+		case DELETE_CURRENCY:
 			return ({
 				...state,
 				isOpen: true,
 			});
-		case OPEN_MODAL_BANK:
+		case OPEN_MODAL_CURRENCY:
 			return ({
 				...state,
 				isOpen: true,
@@ -68,7 +72,7 @@ const ReducerCurrency = (state = initialState, action = {}) => {
 				modalType: action.payload.modalType,
 				statusValue: action.payload.statusValue,
 			});
-		case CLOSE_MODAL_BANK:
+		case CLOSE_MODAL_CURRENCY:
 			return ({
 				...state,
 				isOpen: false,

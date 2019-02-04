@@ -131,7 +131,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	actionOpenModal: modalType => dispatch(openModal(modalType)),
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
 	actionDelete: (componentState, paginationPage, deleteCurrencyMutation) =>
 		dispatch(deleteCurrency(componentState, paginationPage, deleteCurrencyMutation)),

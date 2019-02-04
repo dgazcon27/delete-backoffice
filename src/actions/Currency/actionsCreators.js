@@ -7,11 +7,12 @@ import {
 
 // import { client } from '../../config/configStore';
 
-export const openModal = modalType => ({
+export const openModal = (modalType, currency) => ({
 	type: OPEN_MODAL_CURRENCY,
 	payload: {
 		modalType,
 		description: OPEN_MODAL_CURRENCY,
+		id: currency.id,
 	},
 });
 export const closeModal = modalType => ({

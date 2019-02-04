@@ -23,6 +23,7 @@ const initialState = {
 	rolDescription: '',
 	statusValue: 0,
 	accountNumber: '',
+	currency: '',
 };
 
 const ReducerBank = (state = initialState, action = {}) => {
