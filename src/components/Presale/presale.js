@@ -93,13 +93,13 @@ const Presale = ({
 
 	const actions = {
 	};
-	if (window.localStorage.getItem('actualRole') !== 'ADM') {
+	/* if (window.localStorage.getItem('actualRole') !== 'ADM') {
 		if (window.localStorage.getItem('actualRole') !== 'ADMINISTRACION') {
 			if (window.localStorage.getItem('actualRole') !== 'PRESALE') {
 				window.location.assign('/');
 			}
 		}
-	}
+	} */
 
 	return (
 		<div>

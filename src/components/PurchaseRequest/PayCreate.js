@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import {
+	Query,
 	compose,
 	graphql,
 } from 'react-apollo';
@@ -25,17 +27,107 @@ import BackButton from '../widget/BackButton';
 import {
 	renderTextField,
 	renderNumberField,
+	renderSelectField,
 } from '../RenderFields/renderFields';
-import { CREATE_PAYMENT } from '../../queries/payment';
+import { CREATE_PAYMENT, GET_CURRENCYS, GET_ACCOUNTS_BY_CURRENCY } from '../../queries/payment';
 import {
 	createPayment,
 	closeAlert,
+	getAccountsByCurrency,
 } from '../../actions/Payment/actionsCreators';
 
-import { BankAccount } from '../commonComponent';
+const Currencys = ({
+	actionGetAccounts,
+}) => (
+	<Query query={GET_CURRENCYS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='currency'
+						type='select'
+						label='Moneda'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='currency'
+					type='select'
+					label='Moneda'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+					onChange={actionGetAccounts}
+				>
+					{data.currencys.map(currency => (
+						<MenuItem key={currency.id} value={currency.id}>{currency.description}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+Currencys.propTypes = {
+	actionGetAccounts: PropTypes.func.isRequired,
+};
+
+const BankAccounts = ({
+	currency,
+}) => (
+	<Query query={GET_ACCOUNTS_BY_CURRENCY} variables={{ currency }}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='bankAccount'
+						type='select'
+						label='Cuenta de Banco'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='bankAccount'
+					type='select'
+					label='Cuenta de Banco'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.accountsByCurrency.map(account => (
+						<MenuItem key={account.id} value={account.id}>{account.accountNumber}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+BankAccounts.propTypes = {
+	currency: PropTypes.number.isRequired,
+};
 
 let Payment = ({
 	userId,
+	currency,
 	classes,
 	match,
 	myValues,
@@ -45,6 +137,7 @@ let Payment = ({
 	handleSubmit,
 	paginationPage,
 	actionCloseAlert,
+	actionGetAccounts,
 	actionCreatePayment,
 	createPaymentMutation,
 }) => (
@@ -84,7 +177,10 @@ let Payment = ({
 					/>
 				</div>
 				<div className={classes.formStyle}>
-					<BankAccount />
+					<Currencys actionGetAccounts={actionGetAccounts} />
+				</div>
+				<div className={classes.formStyle}>
+					<BankAccounts currency={currency} />
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -130,7 +226,7 @@ let Payment = ({
 );
 
 Payment.propTypes = {
-
+	currency: PropTypes.number.isRequired,
 	userId: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
@@ -139,6 +235,7 @@ Payment.propTypes = {
 	classes: PropTypes.object.isRequired,
 	actionCreatePayment: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
+	actionGetAccounts: PropTypes.func.isRequired,
 	createPaymentMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
@@ -154,6 +251,7 @@ const selector = formValueSelector('Payment');
 const mapStateToProps = state => ({
 	initialValues: state.ReducerPayment,
 	id: state.ReducerPurchaseRequest.id,
+	currency: state.ReducerPayment.bankAccountId,
 	userId: state.ReducerLogin.userId,
 	alertType: state.ReducerPayment.alertType,
 	alertOpen: state.ReducerPayment.alertOpen,
@@ -163,6 +261,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
+	actionGetAccounts: value => dispatch(getAccountsByCurrency(value.target.value)),
 	actionCreatePayment: (
 		purchaseRequest,
 		amount,
