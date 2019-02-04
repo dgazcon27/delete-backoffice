@@ -114,3 +114,21 @@ export const GET_PAYMENT_BY_ID = gql`
 		}
 	}
 `;
+
+export const GET_CURRENCYS = gql`
+	query { 
+		currencys {
+			id
+			description
+		}
+	}
+`;
+
+export const GET_ACCOUNTS_BY_CURRENCY = gql`
+	query accountsByCurrency($currency: ID!) {
+		accountsByCurrency(currency: $currency) {
+			id
+			accountNumber
+		}
+	}
+`;

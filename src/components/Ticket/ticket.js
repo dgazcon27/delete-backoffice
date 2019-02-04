@@ -94,13 +94,13 @@ const Ticket = ({
 
 	const actions = {
 	};
-	if (window.localStorage.getItem('actualRole') !== 'ADM') {
+	/* if (window.localStorage.getItem('actualRole') !== 'ADM') {
 		if (window.localStorage.getItem('actualRole') !== 'ADMINISTRACION') {
 			if (window.localStorage.getItem('actualRole') !== 'TICKET') {
 				window.location.assign('/');
 			}
 		}
-	}
+	} */
 
 
 	return (
