@@ -16,6 +16,7 @@ export const GET_PAYMENTS = gql`
 						id
 						name
 					}
+					currency
 				}
 
 			}

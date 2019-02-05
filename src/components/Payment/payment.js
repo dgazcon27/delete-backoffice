@@ -46,16 +46,21 @@ const Payment = ({
 		},
 		{
 			id: 2,
+			columName: 'Moneda',
+			jsonPath: 'bankAccount.currency',
+		},
+		{
+			id: 3,
 			columName: 'Referencia',
 			jsonPath: 'reference',
 		},
 		{
-			id: 3,
+			id: 4,
 			columName: 'Banco',
 			jsonPath: 'bankAccount.bank.name',
 		},
 		{
-			id: 4,
+			id: 5,
 			columName: 'Fecha',
 			jsonPath: 'created_at',
 		}],
