@@ -18,6 +18,7 @@ import { getHotelById } from '../../actions/Hotel/actionsCreators';
 import { getReservationById } from '../../actions/Reservation/actionsCreators';
 import { getProviderById } from '../../actions/Provider/actionsCreators';
 import { getRoomById } from '../../actions/Room/actionsCreators';
+import { getCurrencyById } from '../../actions/Currency/actionsCreators';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -35,6 +36,7 @@ import ReservationEdit from '../Reservation/reservationEdit';
 import ProviderEdit from '../Provider/providerEdit';
 import ProviderDetails from '../Provider/providerDetails';
 import RoomEdit from '../Room/roomEdit';
+import CurrencyEdit from '../Currency/currencyEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -113,6 +115,10 @@ class EditionComponent extends React.Component {
 			case 'room-edit':
 				this.props.dispatch(getRoomById(id, false));
 				this.setState({ tag: <RoomEdit /> });
+				break;
+			case 'currency-edit':
+				this.props.dispatch(getCurrencyById(id));
+				this.setState({ tag: <CurrencyEdit /> });
 				break;
 			default:
 				break;

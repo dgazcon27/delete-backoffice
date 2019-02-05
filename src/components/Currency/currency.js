@@ -32,7 +32,7 @@ const Currency = ({
 		showButton: true,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
-		url: '/Currency-create',
+		url: '/currency-create',
 	};
 
 	const objectList = {
@@ -53,7 +53,7 @@ const Currency = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/Currency-edit',
+			edit: '/currency-edit',
 		},
 	};
 

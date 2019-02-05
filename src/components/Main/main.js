@@ -66,6 +66,7 @@ const Main = (props) => {
 				<Route exact path='/' component={ComponentPurchase} />
 				<Route path='/currency' component={Currency} />
 				<Route path='/currency-create' component={CurrencyCreate} />
+				<Route path='/currency-edit/:id' component={EditionComponent} />
 				<Route path='/hotel' component={Hotel} />
 				<Route path='/hotel-edit/:id' component={EditHotel} />
 				<Route path='/hotel-create' component={HotelCreate} />

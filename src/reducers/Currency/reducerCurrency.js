@@ -1,18 +1,17 @@
 import {
 	SET_NAME_BANK,
-	SET_ROL_BANK,
 	OPEN_ALERT_BANK,
 	CLOSE_ALERT_BANK,
 	CLEAN_STATE_BANK,
-	EDIT_BANK,
 	SET_DESCRIPTION_BANK,
 	BLOCK_BANK,
-	SET_BANK,
 } from '../../actions/Bank/actionsTypes';
 
 import {
+	EDIT_CURRENCY,
 	DELETE_CURRENCY,
 	OPEN_MODAL_CURRENCY,
+	SET_CURRENCY,
 	CLOSE_MODAL_CURRENCY,
 } from '../../actions/Currency/actionsTypes';
 
@@ -32,25 +31,17 @@ const initialState = {
 
 const ReducerCurrency = (state = initialState, action = {}) => {
 	switch (action.type) {
-		case EDIT_BANK:
+		case EDIT_CURRENCY:
 			return ({
 				...state,
-				paginationPageBank: action.payload.paginationPageBank,
-				currentPageBank: action.payload.currentPageBank,
+				paginationPageCurrency: action.payload.paginationPageCurrency,
+				currentPageCurrency: action.payload.currentPageCurrency,
 			});
-		case SET_ROL_BANK:
+		case SET_CURRENCY:
 			return ({
 				...state,
 				id: action.payload.id,
-				name: action.payload.name,
-				rolDescription: action.payload.rolDescription,
-			});
-		case SET_BANK:
-			return ({
-				...state,
-				id: action.payload.id,
-				name: action.payload.name,
-				currency: action.payload.currency,
+				description: action.payload.description,
 			});
 		case BLOCK_BANK:
 			return ({

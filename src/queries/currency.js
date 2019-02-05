@@ -19,6 +19,13 @@ export const CREATE_CURRENCY = gql`
 		}
 	}
 `;
+export const EDIT_CURRENCY = gql`
+	mutation updateCurrency($id: Int! $description:String!){
+		updateCurrency(id: $id description:$description){
+			id
+		}
+	}
+`;
 
 export const DELETE_CURRENCY = gql`
 	mutation deleteCurrency($id:Int!){
@@ -26,4 +33,12 @@ export const DELETE_CURRENCY = gql`
 			id
 		}
 	}
+`;
+export const GET_CURRENCY_BY_ID = gql`
+	query currencyById($id:Int!){
+		currencyById(id:$id) {			
+			id
+			description
+		}
+	}	
 `;
