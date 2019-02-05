@@ -73,7 +73,7 @@ let CurrencyCreate = ({
 			ContentProps={{
 				'aria-describedby': 'message-id',
 			}}
-			message={<span id='message-id'>No puede crear una banca sin {alertType}</span>}
+			message={<span id='message-id'>No puede crear una Moneda sin {alertType}</span>}
 		/>
 		}
 		{alertType === 'validation' &&
@@ -84,7 +84,7 @@ let CurrencyCreate = ({
 				ContentProps={{
 					'aria-describedby': 'message-id',
 				}}
-				message={<span id='message-id'>El Banco que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
+				message={<span id='message-id'>La Moneda que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
 			/>
 		}
 		{alertType === 'creado' &&
@@ -93,7 +93,7 @@ let CurrencyCreate = ({
 				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{ 'aria-describedby': 'message-id' }}
-				message={<span id='message-id'>La banca {myValues.name} fue creado con exito.</span>}
+				message={<span id='message-id'>La Moneda {myValues.description} fue creado con exito.</span>}
 			/>
 		}
 	</div>
