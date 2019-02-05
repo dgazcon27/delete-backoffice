@@ -5,6 +5,7 @@ import {
 	CLOSE_MODAL_PAYMENT,
 	CLEAN_STATE_PAYMENT,
 	SET_PAYMENT,
+	SET_BANKS_ACCOUNTS,
 } from './actionsTypes';
 import { GET_PAYMENTS, GET_PAYMENT_BY_ID } from '../../queries/payment';
 import { client } from '../../config/configStore';
@@ -32,6 +33,23 @@ export const setPayment = payment => ({
 		description: SET_PAYMENT,
 		...payment,
 		bankName: `${payment.bankAccount.owner.name} ${payment.bankAccount.owner.lastName}`,
+	},
+});
+
+export const getAccountsByCurrency = id => ({
+	type: SET_BANKS_ACCOUNTS,
+	payload: {
+		description: SET_BANKS_ACCOUNTS,
+		bankAccountId: id,
+	},
+});
+
+
+export const setBanksAccounts = banksAccount => ({
+	type: SET_BANKS_ACCOUNTS,
+	payload: {
+		description: SET_BANKS_ACCOUNTS,
+		banksAccount,
 	},
 });
 

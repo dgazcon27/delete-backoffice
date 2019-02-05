@@ -44,7 +44,7 @@ const Bank = ({
 		{
 			id: 2,
 			columName: 'Moneda',
-			jsonPath: 'currency',
+			jsonPath: 'currency.description',
 		}],
 		arrayActive: [false, false, false, true, true, false, false],
 		urls: {

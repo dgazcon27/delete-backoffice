@@ -3,12 +3,14 @@ import gql from 'graphql-tag';
 export const GET_BANKS = gql`
 	query banks($paginationPage:Int!) {
 		banks(page:$paginationPage) {
-			data
-			{
+			data {
 				id
 				name
-				currency
+				currency {
+					id
+					description
 				}
+			}
 			total
 			}
 	}
@@ -72,7 +74,7 @@ export const DELETE_BANK_ACCOUNT = gql`
 `;
 
 export const CREATE_BANK = gql`
-	mutation createBank($name:String!, $currency:String!){
+	mutation createBank($name:String!, $currency:ID!){
 		createBank(name:$name, currency:$currency){
 			id
 		}
@@ -88,7 +90,7 @@ export const CREATE_BANK_ACCOUNT = gql`
 `;
 
 export const EDIT_BANK = gql`
-	mutation updateBank($id:Int!,$name:String, $currency:String){
+	mutation updateBank($id:Int!,$name:String, $currency:ID!){
 		updateBank(id:$id, name:$name, currency:$currency){
 			id
 			name
@@ -108,7 +110,10 @@ export const GET_BANK_BY_ID = gql`
 		bank(id:$id) {
 			name
 			id
-			currency
+			currency {
+				id
+				description
+			}
 		}
 	}
 `;

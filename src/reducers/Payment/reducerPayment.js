@@ -6,6 +6,7 @@ import {
 	CLOSE_ALERT_PAYMENT,
 	EDIT_PAYMENT,
 	DELETE_PAYMENT,
+	SET_BANKS_ACCOUNTS,
 } from '../../actions/Payment/actionsTypes';
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
 	alertType: '',
 	modalType: '',
 	statusValue: 0,
+	bankAccountId: 0,
 };
 
 const ReducerPayment = (state = initialState, action = {}) => {
@@ -45,6 +47,11 @@ const ReducerPayment = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				isOpen: true,
+			});
+		case SET_BANKS_ACCOUNTS:
+			return ({
+				...state,
+				bankAccountId: action.payload.bankAccountId,
 			});
 		case OPEN_MODAL_PAYMENT:
 			return ({

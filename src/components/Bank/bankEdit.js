@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import {
+	Query,
 	compose,
 	graphql,
 } from 'react-apollo';
@@ -17,12 +19,51 @@ import Title from '../Shared/title';
 import BackButton from '../widget/BackButton';
 import styles from '../Shared/sharedStyles';
 import { required, empty } from '../validations/validations';
-import { renderTextField } from '../RenderFields/renderFields';
+import { renderTextField, renderSelectField } from '../RenderFields/renderFields';
 import { EDIT_BANK } from '../../queries/bank';
+import { GET_CURRENCYS } from '../../queries/payment';
 import {
 	editBank,
 	closeAlert,
 } from '../../actions/Bank/actionsCreators';
+
+const Currencys = () => (
+	<Query query={GET_CURRENCYS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='currency'
+						type='select'
+						label='Moneda'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='currency'
+					type='select'
+					label='Moneda'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.currencys.map(currency => (
+						<MenuItem key={currency.id} value={currency.id}>{currency.description}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
 
 let BankEdit = ({
 	classes,
@@ -52,14 +93,7 @@ let BankEdit = ({
 					/>
 				</div>
 				<div className={classes.formStyle}>
-					<Field
-						name='currency'
-						label='Moneda'
-						type='text'
-						placeholder='Moneda'
-						component={renderTextField}
-						validate={[required, empty]}
-					/>
+					<Currencys />
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditBank(myValues, paginationPage, editBankMutation))} disabled={submitting} >
 				Guardar

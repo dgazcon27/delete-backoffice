@@ -127,7 +127,7 @@ const PurchaseRequestNew = ({
 																	{ item.access.name }
 																</TableCell>
 																<TableCell className={classes.center}>
-																	{ item.totalPaid }
+																	{ item.pendingPayment }
 																</TableCell>
 																<TableCell className={classes.center}>
 																	{ item.event.name }
@@ -163,7 +163,7 @@ const PurchaseRequestNew = ({
 																			</IconButton>
 																		</Tooltip>
 																	}
-																	{item.totalPaid > 0 &&
+																	{item.pendingPayment > 0 &&
 																		<Tooltip
 																			enterDelay={200}
 																			id='tooltip-controlled'

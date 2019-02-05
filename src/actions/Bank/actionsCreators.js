@@ -29,7 +29,7 @@ export const setBank = bank => ({
 		description: SET_BANK,
 		id: bank.id,
 		name: bank.name,
-		currency: bank.currency,
+		currency: bank.currency.id,
 	},
 });
 
