@@ -59,3 +59,30 @@ export const CREATE_CURRENCY_HAS_CREATE = gql`
 			}
 		}
 `;
+
+export const GET_CURRENCIES_HAS_EVENT = gql`
+	query currencyHasEventPagination($paginationPage: Int!) {
+		currencyHasEventPagination(page: $paginationPage) {
+			data {
+				id
+				currency {
+					id
+					description
+				}
+				event {
+					id
+					name
+				}
+			}
+			total
+		}
+	}
+`;
+
+export const DELETE_CURRENCIES_HAS_EVENT = gql`
+	mutation deleteCurrencyHasEvent($id: Int!){
+		deleteCurrencyHasEvent(id:$id) {
+			id
+		}
+	}
+`;

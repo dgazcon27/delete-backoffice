@@ -37,10 +37,10 @@ let CurrencyHasEventCreate = ({
 	handleSubmit,
 }) => (
 	<div>
-		<Title title='Asociar moneda a Evento' />
+		<Title title='Agregar moneda a Evento' />
 		<Paper className={classes.createContainer}>
 			<form>
-				<h6 className={classes.formTitle}>Asignar moneda</h6>
+				<h6 className={classes.formTitle}>Agregar moneda</h6>
 				<div className={classes.formStyle}>
 					<Currencies />
 				</div>
@@ -68,7 +68,7 @@ let CurrencyHasEventCreate = ({
 		<NotificationAlert
 			open={isOpen}
 			close={actionSetAlert}
-			message='Moneda asignada exitosamente'
+			message='Moneda agregada exitosamente'
 		/>
 	</div>
 );

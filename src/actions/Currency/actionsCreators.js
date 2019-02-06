@@ -1,6 +1,7 @@
 import {
 	GET_CURRENCY,
 	GET_CURRENCY_BY_ID,
+	GET_CURRENCIES_HAS_EVENT,
 } from '../../queries/currency';
 import {
 	OPEN_MODAL_CURRENCY,
@@ -35,6 +36,7 @@ export const openModal = (modalType, currency) => ({
 		id: currency.id,
 	},
 });
+
 export const closeModal = modalType => ({
 	type: CLOSE_MODAL_CURRENCY,
 	payload: {
@@ -48,6 +50,18 @@ export const deleteCurrency = (obj, paginationPage, deleteCurrencyMutation) => {
 		await deleteCurrencyMutation({
 			variables: { id },
 			refetchQueries: [{ query: GET_CURRENCY, variables: { paginationPage } }],
+		});
+		dispatch(closeModal());
+		// window.location.reload();
+	};
+};
+
+export const deleteCurrencyHasEvent = (obj, paginationPage, deleteMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
+		await deleteMutation({
+			variables: { id },
+			refetchQueries: [{ query: GET_CURRENCIES_HAS_EVENT, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
 		// window.location.reload();
@@ -74,7 +88,7 @@ export const createCurrencyHasEvent = (data, create) =>
 		})
 			.then(() => {
 				dispatch(setAlert(true));
-				setTimeout(() => (window.location.replace('/currency')), 2000);
+				setTimeout(() => (window.location.replace('/currency/events')), 2000);
 			})
 			.catch(() => {
 			});

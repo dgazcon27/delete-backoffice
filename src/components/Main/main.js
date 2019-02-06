@@ -57,6 +57,7 @@ import PresaleCreate from '../Presale/presaleCreate';
 import Currency from '../Currency/currency';
 import CurrencyCreate from '../Currency/currencyCreate';
 import CurrencyHasEventCreate from '../Currency/currencyHasEventCreate';
+import CurrencyHasEvent from '../Currency/currencyHasEvent';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -140,7 +141,8 @@ const Main = (props) => {
 				<Route path='/table-create' component={TableCreate} />
 				<Route path='/presale' component={Presale} />
 				<Route path='/presale-create' component={PresaleCreate} />
-				<Route exact path='/currency/events' component={CurrencyHasEventCreate} />
+				<Route exact path='/currency/events/create' component={CurrencyHasEventCreate} />
+				<Route exact path='/currency/events' component={CurrencyHasEvent} />
 			</Switch>
 		</main>
 	);
