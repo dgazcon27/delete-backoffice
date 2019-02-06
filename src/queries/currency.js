@@ -42,3 +42,20 @@ export const GET_CURRENCY_BY_ID = gql`
 		}
 	}	
 `;
+
+export const CREATE_CURRENCY_HAS_CREATE = gql`
+	mutation createCurrencyHasEvent(
+		$currency: ID!,
+		$event: ID!,
+		$createdBy: Int!,
+		$updatedBy: Int!){
+			createCurrencyHasEvent(
+				currency: $currency,
+				event: $event,
+				createdBy: $createdBy,
+				updatedBy: $updatedBy,
+			) {
+				id
+			}
+		}
+`;

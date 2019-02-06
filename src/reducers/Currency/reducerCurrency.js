@@ -13,6 +13,7 @@ import {
 	OPEN_MODAL_CURRENCY,
 	SET_CURRENCY,
 	CLOSE_MODAL_CURRENCY,
+	SET_ALERT_CURRENCY,
 } from '../../actions/Currency/actionsTypes';
 
 
@@ -98,6 +99,11 @@ const ReducerCurrency = (state = initialState, action = {}) => {
 				id: 0,
 				name: '',
 				rolDescription: '',
+			});
+		case SET_ALERT_CURRENCY:
+			return ({
+				...state,
+				isOpen: action.payload.isOpen,
 			});
 		default:
 			return state;

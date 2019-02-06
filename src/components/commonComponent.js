@@ -20,6 +20,7 @@ import {
 	GET_COUNTRIES,
 	GET_TYPE_INVITED,
 	GET_CATEGORIES,
+	GET_CURRENCIES,
 } from './../queries/common';
 
 export const BankAccount = () => (
@@ -820,3 +821,51 @@ export const Categories = () => (
 		}}
 	</Query>
 );
+
+export const Currencies = (props) => {
+	Currencies.propTypes = {
+		name: PropTypes.string,
+	};
+
+	Currencies.defaultProps = {
+		name: '',
+	};
+	const inputName = props.name ? props.name : 'currency';
+	return (
+		<Query query={GET_CURRENCIES}>
+			{({ loading, error, data }) => {
+				if (loading) {
+					return (
+						<Field
+							name={inputName}
+							type='select'
+							label='Monedas'
+							component={renderSelectField}
+							validate={required}
+							className='container'
+						>
+							<MenuItem />
+						</Field>
+					);
+				}
+				if (error) {
+					return ('Error!');
+				}
+				return (
+					<Field
+						name={inputName}
+						type='select'
+						label='Monedas'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						{data.currencys.map(currency => (
+							<MenuItem key={currency.id} value={currency.id}>{currency.description}</MenuItem>
+						))}
+					</Field>
+				);
+			}}
+		</Query>
+	);
+};

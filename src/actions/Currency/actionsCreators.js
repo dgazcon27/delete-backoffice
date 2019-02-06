@@ -7,9 +7,17 @@ import {
 	CLOSE_MODAL_CURRENCY,
 	SET_CURRENCY,
 	CLOSE_ALERT_CURRENCY,
+	SET_ALERT_CURRENCY,
 } from './actionsTypes';
 
 import { client } from '../../config/configStore';
+
+export const setAlert = isOpen => ({
+	type: SET_ALERT_CURRENCY,
+	payload: {
+		isOpen,
+	},
+});
 
 export const setCurrency = currency => ({
 	type: SET_CURRENCY,
@@ -59,6 +67,19 @@ export const createCurrency = (description, paginationPage, createCurrencyMutati
 			});
 	};
 
+export const createCurrencyHasEvent = (data, create) =>
+	async (dispatch) => {
+		create({
+			variables: data,
+		})
+			.then(() => {
+				dispatch(setAlert(true));
+				setTimeout(() => (window.location.replace('/currency')), 2000);
+			})
+			.catch(() => {
+			});
+	};
+
 
 export const editCurrency = (currency, paginationPage, editCurrencyMutation) =>
 	async () => {
@@ -77,6 +98,7 @@ export const editCurrency = (currency, paginationPage, editCurrencyMutation) =>
 				// dispatch(openAlert(message));
 			});
 	};
+
 export const closeAlert = () => ({
 	type: CLOSE_ALERT_CURRENCY,
 	payload: {
