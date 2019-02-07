@@ -1,0 +1,22 @@
+.container {
+	width: 100%;
+}
+.errorSelect {
+	color: #f44336;
+    box-sizing: inherit;
+    font-size: 11px;
+}
+.yourclass input{ border:none!important; box-shadow: none!important; outline: none!important; background: none!important; } .yourclass input:focus{ border:none!important; box-shadow: none!important; outline: none!important; background: none!important; }
+.date-label label{
+	position: relative;
+}
+label + .MuiInputt-formControl-16 {
+	margin-top: 2px;
+}
+input#search::placeholder {
+	color: black;
+}
+
+input.MuiInput-input-23.MuiInput-inputType-26 {
+	border-bottom: none;	
+}

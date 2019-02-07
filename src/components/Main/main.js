@@ -48,6 +48,7 @@ import ExpensePerEvent from '../Movement/ExpensePerEvent';
 import Provider from '../Provider/provider';
 import ProviderCreate from '../Provider/providerCreate';
 import Ticket from '../Ticket/ticket';
+import ExchangeRate from '../ExchangeRate/exchangeRate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -122,6 +123,8 @@ const Main = (props) => {
 				<Route path='/provider-edit/:id' component={EditionComponent} />
 				<Route path='/provider-details/:id' component={EditionComponent} />
 				<Route path='/Ticket' component={Ticket} />
+				<Route path='/exchangeRate' component={ExchangeRate} />
+				<Route path='/update-exchange-rate/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);

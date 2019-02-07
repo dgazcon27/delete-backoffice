@@ -23,6 +23,7 @@ import ReducerRoom from './Room/reducerRoom';
 import ReducerSideBar from './SideBar/reducerSideBar';
 import ReducerTokens from './Tokens/reducerTokens';
 import ReducerMovement from './Movement/reducerMovement';
+import ReducerExchangeRate from './exchangeRate/reducerExchangeRate';
 
 
 const rootReducer = combineReducers({
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
 	ReducerTokens,
 	ReducerMovement,
 	ReducerProvider,
+	ReducerExchangeRate,
 	form: reduxFormReducer,
 });
 

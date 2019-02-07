@@ -141,3 +141,12 @@ export const GET_CATEGORIES = gql`
   		}
 	}
 `;
+
+export const GET_CURRENCYS = gql`
+	query {
+		currencys{
+			id
+			description
+		}
+	}
+`;

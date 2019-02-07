@@ -17,6 +17,7 @@ import { getHotelById } from '../../actions/Hotel/actionsCreators';
 import { getReservationById } from '../../actions/Reservation/actionsCreators';
 import { getProviderById } from '../../actions/Provider/actionsCreators';
 import { getRoomById } from '../../actions/Room/actionsCreators';
+import { getRateById } from '../../actions/exchangeRate/actionsCreator';
 
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
@@ -34,6 +35,7 @@ import ReservationEdit from '../Reservation/reservationEdit';
 import ProviderEdit from '../Provider/providerEdit';
 import ProviderDetails from '../Provider/providerDetails';
 import RoomEdit from '../Room/roomEdit';
+import UpdateExchangeRate from '../ExchangeRate/updateExchangeRate';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -112,6 +114,10 @@ class EditionComponent extends React.Component {
 			case 'room-edit':
 				this.props.dispatch(getRoomById(id, false));
 				this.setState({ tag: <RoomEdit /> });
+				break;
+			case 'update-exchange-rate':
+				this.props.dispatch(getRateById(id));
+				this.setState({ tag: <UpdateExchangeRate /> });
 				break;
 			default:
 				break;

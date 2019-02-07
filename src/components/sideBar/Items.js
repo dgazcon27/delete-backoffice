@@ -251,6 +251,14 @@ const Items = ({
 				<ListItemText primary='Ticket' />
 			</ListItem>
 		</Link>
+		<Link to='/exchangeRate' href='/exchangeRate'>
+			<ListItem button onClick={() => actionResetPagination()}>
+				<ListItemIcon>
+					<People />
+				</ListItemIcon>
+				<ListItemText primary='Taza de cambio' />
+			</ListItem>
+		</Link>
 	</div>
 );
 
