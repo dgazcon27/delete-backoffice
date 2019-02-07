@@ -104,7 +104,7 @@ let UpdateExchangeRate = ({
 					open={alertOpen}
 					onClose={() => { setTimeout(actionCloseAlert, 100); }}
 					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>El rol {myValues.name} fue creado con exito.</span>}
+					message={<span id='message-id'>El rol {myValues.name} fue creado con exito .</span>}
 				/>
 			}
 		</Paper>
