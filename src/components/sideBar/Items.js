@@ -256,7 +256,7 @@ const Items = ({
 				<ListItemIcon>
 					<People />
 				</ListItemIcon>
-				<ListItemText primary='Taza de cambio' />
+				<ListItemText primary='Tasa de cambio' />
 			</ListItem>
 		</Link>
 	</div>
