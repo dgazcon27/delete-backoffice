@@ -10,6 +10,7 @@ import {
 	SET_HOTEL,
 	RST_SET_MODAL,
 	RST_SET_LOAD,
+	SET_BANKS_ACCOUNTS,
 } from '../../actions/Reservation/actionsTypes';
 
 const initialState = {
@@ -34,6 +35,7 @@ const initialState = {
 	paginationPage: 0,
 	purchaseRequest: 0,
 	currentPageSearch: 0,
+	bankAccountId: 0,
 };
 
 const ReducerReservation = (state = initialState, action = {}) => {
@@ -62,6 +64,11 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				lastName: action.payload.lastName,
 				purchaseRequest: action.payload.purchaseRequest,
 				nameAccess: action.payload.nameAccess,
+			});
+		case SET_BANKS_ACCOUNTS:
+			return ({
+				...state,
+				bankAccountId: action.payload.bankAccountId,
 			});
 		case RST_SET_MODAL:
 			return ({
@@ -122,6 +129,7 @@ const ReducerReservation = (state = initialState, action = {}) => {
 				paginationPage: 0,
 				purchaseRequest: 0,
 				currentPageSearch: 0,
+				bankAccountId: 0,
 			});
 		case OPEN_ALERT_RESERVATION:
 			return ({

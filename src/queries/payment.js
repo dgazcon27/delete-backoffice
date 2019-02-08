@@ -130,6 +130,9 @@ export const GET_ACCOUNTS_BY_CURRENCY = gql`
 		accountsByCurrency(currency: $currency) {
 			id
 			accountNumber
+			owner{
+				fullName
+			}
 		}
 	}
 `;

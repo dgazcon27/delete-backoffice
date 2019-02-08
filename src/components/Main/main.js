@@ -112,7 +112,7 @@ const Main = (props) => {
 				<Route path='/reservation' component={Reservation} />
 				<Route path='/reservation-create' component={ReservationCreate} />
 				<Route path='/reservation-edit/:id' component={EditionComponent} />
-				<Route path='/reservation-payment' component={ReservationPayment} />
+				<Route path='/reservation-payment/:id' component={ReservationPayment} />
 				<Route path='/room' component={Room} />
 				<Route path='/room-create' component={RoomCreate} />
 				<Route path='/room-edit/:id' component={EditionComponent} />

@@ -7,6 +7,7 @@ import {
 	CLOSE_MODAL_CURRENCY,
 	SET_CURRENCY,
 	CLOSE_ALERT_CURRENCY,
+	SET_BANKS_ACCOUNTS,
 } from './actionsTypes';
 
 import { client } from '../../config/configStore';
@@ -18,6 +19,15 @@ export const setCurrency = currency => ({
 		id: currency.id,
 	},
 });
+
+export const getAccountsByCurrency = id => ({
+	type: SET_BANKS_ACCOUNTS,
+	payload: {
+		description: SET_BANKS_ACCOUNTS,
+		bankAccountId: id,
+	},
+});
+
 
 export const openModal = (modalType, currency) => ({
 	type: OPEN_MODAL_CURRENCY,

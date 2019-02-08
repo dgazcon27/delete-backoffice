@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
+	Query,
 	compose,
 	graphql,
 } from 'react-apollo';
@@ -12,6 +13,8 @@ import {
 	reduxForm,
 	formValueSelector,
 } from 'redux-form';
+import MenuItem from 'material-ui/Menu/MenuItem';
+
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import styles from './reservationCss';
@@ -23,26 +26,119 @@ import {
 import {
 	renderTextField,
 	renderNumberField,
+	renderSelectField,
 } from '../RenderFields/renderFields';
 import { CREATE_RESERVATION_PAY } from '../../queries/reservation';
 import {
 	closeAlert,
 	createPaymentReservation,
 } from '../../actions/Reservation/actionsCreators';
-import { BankAccount } from '../commonComponent';
+import { getAccountsByCurrency } from '../../actions/Payment/actionsCreators';
 import Title from '../Shared/title';
 
+import { GET_CURRENCYS, GET_ACCOUNTS_BY_CURRENCY } from '../../queries/payment';
+
+
+const Currencys = ({
+	actionGetAccounts,
+}) => (
+	<Query query={GET_CURRENCYS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='currency'
+						type='select'
+						label='Moneda'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='currency'
+					type='select'
+					label='Moneda'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+					onChange={actionGetAccounts}
+				>
+					{data.currencys.map(currency => (
+						<MenuItem key={currency.id} value={currency.id}>{currency.description}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+Currencys.propTypes = {
+	actionGetAccounts: PropTypes.func.isRequired,
+};
+const BankAccounts = ({
+	currency,
+}) => (
+	<Query query={GET_ACCOUNTS_BY_CURRENCY} variables={{ currency }}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='bankAccount'
+						type='select'
+						label='Cuenta de Banco'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='bankAccount'
+					type='select'
+					label='Cuenta de Banco'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.accountsByCurrency.map(account => (
+						<MenuItem key={account.id} value={account.id}>{`${account.accountNumber} - ${account.owner.fullName}  `}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+BankAccounts.propTypes = {
+	currency: PropTypes.number.isRequired,
+};
+
+
 let ReservationPayment = ({
+	match,
 	userId,
 	classes,
+	currency,
 	myValues,
 	alertOpen,
 	alertType,
 	submitting,
-	reservation,
 	handleSubmit,
 	paginationPage,
 	actionCloseAlert,
+	actionGetAccounts,
 	actionPaymentReservation,
 	createReservationPayMutation,
 }) => (
@@ -72,6 +168,12 @@ let ReservationPayment = ({
 					/>
 				</div>
 				<div className={classes.formStyle}>
+					<Currencys actionGetAccounts={actionGetAccounts} />
+				</div>
+				<div className={classes.formStyle}>
+					<BankAccounts currency={currency} />
+				</div>
+				<div className={classes.formStyle}>
 					<Field
 						name='comment'
 						type='text'
@@ -90,10 +192,7 @@ let ReservationPayment = ({
 						label='Tipo'
 					/>
 				</div>
-				<div className={classes.formStyle}>
-					<BankAccount />
-				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionPaymentReservation(reservation, myValues.amount, myValues.reference, myValues.comment, myValues.type, myValues.bankAccount, Number(userId), Number(userId), paginationPage, createReservationPayMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionPaymentReservation(match.params.id, myValues.amount, myValues.reference, myValues.comment, myValues.type, myValues.bankAccount, Number(userId), Number(userId), paginationPage, createReservationPayMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<Link to='/reservation' href='/reservation' className={classes.returnButton} >
@@ -129,13 +228,15 @@ ReservationPayment.propTypes = {
 	alertOpen: PropTypes.bool.isRequired,
 	classes: PropTypes.object.isRequired,
 	myValues: PropTypes.object.isRequired,
+	match: PropTypes.object.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
+	currency: PropTypes.string.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	reservation: PropTypes.number.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	actionPaymentReservation: PropTypes.func.isRequired,
+	actionGetAccounts: PropTypes.func.isRequired,
 	createReservationPayMutation: PropTypes.func.isRequired,
 };
 
@@ -146,7 +247,9 @@ ReservationPayment = reduxForm({
 const selector = formValueSelector('ReservationPayment');
 
 const mapStateToProps = state => ({
+	initialValues: state.ReducerReservation,
 	userId: state.ReducerLogin.userId,
+	currency: state.ReducerReservation.bankAccountId,
 	reservation: state.ReducerReservation.id,
 	alertType: state.ReducerReservation.alertType,
 	alertOpen: state.ReducerReservation.alertOpen,
@@ -156,6 +259,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
+	actionGetAccounts: value => dispatch(getAccountsByCurrency(value.target.value)),
 	actionPaymentReservation: (
 		reservation,
 		amount,
