@@ -113,7 +113,7 @@ const BankAccounts = ({
 					className='container'
 				>
 					{data.accountsByCurrency.map(account => (
-						<MenuItem key={account.id} value={account.id}>{account.accountNumber}</MenuItem>
+						<MenuItem key={account.id} value={account.id}>{`${account.accountNumber} - ${account.owner.fullName}`}</MenuItem>
 					))}
 				</Field>
 			);
