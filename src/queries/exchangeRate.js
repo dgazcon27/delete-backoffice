@@ -62,3 +62,20 @@ export const UPDATE_RATE = gql`
         }
     }   
 `;
+
+
+/*
+    Crea un nueva tasa de pago
+
+    value: valor de la tasa
+    currency: ID de la moneda en la tabla currency
+    createBy: ID del usuario que esta logueado
+    updateBy: ID del usuario que esta logueado
+*/
+export const CREATE_RATE = gql`
+    mutation createRate($value: String!, $currency: ID!, $createdBy: Int!, $updateBy: Int!) {
+        createRate(value: $value, currency: $currency, createdBy: $createdBy, updatedBy: $updateBy) {
+            id
+        }
+    }
+`;

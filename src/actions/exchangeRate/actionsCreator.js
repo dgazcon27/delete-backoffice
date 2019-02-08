@@ -2,8 +2,12 @@ import {
 	CLOSE_MODAL_EXCHANGE_RATE,
 	OPEN_MODAL_EXCHANGE_RATE,
 	SET_EXCHANGE_RATE,
+	SET_EXCHANGE_RATE_VALUE,
+	OPEN_ALERT_EXCHANGE_RATE,
+	CLOSE_ALERT_EXCHANGE_RATE,
 } from './actionsTypes';
 
+import { checkMessageError } from '../../actions/sharedActions/sharedActions';
 import { GET_RATE, GET_RATES } from '../../queries/exchangeRate';
 import { client } from '../../config/configStore';
 
@@ -24,6 +28,21 @@ export const closeModal = () => ({
 	},
 });
 
+export const openAlert = alertType => ({
+	type: OPEN_ALERT_EXCHANGE_RATE,
+	payload: {
+		alertType,
+		description: OPEN_ALERT_EXCHANGE_RATE,
+	},
+});
+
+export const closeAlert = () => ({
+	type: CLOSE_ALERT_EXCHANGE_RATE,
+	payload: {
+		description: CLOSE_ALERT_EXCHANGE_RATE,
+	},
+});
+
 export const deleteRate = (obj, paginationPage, deleteRateMutation) => {
 	const { id } = obj;
 	return async (dispatch) => {
@@ -35,15 +54,24 @@ export const deleteRate = (obj, paginationPage, deleteRateMutation) => {
 	};
 };
 
-export const setRate = state => ({
+export const setRate = rate => ({
 	type: SET_EXCHANGE_RATE,
 	payload: {
 		description: SET_EXCHANGE_RATE,
-		id: state.id,
-		value: state.value,
-		active: state.active,
+		id: rate.id,
+		value: rate.value,
+		active: rate.active,
 	},
 });
+
+export const setValue = state => ({
+	type: SET_EXCHANGE_RATE_VALUE,
+	payload: {
+		description: SET_EXCHANGE_RATE_VALUE,
+		value: state.value,
+	},
+});
+
 
 export const getRateById = id => (
 	async (dispatch) => {
@@ -66,14 +94,13 @@ export const editRate = (rate, paginationPage, editRateMutation) =>
 			variables: rate,
 			refetchQueries: [{ query: GET_RATES, variables: { paginationPage } }],
 		})
-
 			.then(() => {
-				/* dispatch(//edit); */
-				dispatch(closeModal());
+				dispatch(setValue(rate));
+				dispatch(openAlert('edit'));
 				setTimeout(() => (window.location.replace('/exchangeRate')), 2000);
 			})
-			.catch(() => {
-				/* const message = checkMessageError(res);
-				dispatch(openAlert(message)); */
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
 			});
 	};
