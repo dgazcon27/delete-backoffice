@@ -1,6 +1,7 @@
 import {
 	GET_CURRENCY,
 	GET_CURRENCY_BY_ID,
+	GET_CURRENCIES_HAS_EVENT,
 } from '../../queries/currency';
 import {
 	OPEN_MODAL_CURRENCY,
@@ -8,9 +9,17 @@ import {
 	SET_CURRENCY,
 	CLOSE_ALERT_CURRENCY,
 	SET_BANKS_ACCOUNTS,
+	SET_ALERT_CURRENCY,
 } from './actionsTypes';
 
 import { client } from '../../config/configStore';
+
+export const setAlert = isOpen => ({
+	type: SET_ALERT_CURRENCY,
+	payload: {
+		isOpen,
+	},
+});
 
 export const setCurrency = currency => ({
 	type: SET_CURRENCY,
@@ -37,6 +46,7 @@ export const openModal = (modalType, currency) => ({
 		id: currency.id,
 	},
 });
+
 export const closeModal = modalType => ({
 	type: CLOSE_MODAL_CURRENCY,
 	payload: {
@@ -56,6 +66,18 @@ export const deleteCurrency = (obj, paginationPage, deleteCurrencyMutation) => {
 	};
 };
 
+export const deleteCurrencyHasEvent = (obj, paginationPage, deleteMutation) => {
+	const { id } = obj;
+	return async (dispatch) => {
+		await deleteMutation({
+			variables: { id },
+			refetchQueries: [{ query: GET_CURRENCIES_HAS_EVENT, variables: { paginationPage } }],
+		});
+		dispatch(closeModal());
+		// window.location.reload();
+	};
+};
+
 export const createCurrency = (description, paginationPage, createCurrencyMutation) =>
 	async () => {
 		createCurrencyMutation({
@@ -64,6 +86,19 @@ export const createCurrency = (description, paginationPage, createCurrencyMutati
 		})
 			.then(() => {
 				setTimeout(() => (window.location.assign('currency')), 2000);
+			})
+			.catch(() => {
+			});
+	};
+
+export const createCurrencyHasEvent = (data, create) =>
+	async (dispatch) => {
+		create({
+			variables: data,
+		})
+			.then(() => {
+				dispatch(setAlert(true));
+				setTimeout(() => (window.location.replace('/currency/events')), 2000);
 			})
 			.catch(() => {
 			});
@@ -87,6 +122,7 @@ export const editCurrency = (currency, paginationPage, editCurrencyMutation) =>
 				// dispatch(openAlert(message));
 			});
 	};
+
 export const closeAlert = () => ({
 	type: CLOSE_ALERT_CURRENCY,
 	payload: {

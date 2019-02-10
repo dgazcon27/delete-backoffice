@@ -147,6 +147,13 @@ let Payment = ({
 			<form>
 				<h6 className={classes.formTitle}>Registrar Pago</h6>
 				<div className={classes.formStyle}>
+					<Currencys actionGetAccounts={actionGetAccounts} />
+				</div>
+				<div className={classes.formStyle}>
+					<BankAccounts currency={currency} />
+				</div>
+
+				<div className={classes.formStyle}>
 					<Field
 						name='amount'
 						type='number'
@@ -159,12 +166,18 @@ let Payment = ({
 				<div className={classes.formStyle}>
 					<Field
 						name='type'
-						type='text'
-						component={renderTextField}
-						validate={required}
+						type='select'
 						label='Tipo'
-						className='yourclass'
-					/>
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem key='1' value='Efectivo' >Efectivo</MenuItem>
+						<MenuItem key='2' value='Transferencia Dolares' >Transferencia Dólares</MenuItem>
+						<MenuItem key='3' value='Transferencia Bolivares' >Transferencia Bolívares</MenuItem>
+						<MenuItem key='4' value='Intercambio'> Intercambio </MenuItem>
+						<MenuItem key='5' value='Otro' > Otro</MenuItem>
+					</Field>
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -176,12 +189,7 @@ let Payment = ({
 						className='yourclass'
 					/>
 				</div>
-				<div className={classes.formStyle}>
-					<Currencys actionGetAccounts={actionGetAccounts} />
-				</div>
-				<div className={classes.formStyle}>
-					<BankAccounts currency={currency} />
-				</div>
+
 				<div className={classes.formStyle}>
 					<Field
 						name='comment'

@@ -56,6 +56,8 @@ import Presale from '../Presale/presale';
 import PresaleCreate from '../Presale/presaleCreate';
 import Currency from '../Currency/currency';
 import CurrencyCreate from '../Currency/currencyCreate';
+import CurrencyHasEventCreate from '../Currency/currencyHasEventCreate';
+import CurrencyHasEvent from '../Currency/currencyHasEvent';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -64,7 +66,7 @@ const Main = (props) => {
 			<div className={classes.toolbar} />
 			<Switch>
 				<Route exact path='/' component={ComponentPurchase} />
-				<Route path='/currency' component={Currency} />
+				<Route exact path='/currency' component={Currency} />
 				<Route path='/currency-create' component={CurrencyCreate} />
 				<Route path='/currency-edit/:id' component={EditionComponent} />
 				<Route path='/hotel' component={Hotel} />
@@ -139,6 +141,8 @@ const Main = (props) => {
 				<Route path='/table-create' component={TableCreate} />
 				<Route path='/presale' component={Presale} />
 				<Route path='/presale-create' component={PresaleCreate} />
+				<Route exact path='/currency/events/create' component={CurrencyHasEventCreate} />
+				<Route exact path='/currency/events' component={CurrencyHasEvent} />
 			</Switch>
 		</main>
 	);

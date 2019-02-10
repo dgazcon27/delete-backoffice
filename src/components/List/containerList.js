@@ -41,7 +41,6 @@ const ContainerList = ({
 
 	// Consulta utilizando el buscador
 	const QUERY_SEARCH = objectQuery.querySearch;
-
 	const params = query.length > 0 ?
 		{ query: QUERY_SEARCH, variables: { query, currentPageSearch } } :
 		{ query: QUERY_COMPONENT, variables: { paginationPage, ...paramsGetComponent } };

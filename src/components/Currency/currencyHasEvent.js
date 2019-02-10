@@ -7,69 +7,69 @@ import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	deleteCurrency,
+	deleteCurrencyHasEvent,
 } from '../../actions/Currency/actionsCreators';
-
-import 	{
-	GET_CURRENCY,
-	DELETE_CURRENCY,
-} from '../../queries/currency';
 import Title from '../Shared/title';
 
-const Currency = ({
-	objectStateBank,
+import {
+	GET_CURRENCIES_HAS_EVENT,
+	DELETE_CURRENCIES_HAS_EVENT,
+} from '../../queries/currency';
+
+const CurrencyHasEvent = ({
+	objectStateEvent,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
-	deleteCurrencyMutation,
+	deleteEventMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_CURRENCY,
+		queryComponent: GET_CURRENCIES_HAS_EVENT,
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
-		url: '/currency-create',
+		url: '/currency/events/create',
 	};
 
 	const objectList = {
 		titlesColumns: [{
-			id: 0,
-			columName: '',
-			jsonPath: '',
-		},
-		{
 			id: 1,
 			columName: 'Moneda',
-			jsonPath: 'description',
+			jsonPath: 'currency.description',
+		},
+		{
+			id: 2,
+			columName: 'Evento',
+			jsonPath: 'event.name',
 		}],
-		arrayActive: [false, false, false, true, true, false, false],
+		arrayActive: [false, false, false, false, true, false, false],
 		urls: {
 			list: {
 				type: '',
 				path: '',
 			},
 			payment: '',
-			edit: '/currency-edit',
+			edit: '',
 		},
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'currencyPagination.data',
-			totalPath: 'currencyPagination.total',
+			dataPath: 'currencyHasEventPagination.data',
+			totalPath: 'currencyHasEventPagination.total',
 		},
 		searchComponent: {
-			dataPath: 'currencyPagination.data',
-			totalPath: 'currencyPagination.total',
+			dataPath: '',
+			totalPath: '',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateBank),
+		componentState: Object.assign({}, objectStateEvent),
 		paginationPage,
 		messages: {
 			edit: {
@@ -82,8 +82,8 @@ const Currency = ({
 				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar Banco',
-				msg: '¿Estas seguro que desea eliminar este Banco?',
+				title: 'Eliminar moneda de un evento',
+				msg: '¿Estas seguro que desea eliminar esta moneda?',
 			},
 		},
 	};
@@ -92,12 +92,12 @@ const Currency = ({
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
-		queryDelete: deleteCurrencyMutation,
+		queryDelete: deleteEventMutation,
 	};
 
 	return (
 		<div>
-			<Title title='Monedas' />
+			<Title title='Monedas de un evento' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
@@ -116,28 +116,28 @@ const Currency = ({
 	);
 };
 
-Currency.propTypes = {
+CurrencyHasEvent.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionDelete: PropTypes.func.isRequired,
-	objectStateBank: PropTypes.object.isRequired,
+	objectStateEvent: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deleteCurrencyMutation: PropTypes.func.isRequired,
+	deleteEventMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateBank: state.ReducerCurrency,
+	objectStateEvent: state.ReducerCurrency,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deleteCurrencyMutation) =>
-		dispatch(deleteCurrency(componentState, paginationPage, deleteCurrencyMutation)),
+	actionDelete: (componentState, paginationPage, deleteEventMutation) =>
+		dispatch(deleteCurrencyHasEvent(componentState, paginationPage, deleteEventMutation)),
 });
 
 export default compose(
-	graphql(DELETE_CURRENCY, { name: 'deleteCurrencyMutation' }),
+	graphql(DELETE_CURRENCIES_HAS_EVENT, { name: 'deleteEventMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Currency);
+)(CurrencyHasEvent);

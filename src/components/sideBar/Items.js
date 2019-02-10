@@ -141,15 +141,6 @@ const Items = ({
 					<ListItemText primary='Ventas' />
 				</ListItem>
 			</Link>
-			<Link to='/currency' href='/currency'>
-				<ListItem button onClick={() => actionResetPagination()}>
-					<ListItemIcon>
-						<People />
-					</ListItemIcon>
-					<ListItemText primary='Monedas' />
-				</ListItem>
-			</Link>
-
 			<Link to='/ticket' href='/ticket'>
 				<ListItem button onClick={() => actionResetPagination()}>
 					<ListItemIcon>
@@ -292,6 +283,14 @@ const Items = ({
 							<ListItemText primary='Cuentas Bancarias' />
 						</ListItem>
 					</Link>
+					<Link to='/currency' href='/currency'>
+						<ListItem button onClick={() => actionResetPagination()}>
+							<ListItemIcon>
+								<People />
+							</ListItemIcon>
+							<ListItemText primary='Monedas' />
+						</ListItem>
+					</Link>
 					<Link to='/user-type' href='/user-type'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
@@ -375,14 +374,6 @@ const Items = ({
 		}
 		{ localRole === 'ADMINISTRACION' &&
 			<div>
-				<Link to='/currency' href='/currency'>
-					<ListItem button onClick={() => actionResetPagination()}>
-						<ListItemIcon>
-							<People />
-						</ListItemIcon>
-						<ListItemText primary='Monedas' />
-					</ListItem>
-				</Link>
 				<Link to='/ticket-assign' href='/ticket-assign'>
 					<ListItem button onClick={() => actionResetPagination()}>
 						<ListItemIcon>
@@ -490,6 +481,14 @@ const Items = ({
 							<AccountBalanceWallet />
 						</ListItemIcon>
 						<ListItemText primary='Cuentas Bancarias' />
+					</ListItem>
+				</Link>
+				<Link to='/currency' href='/currency'>
+					<ListItem button onClick={() => actionResetPagination()}>
+						<ListItemIcon>
+							<People />
+						</ListItemIcon>
+						<ListItemText primary='Monedas' />
 					</ListItem>
 				</Link>
 
