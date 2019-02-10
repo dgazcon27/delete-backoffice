@@ -231,7 +231,7 @@ ReservationPayment.propTypes = {
 	match: PropTypes.object.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	alertType: PropTypes.string.isRequired,
-	currency: PropTypes.string.isRequired,
+	currency: PropTypes.number.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
