@@ -53,8 +53,12 @@ export const setMovement = movement => ({
 
 export const createIncome = (income, create) =>
 	async (dispatch) => {
+		const comment = (income.comment && income.comment.trim().length > 0)
+			? income.comment
+			: '-';
+		const aux = { ...income, comment };
 		create({
-			variables: income,
+			variables: aux,
 		})
 			.then(() => {
 				dispatch(setNotification(true));
@@ -69,8 +73,12 @@ export const createIncome = (income, create) =>
 
 export const updateMovement = (income, update) =>
 	async (dispatch) => {
+		const comment = (income.comment && income.comment.trim().length > 0)
+			? income.comment
+			: '-';
+		const aux = { ...income, comment };
 		update({
-			variables: income,
+			variables: aux,
 		})
 			.then(() => {
 				dispatch(setNotification(true));
