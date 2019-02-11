@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'react-apollo';
 import { Field } from 'redux-form';
+import MenuItem from 'material-ui/Menu/MenuItem';
+
 import {
 	required,
 	empty,
@@ -11,20 +13,34 @@ import {
 import {
 	renderTextField,
 	renderNumberField,
+	renderSelectField,
 } from '../RenderFields/renderFields';
 import styles from '../Shared/sharedStyles';
-import { BankAccount, Categories, Events } from '../commonComponent';
+import { Categories } from '../commonComponent';
+import { Currencys, BankAccounts, Events } from '../PurchaseRequest/PayCreate';
+import { getAccountsByCurrency } from '../../actions/Payment/actionsCreators';
+
+
+BankAccounts.propTypes = {
+	currency: PropTypes.number.isRequired,
+};
 
 const FormMovement = ({
 	options,
 	disable,
 	classes,
 	event,
+	currency,
+	actionGetAccounts,
 }) => (
 	<div>
+		<div className={classes.formStyle} >
+			<Currencys actionGetAccounts={actionGetAccounts} />
+		</div>
+
 		<div className={classes.formStyle}>
 			{ options === 'create' && !event &&
-				<Events />
+				<Events currency={currency} />
 			}
 			{ options === 'visibility' &&
 				<Field
@@ -47,6 +63,12 @@ const FormMovement = ({
 				/>
 			}
 		</div>
+		{ options === 'create' &&
+		<div className={classes.formStyle} >
+			<BankAccounts currency={currency} />
+		</div>
+
+		}
 		<div className={classes.formStyle}>
 			<Field
 				name='amount'
@@ -58,12 +80,6 @@ const FormMovement = ({
 				disabled={disable}
 			/>
 		</div>
-		{ options === 'create' &&
-		<div className={classes.formStyle}>
-			<BankAccount />
-		</div>
-
-		}
 
 		{ options === 'visibility' &&
 		<div className={classes.formStyle}>
@@ -101,12 +117,18 @@ const FormMovement = ({
 		<div className={classes.formStyle}>
 			<Field
 				name='type'
-				type='text'
-				component={renderTextField}
-				validate={[required, empty]}
+				type='select'
 				label='Tipo'
-				disabled={disable}
-			/>
+				component={renderSelectField}
+				validate={required}
+				className='container'
+			>
+				<MenuItem key='1' value='Efectivo' >Efectivo</MenuItem>
+				<MenuItem key='2' value='Transferencia Dolares' >Transferencia Dólares</MenuItem>
+				<MenuItem key='3' value='Transferencia Bolivares' >Transferencia Bolívares</MenuItem>
+				<MenuItem key='4' value='Intercambio'> Intercambio </MenuItem>
+				<MenuItem key='5' value='Otro' > Otro</MenuItem>
+			</Field>
 		</div>
 		<div className={classes.hidden}>
 			<Field
@@ -152,6 +174,22 @@ const FormMovement = ({
 	</div>
 );
 
+
+FormMovement.propTypes = {
+	currency: PropTypes.number.isRequired,
+	actionGetAccounts: PropTypes.func.isRequired,
+};
+
+
+const mapStateToProps = state => ({
+	currency: state.ReducerPayment.bankAccountId,
+});
+
+const mapDispatchToProps = dispatch => ({
+
+	actionGetAccounts: value => dispatch(getAccountsByCurrency(value.target.value)),
+});
+
 FormMovement.propTypes = {
 	classes: PropTypes.object.isRequired,
 	disable: PropTypes.bool.isRequired,
@@ -159,7 +197,8 @@ FormMovement.propTypes = {
 	options: PropTypes.string.isRequired,
 };
 
+
 export default compose(
 	withStyles(styles, { withTheme: true }),
-	connect(null, null),
+	connect(mapStateToProps, mapDispatchToProps),
 )(FormMovement);

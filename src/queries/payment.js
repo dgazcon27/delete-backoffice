@@ -136,3 +136,14 @@ export const GET_ACCOUNTS_BY_CURRENCY = gql`
 		}
 	}
 `;
+export const GET_EVENTS_BY_CURRENCY = gql`
+	query eventsByCurrency($currency: Int!) {
+		eventsByCurrency(currency: $currency) {
+			event {
+		    id
+		    name
+		  }
+			
+		}
+	}
+`;

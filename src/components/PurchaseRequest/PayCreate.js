@@ -29,14 +29,14 @@ import {
 	renderNumberField,
 	renderSelectField,
 } from '../RenderFields/renderFields';
-import { CREATE_PAYMENT, GET_CURRENCYS, GET_ACCOUNTS_BY_CURRENCY } from '../../queries/payment';
+import { CREATE_PAYMENT, GET_CURRENCYS, GET_ACCOUNTS_BY_CURRENCY, GET_EVENTS_BY_CURRENCY } from '../../queries/payment';
 import {
 	createPayment,
 	closeAlert,
 	getAccountsByCurrency,
 } from '../../actions/Payment/actionsCreators';
 
-const Currencys = ({
+export const Currencys = ({
 	actionGetAccounts,
 }) => (
 	<Query query={GET_CURRENCYS}>
@@ -81,7 +81,7 @@ Currencys.propTypes = {
 	actionGetAccounts: PropTypes.func.isRequired,
 };
 
-const BankAccounts = ({
+export const BankAccounts = ({
 	currency,
 }) => (
 	<Query query={GET_ACCOUNTS_BY_CURRENCY} variables={{ currency }}>
@@ -122,6 +122,50 @@ const BankAccounts = ({
 );
 
 BankAccounts.propTypes = {
+	currency: PropTypes.number.isRequired,
+};
+
+export const Events = ({
+	currency,
+}) => (
+	<Query query={GET_EVENTS_BY_CURRENCY} variables={{ currency }}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='event'
+						type='select'
+						label='Eventos'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='event'
+					type='select'
+					label='Eventos'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.eventsByCurrency.map(event => (
+						<MenuItem key={event.event.id} value={event.event.id}>{`${event.event.name}`}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+
+Events.propTypes = {
 	currency: PropTypes.number.isRequired,
 };
 

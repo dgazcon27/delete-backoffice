@@ -6,6 +6,7 @@ import {
 	CLEAN_STATE_PAYMENT,
 	SET_PAYMENT,
 	SET_BANKS_ACCOUNTS,
+	SET_EVENTS_ACCOUNTS,
 } from './actionsTypes';
 import { GET_PAYMENTS, GET_PAYMENT_BY_ID } from '../../queries/payment';
 import { client } from '../../config/configStore';
@@ -40,6 +41,14 @@ export const getAccountsByCurrency = id => ({
 	type: SET_BANKS_ACCOUNTS,
 	payload: {
 		description: SET_BANKS_ACCOUNTS,
+		bankAccountId: id,
+	},
+});
+
+export const getEventsByCurrency = id => ({
+	type: SET_EVENTS_ACCOUNTS,
+	payload: {
+		description: SET_EVENTS_ACCOUNTS,
 		bankAccountId: id,
 	},
 });
