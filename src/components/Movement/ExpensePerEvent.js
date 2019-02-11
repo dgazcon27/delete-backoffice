@@ -44,7 +44,7 @@ const ExpensePerEvent = ({
 	const objectSearch = {
 		showButton: true,
 		showSearch: true,
-		titleButton: 'agregar nuevo +',
+		titleButton: 'agregar nuevo',
 		url: `/movement/expenses/event/create/${event}`,
 	};
 
@@ -62,7 +62,7 @@ const ExpensePerEvent = ({
 		{
 			id: 3,
 			columName: 'Cuenta Bancaria',
-			jsonPath: 'bankAccount.id',
+			jsonPath: 'bankAccount.accountNumber',
 		},
 		{
 			id: 4,

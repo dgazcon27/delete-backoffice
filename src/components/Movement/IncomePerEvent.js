@@ -62,7 +62,7 @@ const IncomePerEvent = ({
 		{
 			id: 3,
 			columName: 'Cuenta Bancaria',
-			jsonPath: 'bankAccount.id',
+			jsonPath: 'bankAccount.accountNumber',
 		},
 		{
 			id: 4,

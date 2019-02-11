@@ -63,6 +63,7 @@ export const GET_EXPENSE_PER_EVENT = gql`
                 amount
                 bankAccount{
                     id
+                    accountNumber
                 }
                 active
                 category{
@@ -99,6 +100,7 @@ export const SEARCH_EXPENSES_PER_EVENT = gql`
                 amount
                 bankAccount{
                     id
+                    accountNumber
                 }
                 active
                 category{
@@ -119,6 +121,7 @@ export const GET_INCOME_PER_EVENT = gql`
                 amount
                 bankAccount{
                     id
+                    accountNumber
                 }
                 active
                 category{
@@ -156,6 +159,7 @@ export const SEARCH_INCOME_PER_EVENT = gql`
                 amount
                 bankAccount{
                     id
+                    accountNumber
                 }
                 active
                 category{
