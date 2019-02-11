@@ -828,7 +828,7 @@ export const Currencys = () => (
 			if (loading) {
 				return (
 					<Field
-						name='Moneda'
+						name='currency'
 						type='select'
 						label='Moneda'
 						component={renderSelectField}
@@ -844,7 +844,7 @@ export const Currencys = () => (
 			}
 			return (
 				<Field
-					name='Moneda'
+					name='currency'
 					type='select'
 					label='Moneda'
 					component={renderSelectField}
@@ -854,7 +854,7 @@ export const Currencys = () => (
 					{data.currencys.map(currency => (
 						<MenuItem
 							key={currency.id}
-							value={currency.description}
+							value={currency.id}
 						>
 							{currency.description}
 						</MenuItem>

@@ -2,9 +2,9 @@ import {
 	CLOSE_MODAL_EXCHANGE_RATE,
 	OPEN_MODAL_EXCHANGE_RATE,
 	SET_EXCHANGE_RATE,
-	SET_EXCHANGE_RATE_VALUE,
 	OPEN_ALERT_EXCHANGE_RATE,
 	CLOSE_ALERT_EXCHANGE_RATE,
+	CLEAN_EXCHANGE_RATE,
 } from './actionsTypes';
 
 import { checkMessageError } from '../../actions/sharedActions/sharedActions';
@@ -58,17 +58,21 @@ export const setRate = rate => ({
 	type: SET_EXCHANGE_RATE,
 	payload: {
 		description: SET_EXCHANGE_RATE,
-		id: rate.id,
+		idRate: rate.id,
+		idCurrency: rate.currency.id,
 		value: rate.value,
 		active: rate.active,
 	},
 });
 
-export const setValue = state => ({
-	type: SET_EXCHANGE_RATE_VALUE,
+export const clearReducer = () => ({
+	type: CLEAN_EXCHANGE_RATE,
 	payload: {
-		description: SET_EXCHANGE_RATE_VALUE,
-		value: state.value,
+		description: CLEAN_EXCHANGE_RATE,
+		idRate: 0,
+		idCurrency: 0,
+		value: 0,
+		active: false,
 	},
 });
 
@@ -88,14 +92,24 @@ export const getRateById = id => (
 	}
 );
 
-export const editRate = (rate, paginationPage, editRateMutation) =>
-	async (dispatch) => {
+export const editRate = (rate, myValue, paginationPage, editRateMutation) => {
+	const { currency } = rate;
+	const { value } = myValue;
+	const id = rate.rate;
+	const updatedBy = Number(localStorage.getItem('userId'));
+
+	return async (dispatch) => {
 		await editRateMutation({
-			variables: rate,
+			variables: {
+				id,
+				value,
+				currency,
+				updatedBy,
+			},
 			refetchQueries: [{ query: GET_RATES, variables: { paginationPage } }],
 		})
 			.then(() => {
-				dispatch(setValue(rate));
+				dispatch(clearReducer());
 				dispatch(openAlert('edit'));
 				setTimeout(() => (window.location.replace('/exchangeRate')), 2000);
 			})
@@ -104,3 +118,4 @@ export const editRate = (rate, paginationPage, editRateMutation) =>
 				dispatch(openAlert(message));
 			});
 	};
+};

@@ -21,13 +21,15 @@ import {
 } from '../validations/validations';
 import { Currencys } from '../commonComponent';
 import { renderTextField } from '../RenderFields/renderFields';
-import { CREATE_ROL } from '../../queries/userType';
 import {
 	closeAlert,
 	setName,
 	setDescription,
-	createRol,
 } from '../../actions/userType/actionsCreators';
+
+import { editRate } from '../../actions/exchangeRate/actionsCreator';
+import { UPDATE_RATE } from '../../queries/exchangeRate';
+
 import BackButton from '../widget/BackButton';
 import Title from '../Shared/title';
 
@@ -36,12 +38,13 @@ let UpdateExchangeRate = ({
 	alertOpen,
 	alertType,
 	actionCloseAlert,
-	actionCreateRol,
-	createRolMutation,
+	actionEditRate,
+	editRateMutation,
 	paginationPage,
 	myValues,
 	submitting,
 	handleSubmit,
+	rate,
 }) => (
 	<div>
 		<Title title='Tasa de cambio' />
@@ -51,7 +54,7 @@ let UpdateExchangeRate = ({
 				<div className={classes.formStyle}> <Currencys /> </div>
 				<div className={classes.formStyle}>
 					<Field
-						name='rolDescription'
+						name='value'
 						type='text'
 						component={renderTextField}
 						validate={[required, empty]}
@@ -59,7 +62,7 @@ let UpdateExchangeRate = ({
 						className='yourclass'
 					/>
 				</div>
-				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionCreateRol(myValues.name, myValues.rolDescription, paginationPage, createRolMutation))} disabled={submitting} >
+				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRate(rate, myValues, paginationPage, editRateMutation))} disabled={submitting} >
 					Crear
 				</button>
 				<BackButton />
@@ -116,12 +119,14 @@ UpdateExchangeRate.propTypes = {
 	alertType: PropTypes.string.isRequired,
 	myValues: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
-	actionCreateRol: PropTypes.func.isRequired,
 	actionCloseAlert: PropTypes.func.isRequired,
-	createRolMutation: PropTypes.func.isRequired,
+	actionEditRate: PropTypes.func.isRequired,
+	editRateMutation: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	submitting: PropTypes.bool.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
+	rate: PropTypes.object.isRequired,
+
 };
 
 UpdateExchangeRate = reduxForm({
@@ -138,20 +143,22 @@ const mapStateToProps = state => ({
 	id: state.ReducerExchangeRate.id,
 	value: state.ReducerExchangeRate.value,
 	active: state.ReducerExchangeRate.active,
+	rate: state.ReducerExchangeRate,
 	paginationPage: state.ReducerPagination.paginationPage,
-	myValues: selector(state, 'name', 'rolDescription'),
+	initialValues: state.ReducerExchangeRate,
+	myValues: selector(state, 'currency', 'value'),
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionSetName: e => dispatch(setName(e.target.value)),
 	actionSetDescription: e => dispatch(setDescription(e.target.value)),
-	actionCreateRol: (name, descripcion, paginationPage, createRolMutation) =>
-		dispatch(createRol(name, descripcion, paginationPage, createRolMutation)),
+	actionEditRate: (rate, myValues, paginationPage, editRateMutation) =>
+		dispatch(editRate(rate, myValues, paginationPage, editRateMutation)),
 });
 
 export default compose(
-	graphql(CREATE_ROL, { name: 'createRolMutation' }),
+	graphql(UPDATE_RATE, { name: 'editRateMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(UpdateExchangeRate);

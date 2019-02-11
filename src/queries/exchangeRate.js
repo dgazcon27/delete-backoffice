@@ -6,13 +6,16 @@ import gql from 'graphql-tag';
 */
 
 export const GET_RATE = gql`
-    query rateById($id: Int!) {
-        rateById(id: $id) {
-            id
-            value
-            active
-        }
-    }
+	query rateById($id: Int!) {
+		rateById(id: $id) {
+			id
+			value
+			active
+			currency {
+				id
+			}
+		}
+	}
 `;
 
 /*
@@ -52,15 +55,15 @@ export const DELETE_RATE = gql`
     currency: es el id de la moneda en la tabla currency
 */
 export const UPDATE_RATE = gql`
-    mutation updateRate($id: Int!, $value: String!, $currency: ID){
-        updateRate(id: $id, value: $value, currency: $currency){
-            id
-            value
-            currency {
-                id
-            }
-        }
-    }   
+	mutation updateRate($id: Int!, $value: String!, $currency: ID, $updatedBy: Int){
+		updateRate(id: $id, value: $value, currency: $currency, updatedBy: $updatedBy){
+			id
+			value
+			currency {
+				id
+			}
+		}
+	}
 `;
 
 

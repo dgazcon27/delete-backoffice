@@ -11,7 +11,8 @@ const initialState = {
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
-	id: 0,
+	currency: 0,
+	rate: 0,
 	value: '',
 	active: false,
 };
@@ -46,7 +47,8 @@ const ReducerExchangeRate = (state = initialState, action = {}) => {
 		case SET_EXCHANGE_RATE:
 			return ({
 				...state,
-				id: action.payload.id,
+				currency: action.payload.idCurrency,
+				rate: action.payload.idRate,
 				value: action.payload.value,
 				active: action.payload.active,
 			});
