@@ -63,54 +63,31 @@ let UpdateExchangeRate = ({
 					/>
 				</div>
 				<button className={classes.createButton} type='submit' onClick={handleSubmit(() => actionEditRate(rate, myValues, paginationPage, editRateMutation))} disabled={submitting} >
-					Crear
+					Guardar
 				</button>
 				<BackButton />
 			</form>
-			{alertType === 'nombre' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'validation' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>El Rol que intenta crear ya existe verifique el nombre he intente de nuevo.</span>}
-				/>
-			}
-			{alertType === 'rolDescription' &&
-				<Snackbar
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{
-						'aria-describedby': 'message-id',
-					}}
-					message={<span id='message-id'>No puede crear un rol sin {alertType}</span>}
-				/>
-			}
-			{alertType === 'creado' &&
-				<Snackbar
-					className={classes.alertS}
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-					open={alertOpen}
-					onClose={() => { setTimeout(actionCloseAlert, 100); }}
-					ContentProps={{ 'aria-describedby': 'message-id' }}
-					message={<span id='message-id'>El rol {myValues.name} fue creado con exito.</span>}
-				/>
-			}
 		</Paper>
+		{alertType === 'edit' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{ 'aria-describedby': 'message-id' }}
+				message={<span id='message-id'>La moneda {myValues.currency} fue editado con exito.</span>}
+			/>
+		}
+		{alertType === 'validation' &&
+			<Snackbar
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				open={alertOpen}
+				onClose={() => { setTimeout(actionCloseAlert, 100); }}
+				ContentProps={{
+					'aria-describedby': 'message-id',
+				}}
+				message={<span id='message-id'>No pueden existir 2 o mas bancos con el mismo nombre verifique e intente de nuevo.</span>}
+			/>
+		}
 	</div>
 );
 
@@ -131,6 +108,7 @@ UpdateExchangeRate.propTypes = {
 
 UpdateExchangeRate = reduxForm({
 	form: 'UpdateExchangeRate',
+	enableReinitialize: true,
 })(UpdateExchangeRate);
 
 const selector = formValueSelector('UpdateExchangeRate');
