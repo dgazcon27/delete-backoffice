@@ -286,9 +286,17 @@ const Items = ({
 					<Link to='/currency' href='/currency'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
-								<People />
+								<AttachMoney />
 							</ListItemIcon>
 							<ListItemText primary='Monedas' />
+						</ListItem>
+					</Link>
+					<Link to='/exchangeRate' href='/exchangeRate'>
+						<ListItem button onClick={() => actionResetPagination()}>
+							<ListItemIcon>
+								<AttachMoney />
+							</ListItemIcon>
+							<ListItemText primary='Tasa de cambio' />
 						</ListItem>
 					</Link>
 					<Link to='/user-type' href='/user-type'>
@@ -486,12 +494,11 @@ const Items = ({
 				<Link to='/currency' href='/currency'>
 					<ListItem button onClick={() => actionResetPagination()}>
 						<ListItemIcon>
-							<People />
+							<AttachMoney />
 						</ListItemIcon>
 						<ListItemText primary='Monedas' />
 					</ListItem>
 				</Link>
-
 				<ListItem
 					button
 					onClick={() => { actionCollapse(!openAdmin, SB_COLLAPSE_ADMINISTRATION); }}
@@ -536,6 +543,7 @@ const Items = ({
 								<ListItemText primary='Reportar gasto' />
 							</ListItem>
 						</Link>
+
 						<Divider />
 					</List>
 				</Collapse>

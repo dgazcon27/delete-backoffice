@@ -44,4 +44,3 @@ export const closeAlert = () => ({
 		description: CLOSE_ALERT,
 	},
 });
-

@@ -58,6 +58,8 @@ import Currency from '../Currency/currency';
 import CurrencyCreate from '../Currency/currencyCreate';
 import CurrencyHasEventCreate from '../Currency/currencyHasEventCreate';
 import CurrencyHasEvent from '../Currency/currencyHasEvent';
+import ExchangeRate from '../ExchangeRate/exchangeRate';
+import ExchangeRateCreate from '../ExchangeRate/exchangeRateCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -143,6 +145,9 @@ const Main = (props) => {
 				<Route path='/presale-create' component={PresaleCreate} />
 				<Route exact path='/currency/events/create' component={CurrencyHasEventCreate} />
 				<Route exact path='/currency/events' component={CurrencyHasEvent} />
+				<Route path='/exchangeRate' component={ExchangeRate} />
+				<Route path='/update-exchange-rate/:id' component={EditionComponent} />
+				<Route path='/create-exchange' component={ExchangeRateCreate} />
 			</Switch>
 		</main>
 	);

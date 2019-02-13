@@ -20,7 +20,7 @@ import {
 	GET_COUNTRIES,
 	GET_TYPE_INVITED,
 	GET_CATEGORIES,
-	GET_CURRENCIES,
+	GET_CURRENCYS,
 } from './../queries/common';
 
 export const BankAccount = () => (
@@ -832,7 +832,7 @@ export const Currencies = (props) => {
 	};
 	const inputName = props.name ? props.name : 'currency';
 	return (
-		<Query query={GET_CURRENCIES}>
+		<Query query={GET_CURRENCYS}>
 			{({ loading, error, data }) => {
 				if (loading) {
 					return (
@@ -855,17 +855,67 @@ export const Currencies = (props) => {
 					<Field
 						name={inputName}
 						type='select'
-						label='Monedas'
+						label='Moneda'
 						component={renderSelectField}
 						validate={required}
 						className='container'
 					>
 						{data.currencys.map(currency => (
-							<MenuItem key={currency.id} value={currency.id}>{currency.description}</MenuItem>
+							<MenuItem
+								key={currency.id}
+								value={currency.id}
+							>
+								{currency.description}
+							</MenuItem>
 						))}
 					</Field>
 				);
-			}}
+			}
+			}
 		</Query>
+
 	);
 };
+
+export const Currencys = () => (
+	<Query query={GET_CURRENCYS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='currency'
+						type='select'
+						label='Moneda'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='currency'
+					type='select'
+					label='Moneda'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.currencys.map(currency => (
+						<MenuItem
+							key={currency.id}
+							value={currency.id}
+						>
+							{currency.description}
+						</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
