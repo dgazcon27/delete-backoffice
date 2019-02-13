@@ -74,7 +74,7 @@ let UpdateExchangeRate = ({
 				open={alertOpen}
 				onClose={() => { setTimeout(actionCloseAlert, 100); }}
 				ContentProps={{ 'aria-describedby': 'message-id' }}
-				message={<span id='message-id'>La moneda {myValues.currency} fue editada con exito.</span>}
+				message={<span id='message-id'>La moneda {myValues.currency} fue editado con exito.</span>}
 			/>
 		}
 		{alertType === 'validation' &&
@@ -108,6 +108,7 @@ UpdateExchangeRate.propTypes = {
 
 UpdateExchangeRate = reduxForm({
 	form: 'UpdateExchangeRate',
+	enableReinitialize: true,
 })(UpdateExchangeRate);
 
 const selector = formValueSelector('UpdateExchangeRate');

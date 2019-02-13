@@ -85,6 +85,7 @@ export const getRateById = id => (
 				variables: { id },
 			})
 			.then((res) => {
+				dispatch(clearReducer());
 				const rate = res.data.rateById;
 				dispatch(setRate(rate));
 			})
