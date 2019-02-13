@@ -76,8 +76,8 @@ export const UPDATE_RATE = gql`
     updateBy: ID del usuario que esta logueado
 */
 export const CREATE_RATE = gql`
-    mutation createRate($value: String!, $currency: ID!, $createdBy: Int!, $updateBy: Int!) {
-        createRate(value: $value, currency: $currency, createdBy: $createdBy, updatedBy: $updateBy) {
+    mutation createRate($value: String!, $currency: ID!, $createdBy: Int!, $updatedBy: Int!) {
+        createRate(value: $value, currency: $currency, createdBy: $createdBy, updatedBy: $updatedBy) {
             id
         }
     }

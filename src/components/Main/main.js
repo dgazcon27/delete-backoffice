@@ -49,6 +49,7 @@ import Provider from '../Provider/provider';
 import ProviderCreate from '../Provider/providerCreate';
 import Ticket from '../Ticket/ticket';
 import ExchangeRate from '../ExchangeRate/exchangeRate';
+import ExchangeRateCreate from '../ExchangeRate/exchangeRateCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -125,6 +126,7 @@ const Main = (props) => {
 				<Route path='/Ticket' component={Ticket} />
 				<Route path='/exchangeRate' component={ExchangeRate} />
 				<Route path='/update-exchange-rate/:id' component={EditionComponent} />
+				<Route path='/create-exchange' component={ExchangeRateCreate} />
 			</Switch>
 		</main>
 	);

@@ -33,7 +33,7 @@ const ExchangeRate = ({
 		showButton: true,
 		showSearch: false,
 		titleButton: 'agregar tasa de cambio',
-		url: '/update-exchange-rate',
+		url: '/create-exchange',
 	};
 
 	const objectList = {

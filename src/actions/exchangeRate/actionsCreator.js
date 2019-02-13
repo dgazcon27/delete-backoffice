@@ -92,6 +92,19 @@ export const getRateById = id => (
 	}
 );
 
+export const create = (data, mutation) => (
+	async (dispatch) => {
+		mutation({
+			variables: data,
+		})
+			.then(() => {
+				dispatch(openAlert('create'));
+				setTimeout(() => (window.location.assign('/exchangeRate')), 2000);
+			})
+			.catch(() => {});
+	}
+);
+
 export const editRate = (rate, myValue, paginationPage, editRateMutation) => {
 	const { currency } = rate;
 	const { value } = myValue;
