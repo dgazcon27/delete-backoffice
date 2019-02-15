@@ -26,6 +26,7 @@ import Loading from '../Loading/loading';
 const BankAccountState = ({
 	actionChangePage,
 	paginationPage,
+	currentBalance,
 	accountNumber,
 	currentPage,
 	isLoading,
@@ -99,7 +100,7 @@ const BankAccountState = ({
 															{bankName}
 														</div>
 														<div className={classes.balance}>
-															{currency} : 0
+															{currency} : {currentBalance}
 														</div>
 													</div>
 												</div>
@@ -171,11 +172,11 @@ BankAccountState.propTypes = {
 	isOpenTicket: PropTypes.bool.isRequired,
 	id: PropTypes.number.isRequired,
 	fullName: PropTypes.string.isRequired,
+	currentBalance: PropTypes.number.isRequired,
 	bankName: PropTypes.string.isRequired,
 	accountNumber: PropTypes.string.isRequired,
 	currency: PropTypes.string.isRequired,
 	currentPage: PropTypes.number.isRequired,
-	actionOpenTicketModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 };
@@ -190,6 +191,8 @@ const mapStateToProps = state => ({
 	fullName: state.ReducerBankAccount.fullName,
 	bankName: state.ReducerBankAccount.bankName,
 	currency: state.ReducerBankAccount.currency,
+	currentBalance: state.ReducerBankAccount.currentBalance,
+
 
 	paginationPage: state.ReducerPurchaseRequest.paginationPage,
 	currentPage: state.ReducerPurchaseRequest.currentPage,

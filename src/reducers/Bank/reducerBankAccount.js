@@ -24,7 +24,7 @@ const initialState = {
 	statusValue: 0,
 	accountNumber: '',
 	currentBalance: 0,
-	fullName: 0,
+	fullName: '',
 	bankName: '',
 };
 
