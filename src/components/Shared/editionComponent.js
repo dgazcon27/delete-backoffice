@@ -26,6 +26,7 @@ import UserTypeEdit from '../UserType/userTypeEdit';
 import LocationEdit from '../Location/locationEdit';
 import BankEdit from '../Bank/bankEdit';
 import BankAccountEdit from '../Bank/bankAccountEdit';
+import BankAccountState from '../Bank/bankAccountState';
 import AccessEdit from '../Access/accessEdit';
 import PurchaseRequestEdit from '../PurchaseRequest/PurchaseReqEdit';
 import PaymentEdit from '../Payment/paymentEdit';
@@ -80,6 +81,10 @@ class EditionComponent extends React.Component {
 			case 'bank-account-edit':
 				this.props.dispatch(getAccountById(id));
 				this.setState({ tag: <BankAccountEdit /> });
+				break;
+			case 'bank-account-state':
+				this.props.dispatch(getAccountById(id));
+				this.setState({ tag: <BankAccountState /> });
 				break;
 			case 'access-edit':
 				this.props.dispatch(getAccessById(id));

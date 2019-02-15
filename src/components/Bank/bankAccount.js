@@ -38,7 +38,7 @@ const BankAccountNew = ({
 		titlesColumns: [{
 			id: 1,
 			columName: 'Propietario',
-			jsonPath: 'owner.lastName',
+			jsonPath: 'owner.fullName',
 		},
 		{
 			id: 2,
@@ -50,7 +50,7 @@ const BankAccountNew = ({
 			columName: 'Moneda',
 			jsonPath: 'currency',
 		}],
-		arrayActive: [false, false, false, true, true, false, false],
+		arrayActive: [false, false, true, true, true, false, false],
 		urls: {
 			list: {
 				type: '',
@@ -58,6 +58,7 @@ const BankAccountNew = ({
 			},
 			payment: '',
 			edit: '/bank-account-edit',
+			visibility: '/bank-account-state',
 		},
 	};
 

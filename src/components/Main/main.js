@@ -102,6 +102,7 @@ const Main = (props) => {
 				<Route path='/bank-account-create' component={BankAccountCreate} />
 				<Route path='/bank-edit/:id' component={EditionComponent} />
 				<Route path='/bank-account-edit/:id' component={EditionComponent} />
+				<Route path='/bank-account-state/:id' component={EditionComponent} />
 				<Route path='/pre-sale' component={Payment} />
 				<Route path='/pre-sale-edit/:id' component={EditionComponent} />
 				<Route path='/access' component={Access} />

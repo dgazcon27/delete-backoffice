@@ -50,19 +50,23 @@ export const getBankById = id => (
 );
 
 
-export const setBankAccount = account => ({
-	type: SET_BANK_ACCOUNT,
-	payload: {
-		description: SET_BANK_ACCOUNT,
-		id: account.id,
-		owner: account.owner.id,
-		bank: account.bank.id,
-		currency: account.currency,
-		accountNumber: account.accountNumber,
-		type: account.type,
-		comment: account.comment,
-	},
-});
+export const setBankAccount = account =>
+	({
+		type: SET_BANK_ACCOUNT,
+		payload: {
+			description: SET_BANK_ACCOUNT,
+			id: account.id,
+			owner: account.owner.id,
+			fullName: account.owner.fullName,
+			bank: account.bank.id,
+			bankName: account.bank.name,
+			currency: account.currency,
+			accountNumber: account.accountNumber,
+			type: account.type,
+			comment: account.comment,
+			currentBalance: account.currentBalance,
+		},
+	});
 
 export const getAccountById = id => (
 	async (dispatch) => {

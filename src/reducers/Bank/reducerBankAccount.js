@@ -23,6 +23,9 @@ const initialState = {
 	rolDescription: '',
 	statusValue: 0,
 	accountNumber: '',
+	currentBalance: 0,
+	fullName: 0,
+	bankName: '',
 };
 
 const ReducerBankAccount = (state = initialState, action = {}) => {
@@ -44,7 +47,10 @@ const ReducerBankAccount = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				bank: action.payload.bank,
+				bankName: action.payload.bankName,
+				currentBalance: action.payload.currentBalance,
 				owner: action.payload.owner,
+				fullName: action.payload.fullName,
 				id: action.payload.id,
 				accountNumber: action.payload.accountNumber,
 				currency: action.payload.currency,
@@ -66,6 +72,7 @@ const ReducerBankAccount = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				isOpen: true,
+				bankName: action.payload.bankName,
 				id: action.payload.id,
 				name: action.payload.name,
 				modalType: action.payload.modalType,

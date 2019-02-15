@@ -16,6 +16,7 @@ export const GET_BANKS = gql`
 	}
 	
 `;
+
 export const GET_BANK_ACCOUNTS = gql`
 	query bankAccounts($paginationPage:Int!) {
 		bankAccounts(page:$paginationPage) {
@@ -27,11 +28,40 @@ export const GET_BANK_ACCOUNTS = gql`
 				comment
 				bank {
 					id
+					name
 				} 
 				owner {
 					id
 					name 
 					lastName
+					fullName
+				}
+			}
+			total
+		}
+	}
+`;
+
+
+export const GET_BANK_ACCOUNTS_STATE = gql`
+	query bankAccountMovement($bankAccount_id:Int, $paginationPage:Int!) {
+		bankAccountMovement(bankAccount_id:$bankAccount_id, page:$paginationPage) {
+			data{
+				id
+				movementsType
+				amount
+				reference
+				bankAccount{
+					currentBalance
+					owner{
+						fullName
+					}
+					bank{
+						name
+					}
+
+					accountNumber
+					currency
 				}
 			}
 			total
@@ -126,10 +156,13 @@ export const GET_ACCOUNT_BY_ID = gql`
 			currency
 			type
 			comment
+			currentBalance
 			bank {
 				id
+				name
 			} 
 			owner {
+				fullName
 				id
 				name 
 				lastName

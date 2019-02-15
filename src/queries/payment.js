@@ -29,21 +29,26 @@ export const GET_PAYMENTS = gql`
 export const SEARCH_PAYMENT_LIST = gql`
 	query searchPaymentList($query:String!,$currentPageSearch: Int!) {
 		searchPaymentList(query:$query, page:$currentPageSearch) {
-			  data {
-      amount
-      type
-      reference
-      id
-      created_at
-      bankAccount{
-        bank {
-        id
-        name
-      }}
-    }
-    total
-  }
-}
+		data {
+				id
+				amount
+				reference
+				comment
+				type
+				created_at
+				bankAccount {
+					id
+					bank {
+						id
+						name
+					}
+					currency
+				}
+
+			}
+			total
+		}
+	}
 `;
 
 
