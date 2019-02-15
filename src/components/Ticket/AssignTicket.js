@@ -7,7 +7,7 @@ import Title from '../Shared/title';
 import Loading from '../Loading/loading';
 import NotificationAlert from '../widget/NotificationAlert';
 import NewUsersCreate from '../Users/newUsersCreate';
-import Search from '../Search/search';
+// import Search from '../Search/search';
 import { GET_TOKENS } from '../../queries/tokens';
 import {
 	openTicketModal,

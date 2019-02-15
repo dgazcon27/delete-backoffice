@@ -15,6 +15,9 @@ const styles = () => ({
 		padding: '25px',
 		marginTop: '5%',
 	},
+	balance: {
+		margin: '15px',
+	},
 	alignRight: {
 		textAlign: 'right',
 		paddingRight: '3% !important',
