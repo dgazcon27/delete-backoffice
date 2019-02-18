@@ -50,13 +50,13 @@ const Ticket = ({
 			columName: 'Evento',
 			jsonPath: 'event.name',
 		}],
-		arrayActive: [false, false, false, false, false, false, false],
+		arrayActive: [false, true, false, false, false, false, false],
 		urls: {
 			list: {
 				type: '',
 				path: '',
 			},
-			payment: '',
+			payment: '/pay',
 			edit: '',
 		},
 	};
