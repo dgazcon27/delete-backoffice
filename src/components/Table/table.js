@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { compose } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
 import GET_TABLE from '../../queries/table';
 import Title from '../Shared/title';
-
+import { openModal } from '../../actions/Room/actionsCreators';
 import { SEARCH_TABLES } from '../../queries/purchaseRequest';
 
 const Ticket = ({
 	objectStateTicket,
 	paginationPage,
+	actionOpenModal,
 }) => {
 	const objectQuery = {
 		queryComponent: GET_TABLE,
@@ -93,14 +95,16 @@ const Ticket = ({
 	};
 
 	const actions = {
+		openModal: actionOpenModal,
 	};
-	/* if (window.localStorage.getItem('actualRole') !== 'ADM') {
+
+	if (window.localStorage.getItem('actualRole') !== 'ADM') {
 		if (window.localStorage.getItem('actualRole') !== 'ADMINISTRACION') {
 			if (window.localStorage.getItem('actualRole') !== 'TABLE') {
 				window.location.assign('/');
 			}
 		}
-	} */
+	}
 
 	return (
 		<div>
@@ -126,11 +130,17 @@ const Ticket = ({
 Ticket.propTypes = {
 	objectStateTicket: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
+	actionOpenModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateTicket: {},
+	objectStateTicket: state.ReducerPurchaseRequest,
 });
 
-export default connect(mapStateToProps, null)(Ticket);
+const mapDispatchToProps = dispatch => ({
+	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
+});
+
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Ticket);

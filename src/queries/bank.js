@@ -46,23 +46,12 @@ export const GET_BANK_ACCOUNTS = gql`
 export const GET_BANK_ACCOUNTS_STATE = gql`
 	query bankAccountMovement($bankAccount_id:Int, $paginationPage:Int!) {
 		bankAccountMovement(bankAccount_id:$bankAccount_id, page:$paginationPage) {
-			data{
+			data{   
 				id
-				movementsType
+				description
 				amount
+				movementsType 
 				reference
-				bankAccount{
-					currentBalance
-					owner{
-						fullName
-					}
-					bank{
-						name
-					}
-
-					accountNumber
-					currency
-				}
 			}
 			total
 		}

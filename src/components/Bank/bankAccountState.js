@@ -60,10 +60,7 @@ const BankAccountState = ({
 				const response = query.length > 0 ?
 					data.search.purchases.data : data.bankAccountMovement.data;
 				const total = query.length > 0 ?
-
 					data.search.purchases.total : data.bankAccountMovement.total;
-				const alfa = response[0];
-
 				return (
 					<div>
 						{ viewlist &&
@@ -78,13 +75,13 @@ const BankAccountState = ({
 											total > 0 ?
 												<div>
 													<div className={classes.balance}>
-														{alfa.bankAccount.owner.fullName} -
-														{alfa.bankAccount.accountNumber} -
-														{alfa.bankAccount.bank.name}
+														{fullName} -
+														{accountNumber} -
+														{bankName}
 													</div>
 													<div className={classes.balance}>
-														{alfa.bankAccount.currency} :
-														{alfa.bankAccount.currentBalance}
+														{currency} :
+														{currentBalance}
 													</div>
 												</div> :
 												<div>
@@ -109,7 +106,7 @@ const BankAccountState = ({
 											<Table>
 												<TableHead>
 													<TableRow>
-														<TableCell className={classes.center}>Moneda</TableCell>
+														<TableCell className={classes.center}>Descripcion</TableCell>
 														<TableCell className={classes.center}>Monto</TableCell>
 														<TableCell className={classes.center}>Tipo de movimiento</TableCell>
 														<TableCell className={classes.center}>Referencia</TableCell>
@@ -120,7 +117,7 @@ const BankAccountState = ({
 														response.map(item => (
 															<TableRow key={item.id}>
 																<TableCell className={classes.center}>
-																	{ item.bankAccount.currency }
+																	{ item.description}
 																</TableCell>
 																<TableCell className={classes.center}>
 																	{ item.amount }
@@ -172,15 +169,14 @@ BankAccountState.propTypes = {
 	isOpenTicket: PropTypes.bool.isRequired,
 	id: PropTypes.number.isRequired,
 	fullName: PropTypes.string.isRequired,
-	currentBalance: PropTypes.number.isRequired,
+	currentBalance: PropTypes.string.isRequired,
 	bankName: PropTypes.string.isRequired,
-	accountNumber: PropTypes.string.isRequired,
 	currency: PropTypes.string.isRequired,
+	accountNumber: PropTypes.string.isRequired,
 	currentPage: PropTypes.number.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
 };
-
 BankAccountState.defaultProps = {
 	query: '',
 };
@@ -192,8 +188,6 @@ const mapStateToProps = state => ({
 	bankName: state.ReducerBankAccount.bankName,
 	currency: state.ReducerBankAccount.currency,
 	currentBalance: state.ReducerBankAccount.currentBalance,
-
-
 	paginationPage: state.ReducerPurchaseRequest.paginationPage,
 	currentPage: state.ReducerPurchaseRequest.currentPage,
 	id: state.ReducerBankAccount.id,

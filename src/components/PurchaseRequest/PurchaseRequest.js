@@ -23,6 +23,7 @@ import {
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
+import Backspace from '@material-ui/icons/Backspace';
 import Payment from '@material-ui/icons/Payment';
 import Visibility from '@material-ui/icons/Visibility';
 import Delete from '@material-ui/icons/Delete';
@@ -31,16 +32,18 @@ import List from '@material-ui/icons/List';
 
 import styles from '../Shared/sharedStyles';
 import {
-	changePage,
-	deletePurchaseReq,
 	openModal,
 	closeModal,
+	changePage,
+	deletePurchaseReq,
+	refundPurchaseReq,
 } from '../../actions/PurchaseRequest/actionsCreators';
 import { openTicketModal, setAlert } from '../../actions/Ticket/actionsCreators';
 import {
 	GET_PURCHASE_REQ,
 	SEARCH_PURCHASE_REQUEST,
 	DELETE_PURCHASE_REQ,
+	REFUND_PURCHASE_REQ,
 } from '../../queries/purchaseRequest';
 import NewUsersCreate from '../Users/newUsersCreate';
 import Loading from '../Loading/loading';
@@ -55,7 +58,9 @@ const PurchaseRequestNew = ({
 	actionChangePage,
 	actionCloseModal,
 	deleteMutation,
+	refundMutation,
 	actionDeletePurchase,
+	actionRefundPurchase,
 	actionSetAlert,
 	actionOpenTicketModal,
 	currentPage,
@@ -71,9 +76,18 @@ const PurchaseRequestNew = ({
 	existUser,
 	query,
 }) => {
+	let returnView = false;
 	const params = query.length > 0 ?
 		{ query: SEARCH_PURCHASE_REQUEST, variables: { query, currentPageSearch: 0 } } :
 		{ query: GET_PURCHASE_REQ, variables: { paginationPage } };
+
+	if (window.localStorage.getItem('actualRole') === 'ADM') {
+		returnView = true;
+	} else if (window.localStorage.getItem('actualRole') === 'ADMINISTRACION') {
+		returnView = true;
+	}
+
+
 	return (
 		<Query {...params}>
 			{({ loading, error, data }) => {
@@ -133,6 +147,16 @@ const PurchaseRequestNew = ({
 																	{ item.event.name }
 																</TableCell>
 																<TableCell className={classes.center}>
+																	{returnView &&
+																		<IconButton
+																			onClick={
+																				() => {
+																					actionRefundPurchase(item.id, refundMutation);
+																				}}
+																		>
+																			<Backspace />
+																		</IconButton>
+																	}
 																	<Link to={{ pathname: `/purchase-request-edit/${item.id}` }}>
 																		<IconButton>
 																			<Visibility />
@@ -301,6 +325,8 @@ PurchaseRequestNew.propTypes = {
 	actionOpenTicketModal: PropTypes.func.isRequired,
 	actionSetAlert: PropTypes.func.isRequired,
 	actionDeletePurchase: PropTypes.func.isRequired,
+	actionRefundPurchase: PropTypes.func.isRequired,
+	refundMutation: PropTypes.func.isRequired,
 	deleteMutation: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
@@ -333,6 +359,8 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePage(currentPage, paginationPage)),
 	actionDeletePurchase: (id, mutation) =>
 		dispatch(deletePurchaseReq(id, mutation)),
+	actionRefundPurchase: (id, mutation) =>
+		dispatch(refundPurchaseReq(id, mutation)),
 	actionCloseModal: () =>	dispatch(closeModal()),
 	actionOpenModal: (type, item) => dispatch(openModal(type, item)),
 	actionOpenTicketModal: (type, item) => dispatch(openTicketModal(type, item)),
@@ -342,6 +370,7 @@ const mapDispatchToProps = dispatch => ({
 export { PurchaseRequestNew as PurchaseRequestNewTest };
 
 export default compose(
+	graphql(REFUND_PURCHASE_REQ, { name: 'refundMutation' }),
 	graphql(DELETE_PURCHASE_REQ, { name: 'deleteMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),

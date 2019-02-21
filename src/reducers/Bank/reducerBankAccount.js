@@ -23,7 +23,7 @@ const initialState = {
 	rolDescription: '',
 	statusValue: 0,
 	accountNumber: '',
-	currentBalance: 0,
+	currentBalance: '',
 	fullName: '',
 	bankName: '',
 };

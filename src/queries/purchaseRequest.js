@@ -99,6 +99,14 @@ export const GET_BANKSS = gql`
 `;
 
 
+export const REFUND_PURCHASE_REQ = gql`
+	mutation stateRefundPurchaseRequest ($id:Int!){
+		 stateRefundPurchaseRequest (id:$id) {
+			id
+		}
+	}
+`;
+
 export const DELETE_PURCHASE_REQ = gql`
 	mutation deletePurchaseRequest ($id:Int!){
 		 deletePurchaseRequest (id:$id) {
