@@ -148,7 +148,7 @@ const PurchaseRequestNew = ({
 																</TableCell>
 																<TableCell className={classes.center}>
 
-																	{(returnView && item.pendingPayment !== 0) &&
+																	{(returnView && item.totalPaid > 0) &&
 																		<IconButton onClick={() => { actionOpenModal('refund', item); }}>
 																			<Backspace />
 																		</IconButton>

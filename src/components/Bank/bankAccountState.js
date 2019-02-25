@@ -123,7 +123,16 @@ const BankAccountState = ({
 																	{ item.amount }
 																</TableCell>
 																<TableCell className={classes.center}>
-																	{ item.movementsType }
+																	{ item.movementsType === 'sales' &&
+																	<p>Ventas</p>
+																	}
+																	{ item.movementsType === 'income' &&
+																	<p>Ingreso</p>
+																	}
+																	{ item.movementsType === 'taxes' &&
+																	<p>Gasto</p>
+																	}
+
 																</TableCell>
 																<TableCell className={classes.center}>
 																	{ item.reference }

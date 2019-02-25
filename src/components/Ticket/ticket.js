@@ -101,7 +101,6 @@ const Ticket = ({
 			}
 		}
 	}
-
 	return (
 		<div>
 			<Title title='Taquilla' />
@@ -130,7 +129,7 @@ Ticket.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateTicket: {},
+	objectStateTicket: state.ReducerPurchaseRequest,
 });
 
 export default connect(mapStateToProps, null)(Ticket);

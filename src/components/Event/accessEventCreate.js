@@ -378,6 +378,7 @@ let a = class AccessEventCreate extends React.Component {
 	}
 };
 
+
 a.propTypes = {
 	hotel: PropTypes.number.isRequired,
 	alertOpen: PropTypes.bool.isRequired,
@@ -398,10 +399,6 @@ a.propTypes = {
 	match: PropTypes.object.isRequired,
 };
 
-a.defaultProps = {
-	withRoom: 'true',
-	withTickets: 'true',
-};
 
 a = reduxForm({
 	form: 'AccessEventCreate',
