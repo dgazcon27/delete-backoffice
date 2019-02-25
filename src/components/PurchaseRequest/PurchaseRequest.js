@@ -147,7 +147,8 @@ const PurchaseRequestNew = ({
 																	{ item.event.name }
 																</TableCell>
 																<TableCell className={classes.center}>
-																	{returnView &&
+
+																	{(returnView && item.pendingPayment !== 0) &&
 																		<IconButton onClick={() => { actionOpenModal('refund', item); }}>
 																			<Backspace />
 																		</IconButton>
