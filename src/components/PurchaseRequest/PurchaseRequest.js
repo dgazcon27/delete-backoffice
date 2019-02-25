@@ -148,12 +148,7 @@ const PurchaseRequestNew = ({
 																</TableCell>
 																<TableCell className={classes.center}>
 																	{returnView &&
-																		<IconButton
-																			onClick={
-																				() => {
-																					actionRefundPurchase(item.id, refundMutation);
-																				}}
-																		>
+																		<IconButton onClick={() => { actionOpenModal('refund', item); }}>
 																			<Backspace />
 																		</IconButton>
 																	}
@@ -271,6 +266,29 @@ const PurchaseRequestNew = ({
 										<span>
 											<IconButton onClick={() => {
 												actionDeletePurchase(id, deleteMutation);
+											}}
+											>
+												Si
+											</IconButton>
+											&nbsp;
+											&nbsp;
+											<IconButton onClick={actionCloseModal}>
+												No
+											</IconButton>
+										</span>
+									</Paper>
+								}
+								{ modalType === 'refund' &&
+									<Paper className={classNames(classes.paperOnModal)}>
+										<h6>
+											Reembolso
+										</h6>
+										<p>
+											¿Estas seguro que desea reembolsar esta compra?
+										</p>
+										<span>
+											<IconButton onClick={() => {
+												actionRefundPurchase(id, refundMutation);
 											}}
 											>
 												Si
