@@ -12,7 +12,7 @@ import {
 } from '../../actions/users/actionsCreators';
 import Title from '../Shared/title';
 import {
-	GET_USERS,
+	GET_USERS_F,
 	BLOCK_USER,
 	DELETE_USER,
 } from '../../queries/users';
@@ -30,7 +30,7 @@ const Users = ({
 	blockUserMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_USERS,
+		queryComponent: GET_USERS_F,
 		querySearch: SEARCH_USERS,
 	};
 
@@ -56,6 +56,11 @@ const Users = ({
 			id: 3,
 			columName: 'Tipo de Usuario',
 			jsonPath: 'role.name',
+		},
+		{
+			id: 4,
+			columName: 'Correo Electronico',
+			jsonPath: 'email',
 		}],
 		arrayActive: [false, false, false, true, true, true, true],
 		urls: {
@@ -70,12 +75,12 @@ const Users = ({
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'users.data',
-			totalPath: 'users.total',
+			dataPath: 'pagedUsersFilter.data',
+			totalPath: 'pagedUsersFilter.total',
 		},
 		searchComponent: {
-			dataPath: 'search.users.data',
-			totalPath: 'search.users.total',
+			dataPath: 'search.pagedUsersFilter.data',
+			totalPath: 'search.pagedUsersFilter.total',
 		},
 	};
 

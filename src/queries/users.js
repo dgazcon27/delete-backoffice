@@ -4,6 +4,32 @@ export const GET_USERS = gql`
 	query users($paginationPage:Int!) {
 		users(page:$paginationPage) {
 			data{
+				email
+				name
+				lastName
+				phone
+				dni
+				birthDate
+				citizenship{
+					id
+					name
+				}
+				role{
+					id
+					name
+				}
+				id
+				active
+			}
+			total
+		}
+	}
+`;
+export const GET_USERS_F = gql`
+	query pagedUsersFilter($paginationPage:Int!) {
+		pagedUsersFilter(page:$paginationPage) {
+			data{
+				email
 				name
 				lastName
 				phone
