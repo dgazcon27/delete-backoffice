@@ -97,7 +97,6 @@ const Ticket = ({
 	const actions = {
 		openModal: actionOpenModal,
 	};
-
 	if (window.localStorage.getItem('actualRole') !== 'ADM') {
 		if (window.localStorage.getItem('actualRole') !== 'ADMINISTRACION') {
 			if (window.localStorage.getItem('actualRole') !== 'TABLE') {
@@ -105,7 +104,6 @@ const Ticket = ({
 			}
 		}
 	}
-
 	return (
 		<div>
 			<Title title='Mesas' />

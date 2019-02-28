@@ -100,7 +100,6 @@ const Presale = ({
 			}
 		}
 	}
-
 	return (
 		<div>
 			<Title title='Preventa' />

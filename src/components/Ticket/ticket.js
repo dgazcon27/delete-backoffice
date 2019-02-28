@@ -101,7 +101,6 @@ const Ticket = ({
 			}
 		}
 	}
-
 	return (
 		<div>
 			<Title title='Taquilla' />
