@@ -291,6 +291,14 @@ const Items = ({
 							<ListItemText primary='Monedas' />
 						</ListItem>
 					</Link>
+					<Link to='/currency/events' href='/currency/events'>
+						<ListItem button onClick={() => actionResetPagination()}>
+							<ListItemIcon>
+								<AttachMoney />
+							</ListItemIcon>
+							<ListItemText primary='Moneda por Evento' />
+						</ListItem>
+					</Link>
 					<Link to='/exchangeRate' href='/exchangeRate'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
@@ -321,6 +329,14 @@ const Items = ({
 								<People />
 							</ListItemIcon>
 							<ListItemText primary='Usuarios' />
+						</ListItem>
+					</Link>
+					<Link to='/guests' href='/guests'>
+						<ListItem button onClick={() => actionResetPagination()}>
+							<ListItemIcon>
+								<People />
+							</ListItemIcon>
+							<ListItemText primary='Invitados' />
 						</ListItem>
 					</Link>
 					<Link to='/providers' href='/Proveedor'>
