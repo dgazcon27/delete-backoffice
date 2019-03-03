@@ -44,7 +44,6 @@ const ContainerList = ({
 	const params = query.length > 0 ?
 		{ query: QUERY_SEARCH, variables: { query, currentPageSearch } } :
 		{ query: QUERY_COMPONENT, variables: { paginationPage, ...paramsGetComponent } };
-
 	// Ruta para obtener la data y el total del json de la consulta QUERY_COMPONENT
 	const { dataPath, totalPath } = objectPath.currentComponent;
 

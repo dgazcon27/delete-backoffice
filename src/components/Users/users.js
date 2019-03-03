@@ -16,8 +16,7 @@ import {
 	BLOCK_USER,
 	DELETE_USER,
 } from '../../queries/users';
-
-import { SEARCH_USERS } from '../../queries/search';
+import { SEARCH_USER_FILTERED } from '../../queries/search';
 
 const Users = ({
 	objectStateAccess,
@@ -31,7 +30,7 @@ const Users = ({
 }) => {
 	const objectQuery = {
 		queryComponent: GET_USERS_F,
-		querySearch: SEARCH_USERS,
+		querySearch: SEARCH_USER_FILTERED,
 	};
 
 	const objectSearch = {
@@ -79,8 +78,8 @@ const Users = ({
 			totalPath: 'pagedUsersFilter.total',
 		},
 		searchComponent: {
-			dataPath: 'search.pagedUsersFilter.data',
-			totalPath: 'search.pagedUsersFilter.total',
+			dataPath: 'searchPagedUsersFilter.data',
+			totalPath: 'searchPagedUsersFilter.total',
 		},
 	};
 
