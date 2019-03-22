@@ -31,9 +31,10 @@ let IncomeUpdate = class IncomeUpdateClass extends React.Component {
 
 	render() {
 		const type = this.props.match.path.split('/')[3];
+		const MoveType = this.props.match.path.split('/')[2];
 		const { classes } = this.props;
 		const { id } = this.props.match.params;
-		const title = 'Actualizar ingreso';
+		const title = (type === 'show' ? 'Detalle de ' : 'Actualizacion de ') + (MoveType === 'expenses' ? 'Gasto' : 'Ingreso');
 		const { handleSubmit } = this.props;
 		const { submitting } = this.props;
 		const message = 'Ingreso actualizado exitosamente.';

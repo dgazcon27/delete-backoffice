@@ -77,6 +77,8 @@ const ExpensePerEvent = ({
 			},
 			payment: '',
 			edit: '/',
+			visibility: '/movement/expenses/show',
+
 		},
 	};
 

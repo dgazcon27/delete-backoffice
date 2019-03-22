@@ -38,7 +38,7 @@
     "eject": "react-scripts eject",
     "eslint": "./node_modules/.bin/eslint ./src/",
     "eslint:watch": "watch npm run eslint",
-    "precommit": "npm run eslint",
+    "precommit": "npm run eslint -- --fix",
     "prepush": "npm run test"
   },
   "devDependencies": {

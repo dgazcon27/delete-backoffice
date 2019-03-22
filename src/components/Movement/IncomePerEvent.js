@@ -77,6 +77,8 @@ const IncomePerEvent = ({
 			},
 			payment: '',
 			edit: '/',
+			visibility: '/movement/income/show',
+
 		},
 	};
 
