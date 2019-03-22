@@ -52,7 +52,7 @@ const FormMovement = ({
 					disabled={disable}
 				/>
 			}
-			{ (event && options !== 'visibility')  &&
+			{ (event && options !== 'visibility') &&
 				<Field
 					name='eventName'
 					type='text'
@@ -179,7 +179,7 @@ const mapStateToProps = state => ({
 	event: state.ReducerMovement.event,
 });
 
-FormMovement.propTypes = {	
+FormMovement.propTypes = {
 	currency: PropTypes.number.isRequired,
 	actionGetAccounts: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -192,7 +192,6 @@ FormMovement.propTypes = {
 const mapDispatchToProps = dispatch => ({
 	actionGetAccounts: value => dispatch(getAccountsByCurrency(value.target.value)),
 });
-
 
 
 export default compose(
