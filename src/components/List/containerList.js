@@ -2,17 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+import Button from '@material-ui/core/Button';
+import CsvDownloader from 'react-csv-downloader';
 import {
 	compose,
 	Query,
 } from 'react-apollo';
 
 import { getValue } from './commonFunctions';
-
+import { preSCV } from '../commonComponent';
 import styles from './userTypeCss';
 import List from './list';
-
 import Loading from '../Loading/loading';
 
 const ContainerList = ({
@@ -24,10 +24,16 @@ const ContainerList = ({
 	query,
 	paginationPage,
 	currentPageSearch,
+	classes,
 }) => {
 	// Consulta por default del component
 	const QUERY_COMPONENT = objectQuery.queryComponent;
+	const path = window.location.pathname;
+	const exp = /\/expense-per-event\/[1-9]*/g;
+	const exp2 = /\/income-per-event\/[1-9]*/g;
 
+	const showExport = !!((path.match(exp) || path.match(exp2)));
+	const showExport2 = (path === '/payment');
 	/*
 		Parametros adicionales de la Consulta por default
 		Esto se utiliza cuando una query ademas de esperar la
@@ -55,7 +61,6 @@ const ContainerList = ({
 	// arrayActive es un vector de tipo booleno que indica que botones estan activos
 	const { titlesColumns, arrayActive, urls } = objectList;
 	const keyId = !objectList.keyId ? 'id' : objectList.keyId;
-
 	return (
 		<Query {...params}>
 			{({ loading, error, data }) => {
@@ -78,8 +83,28 @@ const ContainerList = ({
 				const total = query.length > 0 ?
 					getValue(data, totalSearchPath) :
 					getValue(data, totalPath);
+				let datas = [];
+				datas = preSCV(response, showExport2);
 				return (
 					<div>
+						{ showExport &&
+						<Button variant='extendedFab' aria-label='Import' className={classes.exportButton}>
+							<CsvDownloader datas={datas} filename={`${path}`} >
+								<p className={classes.searchAlignRigth}>
+									Exportar como Excel
+								</p>
+							</CsvDownloader>
+						</Button>
+						}
+						{ showExport2 &&
+						<Button variant='extendedFab' aria-label='Import' className={classes.exportPurchaseReq}>
+							<CsvDownloader datas={datas} filename={`${path}`} >
+								<p className={classes.searchAlignRigth}>
+									Exportar como Excel
+								</p>
+							</CsvDownloader>
+						</Button>
+						}
 						<List
 							dataToShow={response}
 							titlesColumns={titlesColumns}
@@ -145,6 +170,7 @@ ContainerList.propTypes = {
 	query: PropTypes.string.isRequired,
 	paginationPage: PropTypes.number.isRequired,
 	currentPageSearch: PropTypes.number.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({

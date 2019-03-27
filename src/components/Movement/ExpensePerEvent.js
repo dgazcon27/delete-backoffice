@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
 import Search from '../Search/search';
-
 // ActionsCreators
 import {
 	openModal,
@@ -40,7 +39,6 @@ const ExpensePerEvent = ({
 			event,
 		},
 	};
-
 	const objectSearch = {
 		showButton: true,
 		showSearch: true,
@@ -130,6 +128,8 @@ const ExpensePerEvent = ({
 				titleButton={objectSearch.titleButton}
 				url={objectSearch.url}
 			/>
+
+
 			<ContainerList
 				queries={objectQuery}
 				propsSearchComponent={objectSearch}
@@ -138,6 +138,8 @@ const ExpensePerEvent = ({
 				objectPath={objectPath}
 				actions={actions}
 			/>
+
+
 		</div>
 	);
 };
