@@ -28,11 +28,12 @@ import {
 	Tooltip,
 } from '@material-ui/core';
 
+import { ExportModal2 } from '../ExportModal/ExportModal';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import CsvDownloader from 'react-csv-downloader';
-import { preSCV } from '../commonComponent';
+import { preSCV , ExportModal} from '../commonComponent';
 
 import styles from '../Shared/sharedStyles';
 import {
@@ -48,12 +49,24 @@ import {
 	SEARCH_PURCHASE_REQUEST,
 	DELETE_PURCHASE_REQ,
 	REFUND_PURCHASE_REQ,
+	GET_ALL_PURCHASE_REQ,
 } from '../../queries/purchaseRequest';
 import NewUsersCreate from '../Users/newUsersCreate';
 import Loading from '../Loading/loading';
 import ModalsAssignTicket from '../Ticket/ModalAssignTicket';
 import NotificationAlert from '../widget/NotificationAlert';
 import PurchaseRequestPay from './PurchaseRequestPay';
+
+
+
+
+const AllPR = () => (
+	<Query query = {GET_ALL_PURCHASE_REQ}>
+	{({ loading, error, data }) => {
+		return(<div></div>)
+	}}
+	</Query>
+);
 
 const PurchaseRequestNew = ({
 	classes,
@@ -80,20 +93,18 @@ const PurchaseRequestNew = ({
 	existUser,
 	query,
 }) => {
+
 	let returnView = false;
 	const params = query.length > 0 ?
 		{ query: SEARCH_PURCHASE_REQUEST, variables: { query, currentPageSearch: 0 } } :
 		{ query: GET_PURCHASE_REQ, variables: { paginationPage } };
-
 	if (window.localStorage.getItem('actualRole') === 'ADM') {
 		returnView = true;
 	} else if (window.localStorage.getItem('actualRole') === 'ADMINISTRACION') {
 		returnView = true;
 	}
-
-
 	return (
-		<Query {...params}>
+		<Query {...params} >
 			{({ loading, error, data }) => {
 				if (loading) {
 					return (
@@ -113,12 +124,10 @@ const PurchaseRequestNew = ({
 				datas = preSCV(response);
 				return (
 					<div>
-						<Button variant='extendedFab' aria-label='Import' className={classes.importButton}>
-							<CsvDownloader datas={datas} filename='Ventas' >
-								<p className={classes.searchAlignRigth}>
-								Exportar como Excel
-								</p>
-							</CsvDownloader>
+						<Button variant='extendedFab' aria-label='Import' className={classes.importButton}  onClick={() => { actionOpenModal('export', {id:1}); }}>
+							<p className={classes.searchAlignRigth}>
+							Exportar como Excel
+							</p>
 						</Button>
 
 						{ viewlist &&
@@ -164,7 +173,7 @@ const PurchaseRequestNew = ({
 															{(returnView && item.totalPaid > 0) &&
 															<IconButton onClick={() => { actionOpenModal('refund', item); }}>
 																<Backspace />
-				           </IconButton>
+				          									</IconButton>
 															}
 															<Link to={{ pathname: `/purchase-request-edit/${item.id}` }}>
 																<IconButton>
@@ -293,7 +302,7 @@ const PurchaseRequestNew = ({
     </Paper>
 								}
 				{ modalType === 'refund' &&
-								<Paper className={classNames(classes.paperOnModal)}>
+			<Paper className={classNames(classes.paperOnModal)}>
 					<h6>
 											Reembolso
 					</h6>
@@ -318,9 +327,32 @@ const PurchaseRequestNew = ({
 				{modalType === 'pagos' &&
 								<PurchaseRequestPay />
 								}
+				{modalType === 'export' &&
+				<Paper className={classNames(classes.paperOnModal)} >
+					<span>
+						<h6>
+						Exportar Archivo
+						</h6>
+						<div>
+						Desea exportar archivo en formato CSV (debe utilizar Excel para leer dicho archivo)
+						</div>
+											&nbsp;
+
+						<IconButton>
+							<ExportModal pass = { GET_ALL_PURCHASE_REQ } />
+						</IconButton>
+						<IconButton onClick={actionCloseModal}>
+							No
+						</IconButton>
+											&nbsp;
+											&nbsp;
+					</span>
+				</Paper>
+			}
+   
    </div>
-      </Modal>
-		<Modal
+   </Modal>
+	<Modal
 							open={isOpenTicket}
 							className={classNames(classes.modalOpenStyle)}
 							onBackdropClick={() => actionCloseModal()}
@@ -330,8 +362,9 @@ const PurchaseRequestNew = ({
 				{ modalTypeTicket === 'assign_ticket' &&
 								<ModalsAssignTicket id={id} />
 								}
-   </div>
-						</Modal>
+   		</div>
+	</Modal>
+
 
 	</div>
 				);

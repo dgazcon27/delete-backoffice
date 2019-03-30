@@ -1,11 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import CsvDownloader from 'react-csv-downloader';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { Field } from 'redux-form';
 import { required } from './validations/validations';
 import { renderSelectField } from './RenderFields/renderFields';
+
 import {
 	GET_PROVIDERS,
 	GET_ROLESS,
@@ -23,15 +25,15 @@ import {
 	GET_CATEGORIES,
 	GET_CURRENCYS,
 } from './../queries/common';
+
+
 // referencia monto cuenta categoria
 export function preSCV(arg, payments) {
 	const alfa = [];
 	let aux = {};
 	arg.map((a) => {
 		aux = Object.assign({}, a);
-		// aux.id = a.id;
-		// aux.reference = a.reference;
-		// aux.amount = a.amount;
+
 		if (a.bankAccount !== undefined) {
 			if (payments) {
 				delete aux.bankAccount;
@@ -65,6 +67,25 @@ export function preSCV(arg, payments) {
 
 	return (alfa);
 }
+
+export const ExportModal = pass => (
+	<Query query={pass.pass}>
+		{({ data }) => {
+			let aux = Object.assign([], data.purchaseRequestss);
+			if (aux.length > 0) {
+				aux = preSCV(aux, false);
+			}
+			return (
+				<CsvDownloader datas={aux} filename='Ventas' >
+				Si
+				</CsvDownloader>
+
+			);
+		}
+		}
+	</Query>
+);
+
 
 export const BankAccount = () => (
 	<Query query={GET_BANK_ACCOUNTS}>

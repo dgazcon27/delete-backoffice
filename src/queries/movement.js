@@ -133,6 +133,27 @@ export const GET_INCOME_PER_EVENT = gql`
         }
     }
 `;
+export const GET_ALL_INCOME_PER_EVENT = gql`
+    query incomeMovement( $event:Int!) {
+        incomeMovement(event: $event) {
+            data {
+                id
+                reference
+                amount
+                bankAccount{
+                    id
+                    accountNumber
+                }
+                active
+                category{
+                    id
+                    name
+                }
+            }
+            total
+        }
+    }
+`;
 
 export const BLOCK_INCOME_PER_EVENT = gql`
     mutation blockedMovement($id: Int!,$status: Int!){

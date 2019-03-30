@@ -80,6 +80,29 @@ export const GET_PURCHASE_REQ = gql`
 }
 `;
 
+export const GET_ALL_PURCHASE_REQ = gql`
+	query purchaseRequestss{
+			purchaseRequestss{id
+						totalPrice
+						pendingPayment
+						totalPaid
+						user{
+							fullName
+							id name lastName dni 
+							}
+						access{
+							id
+							name
+						 }
+						event{
+							id
+							name
+							eventStart
+						}
+						comment}
+}
+`;
+
 export const GET_USERSS = gql`
 	query{ 
 			userss{
