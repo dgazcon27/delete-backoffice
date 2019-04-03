@@ -29,10 +29,11 @@ const ContainerList = ({
 	// Consulta por default del component
 	const QUERY_COMPONENT = objectQuery.queryComponent;
 	const path = window.location.pathname;
-	const exp = /\/expense-per-event\/[1-9]*/g;
-	const exp2 = /\/income-per-event\/[1-9]*/g;
+	// const exp = /\/expense-per-event\/[1-9]*/g;
+	// const exp2 = /\/income-per-event\/[1-9]*/g;
 
-	const showExport = !!((path.match(exp) || path.match(exp2)));
+	// const showExport = !!((path.match(exp) || path.match(exp2)));
+	const showExport = false;
 	const showExport2 = (path === '/payment');
 	/*
 		Parametros adicionales de la Consulta por default

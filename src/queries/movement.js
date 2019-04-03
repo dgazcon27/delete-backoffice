@@ -134,23 +134,20 @@ export const GET_INCOME_PER_EVENT = gql`
     }
 `;
 export const GET_ALL_INCOME_PER_EVENT = gql`
-    query incomeMovement( $event:Int!) {
-        incomeMovement(event: $event) {
-            data {
-                id
-                reference
-                amount
-                bankAccount{
-                    id
-                    accountNumber
-                }
-                active
-                category{
-                    id
-                    name
-                }
-            }
-            total
+    query incomeMovementQuery( $event:Int!) {
+        incomeMovementQuery(event: $event) {
+        id 
+        amount
+        reference
+        type
+        category {
+        name
+        }
+        movementsType
+          bankAccount {
+            id
+            accountNumber
+          }
         }
     }
 `;

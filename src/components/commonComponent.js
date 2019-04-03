@@ -79,7 +79,6 @@ export const ExportModal = pass => (
 				<CsvDownloader datas={aux} filename='Ventas' >
 				Si
 				</CsvDownloader>
-
 			);
 		}
 		}
