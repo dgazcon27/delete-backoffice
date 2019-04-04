@@ -1,9 +1,13 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Search from '../Search/search';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
-import Search from '../Search/search';
+import { ExportModal2 } from '../ExportModal/ExportModal';
+import styles from '../Shared/sharedStyles';
 // ActionsCreators
 import {
 	openModal,
@@ -14,6 +18,7 @@ import {
 
 // Queries
 import {
+	GET_ALL_EXPENSE_PER_EVENT,
 	GET_EXPENSE_PER_EVENT,
 	BLOCK_EXPENSE_PER_EVENT,
 	DELETE_EXPENSE_PER_EVENT,
@@ -30,6 +35,7 @@ const ExpensePerEvent = ({
 	blockMutation,
 	deleteMutation,
 	match,
+	classes,
 }) => {
 	const event = match.params.id;
 	const objectQuery = {
@@ -39,6 +45,10 @@ const ExpensePerEvent = ({
 			event,
 		},
 	};
+
+	const alt = window.location.pathname.split('/')[2];
+	const x = { event: alt };
+
 	const objectSearch = {
 		showButton: true,
 		showSearch: true,
@@ -128,7 +138,11 @@ const ExpensePerEvent = ({
 				titleButton={objectSearch.titleButton}
 				url={objectSearch.url}
 			/>
-
+			<Button variant='extendedFab' aria-label='Import' className={classes.importButton}>
+				<div className={classes.searchAlignRigth}>
+					<ExportModal2 pass={GET_ALL_EXPENSE_PER_EVENT} event={x} />
+				</div>
+			</Button>
 
 			<ContainerList
 				queries={objectQuery}
@@ -154,6 +168,7 @@ ExpensePerEvent.propTypes = {
 	blockMutation: PropTypes.func.isRequired,
 	deleteMutation: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -171,5 +186,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
 	graphql(DELETE_EXPENSE_PER_EVENT, { name: 'deleteMutation' }),
 	graphql(BLOCK_EXPENSE_PER_EVENT, { name: 'blockMutation' }),
+	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(ExpensePerEvent);

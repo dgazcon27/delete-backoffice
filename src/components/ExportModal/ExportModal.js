@@ -55,7 +55,15 @@ export const ExportModal2 = pass => {
 	return(
 	<Query query={pass.pass} variables={ pass.event} >
 		{({ data }) => {
-			let aux = Object.assign([], data.incomeMovementQuery);
+			console.log(data);
+			let aux = [];
+
+			if (data.incomeMovementQuery !== undefined) {
+				aux = Object.assign([], data.incomeMovementQuery);
+			}
+			if (data.expensesMovementQuery !== undefined) {
+				aux = Object.assign([], data.expensesMovementQuery);
+			}
 			if (aux.length > 0) {
 				aux = preSCV(aux, false);
 			}

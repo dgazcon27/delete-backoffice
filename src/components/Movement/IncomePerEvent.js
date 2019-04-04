@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
@@ -14,7 +13,6 @@ import {
 	closeModalIncome,
 	blockIncomePerEvent,
 	deleteIncomePerEvent,
-	toggleShow,
 } from '../../actions/Movement/actionsCreators';
 
 import Search from '../Search/search';
@@ -177,7 +175,6 @@ const mapStateToProps = state => ({
 	objectStateIncomePerEvent: state.ReducerMovement,
 });
 const mapDispatchToProps = dispatch => ({
-	actionShowToggle: show => dispatch(toggleShow(show)),
 	actionOpenModal: (modalType, data) => dispatch(openModalIncome(modalType, data)),
 	actionCloseModal: () => dispatch(closeModalIncome()),
 	actionBlock: (componentState, blockMutation) =>
