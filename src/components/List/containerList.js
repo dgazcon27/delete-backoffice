@@ -9,8 +9,9 @@ import {
 	Query,
 } from 'react-apollo';
 
+import { GET_ALL_PAYMENTS } from '../../queries/payment';
 import { getValue } from './commonFunctions';
-import { preSCV } from '../commonComponent';
+import { preSCV, ExportModal } from '../commonComponent';
 import styles from './userTypeCss';
 import List from './list';
 import Loading from '../Loading/loading';
@@ -99,11 +100,7 @@ const ContainerList = ({
 						}
 						{ showExport2 &&
 						<Button variant='extendedFab' aria-label='Import' className={classes.exportPurchaseReq}>
-							<CsvDownloader datas={datas} filename={`${path}`} >
-								<p className={classes.searchAlignRigth}>
-									Exportar como Excel
-								</p>
-							</CsvDownloader>
+							<ExportModal pass={GET_ALL_PAYMENTS} />
 						</Button>
 						}
 						<List

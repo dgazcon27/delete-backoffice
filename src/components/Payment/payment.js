@@ -28,7 +28,6 @@ const Payment = ({
 	const objectQuery = {
 		queryComponent: GET_PAYMENTS,
 		querySearch: SEARCH_PAYMENT_LIST,
-
 	};
 
 	const objectSearch = {

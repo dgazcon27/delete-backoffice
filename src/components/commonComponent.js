@@ -71,13 +71,24 @@ export function preSCV(arg, payments) {
 export const ExportModal = pass => (
 	<Query query={pass.pass}>
 		{({ data }) => {
-			let aux = Object.assign([], data.purchaseRequestss);
-			if (aux.length > 0) {
-				aux = preSCV(aux, false);
+			const path = window.location.pathname;
+			const showExport2 = (path === '/payment');
+			let aux = [];
+			if (showExport2) {
+				aux = Object.assign([], data.allPayments);
+				if (aux.length > 0) {
+					aux = preSCV(aux, true);
+				}
+			} else {
+				aux = Object.assign([], data.purchaseRequestss);
+				if (aux.length > 0) {
+					aux = preSCV(aux, false);
+				}
 			}
+
 			return (
-				<CsvDownloader datas={aux} filename='Ventas' >
-				Si
+				<CsvDownloader datas={aux} filename='export' >
+				Exportar como Excel
 				</CsvDownloader>
 			);
 		}

@@ -124,10 +124,8 @@ const PurchaseRequestNew = ({
 				datas = preSCV(response);
 				return (
 					<div>
-						<Button variant='extendedFab' aria-label='Import' className={classes.importButton}  onClick={() => { actionOpenModal('export', {id:1}); }}>
-							<p className={classes.searchAlignRigth}>
-							Exportar como Excel
-							</p>
+						<Button variant='extendedFab' aria-label='Import' className={classes.importButton}  >
+							<ExportModal pass = { GET_ALL_PURCHASE_REQ } />
 						</Button>
 
 						{ viewlist &&

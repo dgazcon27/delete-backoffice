@@ -24,6 +24,26 @@ export const GET_PAYMENTS = gql`
 		}
 	}
 `;
+export const GET_ALL_PAYMENTS = gql`
+	query allPayments{
+		allPayments{
+				id
+				amount
+				reference
+				comment
+				type
+				created_at
+				bankAccount {
+					id
+					bank {
+						id
+						name
+					}
+					currency
+				}
+		}
+	}
+`;
 
 
 export const SEARCH_PAYMENT_LIST = gql`

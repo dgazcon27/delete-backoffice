@@ -55,7 +55,6 @@ export const ExportModal2 = pass => {
 	return(
 	<Query query={pass.pass} variables={ pass.event} >
 		{({ data }) => {
-			console.log(data);
 			let aux = [];
 
 			if (data.incomeMovementQuery !== undefined) {
