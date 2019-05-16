@@ -323,7 +323,7 @@ const Items = ({
 							<ListItemText primary='Usuarios' />
 						</ListItem>
 					</Link>
-					<Link to='/providers' href='/Proveedor'>
+					<Link to='/providers' href='/Proveedores'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
 								<People />

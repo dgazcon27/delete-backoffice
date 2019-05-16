@@ -15,7 +15,13 @@ import styles from './sidebarCss';
 
 const SideBar = ({ openDrawer, actionCloseSideBar, classes }) => (
 	<div>
-		<Drawer variant='permanent' classes={{ paper: classNames(classes.drawerPaper, !openDrawer && classes.drawerPaperClose) }} open={openDrawer} >
+		<Drawer
+			variant='permanent'
+			classes={{
+				paper: classNames(classes.drawerPaper, !openDrawer && classes.drawerPaperClose),
+			}}
+			open={openDrawer}
+		>
 
 			<div className={classes.toolbar}>
 				<img src={logo} className={classes.logo} alt='Logo Delete' width='150px' />
@@ -24,7 +30,7 @@ const SideBar = ({ openDrawer, actionCloseSideBar, classes }) => (
 				</IconButton>
 			</div>
 			<Divider />
-			<List> <Items /> </List>
+			<List > <Items /> </List>
 		</Drawer>
 	</div>
 );
