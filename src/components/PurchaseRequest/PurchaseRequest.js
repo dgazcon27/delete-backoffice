@@ -217,7 +217,7 @@ const PurchaseRequestNew = ({
 																	</IconButton>
 
 																</Link>
-				           </Tooltip>
+				           									</Tooltip>
 															}
 															{ item.pendingPayment > 0 && item.totalPaid > 0 &&
 																			<Tooltip
@@ -230,7 +230,7 @@ const PurchaseRequestNew = ({
 																<IconButton onClick={() => actionOpenModal('pagos', item)}>
 																	<List />
 																</IconButton>
-				           </Tooltip>
+				           										</Tooltip>
 															}
 														</TableCell>
 													</TableRow>

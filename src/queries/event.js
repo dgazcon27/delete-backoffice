@@ -97,6 +97,20 @@ export const GET_EVENT_BY_ID = gql`
 	}
 `;
 
+export const GET_BUDGET = gql`
+	query budgetByEvent($events:Int!, $paginationPage:Int!) {
+		budgetByEvent(event:$events, page:$paginationPage) {
+			data
+			{  id
+			  provider{name}
+			  event {
+			    name
+			  }
+			  totalPrice
+			} total
+		}
+	}
+`;
 export const GET_ACCESS = gql`
 	query accessesByEvent($events:Int!, $paginationPage:Int!) {
 		accessesByEvent(event:$events, page:$paginationPage) {
