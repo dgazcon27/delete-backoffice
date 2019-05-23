@@ -1,10 +1,12 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import ContainerList from '../List/containerList';
-import Search from '../Search/search';
-
+import { ExportModal2 } from '../ExportModal/ExportModal';
+import styles from '../Shared/sharedStyles';
 // ActionsCreators
 import {
 	openModalIncome,
@@ -13,13 +15,16 @@ import {
 	deleteIncomePerEvent,
 } from '../../actions/Movement/actionsCreators';
 
+import Search from '../Search/search';
 // Queries
 import {
 	GET_INCOME_PER_EVENT,
+	GET_ALL_INCOME_PER_EVENT,
 	BLOCK_INCOME_PER_EVENT,
 	DELETE_INCOME_PER_EVENT,
 	SEARCH_INCOME_PER_EVENT,
 } from '../../queries/movement';
+
 
 const IncomePerEvent = ({
 	objectStateIncomePerEvent,
@@ -31,6 +36,7 @@ const IncomePerEvent = ({
 	blockMutation,
 	deleteMutation,
 	match,
+	classes,
 }) => {
 	const event = match.params.id;
 	const objectQuery = {
@@ -40,6 +46,8 @@ const IncomePerEvent = ({
 			event,
 		},
 	};
+	const alt = window.location.pathname.split('/')[2];
+	const x = { event: alt };
 
 	const objectSearch = {
 		showButton: true,
@@ -77,6 +85,8 @@ const IncomePerEvent = ({
 			},
 			payment: '',
 			edit: '/',
+			visibility: '/movement/income/show',
+
 		},
 	};
 
@@ -119,7 +129,6 @@ const IncomePerEvent = ({
 		delete: actionDelete,
 		queryDelete: deleteMutation,
 	};
-
 	return (
 		<div>
 			<Search
@@ -128,6 +137,14 @@ const IncomePerEvent = ({
 				titleButton={objectSearch.titleButton}
 				url={objectSearch.url}
 			/>
+
+			<Button variant='extendedFab' aria-label='Import' className={classes.importButton}>
+				<div className={classes.searchAlignRigth}>
+					<ExportModal2 pass={GET_ALL_INCOME_PER_EVENT} event={x} />
+				</div>
+			</Button>
+
+
 			<ContainerList
 				queries={objectQuery}
 				propsSearchComponent={objectSearch}
@@ -150,6 +167,7 @@ IncomePerEvent.propTypes = {
 	blockMutation: PropTypes.func.isRequired,
 	deleteMutation: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -167,5 +185,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
 	graphql(DELETE_INCOME_PER_EVENT, { name: 'deleteMutation' }),
 	graphql(BLOCK_INCOME_PER_EVENT, { name: 'blockMutation' }),
+	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(IncomePerEvent);

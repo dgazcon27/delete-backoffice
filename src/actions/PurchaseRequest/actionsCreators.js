@@ -126,6 +126,14 @@ export const closeAlert = () => ({
 		description: CLOSE_ALERT_PURCHASE_REQ,
 	},
 });
+export const refundPurchaseReq = (id, refundPurchaseReqMutation) => async (dispatch) => {
+	await refundPurchaseReqMutation({
+		variables: { id },
+	});
+
+	dispatch(closeModal());
+	window.location.reload();
+};
 export const deletePurchaseReq = (id, deletePurchaseReqMutation) => async (dispatch) => {
 	await deletePurchaseReqMutation({
 		variables: { id },

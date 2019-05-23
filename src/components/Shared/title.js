@@ -9,7 +9,7 @@ import styles from './sharedStyles';
 const Title = ({ classes, title }) =>
 	(
 		<div>
-			<h4 className={classes.left}> {title} </h4>
+			<h4 > {title} </h4>
 			<div className={classes.right}>
 				<BackButton />
 			</div>

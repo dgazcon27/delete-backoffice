@@ -6,6 +6,7 @@ import {
 	CLOSE_MODAL_EXPENSE_PER_EVENT,
 	OPEN_MODAL_INCOME_PER_EVENT,
 	CLOSE_MODAL_INCOME_PER_EVENT,
+	SHOW_TOGGLE,
 } from '../../actions/Movement/actionsTypes';
 
 const initialState = {
@@ -24,10 +25,16 @@ const initialState = {
 	id: undefined,
 	statusValue: false,
 	isOpen: false,
+	show: false,
 };
 
 const ReducerMovement = (state = initialState, action = {}) => {
 	switch (action.type) {
+		case SHOW_TOGGLE:
+			return ({
+				...state,
+				show: !action.payload.show,
+			});
 		case SET_ALERT_MOVEMENT:
 			return ({
 				...state,

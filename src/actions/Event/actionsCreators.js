@@ -197,14 +197,14 @@ export const editEvent = (event, updatedBy, editEventMutation) => (
 			});
 	});
 
-export const deleteEvent = (obj, paginationPage, deleteEventMutation) => {
-	const { id } = obj;
+export const deleteEvent = (id, deleteEventMutation) => {
+	const paginationPage = 0;
 	return async (dispatch) => {
 		await deleteEventMutation({
 			variables: { id },
 			refetchQueries: [{ query: GET_EVENTS, variables: { paginationPage } }],
 		});
 		dispatch(closeModal());
-		// window.location.reload();
+		window.location.reload();
 	};
 };

@@ -1,4 +1,12 @@
 const styles = () => ({
+	exportPurchaseReq: {
+		margin: '-131px 0 10px 0px',
+		'background-color': 'white !important',
+	},
+	exportButton: {
+		margin: '-131px 0 10px 200px',
+		'background-color': 'white !important',
+	},
 	modalOpenStyle: {
 		height: '30%',
 		width: '50%',

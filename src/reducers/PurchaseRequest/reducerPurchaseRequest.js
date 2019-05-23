@@ -170,6 +170,7 @@ const ReducerPurchaseRequest = (state = initialState, action = {}) => {
 				name: '',
 				rolDescription: '',
 			});
+
 		case SET_PAGINATION_PURCHASE:
 			return ({
 				...state,

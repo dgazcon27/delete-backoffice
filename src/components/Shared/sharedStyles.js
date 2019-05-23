@@ -1,5 +1,12 @@
 const styles = () => ({
-
+	importPurchaseReq: {
+		margin: '-131px 0 10px 200px',
+		'background-color': 'white !important',
+	},
+	importButton: {
+		margin: '-131px 0 10px 200px',
+		'background-color': 'white !important',
+	},
 	modalOpenStyle: {
 		height: '30%',
 		width: '50%',
@@ -14,6 +21,9 @@ const styles = () => ({
 		margin: '25px',
 		padding: '25px',
 		marginTop: '5%',
+	},
+	balance: {
+		margin: '15px',
 	},
 	alignRight: {
 		textAlign: 'right',

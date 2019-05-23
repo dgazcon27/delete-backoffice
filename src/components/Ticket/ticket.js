@@ -50,13 +50,13 @@ const Ticket = ({
 			columName: 'Evento',
 			jsonPath: 'event.name',
 		}],
-		arrayActive: [false, false, false, false, false, false, false],
+		arrayActive: [false, true, false, false, false, false, false],
 		urls: {
 			list: {
 				type: '',
 				path: '',
 			},
-			payment: '',
+			payment: '/pay',
 			edit: '',
 		},
 	};
@@ -94,15 +94,13 @@ const Ticket = ({
 
 	const actions = {
 	};
-	/* if (window.localStorage.getItem('actualRole') !== 'ADM') {
+	if (window.localStorage.getItem('actualRole') !== 'ADM') {
 		if (window.localStorage.getItem('actualRole') !== 'ADMINISTRACION') {
 			if (window.localStorage.getItem('actualRole') !== 'TICKET') {
 				window.location.assign('/');
 			}
 		}
-	} */
-
-
+	}
 	return (
 		<div>
 			<Title title='Taquilla' />
@@ -131,7 +129,7 @@ Ticket.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateTicket: {},
+	objectStateTicket: state.ReducerPurchaseRequest,
 });
 
 export default connect(mapStateToProps, null)(Ticket);

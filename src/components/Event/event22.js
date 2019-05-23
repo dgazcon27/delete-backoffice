@@ -7,101 +7,82 @@ import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	deletePayment,
-} from '../../actions/Payment/actionsCreators';
-
-import {
-	SEARCH_PAYMENT_LIST,
-	GET_PAYMENTS,
-	DELETE_PAYMENT,
-} from '../../queries/payment';
+	deleteEvent,
+} from '../../actions/Event/actionsCreators';
 import Title from '../Shared/title';
+import {
+	GET_EVENTS,
+	DELETE_EVENT,
+} from '../../queries/event';
 
-const Payment = ({
-	objectStatePayment,
+const Event = ({
+	objectStateEvent,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
 	actionDelete,
-	deletePaymentMutation,
+	deleteEventMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_PAYMENTS,
-		querySearch: SEARCH_PAYMENT_LIST,
+		queryComponent: GET_EVENTS,
 	};
 
 	const objectSearch = {
-		showButton: false,
-		showSearch: true,
-		titleButton: '',
-		url: '',
+		showButton: true,
+		showSearch: false,
+		titleButton: 'agregar nuevo',
+		url: '/events-create',
 	};
 
 	const objectList = {
 		titlesColumns: [{
 			id: 1,
-			columName: 'Monto',
-			jsonPath: 'amount',
+			columName: 'Nombre',
+			jsonPath: 'name',
 		},
 		{
 			id: 2,
-			columName: 'Moneda',
-			jsonPath: 'bankAccount.currency',
-		},
-		{
-			id: 3,
-			columName: 'Referencia',
-			jsonPath: 'reference',
-		},
-		{
-			id: 4,
-			columName: 'Banco',
-			jsonPath: 'bankAccount.bank.name',
-		},
-		{
-			id: 5,
-			columName: 'Fecha',
-			jsonPath: 'created_at',
+			columName: 'Ubicación',
+			jsonPath: 'state.country.name',
 		}],
-		arrayActive: [false, false, true, false, true, false, false],
+		arrayActive: [true, false, false, true, true, false, false],
 		urls: {
 			list: {
-				type: '',
-				path: '',
+				type: 'viewList',
+				path: 'event-access',
 			},
 			payment: '',
-			visibility: '/pre-sale-edit',
+			edit: '/event-edit',
 		},
-		keyId: 'id',
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'payments.data',
-			totalPath: 'payments.total',
+			dataPath: 'events.data',
+			totalPath: 'events.total',
 		},
 		searchComponent: {
-			dataPath: 'searchPaymentList.data',
-			totalPath: 'searchPaymentList.total',
+			dataPath: 'search.events.data',
+			totalPath: 'search.events.total',
 		},
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStatePayment),
+		componentState: Object.assign({}, objectStateEvent),
 		paginationPage,
 		messages: {
 			edit: {
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: 'Bloquear Rol',
-				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
-				titleStatus2: 'Desbloquear Rol',
-				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+				titleStatus1: '',
+				msgStatus1: '',
+				titleStatus2: '',
+				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar Rol',
-				msg: '¿Estas seguro que desea eliminar el rol ?',
+				title: 'Eliminar evento',
+				msg: '¿Estas seguro que desea eliminar este evento?',
 			},
 		},
 	};
@@ -110,12 +91,12 @@ const Payment = ({
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
 		delete: actionDelete,
-		queryDelete: deletePaymentMutation,
+		queryDelete: deleteEventMutation,
 	};
 
 	return (
 		<div>
-			<Title title='Pagos' />
+			<Title title='Eventos' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
@@ -134,28 +115,28 @@ const Payment = ({
 	);
 };
 
-Payment.propTypes = {
+Event.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
-	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	objectStatePayment: PropTypes.object.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateEvent: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	deletePaymentMutation: PropTypes.func.isRequired,
+	deleteEventMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStatePayment: state.ReducerPayment,
+	objectStateEvent: state.ReducerEvent,
 });
 
 const mapDispatchToProps = dispatch => ({
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDelete: (componentState, paginationPage, deletePaymentMutation) =>
-		dispatch(deletePayment(componentState, paginationPage, deletePaymentMutation)),
+	actionDelete: (componentState, paginationPage, deleteEventMutation) =>
+		dispatch(deleteEvent(componentState, paginationPage, deleteEventMutation)),
 });
 
 export default compose(
-	graphql(DELETE_PAYMENT, { name: 'deletePaymentMutation' }),
+	graphql(DELETE_EVENT, { name: 'deleteEventMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Payment);
+)(Event);

@@ -6,6 +6,7 @@ import {
 	CLOSE_MODAL_EXPENSE_PER_EVENT,
 	OPEN_MODAL_INCOME_PER_EVENT,
 	CLOSE_MODAL_INCOME_PER_EVENT,
+	SHOW_TOGGLE,
 } from './actionsTypes';
 
 import {
@@ -16,6 +17,14 @@ import {
 
 import { GET_EVENT_BY_ID } from '../../queries/event';
 import { client } from '../../config/configStore';
+
+export const toggleShow = show => ({
+	type: SHOW_TOGGLE,
+	payload: {
+		show,
+		description: SHOW_TOGGLE,
+	},
+});
 
 export const setNotification = isAlert => ({
 	type: SET_ALERT_MOVEMENT,

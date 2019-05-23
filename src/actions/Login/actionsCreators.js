@@ -121,6 +121,7 @@ export const requestLogout = (token) => {
 	return (dispatch) => {
 		fetch(query, options)
 			.then(() => {
+				window.location.assign('/');
 				localStorage.setItem('actualRole', '');
 				dispatch(closeProfile());
 				dispatch(logout(null));

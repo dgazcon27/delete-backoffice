@@ -49,13 +49,13 @@ const Presale = ({
 			columName: 'Evento',
 			jsonPath: 'event.name',
 		}],
-		arrayActive: [false, false, false, false, false, false, false],
+		arrayActive: [false, true, false, false, false, false, false],
 		urls: {
 			list: {
 				type: '',
 				path: '',
 			},
-			payment: '',
+			payment: '/Pay',
 			edit: '',
 		},
 	};
@@ -93,14 +93,13 @@ const Presale = ({
 
 	const actions = {
 	};
-	/* if (window.localStorage.getItem('actualRole') !== 'ADM') {
+	if (window.localStorage.getItem('actualRole') !== 'ADM') {
 		if (window.localStorage.getItem('actualRole') !== 'ADMINISTRACION') {
 			if (window.localStorage.getItem('actualRole') !== 'PRESALE') {
 				window.location.assign('/');
 			}
 		}
-	} */
-
+	}
 	return (
 		<div>
 			<Title title='Preventa' />
@@ -129,7 +128,7 @@ Presale.propTypes = {
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateTicket: {},
+	objectStateTicket: state.ReducerPurchaseRequest,
 });
 
 export default connect(mapStateToProps, null)(Presale);

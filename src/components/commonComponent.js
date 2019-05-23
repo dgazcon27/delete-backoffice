@@ -1,10 +1,13 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import CsvDownloader from 'react-csv-downloader';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { Field } from 'redux-form';
 import { required } from './validations/validations';
 import { renderSelectField } from './RenderFields/renderFields';
+
 import {
 	GET_PROVIDERS,
 	GET_ROLESS,
@@ -22,6 +25,77 @@ import {
 	GET_CATEGORIES,
 	GET_CURRENCYS,
 } from './../queries/common';
+
+
+// referencia monto cuenta categoria
+export function preSCV(arg, payments) {
+	const alfa = [];
+	let aux = {};
+	arg.map((a) => {
+		aux = Object.assign({}, a);
+
+		if (a.bankAccount !== undefined) {
+			if (payments) {
+				delete aux.bankAccount;
+				aux.bank = a.bankAccount.bank.name;
+			} else {
+				aux.bankAccount = a.bankAccount.accountNumber;
+			}
+		}
+		if (a.category !== undefined) {
+			aux.category = a.category.name;
+		}
+		if (a.user !== undefined) {
+			aux.user = a.user.fullName;
+		}
+		if (a.event !== undefined) {
+			aux.event = a.event.name;
+		}
+		if (a.access !== undefined) {
+			aux.access = a.access.name;
+		}
+		if (a.state !== undefined) {
+			aux.state = a.state.name;
+		}
+		delete aux.__typename;
+		delete aux.type;
+		delete aux.active;
+		delete aux.id;
+		alfa.push(aux);
+		return alfa;
+	});
+
+	return (alfa);
+}
+
+export const ExportModal = pass => (
+	<Query query={pass.pass}>
+		{({ data }) => {
+			const path = window.location.pathname;
+			const showExport2 = (path === '/payment');
+			let aux = [];
+			if (showExport2) {
+				aux = Object.assign([], data.allPayments);
+				if (aux.length > 0) {
+					aux = preSCV(aux, true);
+				}
+			} else {
+				aux = Object.assign([], data.purchaseRequestss);
+				if (aux.length > 0) {
+					aux = preSCV(aux, false);
+				}
+			}
+
+			return (
+				<CsvDownloader datas={aux} filename='export' >
+				Exportar como Excel
+				</CsvDownloader>
+			);
+		}
+		}
+	</Query>
+);
+
 
 export const BankAccount = () => (
 	<Query query={GET_BANK_ACCOUNTS}>

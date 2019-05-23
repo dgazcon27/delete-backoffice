@@ -291,6 +291,14 @@ const Items = ({
 							<ListItemText primary='Monedas' />
 						</ListItem>
 					</Link>
+					<Link to='/currency/events' href='/currency/events'>
+						<ListItem button onClick={() => actionResetPagination()}>
+							<ListItemIcon>
+								<AttachMoney />
+							</ListItemIcon>
+							<ListItemText primary='Moneda por Evento' />
+						</ListItem>
+					</Link>
 					<Link to='/exchangeRate' href='/exchangeRate'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
