@@ -16,6 +16,7 @@ import Delete from '@material-ui/icons/Delete';
 import {
 	Modal,
 	Paper,
+	Switch,
 	Table,
 	Tooltip,
 	TableRow,
@@ -26,18 +27,19 @@ import {
 	TableFooter,
 	TablePagination,
 } from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
 import styles from './userTypeCss';
 import {
 	openModal,
 	closeModal,
 	changePage,
-	deleteAccess,
-	blockAccess,
+	deleteBudget,
+	blockedBudget,
 } from '../../actions/Event/Access/actionsCreators';
 import {
-	DELETE_ACCESS,
-	BLOCK_ACCESS,
+	DELETE_BUDGET,
 	GET_BUDGET,
+	BLOCK_BUDGET,
 } from '../../queries/event';
 import Loading from '../Loading/loading';
 
@@ -52,10 +54,10 @@ const BudgetList = ({
 	actionCloseModal,
 	paginationPage,
 	actionChangePage,
-	actionDeleteAccess,
-	deleteAccessMutation,
-	blockAccessMutation,
-	actionBlockAccess,
+	actionDeleteBudget,
+	deleteBudgetMutation,
+	blockedBudgetMutation,
+	actionBlockedBudget,
 	events,
 }) => (
 	<Query query={GET_BUDGET} variables={{ events, paginationPage }}>
@@ -86,7 +88,7 @@ const BudgetList = ({
 								<Link to={{ pathname: `/event-access-create/${events}` }}>
 									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 										<Add className={classes.marginIcon} />
-										Crear Acceso por Evento
+										Crear nueva Cotización
 									</Button>
 								</Link>
 							</h5>
@@ -95,10 +97,10 @@ const BudgetList = ({
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Nombre</TableCell>
-										<TableCell>Área</TableCell>
-										<TableCell>Habitación</TableCell>
-										<TableCell>Cantidad</TableCell>
+										<TableCell>Proveedor</TableCell>
+										<TableCell>Evento</TableCell>
+										<TableCell>Precio Total</TableCell>
+										<TableCell>ID</TableCell>
 										<TableCell className={classes.alignRightOption}>
 											Opciones
 										</TableCell>
@@ -109,6 +111,7 @@ const BudgetList = ({
 										<TableRow key={budget.id}>
 											<TableCell>{budget.provider.name}</TableCell>
 											<TableCell>{budget.event.name}</TableCell>
+											<TableCell>{budget.totalPrice}</TableCell>
 											<TableCell>{budget.id}</TableCell>
 
 											<TableCell className={classes.alignRight}>
@@ -117,7 +120,20 @@ const BudgetList = ({
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
-													title='Editar Acceso'
+													title='Detalles de Cotización'
+												>
+													<Link to={{ pathname: `/budget-detail/${events}/${budget.id}` }}>
+														<IconButton>
+															<Visibility />
+														</IconButton>
+													</Link>
+												</Tooltip>
+												<Tooltip
+													enterDelay={200}
+													id='tooltip-controlled'
+													leaveDelay={100}
+													placement='top'
+													title='Editar Cotización'
 												>
 													<Link to={{ pathname: `/event-budget-edit/${events}/${budget.id}` }}>
 														<IconButton>
@@ -130,11 +146,24 @@ const BudgetList = ({
 													id='tooltip-controlled'
 													leaveDelay={100}
 													placement='top'
-													title='Eliminar Acceso'
+													title='Eliminar Cotización'
 												>
 													<IconButton onClick={() => { actionOpenModal('delete', budget); }}>
 														<Delete />
 													</IconButton>
+												</Tooltip>
+												<Tooltip
+													enterDelay={200}
+													id='tooltip-controlled'
+													leaveDelay={100}
+													placement='top'
+													title='Bloquear / Desbloquear'
+												>
+													<Switch
+														onClick={() => actionOpenModal('block', budget)}
+														checked={!budget.active}
+														value='checked'
+													/>
 												</Tooltip>
 											</TableCell>
 										</TableRow>
@@ -167,14 +196,14 @@ const BudgetList = ({
 							{modalType === 'delete' &&
 							<Paper className={classNames(classes.paperOnModal)}>
 								<h6>
-									Eliminar Acceso
+									Eliminar Cotización
 								</h6>
 								<p>
-									¿Estas seguro que desea eliminar el Acceso?
+									¿Estas seguro que desea eliminar el Cotización?
 								</p>
 								<span>
 									<IconButton onClick={() => {
-										actionDeleteAccess(id, events, paginationPage, deleteAccessMutation);
+										actionDeleteBudget(id, events, paginationPage, deleteBudgetMutation);
 									}}
 									>
 										Si
@@ -189,30 +218,28 @@ const BudgetList = ({
 							}
 							{modalType === 'block' &&
 								<Paper className={classNames(classes.paperOnModal)}>
-									{statusValue === 1 && <h6> Bloquear Acceso </h6>}
-									{statusValue === 2 && <h6> Desbloquear Acceso </h6>}
+									{statusValue === 1 && <h6> Bloquear Cotización </h6>}
+									{statusValue === 0 && <h6> Desbloquear Cotización </h6>}
 									{
 										statusValue === 1 &&
 										<p>
-											¿Estas seguro que desea bloquear el Acceso?
+											¿Estas seguro que desea bloquear el Cotización?
 										</p>
 									}
 									{
-										statusValue === 2 &&
+										statusValue === 0 &&
 										<p>
-										¿Estas seguro que desea desbloquear el Acceso?
+										¿Estas seguro que desea desbloquear el Cotización?
 										</p>
 									}
 
 									<span>
 										<IconButton
 											onClick={() => {
-												actionBlockAccess(
+												actionBlockedBudget(
 													id,
-													events,
 													statusValue,
-													paginationPage,
-													blockAccessMutation,
+													blockedBudgetMutation,
 												);
 											}}
 										>
@@ -244,12 +271,12 @@ BudgetList.propTypes = {
 	currentPage: PropTypes.number.isRequired,
 	actionOpenModal: PropTypes.func.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	actionDeleteAccess: PropTypes.func.isRequired,
-	deleteAccessMutation: PropTypes.func.isRequired,
+	actionDeleteBudget: PropTypes.func.isRequired,
+	deleteBudgetMutation: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
 	actionChangePage: PropTypes.func.isRequired,
-	actionBlockAccess: PropTypes.func.isRequired,
-	blockAccessMutation: PropTypes.func.isRequired,
+	actionBlockedBudget: PropTypes.func.isRequired,
+	blockedBudgetMutation: PropTypes.func.isRequired,
 };
 
 BudgetList.defaultProps = {
@@ -259,7 +286,7 @@ BudgetList.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-	id: state.ReducerEvent.id,
+	id: state.ReducerEventAccess.id,
 	events: state.ReducerEventAccess.event,
 	isOpen: state.ReducerEventAccess.isOpen,
 	modalType: state.ReducerEventAccess.modalType,
@@ -273,24 +300,22 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(changePage(currentPage, paginationPage)),
 	actionOpenModal: (modalType, _access) => dispatch(openModal(modalType, _access)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionDeleteAccess: (
+	actionDeleteBudget: (
 		id,
 		event,
 		paginationPage,
-		deleteAccessMutation,
-	) => dispatch(deleteAccess(id, event, paginationPage, deleteAccessMutation)),
-	actionBlockAccess: (
+		deleteBudgetMutation,
+	) => dispatch(deleteBudget(id, event, paginationPage, deleteBudgetMutation)),
+	actionBlockedBudget: (
 		id,
-		event,
 		statusValue,
-		paginationPage,
-		blockAccessMutation,
-	) => dispatch(blockAccess(id, event, statusValue, paginationPage, blockAccessMutation)),
+		blockedBudgetMutation,
+	) => dispatch(blockedBudget(id, statusValue, blockedBudgetMutation)),
 });
 
 export default compose(
-	graphql(DELETE_ACCESS, { name: 'deleteAccessMutation' }),
-	graphql(BLOCK_ACCESS, { name: 'blockAccessMutation' }),
+	graphql(DELETE_BUDGET, { name: 'deleteBudgetMutation' }),
+	graphql(BLOCK_BUDGET, { name: 'blockedBudgetMutation' }),
 	withStyles(styles, { withTheme: true }),
 	connect(mapStateToProps, mapDispatchToProps),
 )(BudgetList);

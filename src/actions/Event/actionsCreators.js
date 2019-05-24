@@ -10,6 +10,7 @@ import {
 	ID_ACCESS_EVENT,
 } from './actionsTypes';
 
+
 import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
 import GET_STATES from '../../queries/states';
 import { client } from '../../config/configStore';
@@ -22,15 +23,19 @@ const checkMessageError = (res) => {
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
 
-export const openModal = (modalType, event) => ({
-	type: OPEN_MODAL_EVENT,
-	payload: {
-		modalType,
-		description: OPEN_MODAL_EVENT,
-		name: event.name,
-		id: event.id,
-	},
-});
+export const openModal = (modalType, event) => {
+	const statusValue = event.active ? 1 : 0;
+	return {
+		type: OPEN_MODAL_EVENT,
+		payload: {
+			modalType,
+			description: OPEN_MODAL_EVENT,
+			id: event.id,
+			name: event.name,
+			statusValue,
+		},
+	};
+};
 
 export const closeModal = () => ({
 	type: CLOSE_MODAL_EVENT,

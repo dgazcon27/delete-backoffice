@@ -106,6 +106,7 @@ export const GET_BUDGET = gql`
 			  event {
 			    name
 			  }
+			  active
 			  totalPrice
 			} total
 		}
@@ -186,6 +187,13 @@ export const DELETE_ACCESS = gql`
 		}
 	}
 `;
+export const DELETE_BUDGET = gql`
+	mutation deleteBudget($id:Int!) {
+		deleteBudget(id:$id){
+			id
+		}
+	}
+`;
 
 export const CREATE_ACCESS_EVENT = gql`
 	mutation createAccessesByEvent(
@@ -242,6 +250,16 @@ export const BLOCK_ACCESS = gql`
 		$status: Int!
 		){
 		blockedAccessesByEvent(id:$id, status:$status){
+			id
+		}
+	}
+`;
+export const BLOCK_BUDGET = gql`
+	mutation blockedBudget(
+		$id:Int!,
+		$status: Int!
+		){
+		blockedBudget(id:$id, status:$status){
 			id
 		}
 	}

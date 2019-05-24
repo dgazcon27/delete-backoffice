@@ -15,8 +15,9 @@ import {
 	PAGE_DOWN,
 } from './actionsTypes';
 
-import { GET_ACCESS, GET_ACCESS_BY_ID } from '../../../queries/event';
+import { GET_ACCESS, GET_ACCESS_BY_ID, GET_BUDGET } from '../../../queries/event';
 import { client } from '../../../config/configStore';
+
 
 const checkMessageError = (res) => {
 	const message = res.graphQLErrors[0];
@@ -25,6 +26,14 @@ const checkMessageError = (res) => {
 	const msg = errorOutput.toString();
 	return (msg.replace('$', '').replace('"', '').replace('"', ''));
 };
+
+
+export const closeModal = () => ({
+	type: CLOSE_MODAL_ACCESS_EVENT,
+	payload: {
+		description: CLOSE_MODAL_ACCESS_EVENT,
+	},
+});
 
 export const openAlert = alertType => ({
 	type: OPEN_ALERT_ACCESS_EVENT,
@@ -42,7 +51,7 @@ export const cleanState = () => ({
 });
 
 export const openModal = (modalType, event) => {
-	const statusValue = event.active ? 1 : 2;
+	const statusValue = event.active ? 0 : 1;
 	return {
 		type: OPEN_MODAL_ACCESS_EVENT,
 		payload: {
@@ -51,6 +60,17 @@ export const openModal = (modalType, event) => {
 			id: event.id,
 			statusValue,
 		},
+	};
+};
+
+export const blockedBudget = (id, statusValue, blockedBudgetMutation) => {
+	const status = !!statusValue;
+	return async (dispatch) => {
+		await blockedBudgetMutation({
+			variables: { id, status },
+		});
+		window.location.reload();
+		dispatch(closeModal());
 	};
 };
 
@@ -113,12 +133,6 @@ export const getEventAccessById = id => (
 	}
 );
 
-export const closeModal = () => ({
-	type: CLOSE_MODAL_ACCESS_EVENT,
-	payload: {
-		description: CLOSE_MODAL_ACCESS_EVENT,
-	},
-});
 
 export const closeAlert = () => ({
 	type: CLOSE_ALERT_ACCESS_EVENT,
@@ -269,6 +283,14 @@ export const deleteAccess = (id, events, paginationPage, deleteAccessMutation) =
 		});
 		dispatch(closeModal());
 	});
+export const deleteBudget = (id, events, paginationPage, deleteBudgetMutation) => (
+	async (dispatch) => {
+		await deleteBudgetMutation({
+			variables: { id },
+		});
+		window.location.reload();
+		dispatch(closeModal());
+	});
 
 export const blockAccess = (id, events, statusValue, paginationPage, blockAccessMutation) => {
 	const status = statusValue === 1 ? 0 : 1;
@@ -277,6 +299,18 @@ export const blockAccess = (id, events, statusValue, paginationPage, blockAccess
 			variables: { id, status },
 			refetchQueries: [{ query: GET_ACCESS, variables: { events, paginationPage } }],
 		});
+		dispatch(closeModal());
+	};
+};
+export const blockBudget = (id, events, statusValue, paginationPage, blockBudgetMutation) => {
+	const status = statusValue === 1 ? 0 : 1;
+	return async (dispatch) => {
+		await blockBudgetMutation({
+			variables: { id, status },
+			refetchQueries: [{ query: GET_BUDGET, variables: { events, paginationPage } }],
+
+		});
+		window.location.reload();
 		dispatch(closeModal());
 	};
 };
