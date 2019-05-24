@@ -331,15 +331,7 @@ const Items = ({
 							<ListItemText primary='Usuarios' />
 						</ListItem>
 					</Link>
-					<Link to='/guests' href='/guests'>
-						<ListItem button onClick={() => actionResetPagination()}>
-							<ListItemIcon>
-								<People />
-							</ListItemIcon>
-							<ListItemText primary='Invitados' />
-						</ListItem>
-					</Link>
-					<Link to='/providers' href='/Proveedor'>
+					<Link to='/providers' href='/Proveedores'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
 								<People />

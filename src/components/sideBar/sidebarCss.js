@@ -33,6 +33,7 @@ const styles = theme => ({
 		display: 'none',
 	},
 	drawerPaper: {
+		height: '975px',
 		position: 'relative',
 		whiteSpace: 'nowrap',
 		width: drawerWidth,
@@ -74,6 +75,9 @@ const styles = theme => ({
 	},
 	ACT: {
 		border: '1px solid red',
+	},
+	sidebarHeight: {
+		height: '975px',
 	},
 });
 

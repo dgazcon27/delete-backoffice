@@ -384,7 +384,7 @@ export const Categorys = () => (
 					<Field
 						name='category'
 						type='select'
-						label='Categorías'
+						label='Categoría'
 						component={renderSelectField}
 						validate={required}
 						className='container'
