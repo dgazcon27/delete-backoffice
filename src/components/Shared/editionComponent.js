@@ -20,6 +20,7 @@ import { getProviderById } from '../../actions/Provider/actionsCreators';
 import { getRoomById } from '../../actions/Room/actionsCreators';
 import { getCurrencyById } from '../../actions/Currency/actionsCreators';
 import { getRateById } from '../../actions/exchangeRate/actionsCreator';
+import { getProductById } from '../../actions/Product/actionsCreators';
 import EventEdit from '../Event/eventEdit';
 import UsersEdit from '../Users/usersEdit';
 import UserTypeEdit from '../UserType/userTypeEdit';
@@ -39,6 +40,7 @@ import ProviderDetails from '../Provider/providerDetails';
 import RoomEdit from '../Room/roomEdit';
 import CurrencyEdit from '../Currency/currencyEdit';
 import UpdateExchangeRate from '../ExchangeRate/updateExchangeRate';
+import ProductEdit from '../Product/productEdit';
 
 class EditionComponent extends React.Component {
 	constructor(props) {
@@ -129,6 +131,10 @@ class EditionComponent extends React.Component {
 			case 'update-exchange-rate':
 				this.props.dispatch(getRateById(id));
 				this.setState({ tag: <UpdateExchangeRate /> });
+				break;
+			case 'Product-edit':
+				this.props.dispatch(getProductById(id));
+				this.setState({ tag: <ProductEdit /> });
 				break;
 			default:
 				break;

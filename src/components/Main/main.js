@@ -61,6 +61,8 @@ import CurrencyHasEventCreate from '../Currency/currencyHasEventCreate';
 import CurrencyHasEvent from '../Currency/currencyHasEvent';
 import ExchangeRate from '../ExchangeRate/exchangeRate';
 import ExchangeRateCreate from '../ExchangeRate/exchangeRateCreate';
+import Product from '../Product/product';
+import ProductCreate from '../Product/productCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -151,6 +153,9 @@ const Main = (props) => {
 				<Route path='/exchangeRate' component={ExchangeRate} />
 				<Route path='/update-exchange-rate/:id' component={EditionComponent} />
 				<Route path='/create-exchange' component={ExchangeRateCreate} />
+				<Route path='/products' component={Product} />
+				<Route path='/product-create' component={ProductCreate} />
+				<Route path='/Product-edit/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);

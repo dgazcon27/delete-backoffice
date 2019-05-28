@@ -993,3 +993,46 @@ export const Currencys = () => (
 		}}
 	</Query>
 );
+
+export const Providerss = () => (
+	<Query query={GET_PROVIDERS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='provider'
+						type='select'
+						label='Proveedor'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='provider'
+					type='select'
+					label='Proveedor'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.providers.map(provider => (
+						<MenuItem
+							key={provider.id}
+							value={provider.id}
+						>
+							{provider.name}
+						</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
