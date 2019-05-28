@@ -85,7 +85,7 @@ const BudgetList = ({
 						</h5>
 						<div className={classes.search}>
 							<h5 className={classes.searchAlignRigth}>
-								<Link to={{ pathname: `/event-access-create/${events}` }}>
+								<Link to={{ pathname: `/event-budget-create/${events}` }}>
 									<Button variant='extendedFab' aria-label='Delete' className={classes.addNew}>
 										<Add className={classes.marginIcon} />
 										Crear nueva Cotización
@@ -97,10 +97,11 @@ const BudgetList = ({
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Proveedor</TableCell>
 										<TableCell>Evento</TableCell>
 										<TableCell>Precio Total</TableCell>
-										<TableCell>ID</TableCell>
+										<TableCell>Pendiente por pagar</TableCell>
+										<TableCell>Total pagado</TableCell>
+
 										<TableCell className={classes.alignRightOption}>
 											Opciones
 										</TableCell>
@@ -109,11 +110,10 @@ const BudgetList = ({
 								<TableBody>
 									{data.budgetByEvent[0].data.map(budget => (
 										<TableRow key={budget.id}>
-											<TableCell>{budget.provider.name}</TableCell>
 											<TableCell>{budget.event.name}</TableCell>
 											<TableCell>{budget.totalPrice}</TableCell>
-											<TableCell>{budget.id}</TableCell>
-
+											<TableCell>{budget.pendingPayment}</TableCell>
+											<TableCell>{budget.totalPaid}</TableCell>
 											<TableCell className={classes.alignRight}>
 												<Tooltip
 													enterDelay={200}
@@ -122,7 +122,7 @@ const BudgetList = ({
 													placement='top'
 													title='Detalles de Cotización'
 												>
-													<Link to={{ pathname: `/budget-detail/${events}/${budget.id}` }}>
+													<Link to={{ pathname: `/budget-detail/${budget.id}` }}>
 														<IconButton>
 															<Visibility />
 														</IconButton>

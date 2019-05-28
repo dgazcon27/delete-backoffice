@@ -24,6 +24,15 @@ export const GET_EVENTS = gql`
 		}
 	}
 `;
+export const GET_CURRENCYS = gql`
+	query currencys {
+		currencys{
+		id
+  		description
+  		active
+		}
+	}
+`;
 
 export const DELETE_EVENT = gql`
 	mutation deleteEvent ($id:Int!){
@@ -101,14 +110,17 @@ export const GET_BUDGET = gql`
 	query budgetByEvent($events:Int!, $paginationPage:Int!) {
 		budgetByEvent(event:$events, page:$paginationPage) {
 			data
-			{  id
-			  provider{name}
-			  event {
-			    name
-			  }
-			  active
-			  totalPrice
-			} total
+			{ 
+			      id
+    pendingPayment
+    totalPrice
+    totalPaid
+    event {
+      name
+    }
+    status
+    active
+			 } total
 		}
 	}
 `;
@@ -193,6 +205,30 @@ export const DELETE_BUDGET = gql`
 			id
 		}
 	}
+`;
+
+export const CREATE_BUDGET_EVENT = gql`	
+mutation createBudget( 
+	$products: [product]!, 
+  	$comment:String!, 
+    $currency:ID!,
+    $event:ID!,
+    $createdBy:Int!,
+    $updatedBy:Int!,
+	){
+		createBudget(
+	products:$products, 
+  	comment :$comment, 
+    currency:$currency,
+    event:$event,
+    createdBy:$createdBy,
+    updatedBy:$updatedBy,
+		){
+			id
+		}
+
+	}	
+
 `;
 
 export const CREATE_ACCESS_EVENT = gql`

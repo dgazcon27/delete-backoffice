@@ -201,6 +201,34 @@ export const createAccessEvent = (data, paginationPage, create) => {
 				});
 		});
 };
+export const createBudgetEvent = (data, paginationPage, create) => {
+	const events = data.event;
+	const products = [];
+	const createdBy = data.userId;
+	const updatedBy = data.userId;
+	return (
+		async (dispatch) => {
+			create({
+				variables: {
+					...data,
+					products,
+					createdBy,
+					updatedBy,
+				},
+				refetchQueries: [{
+					query: GET_BUDGET, variables: { events, paginationPage },
+				}],
+			})
+				.then(() => {
+					dispatch(openAlert('creado'));
+					setTimeout(() => (window.history.back()), 2000);
+				})
+				.catch((res) => {
+					const message = checkMessageError(res);
+					dispatch(openAlert(message));
+				});
+		});
+};
 
 export const editAccessEvent = (data, event, paginationPage, editAccessEventMutation) => {
 	const action = { ...data };
