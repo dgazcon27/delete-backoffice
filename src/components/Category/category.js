@@ -7,63 +7,49 @@ import Search from '../Search/search';
 import {
 	openModal,
 	closeModal,
-	blockRoom,
-	deleteRoom,
-} from '../../actions/Room/actionsCreators';
+	deleteCategory,
+} from '../../actions/Category/actionsCreators';
+
+import 	{
+	GET_CATEGORIES,
+	DELETE_CATEGORY,
+} from '../../queries/category';
 import Title from '../Shared/title';
 
-import {
-	GET_ROOMS,
-	BLOCK_ROOM,
-	DELETE_ROOM,
-} from '../../queries/room';
-
-const Room = ({
-	objectStateRoom,
+const Category = ({
+	objectStateBank,
 	paginationPage,
 	actionOpenModal,
 	actionCloseModal,
-	actionBlock,
 	actionDelete,
-	blockRoomMutation,
-	deleteRoomMutation,
+	deleteCategoryMutation,
 }) => {
 	const objectQuery = {
-		queryComponent: GET_ROOMS,
+		queryComponent: GET_CATEGORIES,
 	};
 
 	const objectSearch = {
 		showButton: true,
 		showSearch: false,
 		titleButton: 'agregar nuevo',
-		url: '/room-create',
+		url: '/category-create',
 	};
 
 	const objectList = {
 		titlesColumns: [{
+			id: 0,
+			columName: '',
+			jsonPath: '',
+		},
+		{
 			id: 1,
 			columName: 'Nombre',
 			jsonPath: 'name',
 		},
 		{
 			id: 2,
-			columName: 'Tipo',
-			jsonPath: 'type',
-		},
-		{
-			id: 3,
-			columName: 'Capacidad',
-			jsonPath: 'capacity',
-		},
-		{
-			id: 4,
-			columName: 'Hotel',
-			jsonPath: 'hotel.provider.name',
-		},
-		{
-			id: 5,
-			columName: 'Evento',
-			jsonPath: 'event.name',
+			columName: 'Descripción',
+			jsonPath: 'description',
 		}],
 		arrayActive: [false, false, false, true, true, false, false],
 		urls: {
@@ -72,14 +58,14 @@ const Room = ({
 				path: '',
 			},
 			payment: '',
-			edit: '/room-edit',
+			edit: '/category-edit',
 		},
 	};
 
 	const objectPath = {
 		currentComponent: {
-			dataPath: 'rooms.data',
-			totalPath: 'rooms.total',
+			dataPath: 'categoryPagination.data',
+			totalPath: 'categoryPagination.total',
 		},
 		searchComponent: {
 			dataPath: '',
@@ -88,38 +74,35 @@ const Room = ({
 	};
 
 	const objectModal = {
-		componentState: Object.assign({}, objectStateRoom),
+		componentState: Object.assign({}, objectStateBank),
 		paginationPage,
 		messages: {
 			edit: {
 				title: 'contenido edit modal',
 			},
 			block: {
-				titleStatus1: 'Bloquear Rol',
-				msgStatus1: '¿Estas seguro que desea bloquear el rol?',
-				titleStatus2: 'Desbloquear Rol',
-				msgStatus2: '¿Estas seguro que desea desbloquear el rol?',
+				titleStatus1: '',
+				msgStatus1: '',
+				titleStatus2: '',
+				msgStatus2: '',
 			},
 			delete: {
-				title: 'Eliminar Rol',
-				msg: '¿Estas seguro que desea eliminar el rol ?',
+				title: 'Eliminar Categoría',
+				msg: '¿Estas seguro que desea eliminar este Categoría?',
 			},
 		},
 	};
 
 	const actions = {
-		// edit: actionSetRol,
 		openModal: actionOpenModal,
 		closeModal: actionCloseModal,
-		block: actionBlock,
-		queryblock: blockRoomMutation,
 		delete: actionDelete,
-		queryDelete: deleteRoomMutation,
+		queryDelete: deleteCategoryMutation,
 	};
 
 	return (
 		<div>
-			<Title title='Habitaciones' />
+			<Title title='Categorías' />
 			<Search
 				showButton={objectSearch.showButton}
 				showSearch={objectSearch.showSearch}
@@ -138,35 +121,28 @@ const Room = ({
 	);
 };
 
-Room.propTypes = {
-	// actionSetRol: PropTypes.func.isRequired,
+Category.propTypes = {
 	actionOpenModal: PropTypes.func.isRequired,
-	actionBlock: PropTypes.func.isRequired,
-	actionDelete: PropTypes.func.isRequired,
 	actionCloseModal: PropTypes.func.isRequired,
-	objectStateRoom: PropTypes.object.isRequired,
+	actionDelete: PropTypes.func.isRequired,
+	objectStateBank: PropTypes.object.isRequired,
 	paginationPage: PropTypes.number.isRequired,
-	blockRoomMutation: PropTypes.func.isRequired,
-	deleteRoomMutation: PropTypes.func.isRequired,
+	deleteCategoryMutation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	paginationPage: state.ReducerPagination.paginationPage,
-	objectStateRoom: state.ReducerRoom,
+	objectStateBank: state.ReducerCategory,
 });
 
 const mapDispatchToProps = dispatch => ({
-	// actionSetRol: (id, descripcion, name) => dispatch(setRol(id, descripcion, name)),
 	actionOpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 	actionCloseModal: () => dispatch(closeModal()),
-	actionBlock: (componentState, blockRoomMutation) =>
-		dispatch(blockRoom(componentState, blockRoomMutation)),
-	actionDelete: (componentState, paginationPage, deleteRoomMutation) =>
-		dispatch(deleteRoom(componentState, paginationPage, deleteRoomMutation)),
+	actionDelete: (componentState, paginationPage, deleteCategoryMutation) =>
+		dispatch(deleteCategory(componentState, paginationPage, deleteCategoryMutation)),
 });
 
 export default compose(
-	graphql(DELETE_ROOM, { name: 'deleteRoomMutation' }),
-	graphql(BLOCK_ROOM, { name: 'blockRoomMutation' }),
+	graphql(DELETE_CATEGORY, { name: 'deleteCategoryMutation' }),
 	connect(mapStateToProps, mapDispatchToProps),
-)(Room);
+)(Category);

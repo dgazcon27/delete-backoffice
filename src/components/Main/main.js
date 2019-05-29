@@ -29,7 +29,6 @@ import EditionComponent from '../Shared/editionComponent';
 import CreateGuest from '../Guest/createGuest';
 import Guest from '../Guest/guest';
 import AccessEventCreate from '../Event/accessEventCreate';
-import BudgetEventCreate from '../Event/BudgetEventCreate';
 import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
 import PreBudgetList from '../Event/preBudgetList';
@@ -62,6 +61,8 @@ import CurrencyHasEventCreate from '../Currency/currencyHasEventCreate';
 import CurrencyHasEvent from '../Currency/currencyHasEvent';
 import ExchangeRate from '../ExchangeRate/exchangeRate';
 import ExchangeRateCreate from '../ExchangeRate/exchangeRateCreate';
+import Category from '../Category/category';
+import CategoryCreate from '../Category/categoryCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -116,7 +117,6 @@ const Main = (props) => {
 				<Route path='/event-access/:id' component={PreAccessList} />
 				<Route path='/event-budget/:id' component={PreBudgetList} />
 				<Route path='/event-access-create/:id' component={AccessEventCreate} />
-				<Route path='/event-budget-create/:id' component={BudgetEventCreate} />
 				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
 				<Route path='/reservation' component={Reservation} />
 				<Route path='/reservation-create' component={ReservationCreate} />
@@ -153,6 +153,9 @@ const Main = (props) => {
 				<Route path='/exchangeRate' component={ExchangeRate} />
 				<Route path='/update-exchange-rate/:id' component={EditionComponent} />
 				<Route path='/create-exchange' component={ExchangeRateCreate} />
+				<Route path='/category' component={Category} />
+				<Route path='/category-create' component={CategoryCreate} />
+				<Route path='/category-edit/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);
