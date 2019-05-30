@@ -106,6 +106,28 @@ export const GET_EVENT_BY_ID = gql`
 	}
 `;
 
+export const GET_BUDGET_BY_ID = gql`
+	query budgetById($id:Int!){
+		budgetById(id:$id) {
+		comment
+	    totalPrice
+	    pendingPayment
+	    totalPaid
+	    currency {
+	    	description
+	    }
+	    products {
+	      id
+	      price
+	      quantity
+	      product {
+	        name
+	      }
+		}
+		}
+	}
+`;
+
 export const GET_BUDGET = gql`
 	query budgetByEvent($events:Int!, $paginationPage:Int!) {
 		budgetByEvent(event:$events, page:$paginationPage) {

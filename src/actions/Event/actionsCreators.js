@@ -4,6 +4,7 @@ import {
 	OPEN_ALERT_EVENT,
 	CLOSE_ALERT_EVENT,
 	SET_EVENT,
+	SET_BUDGET,
 	SET_COUNTRIES_STATES,
 	CLEAN_STATE_COUNTRY,
 	ADD_ACCESS,
@@ -11,7 +12,7 @@ import {
 } from './actionsTypes';
 
 
-import { GET_EVENTS, GET_EVENT_BY_ID } from '../../queries/event';
+import { GET_EVENTS, GET_EVENT_BY_ID, GET_BUDGET_BY_ID } from '../../queries/event';
 import GET_STATES from '../../queries/states';
 import { client } from '../../config/configStore';
 
@@ -114,6 +115,18 @@ export const setEvent = event => ({
 		country: event.state.country.id,
 	},
 });
+export const setBudget = budget => ({
+	type: SET_BUDGET,
+	payload: {
+		id: budget.id,
+		pendingPayment:	budget.pendingPayment,
+		products: budget.products,
+		totalPaid: budget.totalPaid,
+		totalPrice: budget.totalPrice,
+		comment: budget.comment,
+		currency: budget.currency.description,
+	},
+});
 
 export const getEventById = id => (
 	async (dispatch) => {
@@ -126,6 +139,21 @@ export const getEventById = id => (
 				const { event } = res.data;
 				dispatch(setEvent(event));
 				dispatch(setCountriesStates({}, event.state.country.id, true));
+			})
+			.catch(() => {});
+	}
+);
+
+export const getBudgetById = id => (
+	async (dispatch) => {
+		client
+			.query({
+				query: GET_BUDGET_BY_ID,
+				variables: { id },
+			})
+			.then((res) => {
+				const { budgetById } = res.data;
+				dispatch(setBudget(budgetById));
 			})
 			.catch(() => {});
 	}

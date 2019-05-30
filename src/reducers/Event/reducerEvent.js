@@ -4,6 +4,7 @@ import {
 	OPEN_ALERT_EVENT,
 	CLOSE_ALERT_EVENT,
 	SET_EVENT,
+	SET_BUDGET,
 	SET_COUNTRIES_STATES,
 	CLEAN_STATE_COUNTRY,
 	SET_PRESALE,
@@ -41,6 +42,12 @@ const initialState = {
 	activeTickets: false,
 	event: 0,
 	access: 0,
+	pendingPayment: 0,
+	products: [],
+	totalPaid: 0,
+	totalPrice: 0,
+	comment: '',
+	currency: '',
 };
 
 const ReducerEvent = (state = initialState, action = {}) => {
@@ -90,6 +97,17 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				state: action.payload.state,
 				country: action.payload.country,
 				createdBy: action.payload.createdBy,
+			});
+		case SET_BUDGET:
+			return ({
+				...state,
+				id: action.payload.id,
+				pendingPayment:	action.payload.pendingPayment,
+				comment: action.payload.comment,
+				currency: action.payload.currency,
+				products: action.payload.products,
+				totalPaid: action.payload.totalPaid,
+				totalPrice: action.payload.totalPrice,
 			});
 		case SET_COUNTRIES_STATES:
 			return ({

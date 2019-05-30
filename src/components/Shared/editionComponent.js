@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 
-import { getEventById } from '../../actions/Event/actionsCreators';
+import { getEventById, getBudgetById } from '../../actions/Event/actionsCreators';
 import { getUserById } from '../../actions/users/actionsCreators';
 import { getUserTypeById } from '../../actions/userType/actionsCreators';
 import { getLocationById } from '../../actions/location/actionsCreators';
@@ -17,6 +17,7 @@ import { getGuestById } from '../../actions/Guest/actionsCreators';
 import { getHotelById } from '../../actions/Hotel/actionsCreators';
 import { getReservationById } from '../../actions/Reservation/actionsCreators';
 import { getProviderById } from '../../actions/Provider/actionsCreators';
+
 import { getRoomById } from '../../actions/Room/actionsCreators';
 import { getCurrencyById } from '../../actions/Currency/actionsCreators';
 import { getRateById } from '../../actions/exchangeRate/actionsCreator';
@@ -36,6 +37,7 @@ import EditHotel from '../Hotel/HotelEdit';
 import ReservationEdit from '../Reservation/reservationEdit';
 import ProviderEdit from '../Provider/providerEdit';
 import ProviderDetails from '../Provider/providerDetails';
+import BudgetDetails from '../Event/budgetDetails';
 import RoomEdit from '../Room/roomEdit';
 import CurrencyEdit from '../Currency/currencyEdit';
 import UpdateExchangeRate from '../ExchangeRate/updateExchangeRate';
@@ -117,6 +119,10 @@ class EditionComponent extends React.Component {
 			case 'provider-details':
 				this.props.dispatch(getProviderById(id, false));
 				this.setState({ tag: <ProviderDetails /> });
+				break;
+			case 'budget-details':
+				this.props.dispatch(getBudgetById(id, false));
+				this.setState({ tag: <BudgetDetails /> });
 				break;
 			case 'room-edit':
 				this.props.dispatch(getRoomById(id, false));

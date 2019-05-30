@@ -122,7 +122,7 @@ const BudgetList = ({
 													placement='top'
 													title='Detalles de Cotización'
 												>
-													<Link to={{ pathname: `/budget-detail/${budget.id}` }}>
+													<Link to={{ pathname: `/budget-details/${budget.id}` }}>
 														<IconButton>
 															<Visibility />
 														</IconButton>
