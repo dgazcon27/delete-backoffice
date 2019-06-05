@@ -24,6 +24,7 @@ import {
 	GET_TYPE_INVITED,
 	GET_CATEGORIES,
 	GET_CURRENCYS,
+	GET_PRODUCTS,
 } from './../queries/common';
 
 
@@ -168,6 +169,43 @@ export const Banks = () => (
 				>
 					{data.bankss.map(bank => (
 						<MenuItem key={bank.id} value={bank.id}>{bank.name}</MenuItem>
+					))}
+				</Field>
+			);
+		}}
+	</Query>
+);
+export const Products = () => (
+	<Query query={GET_PRODUCTS}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return (
+					<Field
+						name='product'
+						type='select'
+						label='Banco'
+						component={renderSelectField}
+						validate={required}
+						className='container'
+					>
+						<MenuItem />
+					</Field>
+				);
+			}
+			if (error) {
+				return ('Error!');
+			}
+			return (
+				<Field
+					name='prod'
+					type='select'
+					label='Productos'
+					component={renderSelectField}
+					validate={required}
+					className='container'
+				>
+					{data.products.map(product => (
+						<MenuItem key={product.id} value={product.id}> { product.name }</MenuItem>
 					))}
 				</Field>
 			);

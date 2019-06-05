@@ -41,6 +41,8 @@ import {
 	GET_BUDGET,
 	BLOCK_BUDGET,
 } from '../../queries/event';
+
+import BackButton from '../widget/BackButton';
 import Loading from '../Loading/loading';
 
 const BudgetList = ({
@@ -92,6 +94,7 @@ const BudgetList = ({
 									</Button>
 								</Link>
 							</h5>
+							<BackButton />
 						</div>
 						<Paper>
 							<Table>
@@ -101,7 +104,7 @@ const BudgetList = ({
 										<TableCell>Precio Total</TableCell>
 										<TableCell>Pendiente por pagar</TableCell>
 										<TableCell>Total pagado</TableCell>
-
+										<TableCell>Comentario</TableCell>
 										<TableCell className={classes.alignRightOption}>
 											Opciones
 										</TableCell>
@@ -114,7 +117,21 @@ const BudgetList = ({
 											<TableCell>{budget.totalPrice}</TableCell>
 											<TableCell>{budget.pendingPayment}</TableCell>
 											<TableCell>{budget.totalPaid}</TableCell>
+											<TableCell>{budget.comment}</TableCell>
 											<TableCell className={classes.alignRight}>
+												<Tooltip
+													enterDelay={200}
+													id='tooltip-controlled'
+													leaveDelay={100}
+													placement='top'
+													title='Agregar Producto'
+												>
+													<Link to={{ pathname: `/budget-add-product/${budget.id}` }}>
+														<IconButton>
+															ADD
+														</IconButton>
+													</Link>
+												</Tooltip>
 												<Tooltip
 													enterDelay={200}
 													id='tooltip-controlled'

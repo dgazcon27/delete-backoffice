@@ -20,6 +20,8 @@ import {
 	ADD_ACCESS,
 	SET_ACCESS_EVENT,
 	ID_ACCESS_EVENT,
+	ADD_PRODUCT,
+	PUSH_PRODUCT,
 } from '../../actions/Event/actionsTypes';
 
 const initialState = {
@@ -48,6 +50,10 @@ const initialState = {
 	totalPrice: 0,
 	comment: '',
 	currency: '',
+	alfa: [],
+	prod: 0,
+	price: 0,
+	quant: 0,
 };
 
 const ReducerEvent = (state = initialState, action = {}) => {
@@ -133,6 +139,18 @@ const ReducerEvent = (state = initialState, action = {}) => {
 			return ({
 				...state,
 				presaleStart: action.payload.presaleStart,
+			});
+		case ADD_PRODUCT:
+			return ({
+				...state,
+				alfa: action.payload.alfa,
+				prod: action.payload.prod,
+				price: action.payload.price,
+				quant: action.payload.quant,
+			});
+		case PUSH_PRODUCT:
+			return ({
+				...state,
 			});
 		case SET_CLOSE_PRESALE:
 			return ({

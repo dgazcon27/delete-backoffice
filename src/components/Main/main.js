@@ -142,6 +142,7 @@ const Main = (props) => {
 				<Route path='/provider-edit/:id' component={EditionComponent} />
 				<Route path='/provider-details/:id' component={EditionComponent} />
 				<Route path='/budget-details/:id' component={EditionComponent} />
+				<Route path='/budget-add-product/:id' component={EditionComponent} />
 				<Route path='/Ticket' component={Ticket} />
 				<Route path='/ticket-assign' component={AssignTicket} />
 				<Route path='/ticket-create' component={TicketCreate} />

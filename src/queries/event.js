@@ -137,6 +137,7 @@ export const GET_BUDGET = gql`
     pendingPayment
     totalPrice
     totalPaid
+    comment
     event {
       name
     }
@@ -146,6 +147,14 @@ export const GET_BUDGET = gql`
 		}
 	}
 `;
+
+export const UPDATE_BUDGET = gql`
+mutation addBudgetProducts($id:Int!, $products:[prods]!,  $updatedBy:Int!){
+	addBudgetProducts(id:$id, products:$products,  updatedBy:$updatedBy){
+		id
+	}
+}`;
+
 export const GET_ACCESS = gql`
 	query accessesByEvent($events:Int!, $paginationPage:Int!) {
 		accessesByEvent(event:$events, page:$paginationPage) {

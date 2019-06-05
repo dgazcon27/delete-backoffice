@@ -38,6 +38,7 @@ import ReservationEdit from '../Reservation/reservationEdit';
 import ProviderEdit from '../Provider/providerEdit';
 import ProviderDetails from '../Provider/providerDetails';
 import BudgetDetails from '../Event/budgetDetails';
+import AddProductBudget from '../Event/addProductBudget';
 import RoomEdit from '../Room/roomEdit';
 import CurrencyEdit from '../Currency/currencyEdit';
 import UpdateExchangeRate from '../ExchangeRate/updateExchangeRate';
@@ -123,6 +124,10 @@ class EditionComponent extends React.Component {
 			case 'budget-details':
 				this.props.dispatch(getBudgetById(id, false));
 				this.setState({ tag: <BudgetDetails /> });
+				break;
+			case 'budget-add-product':
+				this.props.dispatch(getBudgetById(id, false));
+				this.setState({ tag: <AddProductBudget /> });
 				break;
 			case 'room-edit':
 				this.props.dispatch(getRoomById(id, false));

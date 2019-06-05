@@ -9,6 +9,7 @@ import {
 	CLEAN_STATE_COUNTRY,
 	ADD_ACCESS,
 	ID_ACCESS_EVENT,
+	ADD_PRODUCT,
 } from './actionsTypes';
 
 
@@ -68,6 +69,17 @@ export const setEstados = states => ({
 	},
 });
 
+export const addProduct = alfa => ({
+	type: ADD_PRODUCT,
+	payload: {
+		alfa,
+		description: ADD_PRODUCT,
+		prod: 0,
+		price: 0,
+		quant: 0,
+	},
+});
+
 export const cleanStateCountry = () => ({
 	type: CLEAN_STATE_COUNTRY,
 	payload: {
@@ -119,11 +131,11 @@ export const setBudget = budget => ({
 	type: SET_BUDGET,
 	payload: {
 		id: budget.id,
-		pendingPayment:	budget.pendingPayment,
+		comment: budget.comment,
 		products: budget.products,
 		totalPaid: budget.totalPaid,
 		totalPrice: budget.totalPrice,
-		comment: budget.comment,
+		pendingPayment:	budget.pendingPayment,
 		currency: budget.currency.description,
 	},
 });
@@ -196,6 +208,24 @@ export const createEvent = (event, paginationPage, createdBy, updatedBy, createE
 		})
 			.then(() => {
 				dispatch(openAlert('creado'));
+				setTimeout(() => (window.location.assign('events')), 2000);
+			})
+			.catch((res) => {
+				const message = checkMessageError(res);
+				dispatch(openAlert(message));
+			});
+	});
+export const updateBudget = (budgetId, productList, updatedBy, updateBudgetMutation) => (
+	async (dispatch) => {
+		updateBudgetMutation({
+			variables: {
+				id: budgetId,
+				products: productList,
+				updatedBy,
+			},
+		})
+			.then(() => {
+				dispatch(openAlert('Actualizado'));
 				setTimeout(() => (window.location.assign('events')), 2000);
 			})
 			.catch((res) => {

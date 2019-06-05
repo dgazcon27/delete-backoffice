@@ -151,3 +151,12 @@ export const GET_CURRENCYS = gql`
 		}
 	}
 `;
+export const GET_PRODUCTS = gql`
+	query {
+		products{
+			id
+			name
+			stock
+		}
+	}
+`;
