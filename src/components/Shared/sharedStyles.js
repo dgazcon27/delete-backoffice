@@ -1,4 +1,25 @@
 const styles = () => ({
+	addProd: {
+		width: '70%',
+		'margin-left': '15%',
+		padding: '5%',
+	},
+	addProdBlock1: {
+		'margin-bottom': '10%',
+	},
+	buttLeft: {
+		paddingTop: '5%',
+		paddingLeft: '33%',
+		width: '10%',
+		marginRight: '100%',
+		paddingRight: '35% !important',
+	},
+	buttRight: {
+		textAlign: 'right',
+		paddingRight: '35% !important',
+		'margin-top': '-5%',
+		'margin-bottom': '10%',
+	},
 	importPurchaseReq: {
 		margin: '-131px 0 10px 200px',
 		'background-color': 'white !important',
@@ -107,6 +128,11 @@ const styles = () => ({
 	},
 	center: {
 		'text-align': 'center',
+	},
+	centerButton: {
+		'text-align': 'center',
+		'max-width': '45 px',
+		margin: '1px solid red',
 	},
 	formStyle: {
 		padding: '3%',

@@ -74,9 +74,6 @@ export const addProduct = alfa => ({
 	payload: {
 		alfa,
 		description: ADD_PRODUCT,
-		prod: 0,
-		price: 0,
-		quant: 0,
 	},
 });
 
@@ -215,24 +212,27 @@ export const createEvent = (event, paginationPage, createdBy, updatedBy, createE
 				dispatch(openAlert(message));
 			});
 	});
-export const updateBudget = (budgetId, productList, updatedBy, updateBudgetMutation) => (
-	async (dispatch) => {
+export const updateBudget = (budgetId, alfa, userId, updateBudgetMutation) => {
+	const aux = Object.assign([], alfa);
+	aux.map(a => (delete a.id));
+	return (async (dispatch) => {
 		updateBudgetMutation({
 			variables: {
 				id: budgetId,
-				products: productList,
-				updatedBy,
+				products: aux,
+				updatedBy: userId,
 			},
 		})
 			.then(() => {
 				dispatch(openAlert('Actualizado'));
-				setTimeout(() => (window.location.assign('events')), 2000);
+				setTimeout(() => (window.location.assign('/events')), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);
 				dispatch(openAlert(message));
 			});
 	});
+};
 
 export const editEvent = (event, updatedBy, editEventMutation) => (
 	async (dispatch) => {

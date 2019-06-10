@@ -155,6 +155,7 @@ mutation addBudgetProducts($id:Int!, $products:[prods]!,  $updatedBy:Int!){
 	}
 }`;
 
+
 export const GET_ACCESS = gql`
 	query accessesByEvent($events:Int!, $paginationPage:Int!) {
 		accessesByEvent(event:$events, page:$paginationPage) {

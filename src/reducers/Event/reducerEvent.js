@@ -51,9 +51,9 @@ const initialState = {
 	comment: '',
 	currency: '',
 	alfa: [],
-	prod: 0,
-	price: 0,
-	quant: 0,
+	prod: ' ',
+	price: ' ',
+	quant: ' ',
 };
 
 const ReducerEvent = (state = initialState, action = {}) => {
