@@ -1,3 +1,4 @@
+
 import {
 	OPEN_MODAL_EVENT,
 	CLOSE_MODAL_EVENT,
@@ -214,7 +215,7 @@ export const createEvent = (event, paginationPage, createdBy, updatedBy, createE
 	});
 export const updateBudget = (budgetId, alfa, userId, updateBudgetMutation) => {
 	const aux = Object.assign([], alfa);
-	aux.map(a => (delete a.id));
+	aux.map(a => (delete a.id)); // eslint-disable-line no-param-reassign
 	return (async (dispatch) => {
 		updateBudgetMutation({
 			variables: {
@@ -225,7 +226,7 @@ export const updateBudget = (budgetId, alfa, userId, updateBudgetMutation) => {
 		})
 			.then(() => {
 				dispatch(openAlert('Actualizado'));
-				setTimeout(() => (window.location.assign('/events')), 2000);
+				setTimeout(() => (window.location.assign(`/budget-add-product/${budgetId}`)), 2000);
 			})
 			.catch((res) => {
 				const message = checkMessageError(res);

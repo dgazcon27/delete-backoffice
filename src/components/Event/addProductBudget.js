@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+/* eslint no-shadow: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -40,30 +42,27 @@ function pushP(arr, argument, action) {
 	if (argument.product !== ' ' &&
 		argument.product !== undefined &&
 		argument.price !== ' ' &&
- 		argument.price !== undefined &&
- 		argument.quantity !== ' ' &&
- 		argument.quantity !== undefined) {
+		argument.price !== undefined &&
+		argument.quantity !== ' ' &&
+		argument.quantity !== undefined) {
 		pass.id = arr.length + 1;
-		action(arr, reset);
+		action(arr);
 		arr.push(pass);
 	}
 }
 function removeItem(array, id) {
 	const I = array.map(a => (a.id)).indexOf(id);
-	console.log('I', I);
-	console.log('pre', array);
 	array.splice(I, 1);
-	console.log('post', array);
+	document.getElementById('numberField').focus({ preventScroll: true });
 }
 
 let AddProductBudget = ({
-	id,
+	reset,
 	userId,
 	myValues,
 	classes,
 	products,
 	alfa,
-	reset,
 	actionAddProduct,
 	actionUpdateBudget,
 	updateBudgetMutation,
@@ -72,7 +71,6 @@ let AddProductBudget = ({
 	const budgetId = parseInt(aux[2], 10);
 	return (
 		<div>
-
 			<h3 className={classes.formTitle}>Cotizacion
 				<div className={classes.backbuttonCreation}>
 					<BackButton />
@@ -177,7 +175,11 @@ let AddProductBudget = ({
 						<div>
 							<div className={classes.buttLeft}>
 								<IconButton onClick={() => {
-									pushP(alfa, { price: myValues.price, quantity: myValues.quant, product: myValues.prod }, actionAddProduct);
+									pushP(alfa, {
+										price: myValues.price,
+										quantity: myValues.quant,
+										product: myValues.prod,
+									}, actionAddProduct);
 									reset(AddProductBudget);
 								}
 								}
@@ -204,7 +206,7 @@ let AddProductBudget = ({
 
 				</form>
 				<div className={classes.formStyle}>
-					<Products />
+					<Products id='Prod' />
 				</div>
 				<div className={classes.formStyle}>
 					<Field
@@ -249,7 +251,6 @@ let AddProductBudget = ({
 								</TableCell>
 								<TableCell className={classes.center}>
 									<IconButton onClick={() => {
-										console.log('pre borrar', item);
 										removeItem(alfa, item.id);
 										reset(AddProductBudget);
 									}
@@ -269,10 +270,11 @@ let AddProductBudget = ({
 };
 
 AddProductBudget.propTypes = {
-	id: PropTypes.number.isRequired,
+	userId: PropTypes.number.isRequired,
 	actionAddProduct: PropTypes.func.isRequired,
 	actionUpdateBudget: PropTypes.func.isRequired,
 	updateBudgetMutation: PropTypes.func.isRequired,
+	reset: PropTypes.func.isRequired,
 	products: PropTypes.array.isRequired,
 	alfa: PropTypes.array.isRequired,
 	classes: PropTypes.object.isRequired,
