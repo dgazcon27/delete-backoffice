@@ -25,6 +25,7 @@ import ReducerTokens from './Tokens/reducerTokens';
 import ReducerMovement from './Movement/reducerMovement';
 import ReducerTicket from './Ticket/ticketReducer';
 import ReducerCurrency from './Currency/reducerCurrency';
+import ReducerCategory from './Category/reducerCategory';
 import ReducerExchangeRate from './exchangeRate/reducerExchangeRate';
 
 const rootReducer = combineReducers({
@@ -53,6 +54,7 @@ const rootReducer = combineReducers({
 	ReducerMovement,
 	ReducerProvider,
 	ReducerTicket,
+	ReducerCategory,
 	ReducerExchangeRate,
 	form: reduxFormReducer,
 });
