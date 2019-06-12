@@ -64,6 +64,8 @@ import ExchangeRate from '../ExchangeRate/exchangeRate';
 import ExchangeRateCreate from '../ExchangeRate/exchangeRateCreate';
 import Category from '../Category/category';
 import CategoryCreate from '../Category/categoryCreate';
+import Product from '../Product/product';
+import ProductCreate from '../Product/productCreate';
 
 const Main = (props) => {
 	const classes = props.class;
@@ -160,6 +162,9 @@ const Main = (props) => {
 				<Route path='/category' component={Category} />
 				<Route path='/category-create' component={CategoryCreate} />
 				<Route path='/category-edit/:id' component={EditionComponent} />
+				<Route path='/products' component={Product} />
+				<Route path='/product-create' component={ProductCreate} />
+				<Route path='/Product-edit/:id' component={EditionComponent} />
 			</Switch>
 		</main>
 	);

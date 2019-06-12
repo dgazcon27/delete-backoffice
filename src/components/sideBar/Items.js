@@ -348,6 +348,14 @@ const Items = ({
 							<ListItemText primary='Proveedor' />
 						</ListItem>
 					</Link>
+					<Link to='/products' href='/Products'>
+						<ListItem button onClick={() => actionResetPagination()}>
+							<ListItemIcon>
+								<People />
+							</ListItemIcon>
+							<ListItemText primary='Producto' />
+						</ListItem>
+					</Link>
 					<Divider />
 				</List>
 			</Collapse>

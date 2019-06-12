@@ -27,6 +27,7 @@ import ReducerTicket from './Ticket/ticketReducer';
 import ReducerCurrency from './Currency/reducerCurrency';
 import ReducerCategory from './Category/reducerCategory';
 import ReducerExchangeRate from './exchangeRate/reducerExchangeRate';
+import ReducerProduct from './Product/reducerProduct';
 
 const rootReducer = combineReducers({
 	ReducerCurrency,
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
 	ReducerTicket,
 	ReducerCategory,
 	ReducerExchangeRate,
+	ReducerProduct,
 	form: reduxFormReducer,
 });
 
