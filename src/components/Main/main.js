@@ -29,6 +29,7 @@ import EditionComponent from '../Shared/editionComponent';
 import CreateGuest from '../Guest/createGuest';
 import Guest from '../Guest/guest';
 import AccessEventCreate from '../Event/accessEventCreate';
+import BudgetEventCreate from '../Event/BudgetEventCreate';
 import ClassAccessEventEdit from '../Event/accessEventEdit';
 import PreAccessList from '../Event/preAccessList';
 import PreBudgetList from '../Event/preBudgetList';
@@ -117,6 +118,7 @@ const Main = (props) => {
 				<Route path='/event-access/:id' component={PreAccessList} />
 				<Route path='/event-budget/:id' component={PreBudgetList} />
 				<Route path='/event-access-create/:id' component={AccessEventCreate} />
+				<Route path='/event-budget-create/:id' component={BudgetEventCreate} />
 				<Route path='/event-access-edit/:id/:fk' component={ClassAccessEventEdit} />
 				<Route path='/reservation' component={Reservation} />
 				<Route path='/reservation-create' component={ReservationCreate} />
