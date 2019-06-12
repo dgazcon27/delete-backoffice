@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import {
 	Modal,
 	Paper,
@@ -128,7 +129,7 @@ const BudgetList = ({
 												>
 													<Link to={{ pathname: `/budget-add-product/${budget.id}` }}>
 														<IconButton>
-															ADD
+															<PlaylistAdd />
 														</IconButton>
 													</Link>
 												</Tooltip>

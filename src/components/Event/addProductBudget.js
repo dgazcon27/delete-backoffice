@@ -31,11 +31,12 @@ import {
 	required,
 } from '../validations/validations';
 import { closeAlert } from '../../actions/Provider/actionsCreators';
-import { addProduct, updateBudget } from '../../actions/Event/actionsCreators';
+import { addProduct, updateBudget, setNotification } from '../../actions/Event/actionsCreators';
 import BackButton from '../widget/BackButton';
 import { Products } from '../commonComponent';
 import { renderNumberField, renderTextField } from '../RenderFields/renderFields';
 import { UPDATE_BUDGET } from '../../queries/event';
+import NotificationAlert from '../widget/NotificationAlert';
 
 function pushP(arr, argument, action) {
 	const pass = argument;
@@ -65,10 +66,13 @@ let AddProductBudget = ({
 	alfa,
 	actionAddProduct,
 	actionUpdateBudget,
+	isAlert,
 	updateBudgetMutation,
+	actionSetNotification,
 }) => {
 	const aux = window.location.pathname.split('/', 3);
 	const budgetId = parseInt(aux[2], 10);
+	const message = 'Productos agregados exitosamente';
 	return (
 		<div>
 			<h3 className={classes.formTitle}>Cotizacion
@@ -198,7 +202,7 @@ let AddProductBudget = ({
 								);
 							}}
 							>
-							actualizar cotizacion
+							Actualizar cotizacion
 							</IconButton>
 						</div>
 					</div>
@@ -264,6 +268,11 @@ let AddProductBudget = ({
 						}
 					</TableBody>
 				</Table>
+				<NotificationAlert
+					message={message}
+					open={isAlert}
+					close={actionSetNotification}
+				/>
 			</Paper>
 		</div>
 	);
@@ -274,7 +283,9 @@ AddProductBudget.propTypes = {
 	actionAddProduct: PropTypes.func.isRequired,
 	actionUpdateBudget: PropTypes.func.isRequired,
 	updateBudgetMutation: PropTypes.func.isRequired,
+	actionSetNotification: PropTypes.func.isRequired,
 	reset: PropTypes.func.isRequired,
+	isAlert: PropTypes.bool.isRequired,
 	products: PropTypes.array.isRequired,
 	alfa: PropTypes.array.isRequired,
 	classes: PropTypes.object.isRequired,
@@ -293,6 +304,7 @@ const mapStateToProps = state => ({
 	id: state.ReducerProvider.id,
 	userId: state.ReducerLogin.userId,
 	products: state.ReducerEvent.products,
+	isAlert: state.ReducerEvent.isAlert,
 	alfa: state.ReducerEvent.alfa,
 	totalPaid: state.ReducerEvent.totalPaid,
 	totalPrice: state.ReducerEvent.totalPrice,
@@ -319,6 +331,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	actionSetNotification: () => dispatch(setNotification(false)),
 	actionCloseAlert: () => dispatch(closeAlert()),
 	actionAddProduct: productsNew => dispatch(addProduct(productsNew)),
 	actionUpdateBudget: (

@@ -11,6 +11,7 @@ import {
 	AE_SET_NUMBER_ROOM,
 	AE_SET_NUMBER_TICKET,
 	AE_SET_ACCESS_EVENT,
+	SET_ALERT_QUOTATION,
 } from '../../../actions/Event/Access/actionsTypes';
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
 	activeTickets: false,
 	hotel: 0,
 	event: 0,
+	isAlert: false,
 	access: 0,
 	room: 0,
 	hotelE: null,
@@ -103,6 +105,11 @@ const ReducerEventAccess = (state = initialState, action = {}) => {
 				...state,
 				hotel: action.payload.hotel,
 				roomE: action.payload.roomE,
+			});
+		case SET_ALERT_QUOTATION:
+			return ({
+				...state,
+				isAlert: action.payload.isAlert,
 			});
 		case OPEN_MODAL_ACCESS_EVENT:
 			return ({

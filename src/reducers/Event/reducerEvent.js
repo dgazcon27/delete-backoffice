@@ -22,6 +22,7 @@ import {
 	ID_ACCESS_EVENT,
 	ADD_PRODUCT,
 	PUSH_PRODUCT,
+	SET_ALERT_QUOTATION_PRODUCT,
 } from '../../actions/Event/actionsTypes';
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
 	name: '',
 	description: '',
 	isOpen: false,
+	isAlert: false,
 	alertOpen: false,
 	alertType: '',
 	modalType: '',
@@ -80,6 +82,11 @@ const ReducerEvent = (state = initialState, action = {}) => {
 				...state,
 				alertOpen: true,
 				alertType: action.payload.alertType,
+			});
+		case SET_ALERT_QUOTATION_PRODUCT:
+			return ({
+				...state,
+				isAlert: action.payload.isAlert,
 			});
 		case CLOSE_ALERT_EVENT:
 			return ({

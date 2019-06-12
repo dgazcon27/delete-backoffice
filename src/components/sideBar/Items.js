@@ -29,6 +29,7 @@ import Settings from '@material-ui/icons/Settings';
 import Collapse from '@material-ui/core/Collapse';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Work from '@material-ui/icons/Work';
+import ViewList from '@material-ui/icons/ViewList';
 import collapseItem from '../../actions/SideBar/actionsCreators';
 import { resetPagination } from '../../actions/List/actionsCreators';
 import {
@@ -294,7 +295,7 @@ const Items = ({
 					<Link to='/category' href='/category'>
 						<ListItem button onClick={() => actionResetPagination()}>
 							<ListItemIcon>
-								<AttachMoney />
+								<ViewList />
 							</ListItemIcon>
 							<ListItemText primary='Categoría' />
 						</ListItem>

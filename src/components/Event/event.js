@@ -9,6 +9,7 @@ import Delete from '@material-ui/icons/Delete';
 import Group from '@material-ui/icons/Group';
 import List from '@material-ui/icons/List';
 import Edit from '@material-ui/icons/Edit';
+import Assignment from '@material-ui/icons/Assignment';
 import {	
 	compose,
 	graphql,
@@ -161,7 +162,7 @@ const Event = ({
 														<TableCell className={classes.center}>
 															<Link to={{ pathname: `/event-budget/${item.id}` }}>
 																<IconButton>
-																CO
+																<Assignment />
 																</IconButton>
 															</Link>
 															<Link to={{ pathname: `/event-edit/${item.id}` }}>

@@ -11,6 +11,7 @@ import {
 	ADD_ACCESS,
 	ID_ACCESS_EVENT,
 	ADD_PRODUCT,
+	SET_ALERT_QUOTATION_PRODUCT,
 } from './actionsTypes';
 
 
@@ -94,6 +95,13 @@ export const setDate = (desState, input, ev, val) => {
 		payload,
 	});
 };
+
+export const setNotification = isAlert => ({
+	type: SET_ALERT_QUOTATION_PRODUCT,
+	payload: {
+		isAlert,
+	},
+});
 
 export const setCountriesStates = (ev, id, ini = false) => (
 	async (dispatch) => {
@@ -225,7 +233,7 @@ export const updateBudget = (budgetId, alfa, userId, updateBudgetMutation) => {
 			},
 		})
 			.then(() => {
-				dispatch(openAlert('Actualizado'));
+				dispatch(setNotification(true));
 				setTimeout(() => (window.location.assign(`/budget-add-product/${budgetId}`)), 2000);
 			})
 			.catch((res) => {

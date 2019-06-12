@@ -13,6 +13,7 @@ import {
 	AE_SET_NUMBER_TICKET,
 	PAGE_UP,
 	PAGE_DOWN,
+	SET_ALERT_QUOTATION,
 } from './actionsTypes';
 
 import { GET_ACCESS, GET_ACCESS_BY_ID, GET_BUDGET } from '../../../queries/event';
@@ -149,6 +150,13 @@ export const addAccess = event => ({
 	},
 });
 
+export const setNotification = isAlert => ({
+	type: SET_ALERT_QUOTATION,
+	payload: {
+		isAlert,
+	},
+});
+
 export const changePage = (currentPage, paginationPage) => {
 	const paginations = {} || JSON.parse(localStorage.getItem('paginations'));
 	paginations.accessEvent = currentPage < paginationPage ? currentPage + 1 : currentPage - 1;
@@ -203,6 +211,8 @@ export const createAccessEvent = (data, paginationPage, create) => {
 };
 export const createBudgetEvent = (data, paginationPage, create) => {
 	const events = data.event;
+	const dataProd = data;
+	dataProd.comment = data.comment === undefined ? '-' : data.comment;
 	const products = [];
 	const createdBy = data.userId;
 	const updatedBy = data.userId;
@@ -210,7 +220,7 @@ export const createBudgetEvent = (data, paginationPage, create) => {
 		async (dispatch) => {
 			create({
 				variables: {
-					...data,
+					...dataProd,
 					products,
 					createdBy,
 					updatedBy,
@@ -221,6 +231,7 @@ export const createBudgetEvent = (data, paginationPage, create) => {
 			})
 				.then(() => {
 					dispatch(openAlert('creado'));
+					dispatch(setNotification(true));
 					setTimeout(() => (window.history.back()), 2000);
 				})
 				.catch((res) => {
