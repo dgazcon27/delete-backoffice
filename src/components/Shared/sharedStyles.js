@@ -17,8 +17,9 @@ const styles = () => ({
 	buttRight: {
 		textAlign: 'right',
 		paddingRight: '35% !important',
-		'margin-top': '-5%',
+		'margin-top': '-7.5%',
 		'margin-bottom': '10%',
+		bottom: '15px',
 	},
 	importPurchaseReq: {
 		margin: '-131px 0 10px 200px',
